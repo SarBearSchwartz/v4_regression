@@ -236,31 +236,126 @@ fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,
                     data = data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
 
-texreg::screenreg(list(fit_ihno_lm_0, fit_ihno_lm_1, fit_ihno_lm_2, fit_ihno_lm_3, fit_ihno_lm_4),
-                  custom.model.names = c("No Predictors", "Only Math Quiz", "Only Phobia", "Both IVs", "Add Interaction"))
+texreg::htmlreg(list(fit_ihno_lm_0, 
+                     fit_ihno_lm_1, fit_ihno_lm_2, 
+                     fit_ihno_lm_3, fit_ihno_lm_4),
+                  custom.model.names = c("No Predictors", "Only Math Quiz", 
+                                         "Only Phobia", "Both IVs", 
+                                         "Add Interaction"))
 ```
 
-```
-## 
-## =======================================================================================
-##                  No Predictors  Only Math Quiz  Only Phobia  Both IVs   Add Interaction
-## ---------------------------------------------------------------------------------------
-## (Intercept)       6.85 ***       4.14 ***        7.65 ***     5.02 ***   5.60 ***      
-##                  (0.19)         (0.53)          (0.29)       (0.63)     (0.91)         
-## mathquiz                         0.09 ***                     0.08 ***   0.06 *        
-##                                 (0.02)                       (0.02)     (0.03)         
-## phobia                                          -0.25 ***    -0.16 *    -0.34          
-##                                                 (0.07)       (0.07)     (0.21)         
-## mathquiz:phobia                                                          0.01          
-##                                                                         (0.01)         
-## ---------------------------------------------------------------------------------------
-## R^2               0.00           0.26            0.13         0.31       0.31          
-## Adj. R^2          0.00           0.25            0.12         0.29       0.29          
-## Num. obs.        85             85              85           85         85             
-## RMSE              1.74           1.50            1.63         1.46       1.46          
-## =======================================================================================
-## *** p < 0.001, ** p < 0.01, * p < 0.05
-```
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<table cellspacing="0" align="center" style="border: none;">
+<caption align="bottom" style="margin-top:0.3em;">Statistical models</caption>
+<tr>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b></b></th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>No Predictors</b></th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>Only Math Quiz</b></th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>Only Phobia</b></th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>Both IVs</b></th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>Add Interaction</b></th>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">(Intercept)</td>
+<td style="padding-right: 12px; border: none;">6.85<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;">4.14<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;">7.65<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;">5.02<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;">5.60<sup style="vertical-align: 0px;">***</sup></td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">(0.19)</td>
+<td style="padding-right: 12px; border: none;">(0.53)</td>
+<td style="padding-right: 12px; border: none;">(0.29)</td>
+<td style="padding-right: 12px; border: none;">(0.63)</td>
+<td style="padding-right: 12px; border: none;">(0.91)</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">mathquiz</td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">0.09<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">0.08<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;">0.06<sup style="vertical-align: 0px;">*</sup></td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">(0.02)</td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">(0.02)</td>
+<td style="padding-right: 12px; border: none;">(0.03)</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">phobia</td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">-0.25<sup style="vertical-align: 0px;">***</sup></td>
+<td style="padding-right: 12px; border: none;">-0.16<sup style="vertical-align: 0px;">*</sup></td>
+<td style="padding-right: 12px; border: none;">-0.34</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">(0.07)</td>
+<td style="padding-right: 12px; border: none;">(0.07)</td>
+<td style="padding-right: 12px; border: none;">(0.21)</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">mathquiz:phobia</td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">0.01</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;"></td>
+<td style="padding-right: 12px; border: none;">(0.01)</td>
+</tr>
+<tr>
+<td style="border-top: 1px solid black;">R<sup style="vertical-align: 0px;">2</sup></td>
+<td style="border-top: 1px solid black;">0.00</td>
+<td style="border-top: 1px solid black;">0.26</td>
+<td style="border-top: 1px solid black;">0.13</td>
+<td style="border-top: 1px solid black;">0.31</td>
+<td style="border-top: 1px solid black;">0.31</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">Adj. R<sup style="vertical-align: 0px;">2</sup></td>
+<td style="padding-right: 12px; border: none;">0.00</td>
+<td style="padding-right: 12px; border: none;">0.25</td>
+<td style="padding-right: 12px; border: none;">0.12</td>
+<td style="padding-right: 12px; border: none;">0.29</td>
+<td style="padding-right: 12px; border: none;">0.29</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">Num. obs.</td>
+<td style="padding-right: 12px; border: none;">85</td>
+<td style="padding-right: 12px; border: none;">85</td>
+<td style="padding-right: 12px; border: none;">85</td>
+<td style="padding-right: 12px; border: none;">85</td>
+<td style="padding-right: 12px; border: none;">85</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid black;">RMSE</td>
+<td style="border-bottom: 2px solid black;">1.74</td>
+<td style="border-bottom: 2px solid black;">1.50</td>
+<td style="border-bottom: 2px solid black;">1.63</td>
+<td style="border-bottom: 2px solid black;">1.46</td>
+<td style="border-bottom: 2px solid black;">1.46</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;" colspan="7"><span style="font-size:0.8em"><sup style="vertical-align: 0px;">***</sup>p &lt; 0.001, <sup style="vertical-align: 0px;">**</sup>p &lt; 0.01, <sup style="vertical-align: 0px;">*</sup>p &lt; 0.05</span></td>
+</tr>
+</table>
 
 ### Compare Models
 
@@ -268,71 +363,93 @@ Likelihood Ratio Test of Nested Models
 
 
 ```r
-anova(fit_ihno_lm_0, fit_ihno_lm_1)
+anova(fit_ihno_lm_0, fit_ihno_lm_1) %>% 
+  pander::pander(caption = "LRT: Main Effect of Math Quiz")
 ```
 
-```
-## Analysis of Variance Table
-## 
-## Model 1: statquiz ~ 1
-## Model 2: statquiz ~ mathquiz
-##   Res.Df    RSS Df Sum of Sq     F    Pr(>F)    
-## 1     84 253.01                                 
-## 2     83 187.75  1     65.26 28.85 6.999e-07 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
+
+-----------------------------------------------------
+ Res.Df    RSS    Df   Sum of Sq     F      Pr(>F)   
+-------- ------- ---- ----------- ------- -----------
+   84      253    NA      NA        NA        NA     
+
+   83     187.8   1      65.26     28.85   6.999e-07 
+-----------------------------------------------------
+
+Table: LRT: Main Effect of Math Quiz
 
 
 
 ```r
-anova(fit_ihno_lm_0, fit_ihno_lm_2)
+anova(fit_ihno_lm_0, fit_ihno_lm_2) %>% 
+  pander::pander(caption = "LRT: Main Effect of Math Phobia")
 ```
 
-```
-## Analysis of Variance Table
-## 
-## Model 1: statquiz ~ 1
-## Model 2: statquiz ~ phobia
-##   Res.Df    RSS Df Sum of Sq      F    Pr(>F)    
-## 1     84 253.01                                  
-## 2     83 220.73  1    32.282 12.139 0.0007912 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
+
+-----------------------------------------------------
+ Res.Df    RSS    Df   Sum of Sq     F      Pr(>F)   
+-------- ------- ---- ----------- ------- -----------
+   84      253    NA      NA        NA        NA     
+
+   83     220.7   1      32.28     12.14   0.0007912 
+-----------------------------------------------------
+
+Table: LRT: Main Effect of Math Phobia
+
 
 
 
 ```r
-anova(fit_ihno_lm_1, fit_ihno_lm_3)
+anova(fit_ihno_lm_1, fit_ihno_lm_3) %>% 
+  pander::pander(caption = "LRT: Main Effect of Math Phobia, 
+                            after controlling for Math Test")
 ```
 
-```
-## Analysis of Variance Table
-## 
-## Model 1: statquiz ~ mathquiz
-## Model 2: statquiz ~ mathquiz + phobia
-##   Res.Df    RSS Df Sum of Sq      F Pr(>F)  
-## 1     83 187.75                             
-## 2     82 175.19  1    12.565 5.8814 0.0175 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
+
+--------------------------------------------------
+ Res.Df    RSS    Df   Sum of Sq     F     Pr(>F) 
+-------- ------- ---- ----------- ------- --------
+   83     187.8   NA      NA        NA       NA   
+
+   82     175.2   1      12.57     5.881   0.0175 
+--------------------------------------------------
+
+Table: LRT: Main Effect of Math Phobia, 
+                            after controlling for Math Test
 
 
 
 ```r
-anova(fit_ihno_lm_3, fit_ihno_lm_4)
+anova(fit_ihno_lm_3, fit_ihno_lm_4) %>% 
+  pander::pander(caption = "LRT: Interaction between Math Test and Math Phobia")
 ```
 
+
+---------------------------------------------------
+ Res.Df    RSS    Df   Sum of Sq     F      Pr(>F) 
+-------- ------- ---- ----------- -------- --------
+   82     175.2   NA      NA         NA       NA   
+
+   81     173.5   1      1.689     0.7887   0.3771 
+---------------------------------------------------
+
+Table: LRT: Interaction between Math Test and Math Phobia
+
+
+
+### Residual Diagnostics
+
+
+
+```r
+par(mfrow = c(2, 2))
+plot(fit_ihno_lm_3)
 ```
-## Analysis of Variance Table
-## 
-## Model 1: statquiz ~ mathquiz + phobia
-## Model 2: statquiz ~ mathquiz * phobia
-##   Res.Df    RSS Df Sum of Sq      F Pr(>F)
-## 1     82 175.19                           
-## 2     81 173.50  1    1.6894 0.7887 0.3771
+
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+
+```r
+par(mfrow = c(1, 1))
 ```
 
 
@@ -340,29 +457,53 @@ anova(fit_ihno_lm_3, fit_ihno_lm_4)
 
 
 ```r
-texreg::screenreg(fit_ihno_lm_3,
-                  custom.model.names = "Main Effects Model",
-                  ci.force = TRUE,
-                  caption = "Final Model for Stat's Quiz",
-                  single.row = TRUE)
+texreg::htmlreg(fit_ihno_lm_3,
+               custom.model.names = "Main Effects Model",
+               ci.force = TRUE,
+               caption = "Final Model for Stat's Quiz",
+               single.row = TRUE)
 ```
 
-```
-## 
-## ===================================
-##              Main Effects Model    
-## -----------------------------------
-## (Intercept)   5.02 [ 3.79;  6.25] *
-## mathquiz      0.08 [ 0.05;  0.12] *
-## phobia       -0.16 [-0.29; -0.03] *
-## -----------------------------------
-## R^2           0.31                 
-## Adj. R^2      0.29                 
-## Num. obs.    85                    
-## RMSE          1.46                 
-## ===================================
-## * 0 outside the confidence interval
-```
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<table cellspacing="0" align="center" style="border: none;">
+<caption align="bottom" style="margin-top:0.3em;">Final Model for Stat's Quiz</caption>
+<tr>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b></b></th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>Main Effects Model</b></th>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">(Intercept)</td>
+<td style="padding-right: 12px; border: none;">5.02 [3.79; 6.25]<sup style="vertical-align: 0px;">*</sup></td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">mathquiz</td>
+<td style="padding-right: 12px; border: none;">0.08 [0.05; 0.12]<sup style="vertical-align: 0px;">*</sup></td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">phobia</td>
+<td style="padding-right: 12px; border: none;">-0.16 [-0.29; -0.03]<sup style="vertical-align: 0px;">*</sup></td>
+</tr>
+<tr>
+<td style="border-top: 1px solid black;">R<sup style="vertical-align: 0px;">2</sup></td>
+<td style="border-top: 1px solid black;">0.31</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">Adj. R<sup style="vertical-align: 0px;">2</sup></td>
+<td style="padding-right: 12px; border: none;">0.29</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">Num. obs.</td>
+<td style="padding-right: 12px; border: none;">85</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid black;">RMSE</td>
+<td style="border-bottom: 2px solid black;">1.46</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;" colspan="3"><span style="font-size:0.8em"><sup>*</sup> 0 outside the confidence interval</span></td>
+</tr>
+</table>
 
 
 ### Plot Model
@@ -395,8 +536,8 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
 ```
 
 <div class="figure">
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-16-1.png" alt="Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-16)Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean.</p>
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-17-1.png" alt="Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-17)Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean.</p>
 </div>
 
 

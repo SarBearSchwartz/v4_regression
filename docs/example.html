@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="EQM_v1_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="cehs-research/eBook_wrangle" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="EQM_v1_cover.png" />
+
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="example-ihnos-experiment.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-authors"><i class="fa fa-check"></i>The Authors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html"><i class="fa fa-check"></i><b>1</b> Example: Ihno’s Experiment</a><ul>
+<li class="chapter" data-level="1.1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#the-data"><i class="fa fa-check"></i><b>1.2</b> The Data</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#describe-the-raw-data"><i class="fa fa-check"></i><b>1.2.1</b> Describe the Raw Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#regression"><i class="fa fa-check"></i><b>1.3</b> Regression</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#fit-nested-models-bottom-up"><i class="fa fa-check"></i><b>1.3.1</b> Fit Nested Models (bottom up)</a></li>
+<li class="chapter" data-level="1.3.2" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#compare-models"><i class="fa fa-check"></i><b>1.3.2</b> Compare Models</a></li>
+<li class="chapter" data-level="1.3.3" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#residual-diagnostics"><i class="fa fa-check"></i><b>1.3.3</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="1.3.4" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#final-model"><i class="fa fa-check"></i><b>1.3.4</b> Final Model</a></li>
+<li class="chapter" data-level="1.3.5" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#plot-model"><i class="fa fa-check"></i><b>1.3.5</b> Plot Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>2</b> Example</a><ul>
+<li class="chapter" data-level="2.1" data-path="example.html"><a href="example.html#packages-1"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
+<li class="chapter" data-level="2.2" data-path="example.html"><a href="example.html#the-data-1"><i class="fa fa-check"></i><b>2.2</b> The Data</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="example.html"><a href="example.html#declare-and-label-factors"><i class="fa fa-check"></i><b>2.2.1</b> Declare and Label Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="example.html"><a href="example.html#explore-the-raw-data"><i class="fa fa-check"></i><b>2.3</b> Explore the Raw Data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="example.html"><a href="example.html#tabular-descriptions-summary-statistics"><i class="fa fa-check"></i><b>2.3.1</b> Tabular Descriptions: Summary Statistics</a></li>
+<li class="chapter" data-level="2.3.2" data-path="example.html"><a href="example.html#visualization"><i class="fa fa-check"></i><b>2.3.2</b> Visualization</a></li>
+<li class="chapter" data-level="2.3.3" data-path="example.html"><a href="example.html#codrrelation-pairwise-un-adjusted"><i class="fa fa-check"></i><b>2.3.3</b> Codrrelation: pairwise, un-adjusted</a></li>
+<li class="chapter" data-level="2.3.4" data-path="example.html"><a href="example.html#correlograms---visually-display-correlation-matrix"><i class="fa fa-check"></i><b>2.3.4</b> Correlograms - visually display correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="example.html"><a href="example.html#multiple-linear-regression-mlr"><i class="fa fa-check"></i><b>2.4</b> Multiple Linear Regression (MLR)</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="example.html"><a href="example.html#call-the-model-object-several-ways"><i class="fa fa-check"></i><b>2.4.1</b> Call the model object several ways</a></li>
+<li class="chapter" data-level="2.4.2" data-path="example.html"><a href="example.html#model-fit-indicies"><i class="fa fa-check"></i><b>2.4.2</b> Model fit indicies</a></li>
+<li class="chapter" data-level="2.4.3" data-path="example.html"><a href="example.html#tablular-results"><i class="fa fa-check"></i><b>2.4.3</b> Tablular Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="example" class="section level1">
+<h1><span class="header-section-number">2</span> Example</h1>
+<div id="packages-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Packages</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(magrittr)
+
+<span class="kw">library</span>(furniture)
+<span class="kw">library</span>(texreg)
+<span class="kw">library</span>(stargazer)
+
+<span class="kw">library</span>(psych)
+<span class="kw">library</span>(gpairs)
+<span class="kw">library</span>(GGally)
+<span class="kw">library</span>(corrplot)
+<span class="kw">library</span>(ggthemes)
+<span class="kw">library</span>(RColorBrewer)
+
+<span class="kw">library</span>(ISwR)  <span class="co"># Introduction to Statistics with R (datasets)</span></code></pre></div>
+</div>
+<div id="the-data-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> The Data</h2>
+<p>Load dataset that is included in the <code>ISwR</code> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(bp.obese)</code></pre></div>
+<p>View documentation for the dataset (required for all data included in packages) by typeing <code>?bp.obese</code> in the console</p>
+<p>Have a quick <em>look</em> at what we have in the data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(bp.obese)</code></pre></div>
+<pre><code>## Observations: 102
+## Variables: 3
+## $ sex   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+## $ obese &lt;dbl&gt; 1.31, 1.31, 1.19, 1.11, 1.34, 1.17, 1.56, 1.18, 1.04, 1....
+## $ bp    &lt;int&gt; 130, 148, 146, 122, 140, 146, 132, 110, 124, 150, 120, 1...</code></pre>
+<div id="declare-and-label-factors" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Declare and Label Factors</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese &lt;-<span class="st"> </span>bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">factor</span>(sex,
+                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))) 
+
+<span class="kw">glimpse</span>(bp.obese)</code></pre></div>
+<pre><code>## Observations: 102
+## Variables: 3
+## $ sex   &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Ma...
+## $ obese &lt;dbl&gt; 1.31, 1.31, 1.19, 1.11, 1.34, 1.17, 1.56, 1.18, 1.04, 1....
+## $ bp    &lt;int&gt; 130, 148, 146, 122, 140, 146, 132, 110, 124, 150, 120, 1...</code></pre>
+</div>
+</div>
+<div id="explore-the-raw-data" class="section level2">
+<h2><span class="header-section-number">2.3</span> Explore the Raw Data</h2>
+<div id="tabular-descriptions-summary-statistics" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Tabular Descriptions: Summary Statistics</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stargazer<span class="op">::</span><span class="kw">stargazer</span>(bp.obese,
+                     <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)  </code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Mean
+</td>
+<td>
+St. Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Pctl(25)
+</td>
+<td>
+Pctl(75)
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+obese
+</td>
+<td>
+102
+</td>
+<td>
+1.313
+</td>
+<td>
+0.258
+</td>
+<td>
+0.810
+</td>
+<td>
+1.143
+</td>
+<td>
+1.430
+</td>
+<td>
+2.390
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+bp
+</td>
+<td>
+102
+</td>
+<td>
+127.020
+</td>
+<td>
+18.184
+</td>
+<td>
+94
+</td>
+<td>
+116
+</td>
+<td>
+137.5
+</td>
+<td>
+208
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">furniture<span class="op">::</span><span class="kw">table1</span>(bp.obese,
+                  <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)  </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Mean/Count (SD/%)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+</td>
+<td>
+n = 102
+</td>
+</tr>
+<tr>
+<td>
+sex
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+Male
+</td>
+<td>
+44 (43.1%)
+</td>
+</tr>
+<tr>
+<td>
+Female
+</td>
+<td>
+58 (56.9%)
+</td>
+</tr>
+<tr>
+<td>
+obese
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+1.3 (0.3)
+</td>
+</tr>
+<tr>
+<td>
+bp
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+127.0 (18.2)
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(obese, bp,
+                    <span class="dt">splitby =</span> <span class="op">~</span><span class="st"> </span>sex,
+                    <span class="dt">test =</span> <span class="ot">TRUE</span>,
+                    <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)  </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Male
+</th>
+<th>
+Female
+</th>
+<th>
+P-Value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+</td>
+<td>
+n = 44
+</td>
+<td>
+n = 58
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+obese
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+&lt;.001
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+1.2 (0.2)
+</td>
+<td>
+1.4 (0.3)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+bp
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.646
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+128.0 (16.6)
+</td>
+<td>
+126.3 (19.4)
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualization" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Visualization</h3>
+<p><code>base</code> graphics:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(bp.obese)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><code>psych</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">pairs.panels</span>(bp.obese)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><code>gpairs</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gpairs<span class="op">::</span><span class="kw">gpairs</span>(bp.obese)</code></pre></div>
+<pre><code>## Loading required package: grid</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<p><img src="71-example_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Change up the defaults:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gpairs<span class="op">::</span><span class="kw">gpairs</span>(bp.obese, 
+               <span class="dt">upper.pars   =</span> <span class="kw">list</span>(<span class="dt">scatter =</span> <span class="st">&quot;stats&quot;</span>),
+               <span class="dt">scatter.pars =</span> <span class="kw">list</span>(<span class="dt">col =</span> <span class="kw">as.numeric</span>(bp.obese<span class="op">$</span>sex)))</code></pre></div>
+<pre><code>## Warning in cor.test.default(x, y, method = &quot;spearman&quot;, alternative =
+## &quot;two.sided&quot;): Cannot compute exact p-value with ties</code></pre>
+<p><img src="71-example_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><code>GGally</code> package (wrapper for <code>ggplot2</code>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GGally<span class="op">::</span><span class="kw">ggpairs</span>(bp.obese)</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="71-example_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Use the options to make it even better:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fancy options (I can&#39;t figure out how to change the color palette)</span>
+GGally<span class="op">::</span><span class="kw">ggpairs</span>(bp.obese,
+                <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill      =</span> sex,
+                              <span class="dt">col       =</span> sex,
+                              <span class="dt">alpha     =</span> <span class="fl">0.1</span>),
+                <span class="dt">upper =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="st">&quot;smooth&quot;</span>,
+                             <span class="dt">combo      =</span> <span class="st">&quot;facethist&quot;</span>,
+                             <span class="dt">discrete   =</span> <span class="st">&quot;ratio&quot;</span>),
+                <span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="st">&quot;cor&quot;</span>,
+                             <span class="dt">combo      =</span> <span class="st">&quot;box&quot;</span>,
+                             <span class="dt">discrete   =</span> <span class="st">&quot;facetbar&quot;</span>),
+                <span class="dt">title =</span> <span class="st">&quot;Very Useful for Exploring Data&quot;</span>) </code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="71-example_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><code>ggplot2</code>: specify plot type</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> bp.obese, 
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> bp)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><code>ggplots</code> can be assigned (stored to an object and refered to by name)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex &lt;-<span class="st"> </span>bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x    =</span> sex, 
+      <span class="dt">y    =</span> bp,
+      <span class="dt">fill =</span> sex) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Gender&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;Blood Pressure (mmHg)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p>Call the plot by just the name it was assigned</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Add onto a plot…change to a theme from the <code>ggplot2</code> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_gray</span>()        <span class="co"># &#39;gray&#39; is the default</span></code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-17-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_dark</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-17-4.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-17-5.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_linedraw</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-17-6.png" width="672" /></p>
+<p>add onto a plot…change to a theme from the <code>ggthemes</code> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()             <span class="co"># Ed Tufte - author, minimalist</span></code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_stata</span>()             <span class="co"># Stata is a stats software</span></code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_economist</span>()         <span class="co"># &#39;The Economist&#39; magazine</span></code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_economist_white</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-4.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_wsj</span>()               <span class="co"># &#39;The Wall Street Journal</span></code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-5.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_calc</span>()              <span class="co"># based on Google Docs</span></code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-6.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_sex <span class="op">+</span><span class="st"> </span><span class="kw">theme_hc</span>()   </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-18-7.png" width="672" /></p>
+<p>Visual inspection for an interaction (is gender a moderator?)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_obese &lt;-<span class="st"> </span>bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x     =</span> obese,
+             <span class="dt">y     =</span> bp,
+             <span class="dt">color =</span> sex)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size  =</span> <span class="dv">3</span>)
+
+fig_bp_by_obese</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Can save as: pdf, jpeg, tiff, png, bmp, … (see help)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;fig_bp_by_obese.png&quot;</span>,     <span class="co"># name of file w/extension </span>
+       fig_bp_by_obese,           <span class="co"># name of the ggplot object</span>
+       <span class="dt">width  =</span> <span class="dv">5</span>,                <span class="co"># size, width</span>
+       <span class="dt">height =</span> <span class="dv">5</span>,                <span class="co"># size, height</span>
+       <span class="dt">units  =</span> <span class="st">&quot;in&quot;</span>)             <span class="co"># size, units for width &amp; height</span></code></pre></div>
+<p>add a smoother…the regression line with a conf bands for the mean</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_obese <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>create seperate panels</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_obese <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>sex) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_obese <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">level =</span> .<span class="dv">95</span>)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>get fancy</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_obese <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,
+              <span class="dt">se     =</span> <span class="ot">FALSE</span>,
+              <span class="dt">size   =</span> <span class="fl">0.9</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Does Gender Moderated the Obese-Blood Pressure Assocation?&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>)) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>get even fancier</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fig_bp_by_obese <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> sex),
+              <span class="dt">alpha  =</span> <span class="fl">0.2</span>,
+              <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>),
+                     <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,       <span class="st">&quot;female&quot;</span>),
+                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Men&quot;</span>,        <span class="st">&quot;Women&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values  =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>),
+                    <span class="dt">breaks  =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,       <span class="st">&quot;female&quot;</span>),
+                    <span class="dt">labels  =</span> <span class="kw">c</span>(<span class="st">&quot;Men&quot;</span>,        <span class="st">&quot;Women&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Does Gender Moderate the Association Between Obesity and Blood Pressure?&quot;</span>,
+       <span class="dt">x     =</span> <span class="st">&quot;Ratio: Actual Weight vs. Ideal Weight (NYM Life Tables)&quot;</span>,
+       <span class="dt">y     =</span> <span class="st">&quot;Systolic Blood Pressure (mmHg)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks  =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>,  <span class="dt">to =</span> <span class="dv">3</span>,   <span class="dt">by =</span> <span class="fl">0.25</span> )) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks  =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">75</span>, <span class="dt">to =</span> <span class="dv">300</span>, <span class="dt">by =</span> <span class="dv">25</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title         =</span> <span class="kw">element_blank</span>(),
+        <span class="dt">legend.key           =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>),
+        <span class="dt">legend.background    =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),
+        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), 
+        <span class="dt">legend.position      =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="codrrelation-pairwise-un-adjusted" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Codrrelation: pairwise, un-adjusted</h3>
+<p>calculate the correlation - nested format</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(<span class="kw">as.numeric</span>(bp.obese<span class="op">$</span>sex), bp.obese<span class="op">$</span>bp)</code></pre></div>
+<pre><code>## [1] -0.04500234</code></pre>
+<p>calculate the correlation - with the pipe</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># cor needs only numeric</span>
+<span class="st">  </span><span class="kw">cor</span>() </code></pre></div>
+<pre><code>##               sex     obese          bp
+## sex    1.00000000 0.4045675 -0.04500234
+## obese  0.40456750 1.0000000  0.32613855
+## bp    -0.04500234 0.3261385  1.00000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># cor needs only numeric</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(sex, bp) <span class="op">%&gt;%</span><span class="st">                </span><span class="co"># limit to only 2 vars</span>
+<span class="st">  </span><span class="kw">cor</span>()                                <span class="co"># optional () on end if empty</span></code></pre></div>
+<pre><code>##             sex          bp
+## sex  1.00000000 -0.04500234
+## bp  -0.04500234  1.00000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%$%</span><span class="st">  </span><span class="co"># allows you to call vars by name</span>
+<span class="st">  </span><span class="kw">cor</span>(sex, bp)                            <span class="co"># just &#39;var&#39; without the &#39;data$&#39;</span></code></pre></div>
+<pre><code>## [1] -0.04500234</code></pre>
+<p>addign the correlation matrix to a named object</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cor_bp &lt;-<span class="st"> </span>bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">cor</span>() 
+
+cor_bp</code></pre></div>
+<pre><code>##               sex     obese          bp
+## sex    1.00000000 0.4045675 -0.04500234
+## obese  0.40456750 1.0000000  0.32613855
+## bp    -0.04500234 0.3261385  1.00000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cor_bp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>##          sex obese     bp
+## sex    1.000 0.405 -0.045
+## obese  0.405 1.000  0.326
+## bp    -0.045 0.326  1.000</code></pre>
+</div>
+<div id="correlograms---visually-display-correlation-matrix" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Correlograms - visually display correlation matrix</h3>
+<p>all defaults</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>change the visualization glyphs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">method =</span> <span class="st">&quot;ellipse&quot;</span>) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">method =</span> <span class="st">&quot;pie&quot;</span>)   </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">method =</span> <span class="st">&quot;color&quot;</span>) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">method =</span> <span class="st">&quot;number&quot;</span>) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>full matrix, or only the upper or lower half shown</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">type =</span> <span class="st">&quot;upper&quot;</span>) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">type =</span> <span class="st">&quot;lower&quot;</span>) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Brewer color palettes</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">display.brewer.all</span>()</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>change the colors used on the glyphs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">col =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="dv">8</span>,  <span class="dt">name =</span> <span class="st">&quot;RdBu&quot;</span>)) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">col =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="dv">6</span>,  <span class="dt">name =</span> <span class="st">&quot;RdYlBu&quot;</span>)) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot</span>(cor_bp, <span class="dt">col =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">name =</span> <span class="st">&quot;PuOr&quot;</span>)) </code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>get a bit fancier</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot.mixed</span>(cor_bp)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corrplot<span class="op">::</span><span class="kw">corrplot.mixed</span>(cor_bp,
+                       <span class="dt">lower  =</span> <span class="st">&quot;ellipse&quot;</span>,
+                       <span class="dt">upper  =</span> <span class="st">&quot;number&quot;</span>,
+                       <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
+<p><img src="71-example_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+</div>
+</div>
+<div id="multiple-linear-regression-mlr" class="section level2">
+<h2><span class="header-section-number">2.4</span> Multiple Linear Regression (MLR)</h2>
+<p>assign the model to an object you can call by name</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit_bp_sex &lt;-<span class="st"> </span><span class="kw">lm</span>(bp <span class="op">~</span><span class="st"> </span>sex, <span class="dt">data =</span> bp.obese) <span class="co"># fit the model</span></code></pre></div>
+<div id="call-the-model-object-several-ways" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Call the model object several ways</h3>
+<p>what does the “lm” function save for you?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(fit_bp_sex)</code></pre></div>
+<pre><code>## $names
+##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+## [13] &quot;model&quot;        
+## 
+## $class
+## [1] &quot;lm&quot;</code></pre>
+<p>what output does calling the name print?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit_bp_sex </code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = bp ~ sex, data = bp.obese)
+## 
+## Coefficients:
+## (Intercept)    sexFemale  
+##     127.955       -1.644</code></pre>
+<p>this call gives you MORE output</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit_bp_sex) </code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = bp ~ sex, data = bp.obese)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.955 -10.310  -3.132  11.190  81.690 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  127.955      2.752   46.49   &lt;2e-16 ***
+## sexFemale     -1.644      3.650   -0.45    0.653    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 18.26 on 100 degrees of freedom
+## Multiple R-squared:  0.002025,   Adjusted R-squared:  -0.007955 
+## F-statistic: 0.2029 on 1 and 100 DF,  p-value: 0.6533</code></pre>
+<p>you can access just the betas</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(fit_bp_sex) </code></pre></div>
+<pre><code>## (Intercept)   sexFemale 
+##  127.954545   -1.644201</code></pre>
+<p>the CI’s for the betas</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">confint</span>(fit_bp_sex)</code></pre></div>
+<pre><code>##                  2.5 %     97.5 %
+## (Intercept) 122.494090 133.415001
+## sexFemale    -8.885474   5.597073</code></pre>
+<p>you can call just the ANOVA table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_bp_sex) </code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: bp
+##            Df Sum Sq Mean Sq F value Pr(&gt;F)
+## sex         1     68   67.64  0.2029 0.6533
+## Residuals 100  33330  333.30</code></pre>
+</div>
+<div id="model-fit-indicies" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Model fit indicies</h3>
+<p>-2LL to compare nested models</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(fit_bp_sex) </code></pre></div>
+<pre><code>## &#39;log Lik.&#39; -439.9835 (df=3)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(fit_bp_sex)</code></pre></div>
+<pre><code>## [1] 885.967</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">BIC</span>(fit_bp_sex)</code></pre></div>
+<pre><code>## [1] 893.8419</code></pre>
+</div>
+<div id="tablular-results" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Tablular Results</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stargazer<span class="op">::</span><span class="kw">stargazer</span>(fit_bp_sex,
+                     <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+bp
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sexFemale
+</td>
+<td>
+-1.644
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.650)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+127.955<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(2.752)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+102
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+18.257 (df = 100)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.203 (df = 1; 100)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(fit_bp_sex, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">ci =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+## =================================================
+##                          Dependent variable:     
+##                     -----------------------------
+##                                  bp              
+## -------------------------------------------------
+## sexFemale              -1.644 (-8.798, 5.509)    
+## Constant            127.955*** (122.560, 133.349)
+## -------------------------------------------------
+## Observations                     102             
+## R2                              0.002            
+## Adjusted R2                    -0.008            
+## Residual Std. Error       18.257 (df = 100)      
+## F Statistic              0.203 (df = 1; 100)     
+## =================================================
+## Note:                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="example-ihnos-experiment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

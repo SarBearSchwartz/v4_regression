@@ -140,7 +140,7 @@ data_ihno %>%
 ### Fit Nested Models (bottom up)
 
 
-```{r}
+```{r, results='asis'}
 fit_ihno_lm_0 <- lm(statquiz ~ 1,
                     data = data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
@@ -161,8 +161,12 @@ fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,
                     data = data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
 
-texreg::screenreg(list(fit_ihno_lm_0, fit_ihno_lm_1, fit_ihno_lm_2, fit_ihno_lm_3, fit_ihno_lm_4),
-                  custom.model.names = c("No Predictors", "Only Math Quiz", "Only Phobia", "Both IVs", "Add Interaction"))
+texreg::htmlreg(list(fit_ihno_lm_0, 
+                     fit_ihno_lm_1, fit_ihno_lm_2, 
+                     fit_ihno_lm_3, fit_ihno_lm_4),
+                  custom.model.names = c("No Predictors", "Only Math Quiz", 
+                                         "Only Phobia", "Both IVs", 
+                                         "Add Interaction"))
 ```
 
 ### Compare Models
@@ -170,33 +174,50 @@ texreg::screenreg(list(fit_ihno_lm_0, fit_ihno_lm_1, fit_ihno_lm_2, fit_ihno_lm_
 Likelihood Ratio Test of Nested Models
 
 ```{r}
-anova(fit_ihno_lm_0, fit_ihno_lm_1)
+anova(fit_ihno_lm_0, fit_ihno_lm_1) %>% 
+  pander::pander(caption = "LRT: Main Effect of Math Quiz")
 ```
 
 
 ```{r}
-anova(fit_ihno_lm_0, fit_ihno_lm_2)
+anova(fit_ihno_lm_0, fit_ihno_lm_2) %>% 
+  pander::pander(caption = "LRT: Main Effect of Math Phobia")
+```
+
+
+
+```{r}
+anova(fit_ihno_lm_1, fit_ihno_lm_3) %>% 
+  pander::pander(caption = "LRT: Main Effect of Math Phobia, 
+                            after controlling for Math Test")
 ```
 
 
 ```{r}
-anova(fit_ihno_lm_1, fit_ihno_lm_3)
+anova(fit_ihno_lm_3, fit_ihno_lm_4) %>% 
+  pander::pander(caption = "LRT: Interaction between Math Test and Math Phobia")
 ```
 
 
+
+### Residual Diagnostics
+
+
 ```{r}
-anova(fit_ihno_lm_3, fit_ihno_lm_4)
+par(mfrow = c(2, 2))
+plot(fit_ihno_lm_3)
+par(mfrow = c(1, 1))
 ```
 
 
 ### Final Model
 
-```{r}
-texreg::screenreg(fit_ihno_lm_3,
-                  custom.model.names = "Main Effects Model",
-                  ci.force = TRUE,
-                  caption = "Final Model for Stat's Quiz",
-                  single.row = TRUE)
+```{r, results='asis'}
+texreg::htmlreg(fit_ihno_lm_3,
+               custom.model.names = "Main Effects Model",
+               ci.force = TRUE,
+               caption = "Final Model for Stat's Quiz",
+               single.row = TRUE)
 ```
 
 

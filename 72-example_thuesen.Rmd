@@ -1,0 +1,310 @@
+# Example: Ventricular shortening velocity
+
+## Packages
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)
+library(magrittr)
+library(furniture)
+library(texreg)
+library(stargazer)
+library(psych)
+library(car)
+library(effects)
+library(ISwR)  # Introduction to Statistics with R (datasets)
+```
+
+
+load dataset that is included in the `ISwR` package
+```{r}
+data(thuesen)
+```
+
+The `thuesen` data frame has 24 rows and 2 columns. It contains ventricular shortening velocity and blood glucose for type 1 diabetic patients.
+
+* `blood.glucose` a numeric vector, fasting blood glucose (mmol/l).
+* `short.velocity` a numeric vector, mean circumferential shortening velocity (%/s).
+
+
+### Get to know the data with `?thuesen`
+
+
+```{r}
+dim(thuesen)      # number of rows (subjects) & columns (variables)
+names(thuesen)    # names of the variables
+glimpse(thuesen)  # view the class and 1st few values of each variable
+summary(thuesen)  # notice a missing value (NA) on velocity
+```
+
+```{r, results="asis"}
+stargazer(thuesen, 
+          type   = "html", 
+          digits = 4, 
+          flip   = TRUE,                    
+          summary.stat   = c("n", "mean", "sd", "min", "median", "max"),
+          title  = "Descriptives")
+```
+
+## VISUALIZATION: Raw Data 
+
+Base Graphics: let it determine the type of plot
+```{r}
+ggplot(thuesen, 
+       aes(x = blood.glucose, 
+           y = short.velocity)) + 
+  geom_point()
+```
+
+
+`ggplot2`: specify plot type
+```{r}
+thuesen %>% 
+  ggplot(aes(x = blood.glucose,       # x-axis variable name
+             y = short.velocity)) +   # y-axis variable name
+  geom_point() +                      # scatterplot
+  theme_bw()                          # black-and-white theme 
+```
+
+### CORRELATION: un-adjusted 
+
+cor doesn't like NA values
+```{r}
+thuesen %>% cor           
+```
+
+specify to do listwise deletion
+```{r}
+thuesen %>% cor(use = "complete.obs") 
+```
+
+you can abbreviate
+```{r}
+thuesen %>% cor(use = "complete")     # 
+```
+
+same as above, but without the pipe
+```{r}
+cor(thuesen, use = "complete")     
+```
+
+you can choose the number of decimal places
+```{r}
+thuesen %>% 
+  cor(use="complete") %>%   
+  round(2)                   
+```
+
+
+this version give a single value instead of a matrix
+```{r}
+thuesen %$% 
+  cor(blood.glucose,                
+      short.velocity,               
+      use="complete")
+```
+
+This TESTS if the cor == 0
+```{r}
+thuesen %$% 
+  cor.test(blood.glucose,           
+           short.velocity, 
+           use = 'complete')
+```
+
+The default is Pearson's R, which assesses linear relationships.  Spearman's correlation assesses monotonic relationships.
+
+```{r}
+thuesen %$% 
+  cor.test(blood.glucose, 
+           short.velocity, 
+           use    = 'complete',
+           method = 'spearman')     # spearman's (rho) 
+```
+
+## FIT REGRESSION: simple linear 
+
+```{r}
+fit_vel_glu <- lm(short.velocity ~ blood.glucose, data = thuesen)
+
+fit_vel_glu
+```
+
+```{r}
+summary(fit_vel_glu)
+```
+
+
+```{r}
+coef(fit_vel_glu)
+```
+
+
+```{r}
+confint(fit_vel_glu)
+```
+
+
+```{r}
+anova(fit_vel_glu)
+```
+
+
+model fit indicies
+```{r}
+logLik(fit_vel_glu)     
+AIC(fit_vel_glu)
+BIC(fit_vel_glu)
+```
+
+```{r, results='asis'}
+stargazer(fit_vel_glu, type = "html")
+```
+
+
+```{r, results="asis"}
+texreg::htmlreg(fit_vel_glu)
+```
+
+
+## VISUALIZATION: Model Fit 
+
+Base Graphics: let it determine the type of plot `?plot.lm`
+
+
+show all plots at once
+```{r}
+par(mfrow = c(2, 3))
+plot(fit_vel_glu, which = 1:6)
+par(mfrow = c(1, 1))
+```
+
+potentially influencial or outlier points
+```{r}
+thuesen %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::filter(id == c(13, 20, 24))
+```
+
+
+
+`ggplot2`: specify plot type
+```{r}
+thuesen %>% 
+  dplyr::filter(complete.cases(.)) %>%            # get ride fo the incomplete cases
+  ggplot(data = ,                        # name the dataset 1st
+         mapping = aes(x = blood.glucose,       # x-axis variable name
+                       y = short.velocity)) +   # y-axis variable name
+  geom_point() +                              # do a scatterplot
+  stat_smooth(method = "lm") +                # smooth: linear model
+  theme_bw()  +                               # black-and-while theme
+  geom_point(data = thuesen %>% 
+               filter(row_number() == c(13, 20, 24)), #  
+             pch = 19,
+             size = 4,
+             color = "red")
+```
+
+
+## CHECK VALIDITY of the  ASSUMPTIONS w/ residual diagnostics
+
+store values from the model (into the dataset)
+
+```{r}
+thuesen %>% 
+  dplyr::filter(complete.cases(.)) %>%            # get ride fo the incomplete cases
+  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%   # fitted/prediction values
+  dplyr::mutate(resid = residuals(fit_vel_glu))   # residual values
+```
+
+```{r}
+thuesen %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
+  dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
+  ggplot(aes(x = id,
+             y = resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0,
+             color = "red",
+             size = 1,
+             linetype = "dashed") +
+  theme_classic() +
+  labs(title = "Looking for homogeneity of residuals",
+       subtitle = "want to see equal spread all across")
+```
+
+```{r}
+thuesen %>% 
+  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
+  dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
+  ggplot(aes(x = resid)) +
+  geom_histogram(bins = 12,
+                 color = "blue",
+                 fill = "blue",
+                 alpha = 0.3) +
+  geom_vline(xintercept = 0,
+             size = 1,
+             color = "red",
+             linetype = "dashed") +
+  theme_classic() +
+  labs(title = "Looking for normality of residuals",
+       subtitle = "want to see roughly a bell curve")
+```
+
+the residual plots 
+```{r}
+residualPlots(fit_vel_glu)
+```
+
+
+`ggplot2`: plotting confidence intervals for the mean outcome
+```{r}
+ggplot(thuesen,
+       aes(x = blood.glucose,
+           y = short.velocity)) +
+  stat_smooth(method = "lm", 
+              color  = "blue") +
+  geom_point(shape = 10,
+             size  = 2) +                    
+  theme_bw()
+```
+
+
+## Plot the model
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu)
+```
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu) %>% 
+  data.frame() 
+```
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = c(5, 10, 15, 20))) %>% 
+  data.frame()
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = seq(from = 4, to = 20, by = 1))) %>% 
+  data.frame() %>% 
+  ggplot(aes(x = blood.glucose,
+             y = fit)) +
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper),
+              alpha = .5) +
+  geom_line()
+```
+
+
+
