@@ -1,0 +1,251 @@
+# Example: Ihno's Experiment
+
+
+## Packages
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)
+library(haven)
+library(furniture)
+library(texreg)
+library(stargazer)
+```
+
+
+
+## The Data
+
+
+Author's website for the textbook: http://www.psych.nyu.edu/cohen/EPS4e.html 
+
+```{r}
+data_ihno <- read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(gender = factor(gender, 
+                               levels = c(1, 2),
+                               labels = c("Female", 
+                                          "Male"))) %>% 
+  dplyr::mutate(major = factor(major, 
+                              levels = c(1, 2, 3, 4,5),
+                              labels = c("Psychology",
+                                         "Premed",
+                                         "Biology",
+                                         "Sociology",
+                                         "Economics"))) %>% 
+  dplyr::mutate(reason = factor(reason,
+                                levels = c(1, 2, 3),
+                                labels = c("Program requirement",
+                                           "Personal interest",
+                                           "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_cond = factor(exp_cond,
+                                  levels = c(1, 2, 3, 4),
+                                  labels = c("Easy",
+                                             "Moderate",
+                                             "Difficult",
+                                             "Impossible"))) %>% 
+  dplyr::mutate(coffee = factor(coffee,
+                                levels = c(0, 1),
+                                labels = c("Not a regular coffee drinker",
+                                           "Regularly drinks coffee"))) 
+
+data_ihno
+```
+
+### Describe the Raw Data
+
+#### Table of Summary Statistics
+
+```{r, results='asis'}
+data_ihno %>% 
+  furniture::table1(phobia, statquiz, mathquiz,
+                    test = TRUE,
+                    output = "markdown")
+```
+
+
+
+```{r, results='asis'}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia, 
+                                  breaks = c(0, 2, 4, 10),
+                                  include.lowest = TRUE)) %>% 
+  furniture::table1(phobia, statquiz, mathquiz,
+                    splitby = ~ phobia_cut3,
+                    test = TRUE,
+                    output = "markdown")
+```
+
+
+
+
+#### Plot of Raw Data
+
+```{r}
+data_ihno %>% 
+  ggplot() +
+  aes(phobia) +
+  geom_histogram(binwidth = 1)
+```
+
+
+```{r}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia, 
+                                  breaks = c(0, 2, 4, 10),
+                                  include.lowest = TRUE)) %>% 
+  ggplot() +
+  aes(phobia,
+      fill = phobia_cut3) +
+  geom_histogram(binwidth = 1)
+```
+
+
+
+```{r}
+data_ihno %>% 
+  ggplot() +
+  aes(x = mathquiz,
+      y = statquiz) +
+  geom_point()
+```
+
+```{r}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia, 
+                                  breaks = c(0, 2, 4, 10),
+                                  include.lowest = TRUE)) %>% 
+  ggplot() +
+  aes(x = mathquiz,
+      y = statquiz,
+      color = phobia_cut3) +
+  geom_point()
+```
+
+
+```{r}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia, 
+                                  breaks = c(0, 2, 4, 10),
+                                  include.lowest = TRUE)) %>% 
+  ggplot() +
+  aes(x = mathquiz,
+      y = statquiz) +
+  geom_count() +
+  facet_grid(. ~ phobia_cut3)
+```
+
+
+## Regression
+
+### Fit Nested Models (bottom up)
+
+
+```{r}
+fit_ihno_lm_0 <- lm(statquiz ~ 1,
+                    data = data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,
+                    data = data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_2 <- lm(statquiz ~ phobia,
+                    data = data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,
+                    data = data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,
+                    data = data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+
+texreg::screenreg(list(fit_ihno_lm_0, fit_ihno_lm_1, fit_ihno_lm_2, fit_ihno_lm_3, fit_ihno_lm_4),
+                  custom.model.names = c("No Predictors", "Only Math Quiz", "Only Phobia", "Both IVs", "Add Interaction"))
+```
+
+### Compare Models
+
+Likelihood Ratio Test of Nested Models
+
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_1)
+```
+
+
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_2)
+```
+
+
+```{r}
+anova(fit_ihno_lm_1, fit_ihno_lm_3)
+```
+
+
+```{r}
+anova(fit_ihno_lm_3, fit_ihno_lm_4)
+```
+
+
+### Final Model
+
+```{r}
+texreg::screenreg(fit_ihno_lm_3,
+                  custom.model.names = "Main Effects Model",
+                  ci.force = TRUE,
+                  caption = "Final Model for Stat's Quiz",
+                  single.row = TRUE)
+```
+
+
+### Plot Model
+
+```{r, fig.cap="Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean."}
+effects::Effect(focal.predictors = c("mathquiz", "phobia"),
+                mod = fit_ihno_lm_3,
+                xlevels = list(phobia = c(0, 5, 10))) %>% 
+  data.frame %>% 
+  dplyr::mutate(phobia = factor(phobia)) %>% 
+  ggplot() +
+  aes(x = mathquiz,
+      y = fit,
+      fill = phobia,
+      color = phobia) +
+  geom_ribbon(aes(ymin = fit - se, 
+                  ymax = fit + se),
+              alpha = .3) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Score on Math Quiz",
+       y = "Estimated Marginal Mean\nScore on Stat Quiz",
+       fill  = "Self Rated\nMath Phobia",
+       color = "Self Rated\nMath Phobia") +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(0, 1))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

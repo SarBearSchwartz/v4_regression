@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="EQM_v1_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="cehs-research/eBook_wrangle" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="EQM_v1_cover.png" />
+
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-authors"><i class="fa fa-check"></i>The Authors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html"><i class="fa fa-check"></i><b>1</b> Example: Ihno’s Experiment</a><ul>
+<li class="chapter" data-level="1.1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#the-data"><i class="fa fa-check"></i><b>1.2</b> The Data</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#describe-the-raw-data"><i class="fa fa-check"></i><b>1.2.1</b> Describe the Raw Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#regression"><i class="fa fa-check"></i><b>1.3</b> Regression</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#fit-nested-models-bottom-up"><i class="fa fa-check"></i><b>1.3.1</b> Fit Nested Models (bottom up)</a></li>
+<li class="chapter" data-level="1.3.2" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#compare-models"><i class="fa fa-check"></i><b>1.3.2</b> Compare Models</a></li>
+<li class="chapter" data-level="1.3.3" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#final-model"><i class="fa fa-check"></i><b>1.3.3</b> Final Model</a></li>
+<li class="chapter" data-level="1.3.4" data-path="example-ihnos-experiment.html"><a href="example-ihnos-experiment.html#plot-model"><i class="fa fa-check"></i><b>1.3.4</b> Plot Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="example-ihnos-experiment" class="section level1">
+<h1><span class="header-section-number">1</span> Example: Ihno’s Experiment</h1>
+<div id="packages" class="section level2">
+<h2><span class="header-section-number">1.1</span> Packages</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(haven)
+<span class="kw">library</span>(furniture)
+<span class="kw">library</span>(texreg)
+<span class="kw">library</span>(stargazer)</code></pre></div>
+</div>
+<div id="the-data" class="section level2">
+<h2><span class="header-section-number">1.2</span> The Data</h2>
+<p>Author’s website for the textbook: <a href="http://www.psych.nyu.edu/cohen/EPS4e.html" class="uri">http://www.psych.nyu.edu/cohen/EPS4e.html</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno &lt;-<span class="st"> </span><span class="kw">read_spss</span>(<span class="st">&quot;http://www.psych.nyu.edu/cohen/Ihno_dataset.sav&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">gender =</span> <span class="kw">factor</span>(gender, 
+                               <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),
+                               <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, 
+                                          <span class="st">&quot;Male&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">major =</span> <span class="kw">factor</span>(major, 
+                              <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>,<span class="dv">5</span>),
+                              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Psychology&quot;</span>,
+                                         <span class="st">&quot;Premed&quot;</span>,
+                                         <span class="st">&quot;Biology&quot;</span>,
+                                         <span class="st">&quot;Sociology&quot;</span>,
+                                         <span class="st">&quot;Economics&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">reason =</span> <span class="kw">factor</span>(reason,
+                                <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),
+                                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Program requirement&quot;</span>,
+                                           <span class="st">&quot;Personal interest&quot;</span>,
+                                           <span class="st">&quot;Advisor recommendation&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">exp_cond =</span> <span class="kw">factor</span>(exp_cond,
+                                  <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),
+                                  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Easy&quot;</span>,
+                                             <span class="st">&quot;Moderate&quot;</span>,
+                                             <span class="st">&quot;Difficult&quot;</span>,
+                                             <span class="st">&quot;Impossible&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">coffee =</span> <span class="kw">factor</span>(coffee,
+                                <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),
+                                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Not a regular coffee drinker&quot;</span>,
+                                           <span class="st">&quot;Regularly drinks coffee&quot;</span>))) 
+
+data_ihno</code></pre></div>
+<pre><code>## # A tibble: 100 x 18
+##    sub_num gender major reason exp_cond coffee num_cups phobia prevmath
+##      &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;    &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+##  1       1 Female Psyc~ Advis~ Easy     Regul~        0      1        3
+##  2       2 Female Psyc~ Perso~ Easy     Not a~        0      1        4
+##  3       3 Female Psyc~ Progr~ Easy     Not a~        0      4        1
+##  4       4 Female Psyc~ Progr~ Easy     Not a~        0      4        0
+##  5       5 Female Psyc~ Progr~ Easy     Not a~        1     10        1
+##  6       6 Female Psyc~ Progr~ Moderate Regul~        1      4        1
+##  7       7 Female Psyc~ Progr~ Moderate Not a~        0      4        2
+##  8       8 Female Psyc~ Advis~ Moderate Regul~        2      4        1
+##  9       9 Female Psyc~ Progr~ Moderate Not a~        0      4        1
+## 10      10 Female Psyc~ Progr~ Moderate Regul~        2      5        0
+## # ... with 90 more rows, and 9 more variables: mathquiz &lt;dbl&gt;,
+## #   statquiz &lt;dbl&gt;, exp_sqz &lt;dbl&gt;, hr_base &lt;dbl&gt;, hr_pre &lt;dbl&gt;,
+## #   hr_post &lt;dbl&gt;, anx_base &lt;dbl&gt;, anx_pre &lt;dbl&gt;, anx_post &lt;dbl&gt;</code></pre>
+<div id="describe-the-raw-data" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Describe the Raw Data</h3>
+<div id="table-of-summary-statistics" class="section level4">
+<h4><span class="header-section-number">1.2.1.1</span> Table of Summary Statistics</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(phobia, statquiz, mathquiz,
+                    <span class="dt">test =</span> <span class="ot">TRUE</span>,
+                    <span class="dt">output =</span> <span class="st">&quot;markdown&quot;</span>)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Mean/Count (SD/%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>n = 100</td>
+</tr>
+<tr class="even">
+<td>phobia</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>3.3 (2.4)</td>
+</tr>
+<tr class="even">
+<td>statquiz</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>6.9 (1.7)</td>
+</tr>
+<tr class="even">
+<td>mathquiz</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>29.1 (9.5)</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">phobia_cut3 =</span> <span class="kw">cut</span>(phobia, 
+                                  <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">10</span>),
+                                  <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(phobia, statquiz, mathquiz,
+                    <span class="dt">splitby =</span> <span class="op">~</span><span class="st"> </span>phobia_cut3,
+                    <span class="dt">test =</span> <span class="ot">TRUE</span>,
+                    <span class="dt">output =</span> <span class="st">&quot;markdown&quot;</span>)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>[0,2]</th>
+<th>(2,4]</th>
+<th>(4,10]</th>
+<th>P-Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>n = 39</td>
+<td>n = 37</td>
+<td>n = 24</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>phobia</td>
+<td></td>
+<td></td>
+<td></td>
+<td>&lt;.001</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>1.0 (0.8)</td>
+<td>3.6 (0.5)</td>
+<td>6.7 (1.8)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>statquiz</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.001</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>7.6 (1.3)</td>
+<td>6.6 (1.6)</td>
+<td>6.1 (2.0)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>mathquiz</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.014</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>32.6 (8.5)</td>
+<td>26.5 (9.8)</td>
+<td>26.8 (8.9)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="plot-of-raw-data" class="section level4">
+<h4><span class="header-section-number">1.2.1.2</span> Plot of Raw Data</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(phobia) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="70-example_Ihno_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">phobia_cut3 =</span> <span class="kw">cut</span>(phobia, 
+                                  <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">10</span>),
+                                  <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(phobia,
+      <span class="dt">fill =</span> phobia_cut3) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="70-example_Ihno_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> mathquiz,
+      <span class="dt">y =</span> statquiz) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 15 rows containing missing values (geom_point).</code></pre>
+<p><img src="70-example_Ihno_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">phobia_cut3 =</span> <span class="kw">cut</span>(phobia, 
+                                  <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">10</span>),
+                                  <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> mathquiz,
+      <span class="dt">y =</span> statquiz,
+      <span class="dt">color =</span> phobia_cut3) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 15 rows containing missing values (geom_point).</code></pre>
+<p><img src="70-example_Ihno_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">phobia_cut3 =</span> <span class="kw">cut</span>(phobia, 
+                                  <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">10</span>),
+                                  <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> mathquiz,
+      <span class="dt">y =</span> statquiz) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_count</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>phobia_cut3)</code></pre></div>
+<pre><code>## Warning: Removed 15 rows containing non-finite values (stat_sum).</code></pre>
+<p><img src="70-example_Ihno_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="regression" class="section level2">
+<h2><span class="header-section-number">1.3</span> Regression</h2>
+<div id="fit-nested-models-bottom-up" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Fit Nested Models (bottom up)</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit_ihno_lm_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(statquiz <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,
+                    <span class="dt">data =</span> data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(statquiz <span class="op">~</span><span class="st"> </span>mathquiz,
+                    <span class="dt">data =</span> data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(statquiz <span class="op">~</span><span class="st"> </span>phobia,
+                    <span class="dt">data =</span> data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(statquiz <span class="op">~</span><span class="st"> </span>mathquiz <span class="op">+</span><span class="st"> </span>phobia,
+                    <span class="dt">data =</span> data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(mathquiz, statquiz, phobia)))
+
+fit_ihno_lm_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(statquiz <span class="op">~</span><span class="st"> </span>mathquiz<span class="op">*</span>phobia,
+                    <span class="dt">data =</span> data_ihno <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(mathquiz, statquiz, phobia)))
+
+texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(fit_ihno_lm_<span class="dv">0</span>, fit_ihno_lm_<span class="dv">1</span>, fit_ihno_lm_<span class="dv">2</span>, fit_ihno_lm_<span class="dv">3</span>, fit_ihno_lm_<span class="dv">4</span>),
+                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;No Predictors&quot;</span>, <span class="st">&quot;Only Math Quiz&quot;</span>, <span class="st">&quot;Only Phobia&quot;</span>, <span class="st">&quot;Both IVs&quot;</span>, <span class="st">&quot;Add Interaction&quot;</span>))</code></pre></div>
+<pre><code>## 
+## =======================================================================================
+##                  No Predictors  Only Math Quiz  Only Phobia  Both IVs   Add Interaction
+## ---------------------------------------------------------------------------------------
+## (Intercept)       6.85 ***       4.14 ***        7.65 ***     5.02 ***   5.60 ***      
+##                  (0.19)         (0.53)          (0.29)       (0.63)     (0.91)         
+## mathquiz                         0.09 ***                     0.08 ***   0.06 *        
+##                                 (0.02)                       (0.02)     (0.03)         
+## phobia                                          -0.25 ***    -0.16 *    -0.34          
+##                                                 (0.07)       (0.07)     (0.21)         
+## mathquiz:phobia                                                          0.01          
+##                                                                         (0.01)         
+## ---------------------------------------------------------------------------------------
+## R^2               0.00           0.26            0.13         0.31       0.31          
+## Adj. R^2          0.00           0.25            0.12         0.29       0.29          
+## Num. obs.        85             85              85           85         85             
+## RMSE              1.74           1.50            1.63         1.46       1.46          
+## =======================================================================================
+## *** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05</code></pre>
+</div>
+<div id="compare-models" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Compare Models</h3>
+<p>Likelihood Ratio Test of Nested Models</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_ihno_lm_<span class="dv">0</span>, fit_ihno_lm_<span class="dv">1</span>)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: statquiz ~ 1
+## Model 2: statquiz ~ mathquiz
+##   Res.Df    RSS Df Sum of Sq     F    Pr(&gt;F)    
+## 1     84 253.01                                 
+## 2     83 187.75  1     65.26 28.85 6.999e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_ihno_lm_<span class="dv">0</span>, fit_ihno_lm_<span class="dv">2</span>)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: statquiz ~ 1
+## Model 2: statquiz ~ phobia
+##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1     84 253.01                                  
+## 2     83 220.73  1    32.282 12.139 0.0007912 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_ihno_lm_<span class="dv">1</span>, fit_ihno_lm_<span class="dv">3</span>)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: statquiz ~ mathquiz
+## Model 2: statquiz ~ mathquiz + phobia
+##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)  
+## 1     83 187.75                             
+## 2     82 175.19  1    12.565 5.8814 0.0175 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_ihno_lm_<span class="dv">3</span>, fit_ihno_lm_<span class="dv">4</span>)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: statquiz ~ mathquiz + phobia
+## Model 2: statquiz ~ mathquiz * phobia
+##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+## 1     82 175.19                           
+## 2     81 173.50  1    1.6894 0.7887 0.3771</code></pre>
+</div>
+<div id="final-model" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> Final Model</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texreg<span class="op">::</span><span class="kw">screenreg</span>(fit_ihno_lm_<span class="dv">3</span>,
+                  <span class="dt">custom.model.names =</span> <span class="st">&quot;Main Effects Model&quot;</span>,
+                  <span class="dt">ci.force =</span> <span class="ot">TRUE</span>,
+                  <span class="dt">caption =</span> <span class="st">&quot;Final Model for Stat&#39;s Quiz&quot;</span>,
+                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+## ===================================
+##              Main Effects Model    
+## -----------------------------------
+## (Intercept)   5.02 [ 3.79;  6.25] *
+## mathquiz      0.08 [ 0.05;  0.12] *
+## phobia       -0.16 [-0.29; -0.03] *
+## -----------------------------------
+## R^2           0.31                 
+## Adj. R^2      0.29                 
+## Num. obs.    85                    
+## RMSE          1.46                 
+## ===================================
+## * 0 outside the confidence interval</code></pre>
+</div>
+<div id="plot-model" class="section level3">
+<h3><span class="header-section-number">1.3.4</span> Plot Model</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;mathquiz&quot;</span>, <span class="st">&quot;phobia&quot;</span>),
+                <span class="dt">mod =</span> fit_ihno_lm_<span class="dv">3</span>,
+                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">phobia =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">phobia =</span> <span class="kw">factor</span>(phobia)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> mathquiz,
+      <span class="dt">y =</span> fit,
+      <span class="dt">fill =</span> phobia,
+      <span class="dt">color =</span> phobia) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se, 
+                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se),
+              <span class="dt">alpha =</span> .<span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Score on Math Quiz&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;Estimated Marginal Mean</span><span class="ch">\n</span><span class="st">Score on Stat Quiz&quot;</span>,
+       <span class="dt">fill  =</span> <span class="st">&quot;Self Rated</span><span class="ch">\n</span><span class="st">Math Phobia&quot;</span>,
+       <span class="dt">color =</span> <span class="st">&quot;Self Rated</span><span class="ch">\n</span><span class="st">Math Phobia&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),
+        <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),
+        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-16"></span>
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-16-1.png" alt="Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean." width="672" />
+<p class="caption">
+Figure 1.1: Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
