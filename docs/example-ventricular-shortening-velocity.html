@@ -444,14 +444,11 @@ fit_vel_glu</code></pre></div>
 ## (Intercept)   0.8534993816 1.34213037
 ## blood.glucose 0.0002231077 0.04370194</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_vel_glu)</code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: short.velocity
-##               Df  Sum Sq  Mean Sq F value Pr(&gt;F)  
-## blood.glucose  1 0.20727 0.207269   4.414 0.0479 *
-## Residuals     21 0.98610 0.046957                 
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##      Df `Sum Sq` `Mean Sq` `F value` `Pr(&gt;F)`
+## * &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1     1    0.207    0.207       4.41   0.0479
+## 2    21    0.986    0.0470     NA     NA</code></pre>
 <p>model fit indicies</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(fit_vel_glu)     </code></pre></div>
 <pre><code>## &#39;log Lik.&#39; 3.583612 (df=3)</code></pre>
@@ -683,10 +680,12 @@ RMSE
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thuesen <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(id <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">13</span>, <span class="dv">20</span>, <span class="dv">24</span>))</code></pre></div>
-<pre><code>##   blood.glucose short.velocity id
-## 1          19.0           1.95 13
-## 2          16.1           1.05 20
-## 3           9.5           1.70 24</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   blood.glucose short.velocity    id
+##           &lt;dbl&gt;          &lt;dbl&gt; &lt;int&gt;
+## 1          19             1.95    13
+## 2          16.1           1.05    20
+## 3           9.5           1.7     24</code></pre>
 <p><code>ggplot2</code>: specify plot type</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thuesen <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(.)) <span class="op">%&gt;%</span><span class="st">            </span><span class="co"># get ride fo the incomplete cases</span>
@@ -710,30 +709,20 @@ RMSE
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(.)) <span class="op">%&gt;%</span><span class="st">            </span><span class="co"># get ride fo the incomplete cases</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">fitted</span>(fit_vel_glu)) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># fitted/prediction values</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">resid =</span> <span class="kw">residuals</span>(fit_vel_glu))   <span class="co"># residual values</span></code></pre></div>
-<pre><code>##    blood.glucose short.velocity     pred        resid
-## 1           15.3           1.76 1.433841  0.326158532
-## 2           10.8           1.34 1.335010  0.004989882
-## 3            8.1           1.27 1.275711 -0.005711308
-## 4           19.5           1.47 1.526084 -0.056084062
-## 5            7.2           1.27 1.255945  0.014054962
-## 6            5.3           1.49 1.214216  0.275783754
-## 7            9.3           1.31 1.302066  0.007933665
-## 8           11.1           1.09 1.341599 -0.251598875
-## 9            7.5           1.18 1.262534 -0.082533795
-## 10          12.2           1.22 1.365758 -0.145757649
-## 11           6.7           1.25 1.244964  0.005036223
-## 12           5.2           1.19 1.212020 -0.022019994
-## 13          19.0           1.95 1.515103  0.434897199
-## 14          15.1           1.28 1.429449 -0.149448964
-## 15           6.7           1.52 1.244964  0.275036223
-## 16           4.2           1.12 1.190057 -0.070057471
-## 17          10.3           1.37 1.324029  0.045971143
-## 18          12.5           1.19 1.372346 -0.182346406
-## 19          16.1           1.05 1.451411 -0.401411486
-## 20          13.3           1.32 1.389916 -0.069916424
-## 21           4.9           1.03 1.205431 -0.175431237
-## 22           8.8           1.12 1.291085 -0.171085074
-## 23           9.5           1.70 1.306459  0.393541161</code></pre>
+<pre><code>## # A tibble: 23 x 4
+##    blood.glucose short.velocity  pred    resid
+##            &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##  1          15.3           1.76  1.43  0.326  
+##  2          10.8           1.34  1.34  0.00499
+##  3           8.1           1.27  1.28 -0.00571
+##  4          19.5           1.47  1.53 -0.0561 
+##  5           7.2           1.27  1.26  0.0141 
+##  6           5.3           1.49  1.21  0.276  
+##  7           9.3           1.31  1.30  0.00793
+##  8          11.1           1.09  1.34 -0.252  
+##  9           7.5           1.18  1.26 -0.0825 
+## 10          12.2           1.22  1.37 -0.146  
+## # ... with 13 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thuesen <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(.)) <span class="op">%&gt;%</span><span class="st">                </span><span class="co"># get ride fo the incomplete cases</span>
@@ -798,21 +787,25 @@ RMSE
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),
                 <span class="dt">mod =</span> fit_vel_glu) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">data.frame</span>() </code></pre></div>
-<pre><code>##   blood.glucose      fit         se    lower    upper
-## 1           4.2 1.190057 0.07878423 1.026217 1.353898
-## 2           8.0 1.273515 0.05155032 1.166310 1.380720
-## 3          12.0 1.361365 0.04827581 1.260970 1.461760
-## 4          16.0 1.449215 0.07416568 1.294979 1.603451
-## 5          20.0 1.537065 0.11030602 1.307671 1.766459</code></pre>
+<pre><code>## # A tibble: 5 x 5
+##   blood.glucose   fit     se lower upper
+## *         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1           4.2  1.19 0.0788  1.03  1.35
+## 2           8    1.27 0.0516  1.17  1.38
+## 3          12    1.36 0.0483  1.26  1.46
+## 4          16    1.45 0.0742  1.29  1.60
+## 5          20    1.54 0.110   1.31  1.77</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),
                 <span class="dt">mod =</span> fit_vel_glu,
                 <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">blood.glucose =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">data.frame</span>()</code></pre></div>
-<pre><code>##   blood.glucose      fit         se    lower    upper
-## 1             5 1.207627 0.07209315 1.057702 1.357553
-## 2            10 1.317440 0.04535290 1.223124 1.411757
-## 3            15 1.427253 0.06618321 1.289617 1.564888
-## 4            20 1.537065 0.11030602 1.307671 1.766459</code></pre>
+<pre><code>## # A tibble: 4 x 5
+##   blood.glucose   fit     se lower upper
+## *         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1             5  1.21 0.0721  1.06  1.36
+## 2            10  1.32 0.0454  1.22  1.41
+## 3            15  1.43 0.0662  1.29  1.56
+## 4            20  1.54 0.110   1.31  1.77</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),
                 <span class="dt">mod =</span> fit_vel_glu,
                 <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">blood.glucose =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">4</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="dv">1</span>))) <span class="op">%&gt;%</span><span class="st"> </span>

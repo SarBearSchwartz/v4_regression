@@ -760,12 +760,11 @@ cor_bp</code></pre></div>
 ## sexFemale    -8.885474   5.597073</code></pre>
 <p>you can call just the ANOVA table</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_bp_sex) </code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: bp
-##            Df Sum Sq Mean Sq F value Pr(&gt;F)
-## sex         1     68   67.64  0.2029 0.6533
-## Residuals 100  33330  333.30</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##      Df `Sum Sq` `Mean Sq` `F value` `Pr(&gt;F)`
+## * &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1     1     67.6      67.6     0.203    0.653
+## 2   100  33330.      333.     NA       NA</code></pre>
 </div>
 <div id="model-fit-indicies" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Model fit indicies</h3>

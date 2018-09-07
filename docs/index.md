@@ -1,7 +1,7 @@
 --- 
 title: "Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression"
 author: "Sarah Schwartz & Tyson Barrett"
-date: "Last updated: 2018-09-06"
+date: "Last updated: 2018-09-07"
 documentclass: book
 description: "Correlation, Model Fit, Generalize, and Plot."
 knit: "bookdown::render_book"

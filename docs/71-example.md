@@ -829,12 +829,11 @@ anova(fit_bp_sex)
 ```
 
 ```
-## Analysis of Variance Table
-## 
-## Response: bp
-##            Df Sum Sq Mean Sq F value Pr(>F)
-## sex         1     68   67.64  0.2029 0.6533
-## Residuals 100  33330  333.30
+## # A tibble: 2 x 5
+##      Df `Sum Sq` `Mean Sq` `F value` `Pr(>F)`
+## * <int>    <dbl>     <dbl>     <dbl>    <dbl>
+## 1     1     67.6      67.6     0.203    0.653
+## 2   100  33330.      333.     NA       NA
 ```
 
 ### Model fit indicies
