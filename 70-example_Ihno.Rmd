@@ -22,7 +22,7 @@ library(car)             # companion for applied regression
 
 
 ```{block type='rmdlink', echo=TRUE}
- Inho's dataset is included in "Explaining Psychological Statistics" [@epse4] and is presented indetail previously in this Encyclopedia's [Vol. 2 - Ihno's Example](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
+ Inho's dataset is included in "Explaining Psychological Statistics" [@epse4] and is presented in detail previously in this Encyclopedia's [Vol. 2 - Ihno's Example](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
 ```
 
 ```{r}

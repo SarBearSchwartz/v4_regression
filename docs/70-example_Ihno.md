@@ -16,14 +16,14 @@ library(car)             # companion for applied regression
 
 ## Research Question
 
-> Does math phobia moderate the relationship between math and statistics performance?
+> Does math phobia moderate the relationship between math and statistics performance?  That is, does the assocation between math and stat quiz performance differ at variaous levels of math phobia?
 
 
 ## Data: Sample & Measures
 
 
 <div class="rmdlink">
-<p>Inho's dataset is included in &quot;Explaining Psychological Statistics&quot; <span class="citation">[@epse4]</span> and is presented indetail previously in this Encyclopedia's <a href="https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html">Vol. 2 - Ihno's Example</a>.</p>
+<p>Inho's dataset is included in &quot;Explaining Psychological Statistics&quot; <span class="citation">[@epse4]</span> and is presented in detail previously in this Encyclopedia's <a href="https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html">Vol. 2 - Ihno's Example</a>.</p>
 </div>
 
 
