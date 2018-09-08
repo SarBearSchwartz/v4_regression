@@ -1,7 +1,16 @@
 # Example: Ihno's Experiment
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
 
-## Packages
+
 
 ```{r, comment=FALSE, message=FALSE}
 library(tidyverse)       # super helpful everything!
@@ -12,17 +21,18 @@ library(stargazer)       # nice tables of descrip and regression
 library(car)             # companion for applied regression
 ```
 
+## Purpose
 
-## Research Question
+### Research Question
 
 > Does math phobia moderate the relationship between math and statistics performance?  That is, does the assocation between math and stat quiz performance differ at variaous levels of math phobia?
 
 
-## Data: Sample & Measures
+### Data Description
 
 
 ```{block type='rmdlink', echo=TRUE}
- Inho's dataset is included in "Explaining Psychological Statistics" [@epse4] and is presented in detail previously in this Encyclopedia's [Vol. 2 - Ihno's Example](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
+Inho's dataset is included in the textbook "Explaining Psychological Statistics" [@epse4] and details regarding the sample and measures is describe in this Encyclopedia's [Vol. 2 - Ihno's Dataset](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
 ```
 
 ```{r}
@@ -59,7 +69,12 @@ data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav")
 
 ## Exploratory Data Analysis
 
-Before enbarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time (univariate), as well as pairwise (bivariate).
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+
+
+### Univariate Statistics
+
+Summary Statistics for all three variables of interest.
 
 ```{r, results='asis'}
 data_ihno %>% 
@@ -68,6 +83,10 @@ data_ihno %>%
   stargazer::stargazer(type = "html")
 ```
 
+### Bivariate Relationships
+
+
+Although categorizing continuous variables results in a loss of information *(possible signal or noise)*, it is often done to investigate relationships in an exploratory way.
 
 ```{r, results='asis'}
 data_ihno %>% 
@@ -80,6 +99,8 @@ data_ihno %>%
                     output = "markdown")
 ```
 
+When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.
+
 ```{r}
 data_ihno %>% 
   dplyr::select(phobia, mathquiz, statquiz) %>% 
@@ -91,45 +112,58 @@ data_ihno %>%
 
 
 
-## Fitting Nested Models
+## Regression Analysis
 
-The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
+### Subset the Sample
 
-Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other. 
+
+All regression models can only be fit to complete observations regarding the variables included in the model (dependent and independent).  Removing any case that is incomplete with respect to even one variables is called **"list-wise deletion"**.  
+
+In this analysis, models including the `mathquiz` variable will be fit on only 85 students (sincle 15 students did not take the math quiz), where as models not including this variable will be fit to all 100 studnets.  
+
+This complicates model comparisons, which require nested models be fit to the same data (exactly).  For this reason, the dataset has been reduced to the subset of students that are complete regarding the three variables utilized throughout the set of five nested models.
 
 
 ```{r}
-fit_ihno_lm_0 <- lm(statquiz ~ 1,
-                    data = data_ihno %>% 
-                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+data_ihno_fitting <- data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
 
-fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,
-                    data = data_ihno %>% 
-                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+dim(data_ihno_fitting)
+```      
+ 
 
-fit_ihno_lm_2 <- lm(statquiz ~ phobia,
-                    data = data_ihno %>% 
-                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+### Fit Nested Models 
+                   
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
 
-fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,
-                    data = data_ihno %>% 
-                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.                                     
+                                    
+```{r}
+fit_ihno_lm_0 <- lm(statquiz ~ 1,                    # null model: intercept only
+                    data = data_ihno_fitting)
 
-fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,
-                    data = data_ihno %>% 
-                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,             # only main effect of mathquiz
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_2 <- lm(statquiz ~ phobia,               # only mian effect of phobia
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,    # both main effects 
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,      # additional interaction
+                    data = data_ihno_fitting)
 ```
 
 
 
-## Comparing Nested Models
+### Comparing Nested Models
 
 
-### Model Comparison Table
+#### Model Comparison Table
 
 In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
 
-> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction, which would be multaplicative or suppressory).  
 
 ```{r, results='asis'}
 texreg::htmlreg(list(fit_ihno_lm_0, 
@@ -146,36 +180,36 @@ texreg::htmlreg(list(fit_ihno_lm_0,
 
 
 
-### Likelihood Ratio Test of Nested Models
+#### Likelihood Ratio Test of Nested Models
 
-An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involved comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
 
-Test the main effect of math quiz:
+* Test the main effect of math quiz:
 ```{r}
 anova(fit_ihno_lm_0, fit_ihno_lm_1)
 ```
 
-Test the main effect of math phobia
+* Test the main effect of math phobia
 ```{r}
 anova(fit_ihno_lm_0, fit_ihno_lm_2)
 ```
 
 
-Test the main effect of math phobia,  after controlling for math test
+* Test the main effect of math phobia,  after controlling for math test
 ```{r}
 anova(fit_ihno_lm_1, fit_ihno_lm_3) 
 ```
 
-Test the interaction between math test and math phobia (i.e. moderation)
+* Test the interaction between math test and math phobia (i.e. moderation)
 ```{r}
 anova(fit_ihno_lm_3, fit_ihno_lm_4)
 ```
 
 
 
-## Checking Assumptions via Residual Diagnostics
+### Checking Assumptions via Residual Diagnostics
 
-Before reporting a model, make sure to check the residules to ensure that the model assumptions are not violated.
+Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
 
 
 ```{r}
@@ -186,13 +220,23 @@ plot(fit_ihno_lm_3, which = 1)
 plot(fit_ihno_lm_3, which = 2)
 ```
 
-
 ```{r}
 car::residualPlots(fit_ihno_lm_3)
 ```
 
+```{r}
+summary(fit_ihno_lm_3)
+```
+
+
+```{r}
+summary(fit_ihno_lm_4)
+```
+
+
 
 ## Conclusion
+
 
 ### Tabulate the Final Model Summary
 
@@ -202,8 +246,8 @@ Many journals prefer that regression tables include 95% confidence intervals, ra
 The `texreg` package contains three version of the regression table function.  
 
 * `screenreg()` Use when working on a project and viewing tables on your computer screen
-* `htmlreg()` Use when knitting your `.Rmd` file to a `.html` document 
-* `texreg()` Use when knitting your `.Rmd` file to a `.pdf` via LaTeX
+* `htmlreg()` Use when knitting your .Rmd file to a .html document 
+* `texreg()` Use when knitting your .Rmd file to a .pdf via LaTeX
 ```
 
 ```{r, results='asis'}
@@ -248,6 +292,18 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
         legend.position = c(0, 1),
         legend.justification = c(0, 1))
 ```
+
+
+## Write-up
+
+> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction).
+
+
+There is a strong association between math and stats quiz scores, $r = .51$.  Math phobia is associated with lower math, $r = -.28$, and stats quiz scores, $r = -.36$.  When considered togehter, the combined effects of math phobia and math score account for 31% of the variance in statistical achievement.  
+
+Not surprizingly, while higher self-reported math phobia was associated with lower statists scores, $b = -0.162$, $p=.018$, $95CI = [-0.29, -0.03]$, higher math quiz scores were associated with higher stats score, $b = -0.081$, $p<.001$, $95CI = [0.05, 0.12]$.  
+
+There was no evidence that math phobia moderated the relationship between math and quiz performance, $p=.377$. 
 
 
 
