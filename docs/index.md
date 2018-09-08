@@ -35,7 +35,6 @@ Backgroup and links to other volumes of this encyclopedia may be found at the [E
 
 
 
-
 ## Blocked Notes {-}
 
 Thoughout all the eBooks in this encyclopedia, several small secitons will be blocked out in the following ways:
@@ -75,23 +74,12 @@ This is how $R$ code is shown:
 1 + 1
 ```
 
-THis is what the output of the $R$ code above will look:
+This is what the output of the $R$ code above will look:
 
 
 ```
 ## [1] 2
 ```
-
-
-## Why choose R ?  {-}
-
-
-<div class="rmdlink">
-<p><strong>Check it out:</strong> an article from Fall 2016... <a href="https://datahowler.wordpress.com/2016/09/10/no-more-excuses-r-is-better-than-spss-for-psychology-undergrads-and-students-agree/">No more excuses: R is better than SPSS for psychology undergrads, and students agree</a></p>
-</div>
-
-
-
 
 
 ## The Authors {-}
@@ -128,7 +116,18 @@ THis is what the output of the $R$ code above will look:
 </tbody>
 </table>
 
-## FYI  {-}
+
+
+### Why choose R ?  {-}
+
+
+<div class="rmdlink">
+<p><strong>Check it out:</strong> an article from Fall 2016... <a href="https://datahowler.wordpress.com/2016/09/10/no-more-excuses-r-is-better-than-spss-for-psychology-undergrads-and-students-agree/">No more excuses: R is better than SPSS for psychology undergrads, and students agree</a></p>
+</div>
+
+
+
+### FYI  {-}
 
 This entire encyclopedia is written in $R Markdown$, using $R Studio$ as the text editor and the `bookdown` package to turn a collection of markdown documents into a coherent whole. The book's source code is hosted on GitHub. If you notice typos or other issues, feel free to email either of the authors.
 

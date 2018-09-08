@@ -5,23 +5,30 @@
 
 
 ```r
-library(tidyverse)
-library(haven)
-library(furniture)
-library(texreg)
-library(stargazer)
+library(tidyverse)       # super helpful everything!
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(car)             # companion for applied regression
 ```
 
 
+## Research Question
 
-## The Data
+> Does math phobia moderate the relationship between math and statistics performance?
 
 
-Author's website for the textbook: http://www.psych.nyu.edu/cohen/EPS4e.html 
+## Data: Sample & Measures
+
+
+<div class="rmdlink">
+<p>Inho's dataset is included in &quot;Explaining Psychological Statistics&quot; <span class="citation">[@epse4]</span> and is presented indetail previously in this Encyclopedia's <a href="https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html">Vol. 2 - Ihno's Example</a>.</p>
+</div>
 
 
 ```r
-data_ihno <- read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
+data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(gender = factor(gender, 
                                levels = c(1, 2),
@@ -49,62 +56,36 @@ data_ihno <- read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>%
                                 levels = c(0, 1),
                                 labels = c("Not a regular coffee drinker",
                                            "Regularly drinks coffee"))) 
-
-data_ihno
 ```
 
-```
-## # A tibble: 100 x 18
-##    sub_num gender major reason exp_cond coffee num_cups phobia prevmath
-##      <dbl> <fct>  <fct> <fct>  <fct>    <fct>     <dbl>  <dbl>    <dbl>
-##  1       1 Female Psyc~ Advis~ Easy     Regul~        0      1        3
-##  2       2 Female Psyc~ Perso~ Easy     Not a~        0      1        4
-##  3       3 Female Psyc~ Progr~ Easy     Not a~        0      4        1
-##  4       4 Female Psyc~ Progr~ Easy     Not a~        0      4        0
-##  5       5 Female Psyc~ Progr~ Easy     Not a~        1     10        1
-##  6       6 Female Psyc~ Progr~ Moderate Regul~        1      4        1
-##  7       7 Female Psyc~ Progr~ Moderate Not a~        0      4        2
-##  8       8 Female Psyc~ Advis~ Moderate Regul~        2      4        1
-##  9       9 Female Psyc~ Progr~ Moderate Not a~        0      4        1
-## 10      10 Female Psyc~ Progr~ Moderate Regul~        2      5        0
-## # ... with 90 more rows, and 9 more variables: mathquiz <dbl>,
-## #   statquiz <dbl>, exp_sqz <dbl>, hr_base <dbl>, hr_pre <dbl>,
-## #   hr_post <dbl>, anx_base <dbl>, anx_pre <dbl>, anx_post <dbl>
-```
 
-### Describe the Raw Data
+## Exploratory Data Analysis
 
-#### Table of Summary Statistics
+Before enbarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time (univariate), as well as pairwise (bivariate).
 
 
 ```r
 data_ihno %>% 
-  furniture::table1(phobia, statquiz, mathquiz,
-                    test = TRUE,
-                    output = "markdown")
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  stargazer::stargazer(type = "html")
 ```
 
 
-
-|          | Mean/Count (SD/%) |
-|----------|-------------------|
-|          |      n = 100      |
-|  phobia  |                   |
-|          |     3.3 (2.4)     |
-| statquiz |                   |
-|          |     6.9 (1.7)     |
-| mathquiz |                   |
-|          |    29.1 (9.5)     |
-
+<table style="text-align:center"><tr><td colspan="8" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Statistic</td><td>N</td><td>Mean</td><td>St. Dev.</td><td>Min</td><td>Pctl(25)</td><td>Pctl(75)</td><td>Max</td></tr>
+<tr><td colspan="8" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">phobia</td><td>100</td><td>3.310</td><td>2.444</td><td>0</td><td>1</td><td>4</td><td>10</td></tr>
+<tr><td style="text-align:left">mathquiz</td><td>85</td><td>29.071</td><td>9.480</td><td>9.000</td><td>22.000</td><td>35.000</td><td>49.000</td></tr>
+<tr><td style="text-align:left">statquiz</td><td>100</td><td>6.860</td><td>1.700</td><td>1</td><td>6</td><td>8</td><td>10</td></tr>
+<tr><td colspan="8" style="border-bottom: 1px solid black"></td></tr></table>
 
 
 
 ```r
 data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  furniture::table1(phobia, statquiz, mathquiz,
+  dplyr::mutate(phobia_cut3 = cut(phobia,
+                                 breaks = c(0, 2, 4, 10),
+                                 include.lowest = TRUE)) %>% 
+  furniture::table1(mathquiz, statquiz,
                     splitby = ~ phobia_cut3,
                     test = TRUE,
                     output = "markdown")
@@ -115,103 +96,30 @@ data_ihno %>%
 |          |   [0,2]    |   (2,4]    |   (4,10]   | P-Value |
 |----------|------------|------------|------------|---------|
 |          |   n = 39   |   n = 37   |   n = 24   |         |
-|  phobia  |            |            |            |  <.001  |
-|          | 1.0 (0.8)  | 3.6 (0.5)  | 6.7 (1.8)  |         |
-| statquiz |            |            |            |  0.001  |
-|          | 7.6 (1.3)  | 6.6 (1.6)  | 6.1 (2.0)  |         |
 | mathquiz |            |            |            |  0.014  |
 |          | 32.6 (8.5) | 26.5 (9.8) | 26.8 (8.9) |         |
-
-
-
-
-#### Plot of Raw Data
+| statquiz |            |            |            |  0.001  |
+|          | 7.6 (1.3)  | 6.6 (1.6)  | 6.1 (2.0)  |         |
 
 
 ```r
 data_ihno %>% 
-  ggplot() +
-  aes(phobia) +
-  geom_histogram(binwidth = 1)
-```
-
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-5-1.png" width="672" />
-
-
-
-```r
-data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  ggplot() +
-  aes(phobia,
-      fill = phobia_cut3) +
-  geom_histogram(binwidth = 1)
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  cor(use = "complete.obs") %>% 
+  corrplot::corrplot.mixed(lower  = "ellipse",
+                           upper  = "number",
+                           tl.col = "black")
 ```
 
 <img src="70-example_Ihno_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 
 
+## Fitting Nested Models
 
-```r
-data_ihno %>% 
-  ggplot() +
-  aes(x = mathquiz,
-      y = statquiz) +
-  geom_point()
-```
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
 
-```
-## Warning: Removed 15 rows containing missing values (geom_point).
-```
-
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-7-1.png" width="672" />
-
-
-```r
-data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  ggplot() +
-  aes(x = mathquiz,
-      y = statquiz,
-      color = phobia_cut3) +
-  geom_point()
-```
-
-```
-## Warning: Removed 15 rows containing missing values (geom_point).
-```
-
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-8-1.png" width="672" />
-
-
-
-```r
-data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  ggplot() +
-  aes(x = mathquiz,
-      y = statquiz) +
-  geom_count() +
-  facet_grid(. ~ phobia_cut3)
-```
-
-```
-## Warning: Removed 15 rows containing non-finite values (stat_sum).
-```
-
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-
-
-## Regression
-
-### Fit Nested Models (bottom up)
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other. 
 
 
 
@@ -235,13 +143,31 @@ fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,
 fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,
                     data = data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+```
 
+
+
+## Comparing Nested Models
+
+
+### Model Comparison Table
+
+In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
+
+> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction, which would be multaplicative or suppressory).  
+
+
+```r
 texreg::htmlreg(list(fit_ihno_lm_0, 
-                     fit_ihno_lm_1, fit_ihno_lm_2, 
-                     fit_ihno_lm_3, fit_ihno_lm_4),
-                  custom.model.names = c("No Predictors", "Only Math Quiz", 
-                                         "Only Phobia", "Both IVs", 
-                                         "Add Interaction"))
+                     fit_ihno_lm_1, 
+                     fit_ihno_lm_2, 
+                     fit_ihno_lm_3, 
+                     fit_ihno_lm_4),
+                custom.model.names = c("No Predictors", 
+                                       "Only Math Quiz", 
+                                       "Only Phobia", 
+                                       "Both IVs", 
+                                       "Add Interaction"))
 ```
 
 
@@ -357,109 +283,128 @@ texreg::htmlreg(list(fit_ihno_lm_0,
 </tr>
 </table>
 
-### Compare Models
 
-Likelihood Ratio Test of Nested Models
 
+### Likelihood Ratio Test of Nested Models
+
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involved comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+Test the main effect of math quiz:
 
 ```r
-anova(fit_ihno_lm_0, fit_ihno_lm_1) %>% 
-  pander::pander(caption = "LRT: Main Effect of Math Quiz")
+anova(fit_ihno_lm_0, fit_ihno_lm_1)
+```
+
+```
+## # A tibble: 2 x 6
+##   Res.Df   RSS    Df `Sum of Sq`     F     `Pr(>F)`
+## *  <dbl> <dbl> <dbl>       <dbl> <dbl>        <dbl>
+## 1     84  253.    NA        NA    NA   NA          
+## 2     83  188.     1        65.3  28.8  0.000000700
+```
+
+Test the main effect of math phobia
+
+```r
+anova(fit_ihno_lm_0, fit_ihno_lm_2)
+```
+
+```
+## # A tibble: 2 x 6
+##   Res.Df   RSS    Df `Sum of Sq`     F  `Pr(>F)`
+## *  <dbl> <dbl> <dbl>       <dbl> <dbl>     <dbl>
+## 1     84  253.    NA        NA    NA   NA       
+## 2     83  221.     1        32.3  12.1  0.000791
 ```
 
 
------------------------------------------------------
- Res.Df    RSS    Df   Sum of Sq     F      Pr(>F)   
--------- ------- ---- ----------- ------- -----------
-   84      253    NA      NA        NA        NA     
-
-   83     187.8   1      65.26     28.85   6.999e-07 
------------------------------------------------------
-
-Table: LRT: Main Effect of Math Quiz
-
-
+Test the main effect of math phobia,  after controlling for math test
 
 ```r
-anova(fit_ihno_lm_0, fit_ihno_lm_2) %>% 
-  pander::pander(caption = "LRT: Main Effect of Math Phobia")
+anova(fit_ihno_lm_1, fit_ihno_lm_3) 
+```
+
+```
+## # A tibble: 2 x 6
+##   Res.Df   RSS    Df `Sum of Sq`     F `Pr(>F)`
+## *  <dbl> <dbl> <dbl>       <dbl> <dbl>    <dbl>
+## 1     83  188.    NA        NA   NA     NA     
+## 2     82  175.     1        12.6  5.88   0.0175
+```
+
+Test the interaction between math test and math phobia (i.e. moderation)
+
+```r
+anova(fit_ihno_lm_3, fit_ihno_lm_4)
+```
+
+```
+## # A tibble: 2 x 6
+##   Res.Df   RSS    Df `Sum of Sq`      F `Pr(>F)`
+## *  <dbl> <dbl> <dbl>       <dbl>  <dbl>    <dbl>
+## 1     82  175.    NA       NA    NA       NA    
+## 2     81  173.     1        1.69  0.789    0.377
 ```
 
 
------------------------------------------------------
- Res.Df    RSS    Df   Sum of Sq     F      Pr(>F)   
--------- ------- ---- ----------- ------- -----------
-   84      253    NA      NA        NA        NA     
 
-   83     220.7   1      32.28     12.14   0.0007912 
------------------------------------------------------
+## Checking Assumptions via Residual Diagnostics
 
-Table: LRT: Main Effect of Math Phobia
-
+Before reporting a model, make sure to check the residules to ensure that the model assumptions are not violated.
 
 
 
 ```r
-anova(fit_ihno_lm_1, fit_ihno_lm_3) %>% 
-  pander::pander(caption = "LRT: Main Effect of Math Phobia, 
-                            after controlling for Math Test")
+plot(fit_ihno_lm_3, which = 1)
 ```
 
-
---------------------------------------------------
- Res.Df    RSS    Df   Sum of Sq     F     Pr(>F) 
--------- ------- ---- ----------- ------- --------
-   83     187.8   NA      NA        NA       NA   
-
-   82     175.2   1      12.57     5.881   0.0175 
---------------------------------------------------
-
-Table: LRT: Main Effect of Math Phobia, 
-                            after controlling for Math Test
-
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 
 ```r
-anova(fit_ihno_lm_3, fit_ihno_lm_4) %>% 
-  pander::pander(caption = "LRT: Interaction between Math Test and Math Phobia")
+plot(fit_ihno_lm_3, which = 2)
 ```
 
-
----------------------------------------------------
- Res.Df    RSS    Df   Sum of Sq     F      Pr(>F) 
--------- ------- ---- ----------- -------- --------
-   82     175.2   NA      NA         NA       NA   
-
-   81     173.5   1      1.689     0.7887   0.3771 
----------------------------------------------------
-
-Table: LRT: Interaction between Math Test and Math Phobia
-
-
-
-### Residual Diagnostics
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 
 
 ```r
-par(mfrow = c(2, 2))
-plot(fit_ihno_lm_3)
+car::residualPlots(fit_ihno_lm_3)
 ```
 
 <img src="70-example_Ihno_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
-```r
-par(mfrow = c(1, 1))
+```
+##            Test stat Pr(>|Test stat|)  
+## mathquiz     -1.7778          0.07918 .
+## phobia        0.5004          0.61813  
+## Tukey test   -1.5749          0.11527  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 
-### Final Model
+## Conclusion
+
+### Tabulate the Final Model Summary
+
+Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
+
+<div class="rmdlightbulb">
+<p>The <code>texreg</code> package contains three version of the regression table function.</p>
+<ul>
+<li><code>screenreg()</code> Use when working on a project and viewing tables on your computer screen</li>
+<li><code>htmlreg()</code> Use when knitting your <code>.Rmd</code> file to a <code>.html</code> document</li>
+<li><code>texreg()</code> Use when knitting your <code>.Rmd</code> file to a <code>.pdf</code> via LaTeX</li>
+</ul>
+</div>
 
 
 ```r
 texreg::htmlreg(fit_ihno_lm_3,
                custom.model.names = "Main Effects Model",
-               ci.force = TRUE,
+               ci.force = TRUE,                              # request 95% conf interv
                caption = "Final Model for Stat's Quiz",
                single.row = TRUE)
 ```
@@ -506,15 +451,21 @@ texreg::htmlreg(fit_ihno_lm_3,
 </table>
 
 
-### Plot Model
+### Plot the Model
+
+When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
+
+<div class="rmdlightbulb">
+<p>When plotting a regression model the outcome (dependent variable) is always on the y-axis (<code>fit</code>) and only one predictor (independent variable) may be used on the x-axis. You may incorporate additional predictor using colors, shapes, linetypes, or facets. For these predictors, you will want to specify only 2-4 values for illustration and then declare them as factors prior to plotting.</p>
+</div>
 
 
 ```r
 effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                 mod = fit_ihno_lm_3,
-                xlevels = list(phobia = c(0, 5, 10))) %>% 
+                xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
   data.frame %>% 
-  dplyr::mutate(phobia = factor(phobia)) %>% 
+  dplyr::mutate(phobia = factor(phobia)) %>%               # factor for illustration
   ggplot() +
   aes(x = mathquiz,
       y = fit,
@@ -535,29 +486,7 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
         legend.justification = c(0, 1))
 ```
 
-<div class="figure">
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-17-1.png" alt="Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-17)Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 
 

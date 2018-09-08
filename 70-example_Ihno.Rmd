@@ -4,22 +4,29 @@
 ## Packages
 
 ```{r, comment=FALSE, message=FALSE}
-library(tidyverse)
-library(haven)
-library(furniture)
-library(texreg)
-library(stargazer)
+library(tidyverse)       # super helpful everything!
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(car)             # companion for applied regression
 ```
 
 
+## Research Question
 
-## The Data
+> Does math phobia moderate the relationship between math and statistics performance?  That is, does the assocation between math and stat quiz performance differ at variaous levels of math phobia?
 
 
-Author's website for the textbook: http://www.psych.nyu.edu/cohen/EPS4e.html 
+## Data: Sample & Measures
+
+
+```{block type='rmdlink', echo=TRUE}
+ Inho's dataset is included in "Explaining Psychological Statistics" [@epse4] and is presented indetail previously in this Encyclopedia's [Vol. 2 - Ihno's Example](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
+```
 
 ```{r}
-data_ihno <- read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
+data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(gender = factor(gender, 
                                levels = c(1, 2),
@@ -47,100 +54,51 @@ data_ihno <- read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>%
                                 levels = c(0, 1),
                                 labels = c("Not a regular coffee drinker",
                                            "Regularly drinks coffee"))) 
-
-data_ihno
-```
-
-### Describe the Raw Data
-
-#### Table of Summary Statistics
-
-```{r, results='asis'}
-data_ihno %>% 
-  furniture::table1(phobia, statquiz, mathquiz,
-                    test = TRUE,
-                    output = "markdown")
 ```
 
 
+## Exploratory Data Analysis
+
+Before enbarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time (univariate), as well as pairwise (bivariate).
 
 ```{r, results='asis'}
 data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  furniture::table1(phobia, statquiz, mathquiz,
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  stargazer::stargazer(type = "html")
+```
+
+
+```{r, results='asis'}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia,
+                                 breaks = c(0, 2, 4, 10),
+                                 include.lowest = TRUE)) %>% 
+  furniture::table1(mathquiz, statquiz,
                     splitby = ~ phobia_cut3,
                     test = TRUE,
                     output = "markdown")
 ```
 
-
-
-
-#### Plot of Raw Data
-
 ```{r}
 data_ihno %>% 
-  ggplot() +
-  aes(phobia) +
-  geom_histogram(binwidth = 1)
-```
-
-
-```{r}
-data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  ggplot() +
-  aes(phobia,
-      fill = phobia_cut3) +
-  geom_histogram(binwidth = 1)
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  cor(use = "complete.obs") %>% 
+  corrplot::corrplot.mixed(lower  = "ellipse",
+                           upper  = "number",
+                           tl.col = "black")
 ```
 
 
 
-```{r}
-data_ihno %>% 
-  ggplot() +
-  aes(x = mathquiz,
-      y = statquiz) +
-  geom_point()
-```
+## Fitting Nested Models
 
-```{r}
-data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  ggplot() +
-  aes(x = mathquiz,
-      y = statquiz,
-      color = phobia_cut3) +
-  geom_point()
-```
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
+
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other. 
 
 
 ```{r}
-data_ihno %>% 
-  dplyr::mutate(phobia_cut3 = cut(phobia, 
-                                  breaks = c(0, 2, 4, 10),
-                                  include.lowest = TRUE)) %>% 
-  ggplot() +
-  aes(x = mathquiz,
-      y = statquiz) +
-  geom_count() +
-  facet_grid(. ~ phobia_cut3)
-```
-
-
-## Regression
-
-### Fit Nested Models (bottom up)
-
-
-```{r, results='asis'}
 fit_ihno_lm_0 <- lm(statquiz ~ 1,
                     data = data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
@@ -160,75 +118,117 @@ fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,
 fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,
                     data = data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia)))
+```
 
+
+
+## Comparing Nested Models
+
+
+### Model Comparison Table
+
+In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
+
+> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction, which would be multaplicative or suppressory).  
+
+```{r, results='asis'}
 texreg::htmlreg(list(fit_ihno_lm_0, 
-                     fit_ihno_lm_1, fit_ihno_lm_2, 
-                     fit_ihno_lm_3, fit_ihno_lm_4),
-                  custom.model.names = c("No Predictors", "Only Math Quiz", 
-                                         "Only Phobia", "Both IVs", 
-                                         "Add Interaction"))
+                     fit_ihno_lm_1, 
+                     fit_ihno_lm_2, 
+                     fit_ihno_lm_3, 
+                     fit_ihno_lm_4),
+                custom.model.names = c("No Predictors", 
+                                       "Only Math Quiz", 
+                                       "Only Phobia", 
+                                       "Both IVs", 
+                                       "Add Interaction"))
 ```
 
-### Compare Models
 
-Likelihood Ratio Test of Nested Models
+
+### Likelihood Ratio Test of Nested Models
+
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involved comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+Test the main effect of math quiz:
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_1)
+```
+
+Test the main effect of math phobia
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_2)
+```
+
+
+Test the main effect of math phobia,  after controlling for math test
+```{r}
+anova(fit_ihno_lm_1, fit_ihno_lm_3) 
+```
+
+Test the interaction between math test and math phobia (i.e. moderation)
+```{r}
+anova(fit_ihno_lm_3, fit_ihno_lm_4)
+```
+
+
+
+## Checking Assumptions via Residual Diagnostics
+
+Before reporting a model, make sure to check the residules to ensure that the model assumptions are not violated.
+
 
 ```{r}
-anova(fit_ihno_lm_0, fit_ihno_lm_1) %>% 
-  pander::pander(caption = "LRT: Main Effect of Math Quiz")
+plot(fit_ihno_lm_3, which = 1)
+```
+
+```{r}
+plot(fit_ihno_lm_3, which = 2)
 ```
 
 
 ```{r}
-anova(fit_ihno_lm_0, fit_ihno_lm_2) %>% 
-  pander::pander(caption = "LRT: Main Effect of Math Phobia")
+car::residualPlots(fit_ihno_lm_3)
 ```
 
 
+## Conclusion
 
-```{r}
-anova(fit_ihno_lm_1, fit_ihno_lm_3) %>% 
-  pander::pander(caption = "LRT: Main Effect of Math Phobia, 
-                            after controlling for Math Test")
+### Tabulate the Final Model Summary
+
+Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `texreg` package contains three version of the regression table function.  
+
+* `screenreg()` Use when working on a project and viewing tables on your computer screen
+* `htmlreg()` Use when knitting your `.Rmd` file to a `.html` document 
+* `texreg()` Use when knitting your `.Rmd` file to a `.pdf` via LaTeX
 ```
-
-
-```{r}
-anova(fit_ihno_lm_3, fit_ihno_lm_4) %>% 
-  pander::pander(caption = "LRT: Interaction between Math Test and Math Phobia")
-```
-
-
-
-### Residual Diagnostics
-
-
-```{r}
-par(mfrow = c(2, 2))
-plot(fit_ihno_lm_3)
-par(mfrow = c(1, 1))
-```
-
-
-### Final Model
 
 ```{r, results='asis'}
 texreg::htmlreg(fit_ihno_lm_3,
                custom.model.names = "Main Effects Model",
-               ci.force = TRUE,
+               ci.force = TRUE,                              # request 95% conf interv
                caption = "Final Model for Stat's Quiz",
                single.row = TRUE)
 ```
 
 
-### Plot Model
+### Plot the Model
 
-```{r, fig.cap="Illustration of the effects of the background math quiz score and self-rated math phobia on the baseline statistics quiz. Confidence bands represent one standard error from the mean."}
+When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
+
+```{block type='rmdlightbulb', echo=TRUE}
+When plotting a regression model the outcome (dependent variable) is always on the y-axis (`fit`) and only one predictor (independent variable) may be used on the x-axis.  You may incorporate additional predictor using colors, shapes, linetypes, or facets. For these predictors, you will want to specify only 2-4 values for illustration and then declare them as factors prior to plotting.
+```
+
+```{r}
 effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                 mod = fit_ihno_lm_3,
-                xlevels = list(phobia = c(0, 5, 10))) %>% 
+                xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
   data.frame %>% 
-  dplyr::mutate(phobia = factor(phobia)) %>% 
+  dplyr::mutate(phobia = factor(phobia)) %>%               # factor for illustration
   ggplot() +
   aes(x = mathquiz,
       y = fit,
@@ -248,25 +248,6 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
         legend.position = c(0, 1),
         legend.justification = c(0, 1))
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
