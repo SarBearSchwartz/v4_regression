@@ -4,45 +4,42 @@
 ## Packages
 
 ```{r, comment=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(furniture)
-library(texreg)
-library(stargazer)
-library(psych)
-library(car)
-library(gpairs)
-library(GGally)
-library(corrplot)
-library(ggthemes)
-library(RColorBrewer)
-library(effects)
-library(ISwR)  # Introduction to Statistics with R (datasets)
+library(tidyverse)       # super helpful everything!
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(corrplot)        # visualize correlations
+library(car)             # companion for applied regression
+library(psych)           # lots of handy tools
 ```
 
 
+## Purpose
 
-## The Data
+### Research Question
 
 
-Load dataset that is included in the `ISwR` package
+
+### Data Description
+
+
+This dataset is included in the `ISwR` package [@R-ISwR], which was a companion to the texbook "Introductory Statistics with R, 2nd ed." [@dalgaard2008], although it was first published by @brown1977.  
+
+To view the documentation for the dataset, type `?bp.obese` in the console and enter or search the help tab for `bp.obese'.
+
+> The `bp.obese` data frame has 102 rows and 3 columns. It contains data from a random sample of Mexican-American adults in a small California town.
+
+This data frame contains the following columns:
+
+* `sex` a numeric vector code, 0: male, 1: female
+* `obese` a numeric vector, ratio of actual weight to ideal weight from New York Metropolitan Life Tables
+* `bp` a numeric vector,systolic blood pressure (mm Hg)
+
 
 ```{r}
 data(bp.obese)
-```
 
-View documentation for the dataset (required for all data included in packages) by typeing `?bp.obese` in the console
-
-Have a quick *look* at what we have in the data:
-
-
-```{r}
-glimpse(bp.obese)
-```
-
-### Declare and Label Factors
-
-```{r}
 bp.obese <- bp.obese %>% 
   dplyr::mutate(sex = factor(sex,
                              labels = c("Male", "Female"))) 
@@ -50,22 +47,23 @@ bp.obese <- bp.obese %>%
 glimpse(bp.obese)
 ```
 
-## Explore the Raw Data
 
-### Tabular Descriptions: Summary Statistics
+
+## Exploratory Data Analysis
+
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+
+
+### Univariate Statistics
+
+Summary Statistics for all three variables of interest.
 
 ```{r, results='asis'}
-stargazer::stargazer(bp.obese,
-                     type = "html")  
+bp.obese %>% 
+  stargazer::stargazer(type = "html")
 ```
 
-
-
-```{r, results='asis'}
-furniture::table1(bp.obese,
-                  output = "html")  
-```
-
+### Bivariate Relationships
 
 
 ```{r, results='asis'}
@@ -78,48 +76,7 @@ bp.obese %>%
 
 
 
-
-### Visualization
-
-`base` graphics:
-
 ```{r}
-pairs(bp.obese)
-```
-
-`psych` package:
-
-```{r}
-psych::pairs.panels(bp.obese)
-```
-
-
-`gpairs` package:
-
-```{r}
-gpairs::gpairs(bp.obese)
-```
-
-Change up the defaults:
-
-```{r}
-gpairs::gpairs(bp.obese, 
-               upper.pars   = list(scatter = "stats"),
-               scatter.pars = list(col = as.numeric(bp.obese$sex)))
-```
-
-
-`GGally` package (wrapper for `ggplot2`):
-
-```{r}
-GGally::ggpairs(bp.obese)
-```
-
-
-Use the options to make it even better:
-
-```{r}
-# fancy options (I can't figure out how to change the color palette)
 GGally::ggpairs(bp.obese,
                 mapping = aes(fill      = sex,
                               col       = sex,
@@ -135,19 +92,8 @@ GGally::ggpairs(bp.obese,
 
 
 
-
-`ggplot2`: specify plot type
-
 ```{r}
-ggplot(data = bp.obese, 
-       mapping = aes(x = sex, y = bp)) + 
-  geom_boxplot() 
-```
-
-`ggplots` can be assigned (stored to an object and refered to by name)
-
-```{r}
-fig_bp_by_sex <- bp.obese %>% 
+bp.obese %>% 
   ggplot() +
   aes(x    = sex, 
       y    = bp,
@@ -160,93 +106,15 @@ fig_bp_by_sex <- bp.obese %>%
   theme_bw()
 ```
 
-Call the plot by just the name it was assigned
-
-```{r}
-fig_bp_by_sex
-```
-
-Add onto a plot...change to a theme from the `ggplot2` package
-```{r}
-fig_bp_by_sex + theme_gray()        # 'gray' is the default
-fig_bp_by_sex + theme_bw()
-fig_bp_by_sex + theme_classic()
-fig_bp_by_sex + theme_dark()
-fig_bp_by_sex + theme_minimal()
-fig_bp_by_sex + theme_linedraw()
-```
-
-add onto a plot...change to a theme from the `ggthemes` package
-
-```{r}
-fig_bp_by_sex + theme_tufte()             # Ed Tufte - author, minimalist
-fig_bp_by_sex + theme_stata()             # Stata is a stats software
-fig_bp_by_sex + theme_economist()         # 'The Economist' magazine
-fig_bp_by_sex + theme_economist_white()
-fig_bp_by_sex + theme_wsj()               # 'The Wall Street Journal
-fig_bp_by_sex + theme_calc()              # based on Google Docs
-fig_bp_by_sex + theme_hc()   
-```
 
 Visual inspection for an interaction (is gender a moderator?)
 
 ```{r}
-fig_bp_by_obese <- bp.obese %>% 
+bp.obese %>% 
   ggplot(aes(x     = obese,
              y     = bp,
              color = sex)) +
-  geom_point(size  = 3)
-
-fig_bp_by_obese
-```
-
-Can save as: pdf, jpeg, tiff, png, bmp, ... (see help) 
-
-```{r, eval=FALSE}
-ggsave("fig_bp_by_obese.png",     # name of file w/extension 
-       fig_bp_by_obese,           # name of the ggplot object
-       width  = 5,                # size, width
-       height = 5,                # size, height
-       units  = "in")             # size, units for width & height
-```
-
-add a smoother...the regression line with a conf bands for the mean
-
-```{r}
-fig_bp_by_obese + geom_smooth(method = "lm")
-```
-
-
-create seperate panels
-```{r}
-fig_bp_by_obese + facet_grid(. ~ sex) 
-```
-
-
-```{r}
-fig_bp_by_obese + 
-  facet_grid(. ~ sex) + 
-  geom_smooth(method = "lm", level = .95)
-```
-
-get fancy
-
-```{r}
-fig_bp_by_obese + 
-  facet_grid(. ~ sex) + 
-  geom_smooth(method = "lm",
-              se     = FALSE,
-              size   = 0.9) +
-  theme_bw() +
-  guides(color = FALSE) +
-  labs(title = "Does Gender Moderated the Obese-Blood Pressure Assocation?") +
-  scale_color_manual(values = c("mediumblue", "maroon3")) 
-```
-
-get even fancier
-
-```{r}
-fig_bp_by_obese +
+  geom_point(size  = 3)  +
   geom_smooth(aes(fill = sex),
               alpha  = 0.2,
               method = "lm") +
@@ -272,262 +140,119 @@ fig_bp_by_obese +
 
 
 
-### Codrrelation: pairwise, un-adjusted 
 
-
-calculate the correlation - nested format
-```{r}
-cor(as.numeric(bp.obese$sex), bp.obese$bp)
-```
-
-calculate the correlation - with the pipe
 
 ```{r}
 bp.obese %>% 
   dplyr::mutate(sex = as.numeric(sex)) %>%  # cor needs only numeric
-  cor() 
+  cor() %>% 
+  round(3)
 ```
 
 
 ```{r}
 bp.obese %>% 
   dplyr::mutate(sex = as.numeric(sex)) %>%  # cor needs only numeric
-  dplyr::select(sex, bp) %>%                # limit to only 2 vars
-  cor()                                # optional () on end if empty
-```
-
-
-```{r}
-bp.obese %>% 
-  dplyr::mutate(sex = as.numeric(sex)) %$%  # allows you to call vars by name
-  cor(sex, bp)                            # just 'var' without the 'data$'
+  cor() %>% 
+  corrplot::corrplot.mixed(lower  = "ellipse",
+                           upper  = "number",
+                           tl.col = "black")
 ```
 
 
 
-addign the correlation matrix to a named object
 
-```{r}
-cor_bp <- bp.obese %>% 
-  dplyr::mutate(sex = as.numeric(sex)) %>% 
-  cor() 
-
-cor_bp
-```
+## Regression Analysis
 
 
-```{r}
-cor_bp %>% round(3)
-```
-
-### Correlograms - visually display correlation matrix
-
-
-
-all defaults
-```{r}
-corrplot::corrplot(cor_bp)
-```
-
+### Fit Nested Models 
                    
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
 
-change the visualization glyphs   
-```{r}
-corrplot::corrplot(cor_bp, method = "ellipse") 
-```
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.   
 
 
 ```{r}
-corrplot::corrplot(cor_bp, method = "pie")   
+fit_bp_null   <- lm(bp ~ 1,            data = bp.obese) 
+fit_bp_sex    <- lm(bp ~ sex,          data = bp.obese) 
+fit_bp_obe    <- lm(bp ~ obese,        data = bp.obese)
+fit_bp_obesex <- lm(bp ~ obese + sex,  data = bp.obese)
+fit_bp_inter  <- lm(bp ~ obese*sex,    data = bp.obese)
 ```
 
-
-```{r}    
-corrplot::corrplot(cor_bp, method = "color") 
-```
+### Comparing Nested Models
 
 
-```{r}
-corrplot::corrplot(cor_bp, method = "number") 
-```
+#### Model Comparison Table
 
-full matrix, or only the upper or lower half shown
-```{r}
-corrplot::corrplot(cor_bp, type = "upper") 
-```
-
-```{r}
-corrplot::corrplot(cor_bp, type = "lower") 
-```
-
-
-Brewer color palettes
-
-```{r}
-display.brewer.all()
-```
-
-
-
-change the colors used on the glyphs
-
-```{r}
-corrplot::corrplot(cor_bp, col = brewer.pal(n = 8,  name = "RdBu")) 
-```
-
-```{r}
-corrplot::corrplot(cor_bp, col = brewer.pal(n = 6,  name = "RdYlBu")) 
-```
-
-```{r}
-corrplot::corrplot(cor_bp, col = brewer.pal(n = 10, name = "PuOr")) 
-```
-
-get a bit fancier
-
-```{r}
-corrplot::corrplot.mixed(cor_bp)
-```
-
-```{r}
-corrplot::corrplot.mixed(cor_bp,
-                       lower  = "ellipse",
-                       upper  = "number",
-                       tl.col = "black")
-```
-
-
-
-## Multiple Linear Regression (MLR)
-
-
-assign the model to an object you can call by name
-```{r}
-fit_bp_sex <- lm(bp ~ sex, data = bp.obese) # fit the model
-```
-
-
-###Call the model object several ways
-
-what does the "lm" function save for you?
-
-```{r}
-attributes(fit_bp_sex)
-```
-
-what output does calling the name print?
-
-```{r}
-fit_bp_sex 
-```
-
-this call gives you MORE output
-
-```{r}
-summary(fit_bp_sex) 
-```
-
-you can access just the betas 
-
-```{r}
-coef(fit_bp_sex) 
-```
-
-the CI's for the betas
-
-```{r}
-confint(fit_bp_sex)
-```
-
-you can call just the ANOVA table
-
-```{r}
-anova(fit_bp_sex) 
-```
-
-### Model fit indicies
-
--2LL to compare nested models
-```{r}
-logLik(fit_bp_sex) 
-```
-
-```{r}
-AIC(fit_bp_sex)
-```
-
-```{r}
-BIC(fit_bp_sex)
-```
-
-
-### Tablular Results
-
-```{r, results='asis'}
-stargazer::stargazer(fit_bp_sex,
-                     type = "html")
-```
+In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
 
 
 ```{r, results='asis'}
-stargazer(fit_bp_sex, 
-          type = "html", 
-          single.row = TRUE, 
-          ci = TRUE)
+texreg::htmlreg(list(fit_bp_null,
+                     fit_bp_sex, 
+                     fit_bp_obe, 
+                     fit_bp_obesex, 
+                     fit_bp_inter),
+                custom.model.names = c("No Predictors", 
+                                       "Only Sex Quiz", 
+                                       "Only Obesity", 
+                                       "Both IVs", 
+                                       "Add Interaction"))
 ```
 
 
 
-### Fit Nested Models
+#### Likelihood Ratio Test of Nested Models
+
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+* Test the main effect of math quiz:
+```{r}
+anova(fit_bp_null, fit_bp_sex)
+```
+
+* Test the main effect of math phobia
+```{r}
+anova(fit_bp_null, fit_bp_obe)
+```
+
+
+* Test the main effect of math phobia,  after controlling for math test
+```{r}
+anova(fit_bp_obe, fit_bp_obesex) 
+```
+
+* Test the interaction between math test and math phobia (i.e. moderation)
+```{r}
+anova(fit_bp_obesex, fit_bp_inter)
+```
+
+
+
+
+### Checking Assumptions via Residual Diagnostics
+
+Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
 
 ```{r}
-fit_bp_obe    <- lm(bp ~ obese,                   data = bp.obese)
-fit_bp_obesex <- lm(bp ~ obese + sex,             data = bp.obese)
-fit_bp_inter  <- lm(bp ~ obese + sex + obese*sex, data = bp.obese)
-```
-
-```{r, results='asis'}
-stargazer::stargazer(fit_bp_sex, fit_bp_obe, fit_bp_obesex, fit_bp_inter,
-                     type = "html",
-                     title = "Model Comparison",
-                     intercept.bottom = FALSE,
-                     keep.stat = c("rsq", "adj.rsq", "aic"))
-```
-
-
-### Test Assumptions w/ residual diagnostics
-
-
-The residual plots are hard to use when the single IV is binary
-
-using `base` R 
-```{r}
-plot(fit_bp_sex)  
-```
-
-```{r}
-plot(fit_bp_sex, which = 1)  # Residuals vs Fitted
-plot(fit_bp_sex, which = 2)  # Normal Q-Q
-plot(fit_bp_sex, which = 3)  # Scale-Location
-plot(fit_bp_sex, which = 4)  # Cook's distance
-plot(fit_bp_sex, which = 5)  # Residuals vs Leverage
-plot(fit_bp_sex, which = 6)  # Cook's dist vs Leverage
+plot(fit_bp_obesex, which = 1)  
 ```
 
 
 ```{r}
-plot(fit_bp_sex, which = 4, id.n = 10)  # Change the number labeled
+plot(fit_bp_obesex, which = 4, id.n = 10)  # Change the number labeled
 ```
 
 using the `car` package
 ```{r}
-car::residualPlots(fit_bp_sex)    
+car::residualPlots(fit_bp_obesex)    
 ```
 
 you can adjust any part of a ggplot
 ```{r}
 bp.obese %>% 
-  dplyr::mutate(e_bp = resid(fit_bp_sex)) %>%  # add the resid to the dataset
+  dplyr::mutate(e_bp = resid(fit_bp_obesex)) %>%  # add the resid to the dataset
   ggplot(aes(x     = sex,               # x-axis variable name
              y     = e_bp,              # y-axis variable name
              color = sex,               # color is the outline
@@ -547,18 +272,11 @@ bp.obese %>%
   guides(color = FALSE, fill = FALSE)               # no legends included
 ```
 
-If you don't specify a name of a ggplot object, it will save the last one created (see 'Plots' tab)
- 
-```{r, eval=FALSE} 
-ggsave("fig_resid-bp_by_obese.png",  # name of file w/extension 
-       width  = 5,                   # size, width
-       height = 5,                   # size, height
-       units  = "in")                # size, units for width & height
-```
+
 
 ```{r}
 bp.obese %>% 
-  dplyr::mutate(e_bp = resid(fit_bp_sex)) %>%  # add the resid to the dataset
+  dplyr::mutate(e_bp = resid(fit_bp_obesex)) %>%  # add the resid to the dataset
   ggplot(aes(x     = e_bp,              # y-axis variable name
              color = sex,               # color is the outline
              fill  = sex)) +            # fill is the inside
@@ -575,9 +293,9 @@ bp.obese %>%
                                   by   =  20))  # tick marks at
 ```
 
+## Conclusion
 
-
-
+Violations to the assumtions call the reliabity of the regression results into question.  The data should be further investigated, specifically the $102^{nd}$ case.   
 
 
 

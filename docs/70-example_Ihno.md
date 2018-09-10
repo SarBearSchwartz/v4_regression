@@ -12,6 +12,7 @@ library(furniture)       # nice tables of descriptives
 library(texreg)          # nice regression summary tables
 library(stargazer)       # nice tables of descrip and regression
 library(car)             # companion for applied regression
+library(psych)           # lots of handy tools
 ```
 
 ## Purpose
@@ -99,20 +100,75 @@ data_ihno %>%
   furniture::table1(mathquiz, statquiz,
                     splitby = ~ phobia_cut3,
                     test = TRUE,
-                    output = "markdown")
+                    output = "html")
 ```
 
+<table>
+ <thead>
+  <tr>
+   <th>   </th>
+   <th> [0,2] </th>
+   <th> (2,4] </th>
+   <th> (4,10] </th>
+   <th> P-Value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td>  </td>
+   <td> n = 39 </td>
+   <td> n = 37 </td>
+   <td> n = 24 </td>
+   <td>  </td>
+  </tr>
+  <tr>
+   <td> mathquiz </td>
+   <td>  </td>
+   <td>  </td>
+   <td>  </td>
+   <td> 0.014 </td>
+  </tr>
+  <tr>
+   <td>  </td>
+   <td> 32.6 (8.5) </td>
+   <td> 26.5 (9.8) </td>
+   <td> 26.8 (8.9) </td>
+   <td>  </td>
+  </tr>
+  <tr>
+   <td> statquiz </td>
+   <td>  </td>
+   <td>  </td>
+   <td>  </td>
+   <td> 0.001 </td>
+  </tr>
+  <tr>
+   <td>  </td>
+   <td> 7.6 (1.3) </td>
+   <td> 6.6 (1.6) </td>
+   <td> 6.1 (2.0) </td>
+   <td>  </td>
+  </tr>
+</tbody>
+</table>
 
 
-|          |   [0,2]    |   (2,4]    |   (4,10]   | P-Value |
-|----------|------------|------------|------------|---------|
-|          |   n = 39   |   n = 37   |   n = 24   |         |
-| mathquiz |            |            |            |  0.014  |
-|          | 32.6 (8.5) | 26.5 (9.8) | 26.8 (8.9) |         |
-| statquiz |            |            |            |  0.001  |
-|          | 7.6 (1.3)  | 6.6 (1.6)  | 6.1 (2.0)  |         |
 
-When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.
+
+```r
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  psych::pairs.panels(lm = TRUE, 
+                      ci = TRUE,
+                      stars = TRUE)
+```
+
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" />
+
+When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.  
+
+Notice the discrepincy between the correlation between `statquiz` and `phobia`.  Above, the `psych::pairs.panels()` function uses **pairwise complete** cases by default, so $r=-.39$ is computed on all $n=100$ subjects.  Below, we specified `use = "complete.obs"` in the `cor()` fucntion, so all correlations will be based on the same $n=85$ students, making it **listwise complete**.  The choice of which method to you will vary by situation.
 
 
 ```r
@@ -124,7 +180,7 @@ data_ihno %>%
                            tl.col = "black")
 ```
 
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" />
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" />
 
 
 
@@ -389,21 +445,21 @@ Before reporting a model, ALWAYS make sure to check the residules to ensure that
 plot(fit_ihno_lm_3, which = 1)
 ```
 
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" />
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
 plot(fit_ihno_lm_3, which = 2)
 ```
 
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
 car::residualPlots(fit_ihno_lm_3)
 ```
 
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
 
 ```
            Test stat Pr(>|Test stat|)  
@@ -574,7 +630,7 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
         legend.justification = c(0, 1))
 ```
 
-<img src="70-example_Ihno_files/figure-html/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" />
+<img src="70-example_Ihno_files/figure-html/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ## Write-up

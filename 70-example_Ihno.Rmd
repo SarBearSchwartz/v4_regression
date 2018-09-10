@@ -18,7 +18,9 @@ library(haven)           # inporting SPSS data files
 library(furniture)       # nice tables of descriptives
 library(texreg)          # nice regression summary tables
 library(stargazer)       # nice tables of descrip and regression
+library(corrplot)        # visualize correlations
 library(car)             # companion for applied regression
+library(psych)           # lots of handy tools
 ```
 
 ## Purpose
@@ -96,10 +98,23 @@ data_ihno %>%
   furniture::table1(mathquiz, statquiz,
                     splitby = ~ phobia_cut3,
                     test = TRUE,
-                    output = "markdown")
+                    output = "html")
 ```
 
-When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.
+
+
+```{r}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  psych::pairs.panels(lm = TRUE, 
+                      ci = TRUE,
+                      stars = TRUE)
+```
+
+When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.  
+
+Notice the discrepincy between the correlation between `statquiz` and `phobia`.  Above, the `psych::pairs.panels()` function uses **pairwise complete** cases by default, so $r=-.39$ is computed on all $n=100$ subjects.  Below, we specified `use = "complete.obs"` in the `cor()` fucntion, so all correlations will be based on the same $n=85$ students, making it **listwise complete**.  The choice of which method to you will vary by situation.
 
 ```{r}
 data_ihno %>% 
