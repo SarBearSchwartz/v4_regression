@@ -1,0 +1,345 @@
+# Example: Ihno's Experiment (interaction between two continuous IVs)
+
+![](images/common/Ihno_header.PNG)
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)       # super helpful everything!
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(corrplot)        # visualize correlations
+library(car)             # companion for applied regression
+library(effects)         # effect displays for models
+library(psych)           # lots of handy tools
+```
+
+
+
+## Purpose
+
+### Research Question
+
+> Does math phobia moderate the relationship between math and statistics performance?  That is, does the assocation between math and stat quiz performance differ at variaous levels of math phobia?
+
+
+### Data Description
+
+
+```{block type='rmdlink', echo=TRUE}
+Inho's dataset is included in the textbook "Explaining Psychological Statistics" [@epse4] and details regarding the sample and measures is describe in this Encyclopedia's [Vol. 2 - Ihno's Dataset](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
+```
+
+```{r}
+data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(gender = factor(gender, 
+                               levels = c(1, 2),
+                               labels = c("Female", 
+                                          "Male"))) %>% 
+  dplyr::mutate(major = factor(major, 
+                              levels = c(1, 2, 3, 4,5),
+                              labels = c("Psychology",
+                                         "Premed",
+                                         "Biology",
+                                         "Sociology",
+                                         "Economics"))) %>% 
+  dplyr::mutate(reason = factor(reason,
+                                levels = c(1, 2, 3),
+                                labels = c("Program requirement",
+                                           "Personal interest",
+                                           "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_cond = factor(exp_cond,
+                                  levels = c(1, 2, 3, 4),
+                                  labels = c("Easy",
+                                             "Moderate",
+                                             "Difficult",
+                                             "Impossible"))) %>% 
+  dplyr::mutate(coffee = factor(coffee,
+                                levels = c(0, 1),
+                                labels = c("Not a regular coffee drinker",
+                                           "Regularly drinks coffee"))) 
+```
+
+
+## Exploratory Data Analysis
+
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+
+
+### Univariate Statistics
+
+Summary Statistics for all three variables of interest [@R-stargazer].
+
+```{r, results='asis'}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  stargazer::stargazer(type = "html")
+```
+
+### Bivariate Relationships
+
+The `furniture` package's `table1()` function is a clean way to create a descriptive table that compares distinct subgroups of your sample [@R-furniture].
+
+Although categorizing continuous variables results in a loss of information *(possible signal or noise)*, it is often done to investigate relationships in an exploratory way.
+
+```{r, results='asis'}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia,
+                                 breaks = c(0, 2, 4, 10),
+                                 include.lowest = TRUE)) %>% 
+  furniture::table1(mathquiz, statquiz,
+                    splitby = ~ phobia_cut3,
+                    test = TRUE,
+                    output = "html")
+```
+
+
+One of the quickest ways to get a feel for all the pairwise relationships in your dataset (provided there aren't too many variables) is with the `pairs.panels()` function in the `psych` package [@R-psych]. 
+
+```{r}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  psych::pairs.panels(lm = TRUE, 
+                      ci = TRUE,
+                      stars = TRUE)
+```
+
+When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.  
+
+Notice the discrepincy between the correlation between `statquiz` and `phobia`.  Above, the `psych::pairs.panels()` function uses **pairwise complete** cases by default, so $r=-.39$ is computed on all $n=100$ subjects.  Below, we specified `use = "complete.obs"` in the `cor()` fucntion, so all correlations will be based on the same $n=85$ students, making it **listwise complete**.  The choice of which method to you will vary by situation.
+
+
+Often it is easier to digest a correlation matrix if it is visually presented, instead of just given as a table of many numbers.  The `corrplot` package has a useful function called `corrplot.mixed()` for doing just that [@R-corrplot].
+
+```{r}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  cor(use = "complete.obs") %>% 
+  corrplot::corrplot.mixed(lower  = "ellipse",
+                           upper  = "number",
+                           tl.col = "black")
+```
+
+
+
+## Regression Analysis
+
+### Subset the Sample
+
+
+All regression models can only be fit to complete observations regarding the variables included in the model (dependent and independent).  Removing any case that is incomplete with respect to even one variables is called **"list-wise deletion"**.  
+
+In this analysis, models including the `mathquiz` variable will be fit on only 85 students (sincle 15 students did not take the math quiz), where as models not including this variable will be fit to all 100 studnets.  
+
+This complicates model comparisons, which require nested models be fit to the same data (exactly).  For this reason, the dataset has been reduced to the subset of students that are complete regarding the three variables utilized throughout the set of five nested models.
+
+
+```{r}
+data_ihno_fitting <- data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
+
+dim(data_ihno_fitting)
+```      
+ 
+
+### Fit Nested Models 
+                   
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
+
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.                                     
+                                    
+```{r}
+fit_ihno_lm_0 <- lm(statquiz ~ 1,                    # null model: intercept only
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,             # only main effect of mathquiz
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_2 <- lm(statquiz ~ phobia,               # only mian effect of phobia
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,    # both main effects 
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,      # additional interaction
+                    data = data_ihno_fitting)
+```
+
+
+
+### Comparing Nested Models
+
+
+#### Model Comparison Table
+
+In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
+
+Again the `texreg` package comes in handy to display several models in the same tal e [@R-texreg].
+
+
+```{r, results='asis'}
+texreg::htmlreg(list(fit_ihno_lm_0, 
+                     fit_ihno_lm_1, 
+                     fit_ihno_lm_2, 
+                     fit_ihno_lm_3, 
+                     fit_ihno_lm_4),
+                custom.model.names = c("No Predictors", 
+                                       "Only Math Quiz", 
+                                       "Only Phobia", 
+                                       "Both IVs", 
+                                       "Add Interaction"))
+```
+
+
+
+#### Likelihood Ratio Test of Nested Models
+
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+* Test the main effect of math quiz:
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_1)
+```
+
+* Test the main effect of math phobia
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_2)
+```
+
+
+* Test the main effect of math phobia,  after controlling for math test
+```{r}
+anova(fit_ihno_lm_1, fit_ihno_lm_3) 
+```
+
+* Test the interaction between math test and math phobia (i.e. moderation)
+```{r}
+anova(fit_ihno_lm_3, fit_ihno_lm_4)
+```
+
+
+
+### Checking Assumptions via Residual Diagnostics
+
+Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
+
+
+```{r}
+plot(fit_ihno_lm_3, which = 1)
+```
+
+```{r}
+plot(fit_ihno_lm_3, which = 2)
+```
+
+
+The `car` package has a handy function called `residualPlots()` for displaying residual plots quickly [@R-car].
+
+
+```{r}
+car::residualPlots(fit_ihno_lm_3)
+```
+
+
+While the model tables give starts to denote significance, you may print the actual p-values with the `summary()` function applied to the model name.
+
+```{r}
+summary(fit_ihno_lm_3)
+```
+
+
+```{r}
+summary(fit_ihno_lm_4)
+```
+
+
+
+## Conclusion
+
+
+### Tabulate the Final Model Summary
+
+Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `texreg` package contains three version of the regression table function [@R-texreg].  
+
+* `screenreg()` Use when working on a project and viewing tables on your computer screen
+* `htmlreg()` Use when knitting your .Rmd file to a .html document 
+* `texreg()` Use when knitting your .Rmd file to a .pdf via LaTeX
+```
+
+```{r, results='asis'}
+texreg::htmlreg(fit_ihno_lm_3,
+               custom.model.names = "Main Effects Model",
+               ci.force = TRUE,                              # request 95% conf interv
+               caption = "Final Model for Stat's Quiz",
+               single.row = TRUE)
+```
+
+
+### Plot the Model
+
+When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
+
+The `Effect()` function from the `effects` package chooses '5 or 6 nice values' for each of your continuous independent variable ($X's$) based on the range of values found in the dataset on which the model and plugs all possible combinations of them into the regression equation $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 \dots \beta_k X_k$ to compute the predicted *mean* value of the outcome ($Y$) [@R-effects].
+
+```{block type='rmdlightbulb', echo=TRUE}
+When plotting a regression model the outcome (dependent variable) is always on the y-axis (`fit`) and only one predictor (independent variable) may be used on the x-axis.  You may incorporate additional predictor using colors, shapes, linetypes, or facets. For these predictors, you will want to specify only 2-4 values for illustration and then declare them as factors prior to plotting.
+```
+
+```{r}
+effects::Effect(focal.predictors = c("mathquiz", "phobia"),
+                mod = fit_ihno_lm_3,
+                xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
+  data.frame %>% 
+  dplyr::mutate(phobia = factor(phobia)) %>%               # factor for illustration
+  ggplot() +
+  aes(x = mathquiz,
+      y = fit,
+      fill = phobia,
+      color = phobia) +
+  geom_ribbon(aes(ymin = fit - se, 
+                  ymax = fit + se),
+              alpha = .3) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Score on Math Quiz",
+       y = "Estimated Marginal Mean\nScore on Stat Quiz",
+       fill  = "Self Rated\nMath Phobia",
+       color = "Self Rated\nMath Phobia") +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(0, 1))
+```
+
+
+## Write-up
+
+> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction).
+
+
+There is a strong association between math and stats quiz scores, $r = .51$.  Math phobia is associated with lower math, $r = -.28$, and stats quiz scores, $r = -.36$.  When considered togehter, the combined effects of math phobia and math score account for 31% of the variance in statistical achievement.  
+
+Not surprizingly, while higher self-reported math phobia was associated with lower statists scores, $b = -0.162$, $p=.018$, $95CI = [-0.29, -0.03]$, higher math quiz scores were associated with higher stats score, $b = -0.081$, $p<.001$, $95CI = [0.05, 0.12]$.  
+
+There was no evidence that math phobia moderated the relationship between math and quiz performance, $p=.377$. 
+
+
+

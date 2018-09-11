@@ -7,6 +7,18 @@
 knitr::write_bib(c(.packages(), 
                    'bookdown',
                    'knitr', 
-                   'rmarkdown'), 
+                   'rmarkdown',
+                   'tidyrverse',
+                   'magrittr',
+                   'haven',
+                   'furniture',
+                   'texreg',
+                   'stargazer',
+                   'corrplot',
+                   'car',
+                   'psych',
+                   'ISwR'), 
                  'packages.bib')
 ```
+
+
