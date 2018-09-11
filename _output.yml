@@ -5,6 +5,7 @@ bookdown::gitbook:
   df_print: tibble
   config:
     toc:
+      toc_depth: 3
       collapse: section
       before: |
         <li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
