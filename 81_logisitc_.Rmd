@@ -42,7 +42,12 @@ Another set of data from a study investigating predictors of low birth weight
 
 
 ```{r lowbwtdata}
-lowbwt_raw <- read.table("data/lowbwt.txt", header=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBTYDbui3sy0ah-7-yknbzAyAwsUoks5bz51LwA%3D%3D", 
+                         header = TRUE, 
+                         sep = "", 
+                         na.strings = "NA", 
+                         dec = ".", 
+                         strip.white = TRUE)
 
 tibble::glimpse(lowbwt_raw)
 ```

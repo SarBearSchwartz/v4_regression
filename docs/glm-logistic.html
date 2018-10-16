@@ -249,7 +249,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>ftv</code> Number of physician visits in 1st trimester (0=None, 1=One, etc)</li>
 <li><code>bwt</code> actual infant birth weight in g</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lowbwt_raw &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/lowbwt.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>, <span class="dt">na.strings=</span><span class="st">&quot;NA&quot;</span>, <span class="dt">dec=</span><span class="st">&quot;.&quot;</span>, <span class="dt">strip.white=</span><span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lowbwt_raw &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBTYDbui3sy0ah-7-yknbzAyAwsUoks5bz51LwA%3D%3D&quot;</span>, 
+                         <span class="dt">header =</span> <span class="ot">TRUE</span>, 
+                         <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, 
+                         <span class="dt">na.strings =</span> <span class="st">&quot;NA&quot;</span>, 
+                         <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>, 
+                         <span class="dt">strip.white =</span> <span class="ot">TRUE</span>)
 
 tibble<span class="op">::</span><span class="kw">glimpse</span>(lowbwt_raw)</code></pre></div>
 <pre><code>Observations: 189
