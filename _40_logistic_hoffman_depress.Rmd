@@ -1,0 +1,29 @@
+# GLM - Logistic Example (Hoffmann, depress)
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+```
+
+
+
+## Background
+
+```{block type='rmdlink', echo=TRUE}
+The text **"Eneralized Linear Models: an applied approach, First Edition"** [@hoffmann2004] has a companion [website](https://www.pearson.com/us/higher-education/program/Hoffmann-Generalized-Linear-Models/PGM79775.html) which includes links to all the data files used throughout the book (housed on the [book's GitHub repository](https://github.com/MultiLevelAnalysis)).  
+```

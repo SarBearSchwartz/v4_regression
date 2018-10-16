@@ -42,7 +42,7 @@ library(psych)           # lots of handy tools
 Inho's dataset is included in the textbook "Explaining Psychological Statistics" [@epse4] and details regarding the sample and measures is describe in this Encyclopedia's [Vol. 2 - Ihno's Dataset](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
 ```
 
-```{r}
+```{r inhodata}
 data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(gender = factor(gender, 

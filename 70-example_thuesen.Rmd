@@ -44,7 +44,7 @@ This dataset is included in the `ISwR` package [@R-ISwR], which was a companion 
 * `short.velocity` a numeric vector, mean circumferential shortening velocity (%/s).
 
 
-```{r}
+```{r thuesendata}
 data(thuesen, package = "ISwR")
 
 tibble::glimpse(thuesen)  # view the class and 1st few values of each variable
@@ -80,7 +80,8 @@ Although the `table1()` function from the `furniture` package creates a nice sum
 
 ```{r}
 thuesen %>% 
-  furniture::table1()
+  furniture::table1(blood.glucose, short.velocity,
+                    output = "html")
 ```
 
 ### Univariate Visualizations

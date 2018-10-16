@@ -1,0 +1,243 @@
+# GLM - Logistic: 
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(pscl)         # psudo R-squared function
+```
+
+## Background
+
+More complex example demonstrating modeling decisions
+
+Another set of data from a study investigating predictors of low birth weight
+
+* `id` infant id
+* `low` Low birth weight (outcome) (0 = birth weight >2500 g (normal), 1 = birth weight < 2500 g (low))
+* `age` Age of mother (yrs)
+* `lwt` Mother's weight at last menstrual period (pounds)
+* `race` Race (1 = White, 2 = Black, 3 = Other)
+* `smoke` Smoking status during pregnancy (1 = Yes, 0 = No)
+* `ptl` History of premature labor (0 = None, 1 = One, etc)
+* `ht` History of hypertension (1 = Yes, 0 = No)
+* `ui` Uterine irritability (1 = Yes, 0 = No)
+* `ftv` Number of physician visits in 1st trimester (0=None, 1=One, etc)
+* `bwt` actual infant birth weight in g
+
+
+
+```{r lowbwtdata}
+lowbwt_raw <- read.table("data/lowbwt.txt", header=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+
+tibble::glimpse(lowbwt_raw)
+```
+
+
+```{r}
+lowbwt_clean <- lowbwt_raw %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(low = factor(low,
+                             levels = c(0, 1),
+                             labels = c("birth weight >2500 g (normal)",
+                                        "birth weight < 2500 g (low)"))) %>% 
+  dplyr::mutate(race = factor(race,
+                              levels = 1:3,
+                              labels = c("White", "Black", "Other"))) %>% 
+  dplyr::mutate_at(vars(smoke, ht, ui),
+                   factor,
+                   levels = 0:1,
+                   labels = c("No", "Yes")) 
+```
+
+
+```{r}
+str(lowbwt_clean)
+```
+
+```{r}
+lowbwt_clean %>% 
+  furniture::table1(age, lwt, race, smoke, ptl, ht, ui, ftv, bwt,
+                    splitby = ~ low,
+                    test = TRUE,
+                    output = "html")
+```
+
+## Logistic Regression - Simple, un-adjusted
+
+```{r}
+low1.age   <- glm(low ~ age,   family=binomial(logit), data=lowbwt_clean)
+low1.lwt   <- glm(low ~ lwt,   family=binomial(logit), data=lowbwt_clean)
+low1.race  <- glm(low ~ race,  family=binomial(logit), data=lowbwt_clean)
+low1.smoke <- glm(low ~ smoke, family=binomial(logit), data=lowbwt_clean)
+low1.ptl   <- glm(low ~ ptl,   family=binomial(logit), data=lowbwt_clean)
+low1.ht    <- glm(low ~ ht,    family=binomial(logit), data=lowbwt_clean)
+low1.ui    <- glm(low ~ ui,    family=binomial(logit), data=lowbwt_clean)
+low1.ftv   <- glm(low ~ ftv,   family=binomial(logit), data=lowbwt_clean)
+```
+
+
+
+```{r}
+texreg::screenreg(list(low1.age, low1.lwt, low1.race, low1.smoke),
+                  custom.model.names = c("Age", "Weight", "Race", "Smoker"),
+                  caption = "Mother Factors")
+```
+
+
+```{r}
+texreg::screenreg(list(low1.ptl, low1.ht, low1.ui, low1.ftv),
+                  custom.model.names = c("Pre-Labor", "Hypertension", "Uterine", "Visits"))
+```
+
+## Logistic Regression - Multivariate with Main Effects Only
+
+Main-effects multiple logistic regression model
+
+```{r}
+low1_1 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui,
+              family = binomial(logit), 
+              data = lowbwt_clean)
+
+summary(low1_1)
+```
+
+## Logistic Regression - Multivariate with Interactions
+
+Before removing non-significant main effects, test plausible interactions
+
+Try interactions between age and lwt, age and smoke, lwt and smoke,  1 at a time
+
+### Age and Weight
+
+```{r}
+low1_2 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui + age:lwt,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_2)
+```
+
+```{r}
+anova(low1_1, low1_2, test = 'Chi')
+```
+
+
+```{r}
+Anova(low1_2, test = 'LR') #Type II Analysis of Deviance table
+```
+
+
+
+```{r}
+Anova(low1_2, test = 'LR', type = 'III') #Type III Analysis of Deviance table
+
+```
+
+
+### Age and Smoking
+
+
+```{r}
+low1_3 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui + age:smoke,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_3)
+```
+
+
+```{r}
+anova(low1_1, low1_3, test = 'Chi')
+```
+
+
+
+### Weight and Smoking
+
+
+```{r}
+low1_4 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui + lwt:smoke,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_4)
+```
+
+
+```{r}
+anova(low1_1, low1_4, test = 'Chi')
+```
+
+## Logistic Regression - Multivariate, Simplify
+
+No interactions are  significant
+Remove non-significant main effects
+
+
+### Removing `ui`
+
+```{r}
+low1_5 <- glm(low ~ age + lwt + race + smoke + ptl + ht,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_5)
+```
+
+
+age and ptl are theoretically meaningful variables, should probably retain them
+
+Revise so that age is interpreted in 5-year and lwt in 20 lb increments
+
+
+```{r}
+low1_6 <- glm(low ~ I(age*(1/5)) + I(lwt*(1/20)) + race + smoke + ptl + ht,
+              family = binomial(logit), 
+              data = lowbwt_clean)
+
+summary(low1_6)
+```
+
+
+### Several $R^2$ measures with the `pscl::pR2()` function 
+
+```{r}
+pscl::pR2(low1_6)
+```
+
+
+### Parameter Estiamtes
+
+
+Parameters Exponentiated:
+
+```{r, results = "asis"}
+sjPlot::tab_model(low1_6,
+                  emph.p = TRUE,
+                  pred.labels = c("(Intercept)",
+                                  "Age: 5 years",
+                                  "Weight: 20 lbs",
+                                  "Race: Black vs. White",
+                                  "Race: Other vs. White",
+                                  "Smoker During pregnancy",
+                                  "History of Premature Labor",
+                                  "History of Hypertension")) 
+```
+
+
+

@@ -1,0 +1,364 @@
+# GLM - Logistic: Example, BPD
+
+example walk through:
+
+https://stats.idre.ucla.edu/r/dae/logit-regression/
+
+
+info:
+
+https://onlinecourses.science.psu.edu/stat504/node/216/ 
+
+`sjPlot::tab_model` (HTML only)
+
+http://www.strengejacke.de/sjPlot/articles/sjtlm.html#changing-summary-style-and-content 
+
+`finafit`
+
+https://www.r-bloggers.com/elegant-regression-results-tables-and-plots-in-r-the-finalfit-package/
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(pscl)         # psudo R-squared function
+```
+
+## Background
+
+Simple example demonstrating basic modeling approach:  Data on **Bronchopulmonary Dysplasia** (BPD) from 223 low birth weight infants (weighing less than 1750 grams).
+
+
+### Source
+
+Data courtesy of Dr. Linda Van Marter.
+
+### Reference
+
+Van Marter, L.J., Leviton, A., Kuban, K.C.K., Pagano, M. & Allred, E.N. (1990).  *Maternal glucocorticoid therapy and reduced risk of bronchopulmonary dysplasia.* Pediatrics, 86, 331-336.
+
+The data are from a study of low birth weight infants in a neonatal intensive care unit. The study was designed to examine the development of **bronchopulmonary dysplasia (BPD)**, a chronic lung disease, in a sample of 223 infants weighing less than 1750 grams. The response variable is binary, denoting whether an infant develops BPD by day 28 of life (where BPD is defined by both oxygen 
+requirement and compatible chest radiograph).
+
+### Variables    
+
+* bpd(0 [N],1 [Y])    
+* brthwght (grams)    
+* gestage (weeks)    
+* toxemia (0 [N] ,1 [Y]) in mother    
+
+```{r vanmarterbpddata}
+bpd_raw <- read.table("data/VanMarter_ BPD.txt", 
+                      header      = TRUE, 
+                      strip.white = TRUE)
+```
+
+```{r}
+n <- nrow(bpd_raw)
+n
+```
+
+
+```{r}
+str(bpd_raw)
+```
+
+```{r}
+head(bpd_raw)
+```
+
+
+
+```{r}
+bpd_clean <- bpd_raw %>% 
+  dplyr::mutate(toxemia = factor(toxemia,
+                                 levels = c(0, 1),
+                                 labels = c("No", "Yes")))
+```
+
+
+```{r}
+summary(bpd_clean)
+```
+
+
+
+
+## Logistic Regresion
+
+### Fit the Models
+
+```{r}
+fit_glm_0 <- glm(bpd ~ 1, 
+                 data = bpd_clean, 
+                 family = binomial(link = "logit")) 
+
+
+fit_glm_1 <- glm(bpd ~ I(brthwght/100) + gestage + toxemia, 
+                 data = bpd_clean, 
+                 family = binomial(link = "logit")) 
+```
+
+#### Log Likelihood
+
+```{r}
+logLik(fit_glm_0)
+logLik(fit_glm_1)
+```
+
+#### Deviance
+
+```{r}
+deviance(fit_glm_0)
+deviance(fit_glm_1)
+```
+
+### GoF Measures
+
+#### AIC
+
+```{r}
+AIC(fit_glm_0)
+AIC(fit_glm_1)
+```      
+
+
+
+#### Logistic R^2
+
+http://thestatsgeek.com/2014/02/08/r-squared-in-logistic-regression/ 
+
+Technically, $R^2$ cannot be computed the same way in logistic regression as it is in OLS regression. The $pseudo-R^2$, in logistic regression, is defined as $1−\frac{L_1}{L_0}$, where $L_0$ represents the log likelihood for the "constant-only" or NULL model and $L_1$ is the log likelihood for the full model with constant and predictors.
+
+
+#### McFadden's pseud- R^2
+
+$$
+R^2_{McF} = 1 - \frac{L_1}{L_0}
+$$
+
+```{r}
+MFR2 <- 1 - (logLik(fit_glm_1)/logLik(fit_glm_0))
+MFR2
+```
+
+
+
+#### Cox & Snell
+
+$l = e^{L}$, sinc $L$ is the log of the likelihood and $l$ is the likelihood...$log(l) = L$
+
+$$
+R^2_{CS} = 1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n} \\
+n = \text{sample size}
+$$
+
+
+
+```{r}
+CSR2 <- 1 - (exp(logLik(fit_glm_0))/exp(logLik(fit_glm_1)))^(2/n)
+CSR2
+```
+
+
+
+#### Nagelkerke or Cragg and Uhler's
+
+$$
+R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
+                 {1 - \Big( l_0 \Big) ^{2 \backslash n}}
+$$
+
+```{r}
+NR2 <- CSR2 / (1 - exp(logLik(fit_glm_0))^(2/n))
+NR2 
+```
+
+#### Several with the `pscl::pR2()` function 
+
+```{r}
+pscl::pR2(fit_glm_1)
+```
+
+
+
+
+
+### Parameter Estimates
+
+#### Logit Scale
+
+```{r}
+fit_glm_1 %>% coef()
+```
+
+#### Odds Ratio Scale
+
+```{r}
+fit_glm_1 %>% coef() %>% exp()
+```
+
+#### Confidence Intervals - OR sclae
+
+```{r}
+fit_glm_1 %>% confint() %>% exp()
+```
+
+
+
+
+### Significance of Terms
+
+#### Likelihood Ratio Test of all Nested Models
+
+```{r}
+anova(fit_glm_0, fit_glm_1)
+```
+
+#### Sequential LRTs: for adding one variable at a time
+
+```{r}
+anova(fit_glm_1, test = "Chisq")
+```
+
+
+
+
+
+### Parameter Estimates
+
+#### Raw Output
+
+```{r}
+summary(fit_glm_1) 
+```
+
+#### `sjPlot` - HTML tables
+
+JUST HTML for now...
+
+Parameters Exponentiated:
+
+```{r, results = "asis"}
+sjPlot::tab_model(fit_glm_1)
+```
+
+
+
+```{r, results = "asis"}
+sjPlot::tab_model(fit_glm_1,
+                  emph.p = TRUE,
+                  pred.labels = c("(Intercept)",
+                                  "Birthweight, 100 grams",
+                                  "Gestational Age, week",
+                                  "Mother had Toxemia"))         
+```
+
+
+
+#### `texreg` default
+
+```{r}
+texreg::screenreg(fit_glm_1)
+```
+
+#### `texreg` Confidence Intervals on Logit Scale
+
+```{r}
+texreg::screenreg(fit_glm_1,
+                  ci.force = TRUE)
+```
+
+
+#### `texreg` exponentiate the betas (SE are not exp)
+
+```{r}
+texreg::screenreg(fit_glm_1,
+                  override.coef = list(fit_glm_1 %>% coef() %>% exp()))
+```
+
+
+
+
+
+### Marginal Model Plot
+
+
+
+
+#### Manually Specified
+
+
+```{r}
+summary(bpd_clean)
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
+                mod = fit_glm_1,
+                xlevels = list(brthwght = seq(from = 450, to = 1730, by = 10),
+                               gestage = c(28, 30, 32))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(gestage = factor(gestage)) %>% 
+  ggplot(aes(x = brthwght,
+             y = fit)) +
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper,
+                  fill = toxemia),
+              alpha = .2) +
+  geom_line(aes(linetype = toxemia,
+                color = toxemia),
+            size = 1) +
+  facet_grid(. ~ gestage, labeller = label_both) +
+  theme_bw()
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
+                mod = fit_glm_1,
+                xlevels = list(brthwght = seq(from = 450, to = 1730, by = 10),
+                               gestage = c(28, 30, 32))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(gestage = factor(gestage)) %>% 
+  ggplot(aes(x = brthwght,
+             y = fit)) +
+  geom_line(aes(linetype = toxemia,
+                color = toxemia),
+            size = 1) +
+  facet_grid(. ~ gestage, labeller = label_both) +
+  theme_bw()
+```
+
+
+### Residual Diagnostics
+
+#### `sjPlot`
+
+```{r}
+sjPlot::plot_model(fit_glm_1, type = "diag")
+```
+
+#### base R graphics
+
+```{r}
+plot(fit_glm_1)
+```
+
+
+

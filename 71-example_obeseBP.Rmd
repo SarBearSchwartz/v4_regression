@@ -51,7 +51,7 @@ This data frame contains the following columns:
 * `bp` a numeric vector,systolic blood pressure (mm Hg)
 
 
-```{r}
+```{r bpobesedata}
 data(bp.obese, package = "ISwR")
 
 bp.obese <- bp.obese %>% 
