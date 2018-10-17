@@ -1,4 +1,4 @@
-# Example: Ihno's Experiment (interaction between two continuous IVs)
+# Multiple Linear Regression - Ex: Ihno's Experiment (interaction between two continuous IVs)
 
 ![](images/common/Ihno_header.PNG)
 

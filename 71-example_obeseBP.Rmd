@@ -1,4 +1,4 @@
-# Example: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)
+# Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)
 
 ![](images/common/ISwR_bp_obese.PNG)
 

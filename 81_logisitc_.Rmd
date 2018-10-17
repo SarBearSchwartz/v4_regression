@@ -1,4 +1,4 @@
-# GLM - Logistic: 
+# Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(comment     = "",
@@ -18,7 +18,9 @@ library(stargazer)    # display nice tables: summary & regression
 library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
 library(psych)        # contains some useful functions, like headTail
 library(car)          # Companion to Applied Regression
+library(sjPlot)       # Quick plots and tables for models
 library(pscl)         # psudo R-squared function
+library(glue)         # Interpreted String Literals 
 ```
 
 ## Background
@@ -27,19 +29,29 @@ More complex example demonstrating modeling decisions
 
 Another set of data from a study investigating predictors of low birth weight
 
-* `id` infant id
+* `id` infant's unique identification number
+
+Dependent variable (DV) or outcome    
+
 * `low` Low birth weight (outcome) (0 = birth weight >2500 g (normal), 1 = birth weight < 2500 g (low))
-* `age` Age of mother (yrs)
-* `lwt` Mother's weight at last menstrual period (pounds)
-* `race` Race (1 = White, 2 = Black, 3 = Other)
-* `smoke` Smoking status during pregnancy (1 = Yes, 0 = No)
-* `ptl` History of premature labor (0 = None, 1 = One, etc)
-* `ht` History of hypertension (1 = Yes, 0 = No)
-* `ui` Uterine irritability (1 = Yes, 0 = No)
-* `ftv` Number of physician visits in 1st trimester (0=None, 1=One, etc)
-* `bwt` actual infant birth weight in g
+* `bwt` actual infant birth weight in grams
 
 
+Indepdentend variables (IV) or predictors
+
+* `age` Age of mother, in years
+* `lwt` Mother's weight at last menstrual period, in pounds
+* `race` Race: 1 = White, 2 = Black, 3 = Other
+* `smoke` Smoking status during pregnancy:1 = Yes, 0 = No
+* `ptl` History of premature labor: 0 = None, 1 = One, 2 = two, 3 = three
+* `ht` History of hypertension: 1 = Yes, 0 = No
+* `ui` Uterine irritability: 1 = Yes, 0 = No
+* `ftv` Number of physician visits in 1st trimester: 0 = None, 1 = One, ... 6 = six
+
+
+### Raw Dataset
+
+The data is saved in a text file (.txt) without any labels.
 
 ```{r lowbwtdata}
 lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBTYDbui3sy0ah-7-yknbzAyAwsUoks5bz51LwA%3D%3D", 
@@ -53,6 +65,10 @@ tibble::glimpse(lowbwt_raw)
 ```
 
 
+
+### Declare Factors
+
+
 ```{r}
 lowbwt_clean <- lowbwt_raw %>% 
   dplyr::mutate(id = factor(id)) %>% 
@@ -62,66 +78,114 @@ lowbwt_clean <- lowbwt_raw %>%
                                         "birth weight < 2500 g (low)"))) %>% 
   dplyr::mutate(race = factor(race,
                               levels = 1:3,
-                              labels = c("White", "Black", "Other"))) %>% 
-  dplyr::mutate_at(vars(smoke, ht, ui),
+                              labels = c("White", 
+                                         "Black", 
+                                         "Other"))) %>% 
+  dplyr::mutate(ptl_any = as.numeric(ptl > 0)) %>%         # colapse into 0 = none vs. 1 = at least one
+  dplyr::mutate(ptl = factor(ptl)) %>%                     # declare the number of pre-term labors to be a factor: 0, 1, 2, 3
+  dplyr::mutate_at(vars(smoke, ht, ui, ptl_any),           # declare all there variables to be factors with the same two levels
                    factor,
                    levels = 0:1,
                    labels = c("No", "Yes")) 
 ```
 
 
+Display the structure of the 'clean' version of the dataset
+
 ```{r}
 str(lowbwt_clean)
 ```
 
+
+
+
+
+## Exploratory Data Analysis
+
 ```{r}
+# Knit to Website: output = "html" 
+# Knit to PDF:     output = "latex2"
+# View on Screen:  output = ""text", or "markdown", "html"
+
 lowbwt_clean %>% 
-  furniture::table1(age, lwt, race, smoke, ptl, ht, ui, ftv, bwt,
+  furniture::table1("Age, years" = age, 
+                    "Weight, pounds" = lwt, 
+                    "Race" = race, 
+                    "Smoking During pregnancy" = smoke, 
+                    "History of Premature Labor, any" = ptl_any, 
+                    "History of Premature Labor, number" = ptl, 
+                    "History of Hypertension" = ht, 
+                    "Uterince Irritability" = ui, 
+                    "1st Tri Dr Visits" = ftv, 
                     splitby = ~ low,
                     test = TRUE,
                     output = "html")
 ```
 
+
+
+
+
+
 ## Logistic Regression - Simple, un-adjusted
 
 ```{r}
-low1.age   <- glm(low ~ age,   family=binomial(logit), data=lowbwt_clean)
-low1.lwt   <- glm(low ~ lwt,   family=binomial(logit), data=lowbwt_clean)
-low1.race  <- glm(low ~ race,  family=binomial(logit), data=lowbwt_clean)
-low1.smoke <- glm(low ~ smoke, family=binomial(logit), data=lowbwt_clean)
-low1.ptl   <- glm(low ~ ptl,   family=binomial(logit), data=lowbwt_clean)
-low1.ht    <- glm(low ~ ht,    family=binomial(logit), data=lowbwt_clean)
-low1.ui    <- glm(low ~ ui,    family=binomial(logit), data=lowbwt_clean)
-low1.ftv   <- glm(low ~ ftv,   family=binomial(logit), data=lowbwt_clean)
+low1.age   <- glm(low ~ age,     family=binomial(logit), data=lowbwt_clean)
+low1.lwt   <- glm(low ~ lwt,     family=binomial(logit), data=lowbwt_clean)
+low1.race  <- glm(low ~ race,    family=binomial(logit), data=lowbwt_clean)
+low1.smoke <- glm(low ~ smoke,   family=binomial(logit), data=lowbwt_clean)
+low1.ptl   <- glm(low ~ ptl_any, family=binomial(logit), data=lowbwt_clean)
+low1.ht    <- glm(low ~ ht,      family=binomial(logit), data=lowbwt_clean)
+low1.ui    <- glm(low ~ ui,      family=binomial(logit), data=lowbwt_clean)
+low1.ftv   <- glm(low ~ ftv,     family=binomial(logit), data=lowbwt_clean)
+```
+
+Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(list(low1.age, low1.lwt, low1.race, low1.smoke),
+                custom.model.names = c("Age", "Weight", "Race", "Smoker"),
+                caption = "Simple, Unadjusted Logistic Regression: Models 1-4",
+                caption.above = TRUE)
 ```
 
 
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
 
-```{r}
-texreg::screenreg(list(low1.age, low1.lwt, low1.race, low1.smoke),
-                  custom.model.names = c("Age", "Weight", "Race", "Smoker"),
-                  caption = "Mother Factors")
+texreg::htmlreg(list(low1.ptl, low1.ht, low1.ui, low1.ftv),
+                custom.model.names = c("Pre-Labor", "Hypertension", "Uterine", "Visits"),
+                caption = "Simple, Unadjusted Logistic Regression: Models 5-8",
+                caption.above = TRUE)
 ```
 
-
-```{r}
-texreg::screenreg(list(low1.ptl, low1.ht, low1.ui, low1.ftv),
-                  custom.model.names = c("Pre-Labor", "Hypertension", "Uterine", "Visits"))
-```
-
-## Logistic Regression - Multivariate with Main Effects Only
+## Logistic Regression - Multivariate, with Main Effects Only
 
 Main-effects multiple logistic regression model
 
 ```{r}
-low1_1 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui,
+low1_1 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui,
               family = binomial(logit), 
               data = lowbwt_clean)
 
 summary(low1_1)
 ```
 
-## Logistic Regression - Multivariate with Interactions
+
+```{r}
+sjPlot
+```
+ 
+
+
+
+## Logistic Regression - Multivariate, with Interactions
 
 Before removing non-significant main effects, test plausible interactions
 
@@ -130,27 +194,29 @@ Try interactions between age and lwt, age and smoke, lwt and smoke,  1 at a time
 ### Age and Weight
 
 ```{r}
-low1_2 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui + age:lwt,
+low1_2 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:lwt,
                  family = binomial(logit), 
                  data = lowbwt_clean)
 
 summary(low1_2)
 ```
 
+#### Compare Model Fits vs. Likelihood Ratio Test
+
 ```{r}
 anova(low1_1, low1_2, test = 'Chi')
 ```
 
+#### Type II Analysis of Deviance Table
 
 ```{r}
-Anova(low1_2, test = 'LR') #Type II Analysis of Deviance table
+Anova(low1_2, test = 'LR') 
 ```
 
-
+#### Type III Analysis of Deviance Table
 
 ```{r}
-Anova(low1_2, test = 'LR', type = 'III') #Type III Analysis of Deviance table
-
+Anova(low1_2, test = 'LR', type = 'III') 
 ```
 
 
@@ -158,13 +224,14 @@ Anova(low1_2, test = 'LR', type = 'III') #Type III Analysis of Deviance table
 
 
 ```{r}
-low1_3 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui + age:smoke,
+low1_3 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:smoke,
                  family = binomial(logit), 
                  data = lowbwt_clean)
 
 summary(low1_3)
 ```
 
+#### Compare Model Fits vs. Likelihood Ratio Test
 
 ```{r}
 anova(low1_1, low1_3, test = 'Chi')
@@ -176,13 +243,14 @@ anova(low1_1, low1_3, test = 'Chi')
 
 
 ```{r}
-low1_4 <- glm(low ~ age + lwt + race + smoke + ptl + ht + ui + lwt:smoke,
+low1_4 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + lwt:smoke,
                  family = binomial(logit), 
                  data = lowbwt_clean)
 
 summary(low1_4)
 ```
 
+#### Compare Model Fits vs. Likelihood Ratio Test
 
 ```{r}
 anova(low1_1, low1_4, test = 'Chi')
@@ -194,10 +262,10 @@ No interactions are  significant
 Remove non-significant main effects
 
 
-### Removing `ui`
+### Remove the least significant perdictor: `ui`
 
 ```{r}
-low1_5 <- glm(low ~ age + lwt + race + smoke + ptl + ht,
+low1_5 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht,
                  family = binomial(logit), 
                  data = lowbwt_clean)
 
@@ -205,13 +273,16 @@ summary(low1_5)
 ```
 
 
-age and ptl are theoretically meaningful variables, should probably retain them
+## Logistic Regression - Multivariate, Final Model
 
-Revise so that age is interpreted in 5-year and lwt in 20 lb increments
+Since the mother's age is theoretically a meaningful variable, it should probably be retained.
+
+Revise so that age is interpreted in 5-year and lwt in 20 lb increments and the intercept has meaning.
+
 
 
 ```{r}
-low1_6 <- glm(low ~ I(age*(1/5)) + I(lwt*(1/20)) + race + smoke + ptl + ht,
+low1_6 <- glm(low ~ I((age - 20)/5) + I((lwt - 125)/20) + race + smoke + ptl_any + ht,
               family = binomial(logit), 
               data = lowbwt_clean)
 
@@ -226,23 +297,156 @@ pscl::pR2(low1_6)
 ```
 
 
-### Parameter Estiamtes
+### Parameter Estiamtes Table
 
+#### Using `texreg::screenreg()`
+
+Default: parameters are in terms of the 'logit' or log odds ratio
+
+```{r, include=FALSE}
+texreg::screenreg(low1_6)
+```
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(low1_6)
+```
+
+
+
+The `texreg` package uses an intermediate function called `extract()` to extract information for the model and then put it in the right places in the table.  We can invervene by writing our own `extract_OR()` function to use instead.
+
+```{r}
+extract_OR <- function(fit_glm){
+  beta   = coef(fit_glm)    
+  betaci = confint(fit_glm) 
+  fit_glm_OR        = texreg::extract(fit_glm)
+  fit_glm_OR@coef   = exp(beta)
+  fit_glm_OR@ci.low = exp(betaci[, 1])
+  fit_glm_OR@ci.up  = exp(betaci[, 2])
+  return(fit_glm_OR)
+}
+```
+
+```{r, include=FALSE}
+texreg::screenreg(extract_OR(low1_6),
+                  custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
+                                        "Additional 5 years older",
+                                        "Additional 20 lbs pre-pregnancy",
+                                        "Race: Black vs. White",
+                                        "Race: Other vs. White",
+                                        "Smoking During pregnancy",
+                                        "History of Any Premature Labor",
+                                        "History of Hypertension"),
+                  custom.model.names = "OR, Low Birth Weight",
+                  single.row = TRUE,
+                  custom.note = "* The value of '1' is outside the confidence interval for the OR")
+```
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(extract_OR(low1_6),
+                custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
+                                      "Additional 5 years older",
+                                      "Additional 20 lbs pre-pregnancy",
+                                      "Race: Black vs. White",
+                                      "Race: Other vs. White",
+                                      "Smoking During pregnancy",
+                                      "History of Any Premature Labor",
+                                      "History of Hypertension"),
+                custom.model.names = "OR, Low Birth Weight",
+                single.row = TRUE,
+                custom.note = "* The value of '1' is outside the confidence interval for the OR")
+```
+
+
+
+
+#### Using `sjPlot::tab_model()`
 
 Parameters Exponentiated:
 
 ```{r, results = "asis"}
 sjPlot::tab_model(low1_6,
                   emph.p = TRUE,
-                  pred.labels = c("(Intercept)",
-                                  "Age: 5 years",
-                                  "Weight: 20 lbs",
+                  pred.labels = c("BL: 125 lb, 20 yr old White Mother",
+                                  "Additional 5 years old",
+                                  "Additional 20 lbs pre-pregnancy",
                                   "Race: Black vs. White",
                                   "Race: Other vs. White",
-                                  "Smoker During pregnancy",
-                                  "History of Premature Labor",
+                                  "Smoking During pregnancy",
+                                  "History of Any Premature Labor",
                                   "History of Hypertension")) 
 ```
 
 
+### Marginal Model Plot
+
+#### Focus on: Mother's Age, weight, and race
+
+```{r, fig.width=8, fig.height=6}
+effects::Effect(focal.predictors = c("age", "lwt", "race"),
+                mod = low1_6,
+                xlevels = list(age = c(20, 30, 40),
+                               lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(age_labels = glue("Mother Age: {age}")) %>% 
+  ggplot(aes(x = lwt,
+             y = fit)) +
+  geom_line(aes(color = race,
+                linetype = race),
+            size = 1) +
+  theme_bw() +
+  facet_grid(.~ age_labels) +
+  labs(title = "Risk of Low Birth Weight",
+       subtitle = "Illustates risk given mother is a non-smoker, without a history of pre-term labor or hypertension",
+       x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       color    = "Mother's Race",
+       linetype = "Mother's Race") +
+  theme(legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("longdash", "dotted", "solid")) +
+  scale_color_manual(values = c( "coral2", "dodger blue", "gray50"))
+```
+
+#### Focus on: Mother's weight and smothing status during pregnancy, as well as history of any per-term labor and hypertension
+
+```{r, fig.width=8, fig.height=6}
+effects::Effect(focal.predictors = c("lwt", "smoke", "ptl_any", "ht"),
+                fixed.predictors = list(age = 20),
+                mod = low1_6,
+                xlevels = list(lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(smoke = forcats::fct_rev(smoke)) %>% 
+  dplyr::mutate(ptl_any_labels = glue("History of Preterm Labor: {ptl_any}")) %>% 
+  dplyr::mutate(ht_labels = glue("History of Hypertension: {ht}") %>% forcats::fct_rev()) %>% 
+  ggplot(aes(x = lwt,
+             y = fit)) +
+  geom_line(aes(color = smoke,
+                linetype = smoke),
+            size = 1) +
+  theme_bw() +
+  facet_grid(ht_labels ~ ptl_any_labels) +
+  labs(title = "Risk of Low Birth Weight",
+       subtitle = "Illustates risk given the mother is 20 years old and white",
+       x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       color    = "Mother Smoked",
+       linetype = "Mother Smoked") +
+  theme(legend.position = c(1, .5),
+        legend.justification = c(1.1, 1.15),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm")) +
+  scale_linetype_manual(values = c("longdash", "solid")) +
+  scale_color_manual(values = c( "coral2", "dodger blue"))
+```
 

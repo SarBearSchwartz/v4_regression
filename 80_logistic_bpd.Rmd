@@ -1,4 +1,4 @@
-# GLM - Logistic: Example, BPD
+# Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants
 
 example walk through:
 

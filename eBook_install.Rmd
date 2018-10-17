@@ -1,0 +1,2238 @@
+--- 
+title: "Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression"
+author: "Sarah Schwartz & Tyson Barrett"
+date: "Last updated: `r Sys.Date()`"
+documentclass: book
+description: "Correlation, Model Fit, Generalize, and Plot."
+knit: "bookdown::render_book"
+cover-image: "EQM_v1_cover.png"
+github-repo: cehs-research/eBook_wrangle
+site: bookdown::bookdown_site
+output:
+  bookdown::gitbook:
+    split_bib: false
+bibliography: [book.bib, packages.bib]
+biblio-style: "apalike"
+link-citations: yes
+---
+
+
+
+  
+
+
+# Welcome {-}
+
+Backgroup and links to other volumes of this encyclopedia may be found at the [Encyclopedia's Home Website](https://cehs-research.github.io/eBooks/).
+
+
+
+![](images/common/EQM_v4_header.png)
+
+
+
+```{r, echo=FALSE, include=FALSE, comment=FALSE, message=FALSE}
+library(tidyverse, quietly = TRUE)
+library(kableExtra)
+```
+
+
+
+## Blocked Notes {-}
+
+Thoughout all the eBooks in this encyclopedia, several small secitons will be blocked out in the following ways:
+
+```{block type='rmdconstruct', echo=TRUE}
+These blocks denote an area **UNDER CONSTRUCTION**, so check back often.  This massive undertaking started during the summer of 2018 and is far from complete.  The outline of seven volumes is given above despite any one being complete.  Feedback is welcome via either author's email.
+```
+
+
+```{block type='rmdimportant', echo=TRUE}
+These blocks denote something **EXTREMELY IMPORTANT**.  Do NOT skip these notes as they will be used very sparingly.
+```
+
+
+```{block type='rmddownload', echo=TRUE}
+These blocks denote something to **DOWNLOAD**.  This may include software installations, example datasets, or notebook code files.
+```
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+These blocks denote something **INTERESTING**.  These point out information we found of interest or added value.
+```
+
+
+
+```{block type='rmdlink', echo=TRUE}
+These blocks denote **LINKS** to other websites.  This may include instructional video clips, articles, or blog posts.  We are all about NOT re-creating the wheel.  If somebody else has described or illustrated a topic well, we celebrate it!
+```
+
+
+## Code and Output {-}
+
+This is how $R$ code is shown:
+
+```{r, eval=FALSE}
+1 + 1
+```
+
+This is what the output of the $R$ code above will look:
+
+```{r, echo=FALSE}
+# This is a Code Chunk
+1 + 1
+```
+
+
+## The Authors {-}
+
+
+```{r, echo=FALSE}
+tribble( ~Sarah, ~Tyson,
+      "![](images/common/Sarah_headshot.jpg){width=300px}",
+      "![](images/common/Tyson_headshot.jpg){width=300px}",
+      "[www.SarahSchwartzStats.com](http://www.sarahschwartzstats.com/) ",
+      "[www.TysonBarrett.com](http://tysonbarrett.com/)",
+      "Sarah.Schwartz@usu.edu",
+      "Tyson.Barrett@usu.edu",
+      "[Statistical Consulting Studio](https://cehs.usu.edu/research/statstudio/index)",
+      "[Data Science and Discover Unit](https://cehs.usu.edu/research/dsdu/index)",
+      "![](images/common/StatStudioLogo_dark_small.png){width=300px}",
+      "![](images/common/dsdu_logo.PNG){width=300px}") %>% 
+  data.frame() %>%
+  kableExtra::kable(col.names = c("Dr. Sarah Schwartz", 
+                                  "Dr. Tyson Barrett"),
+                    align = "c") %>% 
+  kableExtra::row_spec(row = 0,
+                       font_size = 20)
+```
+
+
+
+### Why choose R ?  {-}
+
+
+```{block type='rmdlink', echo=TRUE}
+**Check it out:** an article from Fall 2016... [No more excuses: R is better than SPSS for psychology undergrads, and students agree](https://datahowler.wordpress.com/2016/09/10/no-more-excuses-r-is-better-than-spss-for-psychology-undergrads-and-students-agree/)
+```
+
+
+
+### FYI  {-}
+
+This entire encyclopedia is written in $R Markdown$, using $R Studio$ as the text editor and the `bookdown` package to turn a collection of markdown documents into a coherent whole. The book's source code is hosted on GitHub. If you notice typos or other issues, feel free to email either of the authors.
+
+This work is licensed under the [Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode) License. 
+
+
+
+![](images/common/Education_Logo_WHITE-02.png){width=300px}
+
+<!--chapter:end:index.Rmd-->
+
+# Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)
+
+![](images/common/ISwR_thuesen.PNG)
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)       # super helpful everything!
+library(magrittr)        # includes other versions of the pipe 
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(corrplot)        # visualize correlations
+library(car)             # companion for applied regression
+library(effects)         # effect displays for models
+library(psych)           # lots of handy tools
+library(ISwR)            # Introduction to Statistics with R (datasets)
+```
+
+## Purpose
+
+### Research Question
+
+> Is there a relationship between fasting blood flucose and shortening of ventricular velocity among type 1 diabetic patiences?  If so, what is the nature of the association?
+
+
+### Data Description
+
+This dataset is included in the `ISwR` package [@R-ISwR], which was a companion to the texbook "Introductory Statistics with R, 2nd ed." [@dalgaard2008], although it was first published by @altman1991 in table 11.6. 
+
+
+> The `thuesen` data frame has 24 rows and 2 columns. It contains ventricular shortening velocity and blood glucose for type 1 diabetic patients.
+
+* `blood.glucose` a numeric vector, fasting blood glucose (mmol/l).
+* `short.velocity` a numeric vector, mean circumferential shortening velocity (%/s).
+
+
+```{r thuesendata}
+data(thuesen, package = "ISwR")
+
+tibble::glimpse(thuesen)  # view the class and 1st few values of each variable
+```
+
+
+## Exploratory Data Analysis
+
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+
+
+### Univariate Statistics
+
+Summary Statistics for all three variables of interest [@R-stargazer].
+
+```{r, results='asis'}
+thuesen %>% 
+  stargazer::stargazer(type = "html")
+```
+
+The `stargazer()` function has many handy options, should you wish to change the default settings.
+
+```{r, results="asis"}
+thuesen %>% 
+  stargazer(type   = "html", 
+            digits = 4, 
+            flip   = TRUE,                    
+            summary.stat   = c("n", "mean", "sd", "min", "median", "max"),
+            title  = "Descriptives")
+```
+
+Although the `table1()` function from the `furniture` package creates a nice summary table, it 'hides' the nubmer of missing values for each continuous variable [@R-furniture].
+
+```{r}
+thuesen %>% 
+  furniture::table1(blood.glucose, short.velocity,
+                    output = "html")
+```
+
+### Univariate Visualizations
+
+```{r}
+thuesen %>% 
+  ggplot() +
+  aes(blood.glucose) +              # variable of interest (just one)
+  geom_histogram(binwidth = 2)      # specify the width of the bars
+```
+
+
+```{r}
+thuesen %>% 
+  ggplot() +
+  aes(short.velocity) +              # variable of interest (just one)
+  geom_histogram(bins = 10)          # specify the number of bars
+```
+
+
+
+### Bivariate Statistics (Unadjusted Pearson's correlation)
+
+The `cor()` fucntion in base $R$ doesn't like `NA` or missing values
+
+```{r}
+thuesen %>% cor()           
+```
+
+
+You may specify how to handle cases that are missing on at least one of the variables of interest:
+
+* `use = "everything"` `NA`s will propagate conceptually, i.e., a resulting value will be `NA` whenever one of its contributing observations is `NA` **<-- DEFAULT**
+*`use = "all.obs"` the presence of missing observations will produce an error
+* `use = "complete.obs"` missing values are handled by casewise deletion (and if there are no complete cases, that gives an error). 
+* `use = "na.or.complete"` is the same as above unless there are no complete cases, that gives `NA` 
+* `use = "pairwise.complete.obs"` the correlation between each pair of variables is computed using all complete pairs of observations on those variables. This can result in covariance matrices which are not positive semi-definite, as well as `NA` entries if there are no complete pairs for that pair of variables. 
+
+
+Commonly, we want  **listwise deletion**:
+
+```{r}
+thuesen %>% cor(use = "complete.obs")   # list-wise deletion
+```
+
+
+
+It is also handy to specify the  number of decimal places desired, but adding a rounding step:
+
+```{r}
+thuesen %>% 
+  cor(use="complete.obs") %>%   
+  round(2)                       # number od decimal places
+```
+
+
+If you desire a correlation single value of a single PAIR of variables, instead of a matrix, then you must use a **`magrittr` exposition pipe (`%$%`)** 
+
+```{r}
+thuesen %$%                            # notice the special kind of pipe
+  cor(blood.glucose, short.velocity,   # specify exactly TWO variables            
+      use="complete.obs")
+```
+
+In addition to the `cor()` funciton, the base $R$ `stats` package also includes the `cor.test()` function to test if the correlation is zero ($H_0: R = 0$)
+
+This TESTS if the cor == 0
+```{r}
+thuesen %$%                                 # notice the special kind of pipe
+  cor.test(blood.glucose, short.velocity,   # specify exactly TWO variables            
+           use="complete.obs")
+```
+
+
+The default correltaion type for `cor()`is **Pearson's $R$**, which assesses linear relationships.  **Spearman's correlation** assesses monotonic relationships.
+
+```{r}
+thuesen %$%                            # notice the special kind of pipe
+  cor(blood.glucose, short.velocity,   # specify exactly TWO variables  
+           use    = 'complete',
+           method = 'spearman')       # spearman's (rho) 
+```
+
+
+### Bivariate Visualization
+
+Scatterplots show the relationship between two continuous measures (one on the $x-axis$ and the other on the $y-axis$), with one point for each observation.
+
+```{r, eval=FALSE}
+thuesen %>% 
+  ggplot() +
+  aes(x = blood.glucose,         # x-axis variable
+      y = short.velocity)) +     # y-axis variable
+  geom_point() +                 # place a point for each observation
+  theme_bw()                     # black-and-white theme 
+```
+
+Both the code chunk above and below produce the same plot.
+
+```{r}
+ggplot(thuesen, 
+       aes(x = blood.glucose,        # x-axis variable
+           y = short.velocity)) +    # y-axis variable
+  geom_point() +                     # place a point for each observation
+  theme_bw()                         # black-and-white theme 
+```
+
+
+## Regression Analysis
+
+
+### Fit A Simple Linear Model
+
+
+$$
+Y = \beta_0 + \beta_1 \times X
+$$
+
+* `short.velocity` dependent variable or outcome ($Y$)
+* `blood.glucose` independent variable or predictor ($X$)
+
+The `lm()` function must be supplied with at least two options:
+
+* a formula:  `Y ~ X`
+* a dataset: `data = XXXXXXX`
+
+When a model is fit and directly saved as a named object via the assignment opperator (`<-`), no output is produced.
+
+```{r}
+fit_vel_glu <- lm(short.velocity ~ blood.glucose, data = thuesen)
+```
+
+
+Running the name of the fit object yields very little output:
+
+```{r}
+fit_vel_glu
+```
+
+
+Appling the `summary()` funciton produced a good deal more output:
+
+```{r}
+summary(fit_vel_glu)
+```
+
+You may request specific pieces of the output:
+
+* Coefficients or beta estimates:
+
+```{r}
+coef(fit_vel_glu)
+```
+
+* 95% confidence intervals for the coefficients or beta estimates:
+
+```{r}
+confint(fit_vel_glu)
+```
+
+* The F-test for overall modle fit vs. a $null$ or empty model having only an intercept and no predictors.
+
+```{r}
+anova(fit_vel_glu)
+```
+
+* Various other model fit indicies:
+
+
+```{r}
+logLik(fit_vel_glu)     
+AIC(fit_vel_glu)
+BIC(fit_vel_glu)
+```
+
+
+### Checking Assumptions via Residual Diagnostics
+
+Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
+
+
+```{r}
+plot(fit_vel_glu, which = 1)
+```
+
+```{r}
+plot(fit_vel_glu, which = 2)
+```
+
+```{r}
+plot(fit_vel_glu, which = 5)
+```
+
+```{r}
+plot(fit_vel_glu, which = 6)
+```
+
+
+
+
+Viewing potentially influencial or outlier points based on plots above:
+
+```{r}
+thuesen %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::filter(id == c(13, 20, 24))
+```
+
+The `car` package has a handy function called `residualPlots()` for displaying residual plots quickly [@R-car].
+
+```{r}
+car::residualPlots(fit_vel_glu)
+```
+
+
+Here is a fancy way to visulaize 'potential problem cases' with `ggplot2`:
+
+```{r}
+thuesen %>% 
+  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  ggplot() +                                          # name the FULL dataset 
+  aes(x = blood.glucose,                              # x-axis variable name
+      y = short.velocity) +                           # y-axis variable name
+  geom_point() +                                      # do a scatterplot
+  stat_smooth(method = "lm") +                        # smooth: linear model
+  theme_bw()  +                                       # black-and-while theme
+  geom_point(data = thuesen %>%                       # override the dataset from above
+               filter(row_number() == c(13, 20, 24)), # with a reduced subset of cases
+             size = 4,                                # make the points bigger in size 
+             color = "red")                           # give the points a different color
+```
+
+
+### Manually checking residual diagnostics
+
+You may extract values from the model in dataset form and then you can maually plot the residuals.
+
+```{r}
+thuesen %>% 
+  dplyr::filter(complete.cases(.)) %>%            # get ride fo the incomplete cases
+  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%   # fitted/prediction values
+  dplyr::mutate(resid = residuals(fit_vel_glu))   # residual values
+```
+
+Check for equal spread of points along the $y=0$ horizontal line: 
+
+```{r}
+thuesen %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
+  dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
+  ggplot() +
+  aes(x = id,
+      y = resid) +
+  geom_point() +
+  geom_hline(yintercept = 0,
+             color = "red",
+             size = 1,
+             linetype = "dashed") +
+  theme_classic() +
+  labs(title = "Looking for homogeneity of residuals",
+       subtitle = "want to see equal spread all across")
+```
+
+
+Check for normality:
+
+```{r}
+thuesen %>% 
+  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
+  dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
+  ggplot() +
+  aes(resid) +
+  geom_histogram(bins = 12,
+                 color = "blue",
+                 fill = "blue",
+                 alpha = 0.3) +
+  geom_vline(xintercept = 0,
+             size = 1,
+             color = "red",
+             linetype = "dashed") +
+  theme_classic() +
+  labs(title = "Looking for normality of residuals",
+       subtitle = "want to see roughly a bell curve")
+```
+
+
+
+
+
+
+
+
+
+## Conclusion
+
+
+### Tabulate the Final Model Summary
+
+You may also present the output in a table using two different packages:
+
+* The `stargazer` package has `stargazer()` function:
+
+```{r, results='asis'}
+stargazer::stargazer(fit_vel_glu, type = "html")
+```
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `stargazer` package can produce the regression table in various output types:  
+
+* `type = "latex` **Default**  Use when knitting your .Rmd file to a .pdf via LaTeX
+* `type = "text` **Default**  Use when working on a project and viewing tables on your computer screen
+* `type = "html` **Default**  Use when knitting your .Rmd file to a .html document
+```
+
+* The `texreg` package has the `texreg()` fucntion:
+
+```{r, results="asis"}
+texreg::htmlreg(fit_vel_glu)
+```
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `texreg` package contains three version of the regression table function.  
+
+* `screenreg()` Use when working on a project and viewing tables on your computer screen
+* `htmlreg()` Use when knitting your .Rmd file to a .html document 
+* `texreg()` Use when knitting your .Rmd file to a .pdf via LaTeX
+```
+
+
+
+
+### Plot the Model
+
+When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
+
+
+The `Effect()` function from the `effects` package chooses '5 or 6 nice values' for your continuous independent variable ($X$) based on the range of values found in the dataset on which the model was fit and plugs them into the regression equation $Y = \beta_0 + \beta_1 \times X$ to compute the predicted *mean* value of the outcome ($Y$) [@R-effects].
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),  # IV variable name
+                mod = fit_vel_glu)                      # fitted model name
+```
+
+You may override the 'nice values' using the `xlevels = list(var_name = c(#, #, ...#)` option.
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = c(5, 10, 15, 20))) 
+```
+
+Adding a piped data frame step (` %>% data.frame()`) will arrange the predicted $Y$ values into a column called `fit`.  This tidy data format is ready for plotting.
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu) %>% 
+  data.frame() 
+```
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = c(5, 12, 20))) %>% 
+  data.frame() %>% 
+  ggplot() +
+  aes(x = blood.glucose,           # x-axis variable
+      y = fit) +                   # y-axis variable
+  geom_ribbon(aes(ymin = lower,    # bottom edge of the ribbon
+                  ymax = upper),   # top edge of the ribbon
+              alpha = .5) +        # ribbon transparency level
+  geom_line() +
+  theme_bw()
+```
+
+
+Notice that although the regression line is smooth, the ribbon is choppy.  This is because we are basing it on only THREE values of $X$.
+
+
+```{r}
+c(5, 12, 20)
+```
+
+Use the `seq()` function in base $R$ to request many values of $X$
+
+```{r}
+seq(from = 5, to = 20, by = 5)
+```
+
+```{r}
+seq(from = 5, to = 20, by = 2)
+```
+
+```{r}
+seq(from = 5, to = 20, by = 1)
+```
+
+
+
+```{r}
+seq(from = 5, to = 20, by = .5)
+```
+
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = seq(from = 5, to = 20, by = .5))) %>% 
+  data.frame() %>% 
+  ggplot() +
+  aes(x = blood.glucose,           # x-axis variable
+      y = fit) +                   # y-axis variable
+  geom_ribbon(aes(ymin = lower,    # bottom edge of the ribbon
+                  ymax = upper),   # top edge of the ribbon
+              alpha = .5) +        # ribbon transparency level
+  geom_line() +
+  theme_bw()
+```
+
+Now that we are basing our ribbon on MANY more points of $X$, the ribbon is much smoother.
+
+
+For publication, you would of course want to clean up the plot a bit more:
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = seq(from = 5, to = 20, by = .5))) %>% 
+  data.frame() %>% 
+  ggplot() +
+  aes(x = blood.glucose,           # x-axis variable
+      y = fit) +                   # y-axis variable
+  geom_ribbon(aes(ymin = lower,    # bottom edge of the ribbon
+                  ymax = upper),   # top edge of the ribbon
+              alpha = .3) +        # ribbon transparency level
+  geom_line() +
+  theme_bw() +
+  labs(x = "Fasting Blood Glucose (mmol/l)",
+       y = "Mean Circumferential Shortening Velocity (%/s)")   # axis labels
+```
+
+
+
+The above plot has a ribbon that represents a 95% confidence interval (`lower` to`upper`) for the MEAN (`fit`) outcome.  Sometimes we would rather display a ribbon for only the MEAN (`fit`) plus-or-minus ONE STANDARD ERROR (`se`) for the mean.  You would do that by changing the variables that define the min and max edges of the ribbon (notice the range of the y-axis has changed):
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = seq(from = 5, to = 20, by = .5))) %>% 
+  data.frame() %>% 
+  ggplot() +
+  aes(x = blood.glucose,           
+      y = fit) +                   
+  geom_ribbon(aes(ymin = fit - se,    # bottom edge of the ribbon
+                  ymax = fit + se),   # top edge of the ribbon
+              alpha = .3) +        
+  geom_line() +
+  theme_bw() +
+  labs(x = "Fasting Blood Glucose (mmol/l)",
+       y = "Mean Circumferential Shortening Velocity (%/s)")   
+```
+
+
+
+Of course, you could do both ribbons together:
+
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = seq(from = 5, to = 20, by = .5))) %>% 
+  data.frame() %>% 
+  ggplot() +
+  aes(x = blood.glucose,           
+      y = fit) +                  
+  geom_ribbon(aes(ymin = lower,    # bottom edge of the ribbon = lower of the 95% CI
+                  ymax = upper),   # top edge of the ribbon = upper of the 95% CI
+              alpha = .3) +        
+  geom_ribbon(aes(ymin = fit - se,    # bottom edge of the ribbon = mean - SE
+                  ymax = fit + se),   # top edge of the ribbon = Mean + SE
+              alpha = .3) +        
+  geom_line() +
+  theme_bw() +
+  labs(x = "Fasting Blood Glucose (mmol/l)",
+       y = "Mean Circumferential Shortening Velocity (%/s)")   # axis labels
+```
+
+<!--chapter:end:70-example_thuesen.Rmd-->
+
+# Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)
+
+![](images/common/ISwR_bp_obese.PNG)
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)       # super helpful everything!
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(corrplot)        # visualize correlations
+library(car)             # companion for applied regression
+library(effects)         # effect displays for models
+library(psych)           # lots of handy tools
+library(GGally)          # extensions to ggplot2
+library(ISwR)            # Introduction to Statistics with R (datasets)
+```
+
+
+## Purpose
+
+### Research Question
+
+> Is obsesity associated with higher blood pressure and is that relationship the same among men and women?
+
+
+
+### Data Description
+
+
+This dataset is included in the `ISwR` package [@R-ISwR], which was a companion to the texbook "Introductory Statistics with R, 2nd ed." [@dalgaard2008], although it was first published by @brown1977.  
+
+To view the documentation for the dataset, type `?bp.obese` in the console and enter or search the help tab for `bp.obese'.
+
+> The `bp.obese` data frame has 102 rows and 3 columns. It contains data from a random sample of Mexican-American adults in a small California town.
+
+This data frame contains the following columns:
+
+* `sex` a numeric vector code, 0: male, 1: female
+* `obese` a numeric vector, ratio of actual weight to ideal weight from New York Metropolitan Life Tables
+* `bp` a numeric vector,systolic blood pressure (mm Hg)
+
+
+```{r bpobesedata}
+data(bp.obese, package = "ISwR")
+
+bp.obese <- bp.obese %>% 
+  dplyr::mutate(sex = factor(sex,
+                             labels = c("Male", "Female"))) 
+
+tibble::glimpse(bp.obese)
+```
+
+
+
+## Exploratory Data Analysis
+
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+
+
+### Univariate Statistics
+
+Summary Statistics for all three variables of interest [@R-stargazer].
+
+```{r, results='asis'}
+bp.obese %>% 
+  stargazer::stargazer(type = "html")
+```
+
+### Bivariate Relationships
+
+The `furniture` package's `table1()` function is a clean way to create a descriptive table that compares distinct subgroups of your sample [@R-furniture].
+
+```{r, results='asis'}
+bp.obese %>% 
+  furniture::table1(obese, bp,
+                    splitby = ~ sex,
+                    test = TRUE,
+                    output = "html")  
+```
+
+The `ggpairs()` function in the `GGally` package is helpful for showing all pairwise relationships in raw data, especially seperating out two or three groups [@R-GGally].
+
+```{r}
+GGally::ggpairs(bp.obese,
+                mapping = aes(fill      = sex,
+                              col       = sex,
+                              alpha     = 0.1),
+                upper = list(continuous = "smooth",
+                             combo      = "facethist",
+                             discrete   = "ratio"),
+                lower = list(continuous = "cor",
+                             combo      = "box",
+                             discrete   = "facetbar"),
+                title = "Very Useful for Exploring Data") 
+```
+
+
+
+```{r}
+bp.obese %>% 
+  ggplot() +
+  aes(x    = sex, 
+      y    = bp,
+      fill = sex) +
+  geom_boxplot(alpha = 0.6) +
+  scale_fill_manual(values = c("mediumblue", "maroon3")) +
+  labs(x = "Gender",
+       y = "Blood Pressure (mmHg)") +
+  guides(fill = FALSE) +
+  theme_bw()
+```
+
+
+Visual inspection for an interaction (is gender a moderator?)
+
+```{r}
+bp.obese %>% 
+  ggplot(aes(x     = obese,
+             y     = bp,
+             color = sex)) +
+  geom_point(size  = 3)  +
+  geom_smooth(aes(fill = sex),
+              alpha  = 0.2,
+              method = "lm") +
+  scale_color_manual(values = c("mediumblue", "maroon3"),
+                     breaks = c("male",       "female"),
+                     labels = c("Men",        "Women")) +
+  scale_fill_manual(values  = c("mediumblue", "maroon3"),
+                    breaks  = c("male",       "female"),
+                    labels  = c("Men",        "Women")) +
+  labs(title = "Does Gender Moderate the Association Between Obesity and Blood Pressure?",
+       x     = "Ratio: Actual Weight vs. Ideal Weight (NYM Life Tables)",
+       y     = "Systolic Blood Pressure (mmHg)") + 
+  theme_bw() +
+  scale_x_continuous(breaks  = seq(from = 0,  to = 3,   by = 0.25 )) +
+  scale_y_continuous(breaks  = seq(from = 75, to = 300, by = 25)) +
+  theme(legend.title         = element_blank(),
+        legend.key           = element_rect(fill = "white"),
+        legend.background    = element_rect(color = "black"),
+        legend.justification = c(1, 0), 
+        legend.position      = c(1, 0))
+```
+
+
+
+
+
+
+```{r}
+bp.obese %>% 
+  dplyr::mutate(sex = as.numeric(sex)) %>%  # cor needs only numeric
+  cor() %>% 
+  round(3)
+```
+
+
+Often it is easier to digest a correlation matrix if it is visually presented, instead of just given as a table of many numbers.  The `corrplot` package has a useful function called `corrplot.mixed()` for doing just that [@R-corrplot].
+
+
+```{r}
+bp.obese %>% 
+  dplyr::mutate(sex = as.numeric(sex)) %>%  # cor needs only numeric
+  cor() %>% 
+  corrplot::corrplot.mixed(lower  = "ellipse",
+                           upper  = "number",
+                           tl.col = "black")
+```
+
+
+
+
+## Regression Analysis
+
+
+### Fit Nested Models 
+                   
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
+
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.   
+
+
+```{r}
+fit_bp_null   <- lm(bp ~ 1,            data = bp.obese) # intercept only or NULL model
+fit_bp_sex    <- lm(bp ~ sex,          data = bp.obese) 
+fit_bp_obe    <- lm(bp ~ obese,        data = bp.obese)
+fit_bp_obesex <- lm(bp ~ obese + sex,  data = bp.obese)
+fit_bp_inter  <- lm(bp ~ obese*sex,    data = bp.obese)
+```
+
+### Comparing Nested Models
+
+
+#### Model Comparison Table
+
+In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
+
+Again the `texreg` package comes in handy to display several models in the same tal e [@R-texreg].
+
+
+```{r, results='asis'}
+texreg::htmlreg(list(fit_bp_null,
+                     fit_bp_sex, 
+                     fit_bp_obe, 
+                     fit_bp_obesex, 
+                     fit_bp_inter),
+                custom.model.names = c("No Predictors", 
+                                       "Only Sex Quiz", 
+                                       "Only Obesity", 
+                                       "Both IVs", 
+                                       "Add Interaction"))
+```
+
+
+
+#### Likelihood Ratio Test of Nested Models
+
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+* Test the main effect of math quiz:
+```{r}
+anova(fit_bp_null, fit_bp_sex)
+```
+
+* Test the main effect of math phobia
+```{r}
+anova(fit_bp_null, fit_bp_obe)
+```
+
+
+* Test the main effect of math phobia,  after controlling for math test
+```{r}
+anova(fit_bp_obe, fit_bp_obesex) 
+```
+
+* Test the interaction between math test and math phobia (i.e. moderation)
+```{r}
+anova(fit_bp_obesex, fit_bp_inter)
+```
+
+
+
+
+### Checking Assumptions via Residual Diagnostics
+
+Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
+
+```{r}
+plot(fit_bp_obesex, which = 1)  
+```
+
+
+```{r}
+plot(fit_bp_obesex, which = 4, id.n = 10)  # Change the number labeled
+```
+
+The `car` package has a handy function called `residualPlots()` for displaying residual plots quickly [@R-car].
+
+```{r}
+car::residualPlots(fit_bp_obesex)    
+```
+
+you can adjust any part of a ggplot
+```{r}
+bp.obese %>% 
+  dplyr::mutate(e_bp = resid(fit_bp_obesex)) %>%  # add the resid to the dataset
+  ggplot(aes(x     = sex,               # x-axis variable name
+             y     = e_bp,              # y-axis variable name
+             color = sex,               # color is the outline
+             fill  = sex)) +            # fill is the inside
+  geom_hline(yintercept = 0,               # set at a meaningful value
+             size       = 1,               # adjust line thickness
+             linetype   = "dashed",        # set type of line
+             color      = "purple") +      # color of line
+  geom_boxplot(alpha = 0.5) +                # level of transparency
+  theme_bw() +                               # my favorite theme
+  labs(title = "Check Assumptions",            # main title's text
+       x = "Gender",                           # x-axis text label
+       y = "Blood Pressure, Residual (bpm)") + # y-axis text label
+  scale_y_continuous(breaks = seq(from = -40,    # declare a sequence of
+                                  to   =  80,    # values to make the 
+                                  by   =  20)) + # tick marks at
+  guides(color = FALSE, fill = FALSE)               # no legends included
+```
+
+
+
+```{r}
+bp.obese %>% 
+  dplyr::mutate(e_bp = resid(fit_bp_obesex)) %>%  # add the resid to the dataset
+  ggplot(aes(x     = e_bp,              # y-axis variable name
+             color = sex,               # color is the outline
+             fill  = sex)) +            # fill is the inside
+  geom_density(alpha = 0.5) +
+  geom_vline(xintercept = 0,               # set at a meaningful value
+             size       = 1,               # adjust line thickness
+             linetype   = "dashed",        # set type of line
+             color      = "purple") +      # color of line
+  theme_bw() +                               # my favorite theme
+  labs(title = "Check Assumptions",            # main title's text
+       x = "Blood Pressure, Residual (bpm)") + # y-axis text label
+  scale_x_continuous(breaks = seq(from = -40,    # declare a sequence of
+                                  to   =  80,    # values to make the 
+                                  by   =  20))  # tick marks at
+```
+
+## Conclusion
+
+Violations to the assumtions call the reliabity of the regression results into question.  The data should be further investigated, specifically the $102^{nd}$ case.   
+
+
+
+
+
+<!--chapter:end:71-example_obeseBP.Rmd-->
+
+# Multiple Linear Regression - Ex: Ihno's Experiment (interaction between two continuous IVs)
+
+![](images/common/Ihno_header.PNG)
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)       # super helpful everything!
+library(haven)           # inporting SPSS data files
+library(furniture)       # nice tables of descriptives
+library(texreg)          # nice regression summary tables
+library(stargazer)       # nice tables of descrip and regression
+library(corrplot)        # visualize correlations
+library(car)             # companion for applied regression
+library(effects)         # effect displays for models
+library(psych)           # lots of handy tools
+```
+
+
+
+## Purpose
+
+### Research Question
+
+> Does math phobia moderate the relationship between math and statistics performance?  That is, does the assocation between math and stat quiz performance differ at variaous levels of math phobia?
+
+
+### Data Description
+
+
+```{block type='rmdlink', echo=TRUE}
+Inho's dataset is included in the textbook "Explaining Psychological Statistics" [@epse4] and details regarding the sample and measures is describe in this Encyclopedia's [Vol. 2 - Ihno's Dataset](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
+```
+
+```{r inhodata}
+data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(gender = factor(gender, 
+                               levels = c(1, 2),
+                               labels = c("Female", 
+                                          "Male"))) %>% 
+  dplyr::mutate(major = factor(major, 
+                              levels = c(1, 2, 3, 4,5),
+                              labels = c("Psychology",
+                                         "Premed",
+                                         "Biology",
+                                         "Sociology",
+                                         "Economics"))) %>% 
+  dplyr::mutate(reason = factor(reason,
+                                levels = c(1, 2, 3),
+                                labels = c("Program requirement",
+                                           "Personal interest",
+                                           "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_cond = factor(exp_cond,
+                                  levels = c(1, 2, 3, 4),
+                                  labels = c("Easy",
+                                             "Moderate",
+                                             "Difficult",
+                                             "Impossible"))) %>% 
+  dplyr::mutate(coffee = factor(coffee,
+                                levels = c(0, 1),
+                                labels = c("Not a regular coffee drinker",
+                                           "Regularly drinks coffee"))) 
+```
+
+
+## Exploratory Data Analysis
+
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+
+
+### Univariate Statistics
+
+Summary Statistics for all three variables of interest [@R-stargazer].
+
+```{r, results='asis'}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  stargazer::stargazer(type = "html")
+```
+
+### Bivariate Relationships
+
+The `furniture` package's `table1()` function is a clean way to create a descriptive table that compares distinct subgroups of your sample [@R-furniture].
+
+Although categorizing continuous variables results in a loss of information *(possible signal or noise)*, it is often done to investigate relationships in an exploratory way.
+
+```{r, results='asis'}
+data_ihno %>% 
+  dplyr::mutate(phobia_cut3 = cut(phobia,
+                                 breaks = c(0, 2, 4, 10),
+                                 include.lowest = TRUE)) %>% 
+  furniture::table1(mathquiz, statquiz,
+                    splitby = ~ phobia_cut3,
+                    test = TRUE,
+                    output = "html")
+```
+
+
+One of the quickest ways to get a feel for all the pairwise relationships in your dataset (provided there aren't too many variables) is with the `pairs.panels()` function in the `psych` package [@R-psych]. 
+
+```{r}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  data.frame() %>% 
+  psych::pairs.panels(lm = TRUE, 
+                      ci = TRUE,
+                      stars = TRUE)
+```
+
+When two variables are both continuous, correlations (Pearson's $R$) are an important measure of association.  
+
+Notice the discrepincy between the correlation between `statquiz` and `phobia`.  Above, the `psych::pairs.panels()` function uses **pairwise complete** cases by default, so $r=-.39$ is computed on all $n=100$ subjects.  Below, we specified `use = "complete.obs"` in the `cor()` fucntion, so all correlations will be based on the same $n=85$ students, making it **listwise complete**.  The choice of which method to you will vary by situation.
+
+
+Often it is easier to digest a correlation matrix if it is visually presented, instead of just given as a table of many numbers.  The `corrplot` package has a useful function called `corrplot.mixed()` for doing just that [@R-corrplot].
+
+```{r}
+data_ihno %>% 
+  dplyr::select(phobia, mathquiz, statquiz) %>% 
+  cor(use = "complete.obs") %>% 
+  corrplot::corrplot.mixed(lower  = "ellipse",
+                           upper  = "number",
+                           tl.col = "black")
+```
+
+
+
+## Regression Analysis
+
+### Subset the Sample
+
+
+All regression models can only be fit to complete observations regarding the variables included in the model (dependent and independent).  Removing any case that is incomplete with respect to even one variables is called **"list-wise deletion"**.  
+
+In this analysis, models including the `mathquiz` variable will be fit on only 85 students (sincle 15 students did not take the math quiz), where as models not including this variable will be fit to all 100 studnets.  
+
+This complicates model comparisons, which require nested models be fit to the same data (exactly).  For this reason, the dataset has been reduced to the subset of students that are complete regarding the three variables utilized throughout the set of five nested models.
+
+
+```{r}
+data_ihno_fitting <- data_ihno %>% 
+                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
+
+dim(data_ihno_fitting)
+```      
+ 
+
+### Fit Nested Models 
+                   
+The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
+
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.                                     
+                                    
+```{r}
+fit_ihno_lm_0 <- lm(statquiz ~ 1,                    # null model: intercept only
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,             # only main effect of mathquiz
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_2 <- lm(statquiz ~ phobia,               # only mian effect of phobia
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,    # both main effects 
+                    data = data_ihno_fitting)
+
+fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,      # additional interaction
+                    data = data_ihno_fitting)
+```
+
+
+
+### Comparing Nested Models
+
+
+#### Model Comparison Table
+
+In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
+
+Again the `texreg` package comes in handy to display several models in the same tal e [@R-texreg].
+
+
+```{r, results='asis'}
+texreg::htmlreg(list(fit_ihno_lm_0, 
+                     fit_ihno_lm_1, 
+                     fit_ihno_lm_2, 
+                     fit_ihno_lm_3, 
+                     fit_ihno_lm_4),
+                custom.model.names = c("No Predictors", 
+                                       "Only Math Quiz", 
+                                       "Only Phobia", 
+                                       "Both IVs", 
+                                       "Add Interaction"))
+```
+
+
+
+#### Likelihood Ratio Test of Nested Models
+
+An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+* Test the main effect of math quiz:
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_1)
+```
+
+* Test the main effect of math phobia
+```{r}
+anova(fit_ihno_lm_0, fit_ihno_lm_2)
+```
+
+
+* Test the main effect of math phobia,  after controlling for math test
+```{r}
+anova(fit_ihno_lm_1, fit_ihno_lm_3) 
+```
+
+* Test the interaction between math test and math phobia (i.e. moderation)
+```{r}
+anova(fit_ihno_lm_3, fit_ihno_lm_4)
+```
+
+
+
+### Checking Assumptions via Residual Diagnostics
+
+Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
+
+
+```{r}
+plot(fit_ihno_lm_3, which = 1)
+```
+
+```{r}
+plot(fit_ihno_lm_3, which = 2)
+```
+
+
+The `car` package has a handy function called `residualPlots()` for displaying residual plots quickly [@R-car].
+
+
+```{r}
+car::residualPlots(fit_ihno_lm_3)
+```
+
+
+While the model tables give starts to denote significance, you may print the actual p-values with the `summary()` function applied to the model name.
+
+```{r}
+summary(fit_ihno_lm_3)
+```
+
+
+```{r}
+summary(fit_ihno_lm_4)
+```
+
+
+
+## Conclusion
+
+
+### Tabulate the Final Model Summary
+
+Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `texreg` package contains three version of the regression table function [@R-texreg].  
+
+* `screenreg()` Use when working on a project and viewing tables on your computer screen
+* `htmlreg()` Use when knitting your .Rmd file to a .html document 
+* `texreg()` Use when knitting your .Rmd file to a .pdf via LaTeX
+```
+
+```{r, results='asis'}
+texreg::htmlreg(fit_ihno_lm_3,
+               custom.model.names = "Main Effects Model",
+               ci.force = TRUE,                              # request 95% conf interv
+               caption = "Final Model for Stat's Quiz",
+               single.row = TRUE)
+```
+
+
+### Plot the Model
+
+When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
+
+The `Effect()` function from the `effects` package chooses '5 or 6 nice values' for each of your continuous independent variable ($X's$) based on the range of values found in the dataset on which the model and plugs all possible combinations of them into the regression equation $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 \dots \beta_k X_k$ to compute the predicted *mean* value of the outcome ($Y$) [@R-effects].
+
+```{block type='rmdlightbulb', echo=TRUE}
+When plotting a regression model the outcome (dependent variable) is always on the y-axis (`fit`) and only one predictor (independent variable) may be used on the x-axis.  You may incorporate additional predictor using colors, shapes, linetypes, or facets. For these predictors, you will want to specify only 2-4 values for illustration and then declare them as factors prior to plotting.
+```
+
+```{r}
+effects::Effect(focal.predictors = c("mathquiz", "phobia"),
+                mod = fit_ihno_lm_3,
+                xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
+  data.frame %>% 
+  dplyr::mutate(phobia = factor(phobia)) %>%               # factor for illustration
+  ggplot() +
+  aes(x = mathquiz,
+      y = fit,
+      fill = phobia,
+      color = phobia) +
+  geom_ribbon(aes(ymin = fit - se, 
+                  ymax = fit + se),
+              alpha = .3) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Score on Math Quiz",
+       y = "Estimated Marginal Mean\nScore on Stat Quiz",
+       fill  = "Self Rated\nMath Phobia",
+       color = "Self Rated\nMath Phobia") +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(0, 1))
+```
+
+
+## Write-up
+
+> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction).
+
+
+There is a strong association between math and stats quiz scores, $r = .51$.  Math phobia is associated with lower math, $r = -.28$, and stats quiz scores, $r = -.36$.  When considered togehter, the combined effects of math phobia and math score account for 31% of the variance in statistical achievement.  
+
+Not surprizingly, while higher self-reported math phobia was associated with lower statists scores, $b = -0.162$, $p=.018$, $95CI = [-0.29, -0.03]$, higher math quiz scores were associated with higher stats score, $b = -0.081$, $p<.001$, $95CI = [0.05, 0.12]$.  
+
+There was no evidence that math phobia moderated the relationship between math and quiz performance, $p=.377$. 
+
+
+
+
+<!--chapter:end:72-example_Ihno.Rmd-->
+
+# Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants
+
+example walk through:
+
+https://stats.idre.ucla.edu/r/dae/logit-regression/
+
+
+info:
+
+https://onlinecourses.science.psu.edu/stat504/node/216/ 
+
+`sjPlot::tab_model` (HTML only)
+
+http://www.strengejacke.de/sjPlot/articles/sjtlm.html#changing-summary-style-and-content 
+
+`finafit`
+
+https://www.r-bloggers.com/elegant-regression-results-tables-and-plots-in-r-the-finalfit-package/
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(pscl)         # psudo R-squared function
+```
+
+## Background
+
+Simple example demonstrating basic modeling approach:  Data on **Bronchopulmonary Dysplasia** (BPD) from 223 low birth weight infants (weighing less than 1750 grams).
+
+
+### Source
+
+Data courtesy of Dr. Linda Van Marter.
+
+### Reference
+
+Van Marter, L.J., Leviton, A., Kuban, K.C.K., Pagano, M. & Allred, E.N. (1990).  *Maternal glucocorticoid therapy and reduced risk of bronchopulmonary dysplasia.* Pediatrics, 86, 331-336.
+
+The data are from a study of low birth weight infants in a neonatal intensive care unit. The study was designed to examine the development of **bronchopulmonary dysplasia (BPD)**, a chronic lung disease, in a sample of 223 infants weighing less than 1750 grams. The response variable is binary, denoting whether an infant develops BPD by day 28 of life (where BPD is defined by both oxygen 
+requirement and compatible chest radiograph).
+
+### Variables    
+
+* bpd(0 [N],1 [Y])    
+* brthwght (grams)    
+* gestage (weeks)    
+* toxemia (0 [N] ,1 [Y]) in mother    
+
+```{r vanmarterbpddata}
+bpd_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/VanMarter_%20BPD.txt?token=AScXBcwRurGPiBMhNmlD3RyY9VU1Bh7lks5bz50qwA%3D%3D", 
+                      header      = TRUE, 
+                      strip.white = TRUE)
+```
+
+```{r}
+n <- nrow(bpd_raw)
+n
+```
+
+
+```{r}
+str(bpd_raw)
+```
+
+```{r}
+head(bpd_raw)
+```
+
+
+
+```{r}
+bpd_clean <- bpd_raw %>% 
+  dplyr::mutate(toxemia = factor(toxemia,
+                                 levels = c(0, 1),
+                                 labels = c("No", "Yes")))
+```
+
+
+```{r}
+summary(bpd_clean)
+```
+
+
+
+
+## Logistic Regresion
+
+### Fit the Models
+
+```{r}
+fit_glm_0 <- glm(bpd ~ 1, 
+                 data = bpd_clean, 
+                 family = binomial(link = "logit")) 
+
+
+fit_glm_1 <- glm(bpd ~ I(brthwght/100) + gestage + toxemia, 
+                 data = bpd_clean, 
+                 family = binomial(link = "logit")) 
+```
+
+#### Log Likelihood
+
+```{r}
+logLik(fit_glm_0)
+logLik(fit_glm_1)
+```
+
+#### Deviance
+
+```{r}
+deviance(fit_glm_0)
+deviance(fit_glm_1)
+```
+
+### GoF Measures
+
+#### AIC
+
+```{r}
+AIC(fit_glm_0)
+AIC(fit_glm_1)
+```      
+
+
+
+#### Logistic R^2
+
+http://thestatsgeek.com/2014/02/08/r-squared-in-logistic-regression/ 
+
+Technically, $R^2$ cannot be computed the same way in logistic regression as it is in OLS regression. The $pseudo-R^2$, in logistic regression, is defined as $1−\frac{L_1}{L_0}$, where $L_0$ represents the log likelihood for the "constant-only" or NULL model and $L_1$ is the log likelihood for the full model with constant and predictors.
+
+
+#### McFadden's pseud- R^2
+
+$$
+R^2_{McF} = 1 - \frac{L_1}{L_0}
+$$
+
+```{r}
+MFR2 <- 1 - (logLik(fit_glm_1)/logLik(fit_glm_0))
+MFR2
+```
+
+
+
+#### Cox & Snell
+
+$l = e^{L}$, sinc $L$ is the log of the likelihood and $l$ is the likelihood...$log(l) = L$
+
+$$
+R^2_{CS} = 1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n} \\
+n = \text{sample size}
+$$
+
+
+
+```{r}
+CSR2 <- 1 - (exp(logLik(fit_glm_0))/exp(logLik(fit_glm_1)))^(2/n)
+CSR2
+```
+
+
+
+#### Nagelkerke or Cragg and Uhler's
+
+$$
+R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
+                 {1 - \Big( l_0 \Big) ^{2 \backslash n}}
+$$
+
+```{r}
+NR2 <- CSR2 / (1 - exp(logLik(fit_glm_0))^(2/n))
+NR2 
+```
+
+#### Several with the `pscl::pR2()` function 
+
+```{r}
+pscl::pR2(fit_glm_1)
+```
+
+
+
+
+
+### Parameter Estimates
+
+#### Logit Scale
+
+```{r}
+fit_glm_1 %>% coef()
+```
+
+#### Odds Ratio Scale
+
+```{r}
+fit_glm_1 %>% coef() %>% exp()
+```
+
+#### Confidence Intervals - OR sclae
+
+```{r}
+fit_glm_1 %>% confint() %>% exp()
+```
+
+
+
+
+### Significance of Terms
+
+#### Likelihood Ratio Test of all Nested Models
+
+```{r}
+anova(fit_glm_0, fit_glm_1)
+```
+
+#### Sequential LRTs: for adding one variable at a time
+
+```{r}
+anova(fit_glm_1, test = "Chisq")
+```
+
+
+
+
+
+### Parameter Estimates
+
+#### Raw Output
+
+```{r}
+summary(fit_glm_1) 
+```
+
+#### `sjPlot` - HTML tables
+
+JUST HTML for now...
+
+Parameters Exponentiated:
+
+```{r, results = "asis"}
+sjPlot::tab_model(fit_glm_1)
+```
+
+
+
+```{r, results = "asis"}
+sjPlot::tab_model(fit_glm_1,
+                  emph.p = TRUE,
+                  pred.labels = c("(Intercept)",
+                                  "Birthweight, 100 grams",
+                                  "Gestational Age, week",
+                                  "Mother had Toxemia"))         
+```
+
+
+
+#### `texreg` default
+
+```{r}
+texreg::screenreg(fit_glm_1)
+```
+
+#### `texreg` Confidence Intervals on Logit Scale
+
+```{r}
+texreg::screenreg(fit_glm_1,
+                  ci.force = TRUE)
+```
+
+
+#### `texreg` exponentiate the betas (SE are not exp)
+
+```{r}
+texreg::screenreg(fit_glm_1,
+                  override.coef = list(fit_glm_1 %>% coef() %>% exp()))
+```
+
+
+
+
+
+### Marginal Model Plot
+
+
+
+
+#### Manually Specified
+
+
+```{r}
+summary(bpd_clean)
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
+                mod = fit_glm_1,
+                xlevels = list(brthwght = seq(from = 450, to = 1730, by = 10),
+                               gestage = c(28, 30, 32))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(gestage = factor(gestage)) %>% 
+  ggplot(aes(x = brthwght,
+             y = fit)) +
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper,
+                  fill = toxemia),
+              alpha = .2) +
+  geom_line(aes(linetype = toxemia,
+                color = toxemia),
+            size = 1) +
+  facet_grid(. ~ gestage, labeller = label_both) +
+  theme_bw()
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
+                mod = fit_glm_1,
+                xlevels = list(brthwght = seq(from = 450, to = 1730, by = 10),
+                               gestage = c(28, 30, 32))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(gestage = factor(gestage)) %>% 
+  ggplot(aes(x = brthwght,
+             y = fit)) +
+  geom_line(aes(linetype = toxemia,
+                color = toxemia),
+            size = 1) +
+  facet_grid(. ~ gestage, labeller = label_both) +
+  theme_bw()
+```
+
+
+### Residual Diagnostics
+
+#### `sjPlot`
+
+```{r}
+sjPlot::plot_model(fit_glm_1, type = "diag")
+```
+
+#### base R graphics
+
+```{r}
+plot(fit_glm_1)
+```
+
+
+
+
+<!--chapter:end:80_logistic_bpd.Rmd-->
+
+# Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(sjPlot)       # Quick plots and tables for models
+library(pscl)         # psudo R-squared function
+library(glue)         # Interpreted String Literals 
+```
+
+## Background
+
+More complex example demonstrating modeling decisions
+
+Another set of data from a study investigating predictors of low birth weight
+
+* `id` infant's unique identification number
+
+Dependent variable (DV) or outcome    
+
+* `low` Low birth weight (outcome) (0 = birth weight >2500 g (normal), 1 = birth weight < 2500 g (low))
+* `bwt` actual infant birth weight in grams
+
+
+Indepdentend variables (IV) or predictors
+
+* `age` Age of mother, in years
+* `lwt` Mother's weight at last menstrual period, in pounds
+* `race` Race: 1 = White, 2 = Black, 3 = Other
+* `smoke` Smoking status during pregnancy:1 = Yes, 0 = No
+* `ptl` History of premature labor: 0 = None, 1 = One, 2 = two, 3 = three
+* `ht` History of hypertension: 1 = Yes, 0 = No
+* `ui` Uterine irritability: 1 = Yes, 0 = No
+* `ftv` Number of physician visits in 1st trimester: 0 = None, 1 = One, ... 6 = six
+
+
+### Raw Dataset
+
+The data is saved in a text file (.txt) without any labels.
+
+```{r lowbwtdata}
+lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBTYDbui3sy0ah-7-yknbzAyAwsUoks5bz51LwA%3D%3D", 
+                         header = TRUE, 
+                         sep = "", 
+                         na.strings = "NA", 
+                         dec = ".", 
+                         strip.white = TRUE)
+
+tibble::glimpse(lowbwt_raw)
+```
+
+
+
+### Declare Factors
+
+
+```{r}
+lowbwt_clean <- lowbwt_raw %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(low = factor(low,
+                             levels = c(0, 1),
+                             labels = c("birth weight >2500 g (normal)",
+                                        "birth weight < 2500 g (low)"))) %>% 
+  dplyr::mutate(race = factor(race,
+                              levels = 1:3,
+                              labels = c("White", 
+                                         "Black", 
+                                         "Other"))) %>% 
+  dplyr::mutate(ptl_any = as.numeric(ptl > 0)) %>%         # colapse into 0 = none vs. 1 = at least one
+  dplyr::mutate(ptl = factor(ptl)) %>%                     # declare the number of pre-term labors to be a factor: 0, 1, 2, 3
+  dplyr::mutate_at(vars(smoke, ht, ui, ptl_any),           # declare all there variables to be factors with the same two levels
+                   factor,
+                   levels = 0:1,
+                   labels = c("No", "Yes")) 
+```
+
+
+Display the structure of the 'clean' version of the dataset
+
+```{r}
+str(lowbwt_clean)
+```
+
+
+
+
+
+## Exploratory Data Analysis
+
+```{r}
+# Knit to Website: output = "html" 
+# Knit to PDF:     output = "latex2"
+# View on Screen:  output = ""text", or "markdown", "html"
+
+lowbwt_clean %>% 
+  furniture::table1("Age, years" = age, 
+                    "Weight, pounds" = lwt, 
+                    "Race" = race, 
+                    "Smoking During pregnancy" = smoke, 
+                    "History of Premature Labor, any" = ptl_any, 
+                    "History of Premature Labor, number" = ptl, 
+                    "History of Hypertension" = ht, 
+                    "Uterince Irritability" = ui, 
+                    "1st Tri Dr Visits" = ftv, 
+                    splitby = ~ low,
+                    test = TRUE,
+                    output = "html")
+```
+
+
+
+
+
+
+## Logistic Regression - Simple, un-adjusted
+
+```{r}
+low1.age   <- glm(low ~ age,     family=binomial(logit), data=lowbwt_clean)
+low1.lwt   <- glm(low ~ lwt,     family=binomial(logit), data=lowbwt_clean)
+low1.race  <- glm(low ~ race,    family=binomial(logit), data=lowbwt_clean)
+low1.smoke <- glm(low ~ smoke,   family=binomial(logit), data=lowbwt_clean)
+low1.ptl   <- glm(low ~ ptl_any, family=binomial(logit), data=lowbwt_clean)
+low1.ht    <- glm(low ~ ht,      family=binomial(logit), data=lowbwt_clean)
+low1.ui    <- glm(low ~ ui,      family=binomial(logit), data=lowbwt_clean)
+low1.ftv   <- glm(low ~ ftv,     family=binomial(logit), data=lowbwt_clean)
+```
+
+Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(list(low1.age, low1.lwt, low1.race, low1.smoke),
+                custom.model.names = c("Age", "Weight", "Race", "Smoker"),
+                caption = "Simple, Unadjusted Logistic Regression: Models 1-4",
+                caption.above = TRUE)
+```
+
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(list(low1.ptl, low1.ht, low1.ui, low1.ftv),
+                custom.model.names = c("Pre-Labor", "Hypertension", "Uterine", "Visits"),
+                caption = "Simple, Unadjusted Logistic Regression: Models 5-8",
+                caption.above = TRUE)
+```
+
+## Logistic Regression - Multivariate, with Main Effects Only
+
+Main-effects multiple logistic regression model
+
+```{r}
+low1_1 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui,
+              family = binomial(logit), 
+              data = lowbwt_clean)
+
+summary(low1_1)
+```
+
+
+```{r}
+sjPlot
+```
+ 
+
+
+
+## Logistic Regression - Multivariate, with Interactions
+
+Before removing non-significant main effects, test plausible interactions
+
+Try interactions between age and lwt, age and smoke, lwt and smoke,  1 at a time
+
+### Age and Weight
+
+```{r}
+low1_2 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:lwt,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_2)
+```
+
+#### Compare Model Fits vs. Likelihood Ratio Test
+
+```{r}
+anova(low1_1, low1_2, test = 'Chi')
+```
+
+#### Type II Analysis of Deviance Table
+
+```{r}
+Anova(low1_2, test = 'LR') 
+```
+
+#### Type III Analysis of Deviance Table
+
+```{r}
+Anova(low1_2, test = 'LR', type = 'III') 
+```
+
+
+### Age and Smoking
+
+
+```{r}
+low1_3 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:smoke,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_3)
+```
+
+#### Compare Model Fits vs. Likelihood Ratio Test
+
+```{r}
+anova(low1_1, low1_3, test = 'Chi')
+```
+
+
+
+### Weight and Smoking
+
+
+```{r}
+low1_4 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + lwt:smoke,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_4)
+```
+
+#### Compare Model Fits vs. Likelihood Ratio Test
+
+```{r}
+anova(low1_1, low1_4, test = 'Chi')
+```
+
+## Logistic Regression - Multivariate, Simplify
+
+No interactions are  significant
+Remove non-significant main effects
+
+
+### Remove the least significant perdictor: `ui`
+
+```{r}
+low1_5 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht,
+                 family = binomial(logit), 
+                 data = lowbwt_clean)
+
+summary(low1_5)
+```
+
+
+## Logistic Regression - Multivariate, Final Model
+
+Since the mother's age is theoretically a meaningful variable, it should probably be retained.
+
+Revise so that age is interpreted in 5-year and lwt in 20 lb increments and the intercept has meaning.
+
+
+
+```{r}
+low1_6 <- glm(low ~ I((age - 20)/5) + I((lwt - 125)/20) + race + smoke + ptl_any + ht,
+              family = binomial(logit), 
+              data = lowbwt_clean)
+
+summary(low1_6)
+```
+
+
+### Several $R^2$ measures with the `pscl::pR2()` function 
+
+```{r}
+pscl::pR2(low1_6)
+```
+
+
+### Parameter Estiamtes Table
+
+#### Using `texreg::screenreg()`
+
+Default: parameters are in terms of the 'logit' or log odds ratio
+
+```{r, include=FALSE}
+texreg::screenreg(low1_6)
+```
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(low1_6)
+```
+
+
+
+The `texreg` package uses an intermediate function called `extract()` to extract information for the model and then put it in the right places in the table.  We can invervene by writing our own `extract_OR()` function to use instead.
+
+```{r}
+extract_OR <- function(fit_glm){
+  beta   = coef(fit_glm)    
+  betaci = confint(fit_glm) 
+  fit_glm_OR        = texreg::extract(fit_glm)
+  fit_glm_OR@coef   = exp(beta)
+  fit_glm_OR@ci.low = exp(betaci[, 1])
+  fit_glm_OR@ci.up  = exp(betaci[, 2])
+  return(fit_glm_OR)
+}
+```
+
+```{r, include=FALSE}
+texreg::screenreg(extract_OR(low1_6),
+                  custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
+                                        "Additional 5 years older",
+                                        "Additional 20 lbs pre-pregnancy",
+                                        "Race: Black vs. White",
+                                        "Race: Other vs. White",
+                                        "Smoking During pregnancy",
+                                        "History of Any Premature Labor",
+                                        "History of Hypertension"),
+                  custom.model.names = "OR, Low Birth Weight",
+                  single.row = TRUE,
+                  custom.note = "* The value of '1' is outside the confidence interval for the OR")
+```
+
+```{r, results='asis'}
+# Knit to Website: texreg::htmlreg()
+# Knit to PDF:     texreg::texreg()
+# View on Screen:  texreg::screenreg()
+
+texreg::htmlreg(extract_OR(low1_6),
+                custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
+                                      "Additional 5 years older",
+                                      "Additional 20 lbs pre-pregnancy",
+                                      "Race: Black vs. White",
+                                      "Race: Other vs. White",
+                                      "Smoking During pregnancy",
+                                      "History of Any Premature Labor",
+                                      "History of Hypertension"),
+                custom.model.names = "OR, Low Birth Weight",
+                single.row = TRUE,
+                custom.note = "* The value of '1' is outside the confidence interval for the OR")
+```
+
+
+
+
+#### Using `sjPlot::tab_model()`
+
+Parameters Exponentiated:
+
+```{r, results = "asis"}
+sjPlot::tab_model(low1_6,
+                  emph.p = TRUE,
+                  pred.labels = c("BL: 125 lb, 20 yr old White Mother",
+                                  "Additional 5 years old",
+                                  "Additional 20 lbs pre-pregnancy",
+                                  "Race: Black vs. White",
+                                  "Race: Other vs. White",
+                                  "Smoking During pregnancy",
+                                  "History of Any Premature Labor",
+                                  "History of Hypertension")) 
+```
+
+
+### Marginal Model Plot
+
+#### Focus on: Mother's Age, weight, and race
+
+```{r, fig.width=8, fig.height=6}
+effects::Effect(focal.predictors = c("age", "lwt", "race"),
+                mod = low1_6,
+                xlevels = list(age = c(20, 30, 40),
+                               lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(age_labels = glue("Mother Age: {age}")) %>% 
+  ggplot(aes(x = lwt,
+             y = fit)) +
+  geom_line(aes(color = race,
+                linetype = race),
+            size = 1) +
+  theme_bw() +
+  facet_grid(.~ age_labels) +
+  labs(title = "Risk of Low Birth Weight",
+       subtitle = "Illustates risk given mother is a non-smoker, without a history of pre-term labor or hypertension",
+       x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       color    = "Mother's Race",
+       linetype = "Mother's Race") +
+  theme(legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("longdash", "dotted", "solid")) +
+  scale_color_manual(values = c( "coral2", "dodger blue", "gray50"))
+```
+
+#### Focus on: Mother's weight and smothing status during pregnancy, as well as history of any per-term labor and hypertension
+
+```{r, fig.width=8, fig.height=6}
+effects::Effect(focal.predictors = c("lwt", "smoke", "ptl_any", "ht"),
+                fixed.predictors = list(age = 20),
+                mod = low1_6,
+                xlevels = list(lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(smoke = forcats::fct_rev(smoke)) %>% 
+  dplyr::mutate(ptl_any_labels = glue("History of Preterm Labor: {ptl_any}")) %>% 
+  dplyr::mutate(ht_labels = glue("History of Hypertension: {ht}") %>% forcats::fct_rev()) %>% 
+  ggplot(aes(x = lwt,
+             y = fit)) +
+  geom_line(aes(color = smoke,
+                linetype = smoke),
+            size = 1) +
+  theme_bw() +
+  facet_grid(ht_labels ~ ptl_any_labels) +
+  labs(title = "Risk of Low Birth Weight",
+       subtitle = "Illustates risk given the mother is 20 years old and white",
+       x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       color    = "Mother Smoked",
+       linetype = "Mother Smoked") +
+  theme(legend.position = c(1, .5),
+        legend.justification = c(1.1, 1.15),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm")) +
+  scale_linetype_manual(values = c("longdash", "solid")) +
+  scale_color_manual(values = c( "coral2", "dodger blue"))
+```
+
+
+<!--chapter:end:81_logisitc_.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(.packages(), 
+                   'bookdown',
+                   'knitr', 
+                   'rmarkdown',
+                   'tidyrverse',
+                   'magrittr',
+                   'haven',
+                   'furniture',
+                   'texreg',
+                   'stargazer',
+                   'corrplot',
+                   'car',
+                   'psych',
+                   'ISwR'), 
+                 'packages.bib')
+```
+
+
+
+<!--chapter:end:99-refs.Rmd-->
+

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="EQM_v1_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="cehs-research/eBook_wrangle" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="EQM_v1_cover.png" />
+
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html">
+<link rel="next" href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-authors"><i class="fa fa-check"></i>The Authors</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a><ul>
+<li class="chapter" data-level="1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>1.1</b> Purpose</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>1.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="1.1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>1.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>1.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="1.2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>1.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="1.2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>1.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>1.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>1.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>1.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="1.3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>1.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>1.3.3</b> Manually checking residual diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>1.4</b> Conclusion</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>1.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="1.4.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>1.4.2</b> Plot the Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>2</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a><ul>
+<li class="chapter" data-level="2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>2.1</b> Purpose</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>2.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="2.1.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>2.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>2.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="2.2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>2.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>2.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>2.3.1</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="2.3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>2.3.2</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="2.3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>2.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>2.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a><ul>
+<li class="chapter" data-level="3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>3.1</b> Purpose</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>3.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>3.3.1</b> Subset the Sample</a></li>
+<li class="chapter" data-level="3.3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>3.3.2</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="3.3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>3.3.3</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="3.3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>3.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>3.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="3.4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>3.4.2</b> Plot the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>3.5</b> Write-up</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#background"><i class="fa fa-check"></i><b>4.1</b> Background</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>4.1.1</b> Source</a></li>
+<li class="chapter" data-level="4.1.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>4.1.2</b> Reference</a></li>
+<li class="chapter" data-level="4.1.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>4.1.3</b> Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion"><i class="fa fa-check"></i><b>4.2</b> Logistic Regresion</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#fit-the-models"><i class="fa fa-check"></i><b>4.2.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="4.2.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#gof-measures"><i class="fa fa-check"></i><b>4.2.2</b> GoF Measures</a></li>
+<li class="chapter" data-level="4.2.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>4.2.3</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="4.2.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>4.2.4</b> Significance of Terms</a></li>
+<li class="chapter" data-level="4.2.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates-1"><i class="fa fa-check"></i><b>4.2.5</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="4.2.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plot"><i class="fa fa-check"></i><b>4.2.6</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="4.2.7" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#residual-diagnostics"><i class="fa fa-check"></i><b>4.2.7</b> Residual Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>5</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a><ul>
+<li class="chapter" data-level="5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-1"><i class="fa fa-check"></i><b>5.1</b> Background</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>5.1.1</b> Declare Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-un-adjusted"><i class="fa fa-check"></i><b>5.3</b> Logistic Regression - Simple, un-adjusted</a></li>
+<li class="chapter" data-level="5.4" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>5.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
+<li class="chapter" data-level="5.5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>5.5</b> Logistic Regression - Multivariate, with Interactions</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>5.5.1</b> Age and Weight</a></li>
+<li class="chapter" data-level="5.5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>5.5.2</b> Age and Smoking</a></li>
+<li class="chapter" data-level="5.5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>5.5.3</b> Weight and Smoking</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>5.6</b> Logistic Regression - Multivariate, Simplify</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>5.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>5.7</b> Logistic Regression - Multivariate, Final Model</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>5.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
+<li class="chapter" data-level="5.7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>5.7.2</b> Parameter Estiamtes Table</a></li>
+<li class="chapter" data-level="5.7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot-1"><i class="fa fa-check"></i><b>5.7.3</b> Marginal Model Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs" class="section level1">
+<h1><span class="header-section-number">2</span> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</h1>
+<div class="figure">
+<img src="images/common/ISwR_bp_obese.PNG" />
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)       <span class="co"># super helpful everything!</span>
+<span class="kw">library</span>(haven)           <span class="co"># inporting SPSS data files</span>
+<span class="kw">library</span>(furniture)       <span class="co"># nice tables of descriptives</span>
+<span class="kw">library</span>(texreg)          <span class="co"># nice regression summary tables</span>
+<span class="kw">library</span>(stargazer)       <span class="co"># nice tables of descrip and regression</span>
+<span class="kw">library</span>(corrplot)        <span class="co"># visualize correlations</span>
+<span class="kw">library</span>(car)             <span class="co"># companion for applied regression</span>
+<span class="kw">library</span>(effects)         <span class="co"># effect displays for models</span>
+<span class="kw">library</span>(psych)           <span class="co"># lots of handy tools</span>
+<span class="kw">library</span>(GGally)          <span class="co"># extensions to ggplot2</span>
+<span class="kw">library</span>(ISwR)            <span class="co"># Introduction to Statistics with R (datasets)</span></code></pre></div>
+<div id="purpose-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Purpose</h2>
+<div id="research-question-1" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Research Question</h3>
+<blockquote>
+<p>Is obsesity associated with higher blood pressure and is that relationship the same among men and women?</p>
+</blockquote>
+</div>
+<div id="data-description-1" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Data Description</h3>
+<p>This dataset is included in the <code>ISwR</code> package <span class="citation">(Dalgaard <a href="references.html#ref-R-ISwR">2015</a>)</span>, which was a companion to the texbook “Introductory Statistics with R, 2nd ed.” <span class="citation">(Dalgaard <a href="references.html#ref-dalgaard2008">2008</a>)</span>, although it was first published by <span class="citation">Brown and Hollander (<a href="references.html#ref-brown1977">1977</a>)</span>.</p>
+<p>To view the documentation for the dataset, type <code>?bp.obese</code> in the console and enter or search the help tab for `bp.obese’.</p>
+<blockquote>
+<p>The <code>bp.obese</code> data frame has 102 rows and 3 columns. It contains data from a random sample of Mexican-American adults in a small California town.</p>
+</blockquote>
+<p>This data frame contains the following columns:</p>
+<ul>
+<li><code>sex</code> a numeric vector code, 0: male, 1: female</li>
+<li><code>obese</code> a numeric vector, ratio of actual weight to ideal weight from New York Metropolitan Life Tables</li>
+<li><code>bp</code> a numeric vector,systolic blood pressure (mm Hg)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(bp.obese, <span class="dt">package =</span> <span class="st">&quot;ISwR&quot;</span>)
+
+bp.obese &lt;-<span class="st"> </span>bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">factor</span>(sex,
+                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))) 
+
+tibble<span class="op">::</span><span class="kw">glimpse</span>(bp.obese)</code></pre></div>
+<pre><code>Observations: 102
+Variables: 3
+$ sex   &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Ma...
+$ obese &lt;dbl&gt; 1.31, 1.31, 1.19, 1.11, 1.34, 1.17, 1.56, 1.18, 1.04, 1....
+$ bp    &lt;int&gt; 130, 148, 146, 122, 140, 146, 132, 110, 124, 150, 120, 1...</code></pre>
+</div>
+</div>
+<div id="exploratory-data-analysis-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Exploratory Data Analysis</h2>
+<p>Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time <em>(univariate)</em>, as well as pairwise <em>(bivariate)</em>.</p>
+<div id="univariate-statistics-1" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Univariate Statistics</h3>
+<p>Summary Statistics for all three variables of interest <span class="citation">(Hlavac <a href="references.html#ref-R-stargazer">2018</a>)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>stargazer<span class="op">::</span><span class="kw">stargazer</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Mean
+</td>
+<td>
+St. Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Pctl(25)
+</td>
+<td>
+Pctl(75)
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+obese
+</td>
+<td>
+102
+</td>
+<td>
+1.313
+</td>
+<td>
+0.258
+</td>
+<td>
+0.810
+</td>
+<td>
+1.143
+</td>
+<td>
+1.430
+</td>
+<td>
+2.390
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+bp
+</td>
+<td>
+102
+</td>
+<td>
+127.020
+</td>
+<td>
+18.184
+</td>
+<td>
+94
+</td>
+<td>
+116
+</td>
+<td>
+137.5
+</td>
+<td>
+208
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+</div>
+<div id="bivariate-relationships" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Bivariate Relationships</h3>
+<p>The <code>furniture</code> package’s <code>table1()</code> function is a clean way to create a descriptive table that compares distinct subgroups of your sample <span class="citation">(Barrett, Brignone, and Laxman <a href="references.html#ref-R-furniture">2018</a>)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(obese, bp,
+                    <span class="dt">splitby =</span> <span class="op">~</span><span class="st"> </span>sex,
+                    <span class="dt">test =</span> <span class="ot">TRUE</span>,
+                    <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)  </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Male
+</th>
+<th>
+Female
+</th>
+<th>
+P-Value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+</td>
+<td>
+n = 44
+</td>
+<td>
+n = 58
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+obese
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+&lt;.001
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+1.2 (0.2)
+</td>
+<td>
+1.4 (0.3)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+bp
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.646
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+128.0 (16.6)
+</td>
+<td>
+126.3 (19.4)
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>ggpairs()</code> function in the <code>GGally</code> package is helpful for showing all pairwise relationships in raw data, especially seperating out two or three groups <span class="citation">(Schloerke et al. <a href="references.html#ref-R-GGally">2018</a>)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GGally<span class="op">::</span><span class="kw">ggpairs</span>(bp.obese,
+                <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill      =</span> sex,
+                              <span class="dt">col       =</span> sex,
+                              <span class="dt">alpha     =</span> <span class="fl">0.1</span>),
+                <span class="dt">upper =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="st">&quot;smooth&quot;</span>,
+                             <span class="dt">combo      =</span> <span class="st">&quot;facethist&quot;</span>,
+                             <span class="dt">discrete   =</span> <span class="st">&quot;ratio&quot;</span>),
+                <span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="st">&quot;cor&quot;</span>,
+                             <span class="dt">combo      =</span> <span class="st">&quot;box&quot;</span>,
+                             <span class="dt">discrete   =</span> <span class="st">&quot;facetbar&quot;</span>),
+                <span class="dt">title =</span> <span class="st">&quot;Very Useful for Exploring Data&quot;</span>) </code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-64-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x    =</span> sex, 
+      <span class="dt">y    =</span> bp,
+      <span class="dt">fill =</span> sex) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Gender&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;Blood Pressure (mmHg)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-65-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Visual inspection for an interaction (is gender a moderator?)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x     =</span> obese,
+             <span class="dt">y     =</span> bp,
+             <span class="dt">color =</span> sex)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size  =</span> <span class="dv">3</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> sex),
+              <span class="dt">alpha  =</span> <span class="fl">0.2</span>,
+              <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>),
+                     <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,       <span class="st">&quot;female&quot;</span>),
+                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Men&quot;</span>,        <span class="st">&quot;Women&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values  =</span> <span class="kw">c</span>(<span class="st">&quot;mediumblue&quot;</span>, <span class="st">&quot;maroon3&quot;</span>),
+                    <span class="dt">breaks  =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,       <span class="st">&quot;female&quot;</span>),
+                    <span class="dt">labels  =</span> <span class="kw">c</span>(<span class="st">&quot;Men&quot;</span>,        <span class="st">&quot;Women&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Does Gender Moderate the Association Between Obesity and Blood Pressure?&quot;</span>,
+       <span class="dt">x     =</span> <span class="st">&quot;Ratio: Actual Weight vs. Ideal Weight (NYM Life Tables)&quot;</span>,
+       <span class="dt">y     =</span> <span class="st">&quot;Systolic Blood Pressure (mmHg)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks  =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>,  <span class="dt">to =</span> <span class="dv">3</span>,   <span class="dt">by =</span> <span class="fl">0.25</span> )) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks  =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">75</span>, <span class="dt">to =</span> <span class="dv">300</span>, <span class="dt">by =</span> <span class="dv">25</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title         =</span> <span class="kw">element_blank</span>(),
+        <span class="dt">legend.key           =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>),
+        <span class="dt">legend.background    =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),
+        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), 
+        <span class="dt">legend.position      =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-66-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># cor needs only numeric</span>
+<span class="st">  </span><span class="kw">cor</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">round</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>         sex obese     bp
+sex    1.000 0.405 -0.045
+obese  0.405 1.000  0.326
+bp    -0.045 0.326  1.000</code></pre>
+<p>Often it is easier to digest a correlation matrix if it is visually presented, instead of just given as a table of many numbers. The <code>corrplot</code> package has a useful function called <code>corrplot.mixed()</code> for doing just that <span class="citation">(Wei and Simko <a href="references.html#ref-R-corrplot">2017</a>)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># cor needs only numeric</span>
+<span class="st">  </span><span class="kw">cor</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot.mixed</span>(<span class="dt">lower  =</span> <span class="st">&quot;ellipse&quot;</span>,
+                           <span class="dt">upper  =</span> <span class="st">&quot;number&quot;</span>,
+                           <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-68-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="regression-analysis-1" class="section level2">
+<h2><span class="header-section-number">2.3</span> Regression Analysis</h2>
+<div id="fit-nested-models" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Fit Nested Models</h3>
+<p>The <strong>bottom-up</strong> approach consists of starting with an initial <code>NULL</code> model with only an intercept term and them building additional models that are nested.</p>
+<p>Two models are considered <strong>nested</strong> if one is conains a subset of the terms (predictors or IV) compared to the other.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit_bp_null   &lt;-<span class="st"> </span><span class="kw">lm</span>(bp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,            <span class="dt">data =</span> bp.obese) <span class="co"># intercept only or NULL model</span>
+fit_bp_sex    &lt;-<span class="st"> </span><span class="kw">lm</span>(bp <span class="op">~</span><span class="st"> </span>sex,          <span class="dt">data =</span> bp.obese) 
+fit_bp_obe    &lt;-<span class="st"> </span><span class="kw">lm</span>(bp <span class="op">~</span><span class="st"> </span>obese,        <span class="dt">data =</span> bp.obese)
+fit_bp_obesex &lt;-<span class="st"> </span><span class="kw">lm</span>(bp <span class="op">~</span><span class="st"> </span>obese <span class="op">+</span><span class="st"> </span>sex,  <span class="dt">data =</span> bp.obese)
+fit_bp_inter  &lt;-<span class="st"> </span><span class="kw">lm</span>(bp <span class="op">~</span><span class="st"> </span>obese<span class="op">*</span>sex,    <span class="dt">data =</span> bp.obese)</code></pre></div>
+</div>
+<div id="comparing-nested-models" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Comparing Nested Models</h3>
+<div id="model-comparison-table" class="section level4">
+<h4><span class="header-section-number">2.3.2.1</span> Model Comparison Table</h4>
+<p>In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the <span class="math inline">\(R^2\)</span> values.</p>
+<p>Again the <code>texreg</code> package comes in handy to display several models in the same tal e <span class="citation">(Leifeld <a href="references.html#ref-R-texreg">2017</a>)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">list</span>(fit_bp_null,
+                     fit_bp_sex, 
+                     fit_bp_obe, 
+                     fit_bp_obesex, 
+                     fit_bp_inter),
+                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;No Predictors&quot;</span>, 
+                                       <span class="st">&quot;Only Sex Quiz&quot;</span>, 
+                                       <span class="st">&quot;Only Obesity&quot;</span>, 
+                                       <span class="st">&quot;Both IVs&quot;</span>, 
+                                       <span class="st">&quot;Add Interaction&quot;</span>))</code></pre></div>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<table cellspacing="0" align="center" style="border: none;">
+<caption align="bottom" style="margin-top:0.3em;">
+Statistical models
+</caption>
+<tr>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
+<b></b>
+</th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
+<b>No Predictors</b>
+</th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
+<b>Only Sex Quiz</b>
+</th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
+<b>Only Obesity</b>
+</th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
+<b>Both IVs</b>
+</th>
+<th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
+<b>Add Interaction</b>
+</th>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+(Intercept)
+</td>
+<td style="padding-right: 12px; border: none;">
+127.02<sup style="vertical-align: 0px;">***</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+127.95<sup style="vertical-align: 0px;">***</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+96.82<sup style="vertical-align: 0px;">***</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+93.29<sup style="vertical-align: 0px;">***</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+102.11<sup style="vertical-align: 0px;">***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+(1.80)
+</td>
+<td style="padding-right: 12px; border: none;">
+(2.75)
+</td>
+<td style="padding-right: 12px; border: none;">
+(8.92)
+</td>
+<td style="padding-right: 12px; border: none;">
+(8.94)
+</td>
+<td style="padding-right: 12px; border: none;">
+(18.23)
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+sexFemale
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+-1.64
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+-7.73<sup style="vertical-align: 0px;">*</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+-19.60
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+(3.65)
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+(3.72)
+</td>
+<td style="padding-right: 12px; border: none;">
+(21.66)
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+obese
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+23.00<sup style="vertical-align: 0px;">***</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+29.04<sup style="vertical-align: 0px;">***</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+21.65
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+(6.67)
+</td>
+<td style="padding-right: 12px; border: none;">
+(7.17)
+</td>
+<td style="padding-right: 12px; border: none;">
+(15.12)
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+obese:sexFemale
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+9.56
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+</td>
+<td style="padding-right: 12px; border: none;">
+(17.19)
+</td>
+</tr>
+<tr>
+<td style="border-top: 1px solid black;">
+R<sup style="vertical-align: 0px;">2</sup>
+</td>
+<td style="border-top: 1px solid black;">
+0.00
+</td>
+<td style="border-top: 1px solid black;">
+0.00
+</td>
+<td style="border-top: 1px solid black;">
+0.11
+</td>
+<td style="border-top: 1px solid black;">
+0.14
+</td>
+<td style="border-top: 1px solid black;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+Adj. R<sup style="vertical-align: 0px;">2</sup>
+</td>
+<td style="padding-right: 12px; border: none;">
+0.00
+</td>
+<td style="padding-right: 12px; border: none;">
+-0.01
+</td>
+<td style="padding-right: 12px; border: none;">
+0.10
+</td>
+<td style="padding-right: 12px; border: none;">
+0.13
+</td>
+<td style="padding-right: 12px; border: none;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;">
+Num. obs.
+</td>
+<td style="padding-right: 12px; border: none;">
+102
+</td>
+<td style="padding-right: 12px; border: none;">
+102
+</td>
+<td style="padding-right: 12px; border: none;">
+102
+</td>
+<td style="padding-right: 12px; border: none;">
+102
+</td>
+<td style="padding-right: 12px; border: none;">
+102
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid black;">
+RMSE
+</td>
+<td style="border-bottom: 2px solid black;">
+18.18
+</td>
+<td style="border-bottom: 2px solid black;">
+18.26
+</td>
+<td style="border-bottom: 2px solid black;">
+17.28
+</td>
+<td style="border-bottom: 2px solid black;">
+17.00
+</td>
+<td style="border-bottom: 2px solid black;">
+17.05
+</td>
+</tr>
+<tr>
+<td style="padding-right: 12px; border: none;" colspan="7">
+<span style="font-size:0.8em"><sup style="vertical-align: 0px;"><em><strong></sup>p &lt; 0.001, <sup style="vertical-align: 0px;"></strong></sup>p &lt; 0.01, <sup style="vertical-align: 0px;"></em></sup>p &lt; 0.05</span>
+</td>
+</tr>
+</table>
+</div>
+<div id="likelihood-ratio-test-of-nested-models" class="section level4">
+<h4><span class="header-section-number">2.3.2.2</span> Likelihood Ratio Test of Nested Models</h4>
+<p>An alternative method for determing model fit and variable importance is the likelihood ratio test. This involves comparing the <span class="math inline">\(-2LL\)</span> or inverse of twice the log of the likelihood value for the model. The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated <em>(number of betas)</em>.</p>
+<ul>
+<li>Test the main effect of math quiz:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_bp_null, fit_bp_sex)</code></pre></div>
+<pre><code># A tibble: 2 x 6
+  Res.Df    RSS    Df `Sum of Sq`      F `Pr(&gt;F)`
+*  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1    101 33398.    NA        NA   NA       NA    
+2    100 33330.     1        67.6  0.203    0.653</code></pre>
+<ul>
+<li>Test the main effect of math phobia</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_bp_null, fit_bp_obe)</code></pre></div>
+<pre><code># A tibble: 2 x 6
+  Res.Df    RSS    Df `Sum of Sq`     F  `Pr(&gt;F)`
+*  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1    101 33398.    NA         NA   NA   NA       
+2    100 29846.     1       3552.  11.9  0.000822</code></pre>
+<ul>
+<li>Test the main effect of math phobia, after controlling for math test</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_bp_obe, fit_bp_obesex) </code></pre></div>
+<pre><code># A tibble: 2 x 6
+  Res.Df    RSS    Df `Sum of Sq`     F `Pr(&gt;F)`
+*  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1    100 29846.    NA         NA  NA     NA     
+2     99 28595.     1       1250.  4.33   0.0401</code></pre>
+<ul>
+<li>Test the interaction between math test and math phobia (i.e. moderation)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(fit_bp_obesex, fit_bp_inter)</code></pre></div>
+<pre><code># A tibble: 2 x 6
+  Res.Df    RSS    Df `Sum of Sq`      F `Pr(&gt;F)`
+*  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1     99 28595.    NA        NA   NA       NA    
+2     98 28505.     1        89.9  0.309    0.579</code></pre>
+</div>
+</div>
+<div id="checking-assumptions-via-residual-diagnostics-1" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Checking Assumptions via Residual Diagnostics</h3>
+<p>Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_bp_obesex, <span class="dt">which =</span> <span class="dv">1</span>)  </code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-75-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_bp_obesex, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">id.n =</span> <span class="dv">10</span>)  <span class="co"># Change the number labeled</span></code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-76-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The <code>car</code> package has a handy function called <code>residualPlots()</code> for displaying residual plots quickly <span class="citation">(Fox, Weisberg, and Price <a href="references.html#ref-R-car">2018</a>)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">car<span class="op">::</span><span class="kw">residualPlots</span>(fit_bp_obesex)    </code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-77-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>           Test stat Pr(&gt;|Test stat|)
+obese        -0.2759           0.7832
+sex                                  
+Tukey test   -0.6141           0.5391</code></pre>
+<p>you can adjust any part of a ggplot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">e_bp =</span> <span class="kw">resid</span>(fit_bp_obesex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># add the resid to the dataset</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x     =</span> sex,               <span class="co"># x-axis variable name</span>
+             <span class="dt">y     =</span> e_bp,              <span class="co"># y-axis variable name</span>
+             <span class="dt">color =</span> sex,               <span class="co"># color is the outline</span>
+             <span class="dt">fill  =</span> sex)) <span class="op">+</span><span class="st">            </span><span class="co"># fill is the inside</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>,               <span class="co"># set at a meaningful value</span>
+             <span class="dt">size       =</span> <span class="dv">1</span>,               <span class="co"># adjust line thickness</span>
+             <span class="dt">linetype   =</span> <span class="st">&quot;dashed&quot;</span>,        <span class="co"># set type of line</span>
+             <span class="dt">color      =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span><span class="st">      </span><span class="co"># color of line</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st">                </span><span class="co"># level of transparency</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st">                               </span><span class="co"># my favorite theme</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Check Assumptions&quot;</span>,            <span class="co"># main title&#39;s text</span>
+       <span class="dt">x =</span> <span class="st">&quot;Gender&quot;</span>,                           <span class="co"># x-axis text label</span>
+       <span class="dt">y =</span> <span class="st">&quot;Blood Pressure, Residual (bpm)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># y-axis text label</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">40</span>,    <span class="co"># declare a sequence of</span>
+                                  <span class="dt">to   =</span>  <span class="dv">80</span>,    <span class="co"># values to make the </span>
+                                  <span class="dt">by   =</span>  <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># tick marks at</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">FALSE</span>)               <span class="co"># no legends included</span></code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-78-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp.obese <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">e_bp =</span> <span class="kw">resid</span>(fit_bp_obesex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># add the resid to the dataset</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x     =</span> e_bp,              <span class="co"># y-axis variable name</span>
+             <span class="dt">color =</span> sex,               <span class="co"># color is the outline</span>
+             <span class="dt">fill  =</span> sex)) <span class="op">+</span><span class="st">            </span><span class="co"># fill is the inside</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>,               <span class="co"># set at a meaningful value</span>
+             <span class="dt">size       =</span> <span class="dv">1</span>,               <span class="co"># adjust line thickness</span>
+             <span class="dt">linetype   =</span> <span class="st">&quot;dashed&quot;</span>,        <span class="co"># set type of line</span>
+             <span class="dt">color      =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span><span class="st">      </span><span class="co"># color of line</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st">                               </span><span class="co"># my favorite theme</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Check Assumptions&quot;</span>,            <span class="co"># main title&#39;s text</span>
+       <span class="dt">x =</span> <span class="st">&quot;Blood Pressure, Residual (bpm)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># y-axis text label</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">40</span>,    <span class="co"># declare a sequence of</span>
+                                  <span class="dt">to   =</span>  <span class="dv">80</span>,    <span class="co"># values to make the </span>
+                                  <span class="dt">by   =</span>  <span class="dv">20</span>))  <span class="co"># tick marks at</span></code></pre></div>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-79-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="conclusion-1" class="section level2">
+<h2><span class="header-section-number">2.4</span> Conclusion</h2>
+<p>Violations to the assumtions call the reliabity of the regression results into question. The data should be further investigated, specifically the <span class="math inline">\(102^{nd}\)</span> case.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
