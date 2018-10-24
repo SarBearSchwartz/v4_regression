@@ -62,7 +62,7 @@ requirement and compatible chest radiograph).
 * toxemia (0 [N] ,1 [Y]) in mother    
 
 ```{r vanmarterbpddata}
-bpd_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/VanMarter_%20BPD.txt?token=AScXBcwRurGPiBMhNmlD3RyY9VU1Bh7lks5bz50qwA%3D%3D", 
+bpd_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/VanMarter_%20BPD.txt?token=AScXBVyjzC2aVyRyOL9NHJYxjEfsjys_ks5b2jSIwA%3D%3D", 
                       header      = TRUE, 
                       strip.white = TRUE)
 ```

@@ -54,7 +54,7 @@ Indepdentend variables (IV) or predictors
 The data is saved in a text file (.txt) without any labels.
 
 ```{r lowbwtdata}
-lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBTYDbui3sy0ah-7-yknbzAyAwsUoks5bz51LwA%3D%3D", 
+lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBX3XmT-nIoQBId69bcTIRufcPgeqks5b2jTVwA%3D%3D", 
                          header = TRUE, 
                          sep = "", 
                          na.strings = "NA", 
@@ -178,9 +178,6 @@ summary(low1_1)
 ```
 
 
-```{r}
-sjPlot
-```
  
 
 
@@ -317,22 +314,22 @@ texreg::htmlreg(low1_6)
 
 
 
-The `texreg` package uses an intermediate function called `extract()` to extract information for the model and then put it in the right places in the table.  We can invervene by writing our own `extract_OR()` function to use instead.
+The `texreg` package uses an intermediate function called `extract()` to extract information for the model and then put it in the right places in the table.  We can invervene by writing our own `extract_exp()` function to use instead.
 
 ```{r}
-extract_OR <- function(fit_glm){
+extract_exp <- function(fit_glm){
   beta   = coef(fit_glm)    
   betaci = confint(fit_glm) 
-  fit_glm_OR        = texreg::extract(fit_glm)
-  fit_glm_OR@coef   = exp(beta)
-  fit_glm_OR@ci.low = exp(betaci[, 1])
-  fit_glm_OR@ci.up  = exp(betaci[, 2])
-  return(fit_glm_OR)
+  fit_glm_exp        = texreg::extract(fit_glm)
+  fit_glm_exp@coef   = exp(beta)
+  fit_glm_exp@ci.low = exp(betaci[, 1])
+  fit_glm_exp@ci.up  = exp(betaci[, 2])
+  return(fit_glm_exp)
 }
 ```
 
 ```{r, include=FALSE}
-texreg::screenreg(extract_OR(low1_6),
+texreg::screenreg(extract_exp(low1_6),
                   custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
                                         "Additional 5 years older",
                                         "Additional 20 lbs pre-pregnancy",
@@ -351,7 +348,7 @@ texreg::screenreg(extract_OR(low1_6),
 # Knit to PDF:     texreg::texreg()
 # View on Screen:  texreg::screenreg()
 
-texreg::htmlreg(extract_OR(low1_6),
+texreg::htmlreg(extract_exp(low1_6),
                 custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
                                       "Additional 5 years older",
                                       "Additional 20 lbs pre-pregnancy",
