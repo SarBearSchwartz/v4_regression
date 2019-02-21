@@ -61,8 +61,8 @@ requirement and compatible chest radiograph).
 * gestage (weeks)    
 * toxemia (0 [N] ,1 [Y]) in mother    
 
-```{r vanmarterbpddata}
-bpd_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/VanMarter_%20BPD.txt?token=AScXBVyjzC2aVyRyOL9NHJYxjEfsjys_ks5b2jSIwA%3D%3D", 
+```{r}
+bpd_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/data/master/Regression/VanMarter_%20BPD.txt", 
                       header      = TRUE, 
                       strip.white = TRUE)
 ```

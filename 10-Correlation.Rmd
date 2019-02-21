@@ -1,0 +1,345 @@
+# Linear Correlation - Example: Cancer Experiment 
+
+
+```{r, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      out.width   = "75%")
+```
+
+
+
+## Background
+
+### Required Packages 
+
+```{r, comment=FALSE, message=FALSE}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(haven)        # Read in SPSS datasets
+library(psych)        # Lots of nice tid-bits
+library(GGally)       # Extension to 'ggplot2' (ggpairs)
+```
+
+
+
+
+### Example Dataset - Cancer Experiment 
+
+The `Cancer` dataset:
+
+
+```{r}
+cancer_raw <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/eBook_ANOVA/master/data/Cancer.sav")
+
+tibble::glimpse(cancer_raw)
+```
+
+```{r}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+
+tibble::glimpse(cancer_clean)
+```
+
+```{r}
+psych::headTail(cancer_clean)
+```
+
+
+
+
+## Exploratory Data Analysis: i.e. the eyeball method
+
+
+
+Always plot your data first!
+
+```{r}
+cancer_clean %>% 
+  ggplot(aes(x = age,
+             y = weighin)) +
+  geom_count() +
+  geom_smooth(method = "lm")
+```
+
+
+
+
+## Pearson's Correlation Coefficient
+
+### Using the Default Settings
+
+
+The `cor.test()` function needs at least TWO arguments:
+
+* **formula** - The formula specifies the two variabels between which you would like to calcuate the correlation.  Note at the two variable names come AFTER the tilda symbol and are separated with a plus sign: `~ continuous_var1 + continuous_var2`
+
+* **data** - Since the datset is not the first argument in the function, you must use the period to signify that the datset is being piped from above `data = .` 
+
+
+
+```{r}
+cancer_clean %>% 
+  cor.test(~ age + weighin,  # formula: order doesn't matter
+           data = .)         # data piped from above
+```
+
+
+
+
+### Additional Arguments
+
+
+
+* **alternative**  - The `cor.test()` function defaults to the `alternative = "two.sided"`.  If you would like a one-sided alternative, you must choose which side you would like to test:  `alternative = "greater"` to test for POSITIVE correlation or `alternative = "less"` to test for NEGATIVE correlation.
+
+* **method** - The default is to calculate the Pearson correlation coefficient (`method = "pearson"`), but you may also specify the Kendall's tau (`method = "kendall"`)or Spearman's rho (`method = "spearman"`), which are both non-parametric methods.  
+
+* **conf.int** - It also defaults to testing for the two-sided alternative and computing a 95\% confidence interval (`conf.level = 0.95`), but this may be changed.  
+
+
+Since the following code only specifies the**defaults**, it Will give the same results as if you did not type out the last three lines (see above).
+
+```{r}
+cancer_clean %>% 
+  cor.test(~ age + weighin,
+           data = .,
+           alternative = "two.sided",  # or "greater" (positive r) or "less" (negative r)
+           method = "pearson",          # or "kendall" (tau) or "spearman" (rho)
+           conf.level = .95)            # or .90 or .99 (ect)
+```
+
+
+
+### Statistical Significance
+
+**Non-Significant Correlation**
+
+> **APA Results:** There was no evidence of an association in overall oral condition from baseline to two week follow-up, $r(25) = -0.288 $p < .163$.
+
+```{r}
+cancer_clean %>% 
+  ggplot(aes(x = totalcin,
+             y = totalcw4)) +
+  geom_count() +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+cancer_clean %>% 
+  cor.test(~ totalcin + totalcw4,
+           data = .)
+```
+
+
+
+**Statistically Significant Correlation**
+
+> **APA Results:** Overall oral condition was positively correlated ($r = .763$) between weeks two and four, $t(21) = 5.409$, $p < .001$.
+
+
+
+```{r}
+cancer_clean %>% 
+  ggplot(aes(x = totalcw4,
+             y = totalcw6)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+```{r}
+cancer_clean %>% 
+  cor.test(~ totalcw4 + totalcw6,
+           data = .)
+```
+
+
+
+
+## Correlation Tables
+
+The may use the `tableC()` function from the `furniture` package to calculate all pair-wise correlations between more than two variables and arrange them all in a table.  The table is formatted with the variabels listed on the rows and numbered to show the same variabels across the columns. 
+
+* The cells ON the diagonal are all equal to *exactly one*, since each variable is perfectly correlated with itself.
+
+* The cells ABOVE the diagonal are *blank* as them would just be a mirror image of the values below the diagonal. 
+
+* The cells BELOW the diagonal each contain the *Pearson's correlation coefficients* for each pair of variables, $r$, with the $p-value$ showing the significance vs. the null hypothesis for no association ($r = 0$) to the right.
+
+```{r}
+cancer_clean %>% 
+  furniture::tableC(age, weighin, totalcin)
+```
+
+
+### Missing Values - Default
+
+**Default Behavior `na.rm = FALSE` (default)**
+
+If you don't say otherwise, the correlation $r$ with not be calculated (`NA`) between any pair of variables for which there is at least one subject with a missing value on at least one of the vairables.  This is a nice alert to make you aware of missing values.
+
+
+```{r}
+cancer_clean %>% 
+  furniture::tableC(totalcin, totalcw2, totalcw4, totalcw6)
+```
+
+### Missing Values - Listwise Deletion
+
+
+**Listwise Deletion `na.rm = TRUE`**
+
+Most of the time you will want to compute the correlation $r$ is the precense of missing values.  To do so, you want to remove or exclude subjects with missing data from ALL correlation computation in the table.  This is called **'list-wise deletion'**.  It ensures that all cells in the table refer to the exact same sub-sample (n = subjects with complete data for all variables in the table), and thus the same degrees of freedom (since $df = n - 2$).  This is done be changing the default to `na.rm = TRUE`.
+
+```{r}
+cancer_clean %>% 
+  furniture::tableC(totalcin, totalcw2, totalcw4, totalcw6,
+                    na.rm = TRUE)
+```
+
+
+
+
+## Pairs Plots
+
+* [Helpful Website](http://jamesmarquezportfolio.com/correlation_matrices_in_r.html)
+
+
+
+### Using Base R
+
+```{r, fig.asp=1}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  pairs()
+```
+
+
+
+
+
+### Using the `psych` package
+
+```{r, fig.asp=1}
+cancer_clean %>% 
+  dplyr::select(age, weighin,
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  psych::pairs.panels()
+```
+
+
+
+
+### Using the `ggplot2` and `GGally` packages
+
+
+```{r, fig.asp = 1}
+cancer_clean %>% 
+  dplyr::select(age, weighin,
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  data.frame %>% 
+  ggscatmat()
+```
+
+
+```{r, fig.asp = 1}
+cancer_clean %>% 
+  data.frame %>% 
+  ggscatmat(columns = c("age", "weighin",
+                        "totalcin", "totalcw2", "totalcw4", "totalcw6"),
+            color = "trt")
+```
+
+
+
+
+
+
+## Correlation Plots: Corrolagrams
+
+### Simple Correlation Matrix (Base R)
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  cor(method = "pearson",
+      use = "complete.obs") 
+```
+
+### Using the Default Settings
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  cor(method = "pearson",
+      use = "complete.obs") %>% 
+  corrplot::corrplot()
+```
+
+
+### Changing the shape
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  cor(method = "pearson",
+      use = "complete.obs") %>% 
+  corrplot::corrplot(method = "square")
+```
+
+### Only Displaying Half
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  cor(method = "pearson",
+      use = "complete.obs") %>% 
+  corrplot::corrplot(method = "ellipse",
+                     type = "lower")
+```
+
+### Mixing the Values and Shapes
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  cor(method = "pearson",
+      use = "complete.obs") %>% 
+  corrplot::corrplot.mixed()
+```
+
+### Getting Fancy
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, 
+                totalcin, totalcw2, totalcw4, totalcw6) %>% 
+  cor(method = "pearson",
+      use = "complete.obs") %>% 
+  corrplot::corrplot.mixed(upper = "number",
+                           lower = "ellipse")
+```
+
+
+
+
+
+
+

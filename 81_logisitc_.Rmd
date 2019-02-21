@@ -54,7 +54,7 @@ Indepdentend variables (IV) or predictors
 The data is saved in a text file (.txt) without any labels.
 
 ```{r lowbwtdata}
-lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/lowbwt.txt?token=AScXBX3XmT-nIoQBId69bcTIRufcPgeqks5b2jTVwA%3D%3D", 
+lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/data/master/Regression/lowbwt.txt", 
                          header = TRUE, 
                          sep = "", 
                          na.strings = "NA", 
