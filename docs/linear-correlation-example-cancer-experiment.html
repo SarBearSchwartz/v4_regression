@@ -47,7 +47,6 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -118,7 +117,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
 <li class="chapter" data-level="1.1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
 <li class="chapter" data-level="1.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
 <li class="chapter" data-level="1.3.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
@@ -138,7 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.6.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
 <li class="chapter" data-level="1.6.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
 <li class="chapter" data-level="1.6.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
-<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-the-values-and-shapes"><i class="fa fa-check"></i><b>1.6.5</b> Mixing the Values and Shapes</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
 <li class="chapter" data-level="1.6.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
 </ul></li>
 </ul></li>
@@ -341,13 +342,16 @@ $ totalcw6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...<
 </div>
 <div id="exploratory-data-analysis-i.e.the-eyeball-method" class="section level2">
 <h2><span class="header-section-number">1.2</span> Exploratory Data Analysis: i.e. the eyeball method</h2>
+<div id="scatterplot" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Scatterplot</h3>
 <p>Always plot your data first!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer_clean <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> age,
              <span class="dt">y =</span> weighin)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_count</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-18-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="pearsons-correlation-coefficient" class="section level2">
 <h2><span class="header-section-number">1.3</span> Pearson’s Correlation Coefficient</h2>
@@ -398,19 +402,19 @@ alternative hypothesis: true correlation is not equal to 0
 sample estimates:
        cor 
 -0.2875868 </code></pre>
-</div>
-<div id="statistical-significance" class="section level3">
-<h3><span class="header-section-number">1.3.3</span> Statistical Significance</h3>
 <p><strong>Non-Significant Correlation</strong></p>
 <blockquote>
 <p><strong>APA Results:</strong> There was no evidence of an association in overall oral condition from baseline to two week follow-up, $r(25) = -0.288 <span class="math inline">\(p &lt; .163\)</span>.</p>
 </blockquote>
+</div>
+<div id="statistical-significance" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> Statistical Significance</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer_clean <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> totalcin,
              <span class="dt">y =</span> totalcw4)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_count</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer_clean <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">cor.test</span>(<span class="op">~</span><span class="st"> </span>totalcin <span class="op">+</span><span class="st"> </span>totalcw4,
            <span class="dt">data =</span> .)</code></pre></div>
@@ -434,7 +438,7 @@ sample estimates:
              <span class="dt">y =</span> totalcw6)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-23-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer_clean <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">cor.test</span>(<span class="op">~</span><span class="st"> </span>totalcw4 <span class="op">+</span><span class="st"> </span>totalcw6,
            <span class="dt">data =</span> .)</code></pre></div>
@@ -511,7 +515,7 @@ sample estimates:
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(age, weighin, 
                 totalcin, totalcw2, totalcw4, totalcw6) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pairs</span>()</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-28-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-the-psych-package" class="section level3">
 <h3><span class="header-section-number">1.5.2</span> Using the <code>psych</code> package</h3>
@@ -519,7 +523,7 @@ sample estimates:
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(age, weighin,
                 totalcin, totalcw2, totalcw4, totalcw6) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>psych<span class="op">::</span><span class="kw">pairs.panels</span>()</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-29-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-the-ggplot2-and-ggally-packages" class="section level3">
 <h3><span class="header-section-number">1.5.3</span> Using the <code>ggplot2</code> and <code>GGally</code> packages</h3>
@@ -528,13 +532,13 @@ sample estimates:
                 totalcin, totalcw2, totalcw4, totalcw6) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggscatmat</span>()</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-30-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer_clean <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggscatmat</span>(<span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;weighin&quot;</span>,
                         <span class="st">&quot;totalcin&quot;</span>, <span class="st">&quot;totalcw2&quot;</span>, <span class="st">&quot;totalcw4&quot;</span>, <span class="st">&quot;totalcw6&quot;</span>),
             <span class="dt">color =</span> <span class="st">&quot;trt&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-31-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="correlation-plots-corrolagrams" class="section level2">
@@ -569,7 +573,7 @@ totalcw6  1.00000000</code></pre>
 <span class="st">  </span><span class="kw">cor</span>(<span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>,
       <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot</span>()</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-33-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="changing-the-shape" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> Changing the shape</h3>
@@ -579,7 +583,7 @@ totalcw6  1.00000000</code></pre>
 <span class="st">  </span><span class="kw">cor</span>(<span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>,
       <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot</span>(<span class="dt">method =</span> <span class="st">&quot;square&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-34-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="only-displaying-half" class="section level3">
 <h3><span class="header-section-number">1.6.4</span> Only Displaying Half</h3>
@@ -590,17 +594,17 @@ totalcw6  1.00000000</code></pre>
       <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot</span>(<span class="dt">method =</span> <span class="st">&quot;ellipse&quot;</span>,
                      <span class="dt">type =</span> <span class="st">&quot;lower&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-35-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="mixing-the-values-and-shapes" class="section level3">
-<h3><span class="header-section-number">1.6.5</span> Mixing the Values and Shapes</h3>
+<div id="mixing-it-up" class="section level3">
+<h3><span class="header-section-number">1.6.5</span> Mixing it up</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer_clean <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(age, weighin, 
                 totalcin, totalcw2, totalcw4, totalcw6) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">cor</span>(<span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>,
       <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot.mixed</span>()</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-36-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="getting-fancy" class="section level3">
 <h3><span class="header-section-number">1.6.6</span> Getting Fancy</h3>
@@ -611,7 +615,7 @@ totalcw6  1.00000000</code></pre>
       <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot.mixed</span>(<span class="dt">upper =</span> <span class="st">&quot;number&quot;</span>,
                            <span class="dt">lower =</span> <span class="st">&quot;ellipse&quot;</span>)</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-37-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_install_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

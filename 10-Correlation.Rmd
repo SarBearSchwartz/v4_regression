@@ -60,7 +60,7 @@ psych::headTail(cancer_clean)
 
 ## Exploratory Data Analysis: i.e. the eyeball method
 
-
+### Scatterplot
 
 Always plot your data first!
 
@@ -119,13 +119,13 @@ cancer_clean %>%
            conf.level = .95)            # or .90 or .99 (ect)
 ```
 
-
-
-### Statistical Significance
-
 **Non-Significant Correlation**
 
 > **APA Results:** There was no evidence of an association in overall oral condition from baseline to two week follow-up, $r(25) = -0.288 $p < .163$.
+
+
+
+### Statistical Significance
 
 ```{r}
 cancer_clean %>% 
@@ -314,7 +314,7 @@ cancer_clean %>%
                      type = "lower")
 ```
 
-### Mixing the Values and Shapes
+### Mixing it up
 
 ```{r}
 cancer_clean %>% 
