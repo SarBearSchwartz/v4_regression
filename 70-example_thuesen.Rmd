@@ -44,7 +44,7 @@ This dataset is included in the `ISwR` package [@R-ISwR], which was a companion 
 * `short.velocity` a numeric vector, mean circumferential shortening velocity (%/s).
 
 
-```{r thuesendata}
+```{r}
 data(thuesen, package = "ISwR")
 
 tibble::glimpse(thuesen)  # view the class and 1st few values of each variable
@@ -69,27 +69,37 @@ The `stargazer()` function has many handy options, should you wish to change the
 
 ```{r, results="asis"}
 thuesen %>% 
-  stargazer(type   = "html", 
-            digits = 4, 
-            flip   = TRUE,                    
-            summary.stat   = c("n", "mean", "sd", "min", "median", "max"),
-            title  = "Descriptives")
+  stargazer::stargazer(type   = "html", 
+                       digits = 4, 
+                       flip   = TRUE,                    
+                       summary.stat   = c("n", "mean", "sd", "min", "median", "max"),
+                       title  = "Descriptives")
 ```
 
 Although the `table1()` function from the `furniture` package creates a nice summary table, it 'hides' the nubmer of missing values for each continuous variable [@R-furniture].
 
 ```{r}
 thuesen %>% 
-  furniture::table1(blood.glucose, short.velocity,
+  furniture::table1("Fasting Blood Glucose" = blood.glucose, 
+                    "Circumferential Shortening Velocity" = short.velocity,  # defaults to excluding any row missing any variable
                     output = "html")
 ```
+
+
+```{r}
+thuesen %>% 
+  furniture::table1("Fasting Blood Glucose" = blood.glucose, 
+                    "Circumferential Shortening Velocity" = short.velocity,
+                    na.rm = FALSE,     # retains even partial cases
+                    output = "html")
+```
+
 
 ### Univariate Visualizations
 
 ```{r}
-thuesen %>% 
-  ggplot() +
-  aes(blood.glucose) +              # variable of interest (just one)
+ggplot(thuesen,
+       aes(blood.glucose)) +        # variable of interest (just one)
   geom_histogram(binwidth = 2)      # specify the width of the bars
 ```
 
@@ -115,7 +125,7 @@ thuesen %>% cor()
 You may specify how to handle cases that are missing on at least one of the variables of interest:
 
 * `use = "everything"` `NA`s will propagate conceptually, i.e., a resulting value will be `NA` whenever one of its contributing observations is `NA` **<-- DEFAULT**
-*`use = "all.obs"` the presence of missing observations will produce an error
+* `use = "all.obs"` the presence of missing observations will produce an error
 * `use = "complete.obs"` missing values are handled by casewise deletion (and if there are no complete cases, that gives an error). 
 * `use = "na.or.complete"` is the same as above unless there are no complete cases, that gives `NA` 
 * `use = "pairwise.complete.obs"` the correlation between each pair of variables is computed using all complete pairs of observations on those variables. This can result in covariance matrices which are not positive semi-definite, as well as `NA` entries if there are no complete pairs for that pair of variables. 
@@ -133,7 +143,7 @@ It is also handy to specify the  number of decimal places desired, but adding a 
 
 ```{r}
 thuesen %>% 
-  cor(use="complete.obs") %>%   
+  cor(use = "complete.obs") %>%   
   round(2)                       # number od decimal places
 ```
 
@@ -143,7 +153,7 @@ If you desire a correlation single value of a single PAIR of variables, instead 
 ```{r}
 thuesen %$%                            # notice the special kind of pipe
   cor(blood.glucose, short.velocity,   # specify exactly TWO variables            
-      use="complete.obs")
+      use = "complete.obs")
 ```
 
 In addition to the `cor()` funciton, the base $R$ `stats` package also includes the `cor.test()` function to test if the correlation is zero ($H_0: R = 0$)
@@ -161,9 +171,22 @@ The default correltaion type for `cor()`is **Pearson's $R$**, which assesses lin
 ```{r}
 thuesen %$%                            # notice the special kind of pipe
   cor(blood.glucose, short.velocity,   # specify exactly TWO variables  
-           use    = 'complete',
-           method = 'spearman')       # spearman's (rho) 
+      use    = 'complete',
+      method = 'spearman')       # spearman's (rho) 
 ```
+
+
+```{r}
+thuesen %>% 
+  dplyr::select(blood.glucose, short.velocity) %>% 
+  furniture::tableC(cor_type = "pearson",
+                    na.rm = TRUE,
+                    rounding = 3,
+                    output = "markdown",
+                    booktabs = TRUE,
+                    caption = "Correlation Table")
+```
+
 
 
 ### Bivariate Visualization
@@ -171,23 +194,27 @@ thuesen %$%                            # notice the special kind of pipe
 Scatterplots show the relationship between two continuous measures (one on the $x-axis$ and the other on the $y-axis$), with one point for each observation.
 
 ```{r, eval=FALSE}
-thuesen %>% 
-  ggplot() +
-  aes(x = blood.glucose,         # x-axis variable
-      y = short.velocity)) +     # y-axis variable
-  geom_point() +                 # place a point for each observation
-  theme_bw()                     # black-and-white theme 
-```
-
-Both the code chunk above and below produce the same plot.
-
-```{r}
 ggplot(thuesen, 
        aes(x = blood.glucose,        # x-axis variable
            y = short.velocity)) +    # y-axis variable
   geom_point() +                     # place a point for each observation
   theme_bw()                         # black-and-white theme 
 ```
+
+Both the code chunk above and below produce the same plot.
+
+```{r}
+thuesen %>% 
+  ggplot() +
+  aes(x = blood.glucose,         # x-axis variable
+      y = short.velocity) +     # y-axis variable
+  geom_point() +                 # place a point for each observation
+  theme_bw()                     # black-and-white theme 
+```
+
+
+
+
 
 
 ## Regression Analysis
@@ -211,7 +238,8 @@ The `lm()` function must be supplied with at least two options:
 When a model is fit and directly saved as a named object via the assignment opperator (`<-`), no output is produced.
 
 ```{r}
-fit_vel_glu <- lm(short.velocity ~ blood.glucose, data = thuesen)
+fit_vel_glu <- lm(short.velocity ~ blood.glucose, 
+                  data = thuesen)
 ```
 
 
@@ -301,7 +329,7 @@ Here is a fancy way to visulaize 'potential problem cases' with `ggplot2`:
 
 ```{r}
 thuesen %>% 
-  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::filter(complete.cases(.)) %>%                # keep only complete cases
   ggplot() +                                          # name the FULL dataset 
   aes(x = blood.glucose,                              # x-axis variable name
       y = short.velocity) +                           # y-axis variable name
@@ -321,7 +349,7 @@ You may extract values from the model in dataset form and then you can maually p
 
 ```{r}
 thuesen %>% 
-  dplyr::filter(complete.cases(.)) %>%            # get ride fo the incomplete cases
+  dplyr::filter(complete.cases(.)) %>%            # keep only complete cases
   dplyr::mutate(pred = fitted(fit_vel_glu)) %>%   # fitted/prediction values
   dplyr::mutate(resid = residuals(fit_vel_glu))   # residual values
 ```
@@ -331,7 +359,7 @@ Check for equal spread of points along the $y=0$ horizontal line:
 ```{r}
 thuesen %>% 
   dplyr::mutate(id = row_number()) %>% 
-  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::filter(complete.cases(.)) %>%                # keep only complete cases
   dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
   dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
   ggplot() +
@@ -352,7 +380,7 @@ Check for normality:
 
 ```{r}
 thuesen %>% 
-  dplyr::filter(complete.cases(.)) %>%                # get ride fo the incomplete cases
+  dplyr::filter(complete.cases(.)) %>%                # keep only complete cases
   dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
   dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
   ggplot() +

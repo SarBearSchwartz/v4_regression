@@ -5,8 +5,8 @@ date: "Last updated: `r Sys.Date()`"
 documentclass: book
 description: "Correlation, Model Fit, Generalize, and Plot."
 knit: "bookdown::render_book"
-cover-image: "EQM_v1_cover.png"
-github-repo: cehs-research/eBook_wrangle
+cover-image: "EQM_v4_cover.png"
+github-repo: cehs-research/eBook_regression
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook:

@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>6 Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
-  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:title" content="7 Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="EQM_v1_cover.png" />
+  <meta property="og:image" content="EQM_v4_cover.png" />
   <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="github-repo" content="cehs-research/eBook_wrangle" />
+  <meta name="github-repo" content="cehs-research/eBook_regression" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta name="twitter:title" content="7 Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   
   <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="twitter:image" content="EQM_v1_cover.png" />
+  <meta name="twitter:image" content="EQM_v4_cover.png" />
 
-<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett">
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html">
@@ -51,41 +50,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -118,7 +142,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
 <li class="chapter" data-level="1.1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
 <li class="chapter" data-level="1.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
 <li class="chapter" data-level="1.3.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
@@ -138,122 +164,131 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.6.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
 <li class="chapter" data-level="1.6.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
 <li class="chapter" data-level="1.6.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
-<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-the-values-and-shapes"><i class="fa fa-check"></i><b>1.6.5</b> Mixing the Values and Shapes</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
 <li class="chapter" data-level="1.6.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a><ul>
-<li class="chapter" data-level="2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>2.1</b> Purpose</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>2.1.1</b> Research Question</a></li>
-<li class="chapter" data-level="2.1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>2.1.2</b> Data Description</a></li>
+<li class="chapter" data-level="2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression - Example: Cancer Experiment</a><ul>
+<li class="chapter" data-level="2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>2.1</b> Background</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>2.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>2.1.2</b> Example Dataset - Cancer Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>2.2.1</b> Univariate Statistics</a></li>
-<li class="chapter" data-level="2.2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>2.2.2</b> Univariate Visualizations</a></li>
-<li class="chapter" data-level="2.2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>2.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
-<li class="chapter" data-level="2.2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>2.2.4</b> Bivariate Visualization</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>2.3</b> Regression Analysis</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>2.3.1</b> Fit A Simple Linear Model</a></li>
-<li class="chapter" data-level="2.3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>2.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
-<li class="chapter" data-level="2.3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>2.3.3</b> Manually checking residual diagnostics</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>2.4</b> Conclusion</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>2.4.1</b> Tabulate the Final Model Summary</a></li>
-<li class="chapter" data-level="2.4.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>2.4.2</b> Plot the Model</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis: i.e. the eyeball method</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.1</b> Scatterplot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a><ul>
-<li class="chapter" data-level="3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>3.1</b> Purpose</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
-<li class="chapter" data-level="3.1.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a><ul>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
-<li class="chapter" data-level="3.2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>3.2.2</b> Bivariate Relationships</a></li>
+<li class="chapter" data-level="3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>3.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>3.2.4</b> Bivariate Visualization</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit Nested Models</a></li>
-<li class="chapter" data-level="3.3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>3.3.2</b> Comparing Nested Models</a></li>
-<li class="chapter" data-level="3.3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>3.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>3.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Manually checking residual diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a><ul>
-<li class="chapter" data-level="4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>4.1</b> Purpose</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
-<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
-<li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>4.2.2</b> Bivariate Relationships</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>4.3</b> Regression Analysis</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>4.3.1</b> Subset the Sample</a></li>
-<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>4.3.2</b> Fit Nested Models</a></li>
-<li class="chapter" data-level="4.3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>4.3.3</b> Comparing Nested Models</a></li>
-<li class="chapter" data-level="4.3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>4.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>4.4</b> Conclusion</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>4.4.1</b> Tabulate the Final Model Summary</a></li>
-<li class="chapter" data-level="4.4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>4.4.2</b> Plot the Model</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>4.5</b> Write-up</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>5</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a><ul>
-<li class="chapter" data-level="5.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-1"><i class="fa fa-check"></i><b>5.1</b> Background</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>5.1.1</b> Source</a></li>
-<li class="chapter" data-level="5.1.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>5.1.2</b> Reference</a></li>
-<li class="chapter" data-level="5.1.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>5.1.3</b> Variables</a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion"><i class="fa fa-check"></i><b>5.2</b> Logistic Regresion</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#fit-the-models"><i class="fa fa-check"></i><b>5.2.1</b> Fit the Models</a></li>
-<li class="chapter" data-level="5.2.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#gof-measures"><i class="fa fa-check"></i><b>5.2.2</b> GoF Measures</a></li>
-<li class="chapter" data-level="5.2.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>5.2.3</b> Parameter Estimates</a></li>
-<li class="chapter" data-level="5.2.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>5.2.4</b> Significance of Terms</a></li>
-<li class="chapter" data-level="5.2.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates-1"><i class="fa fa-check"></i><b>5.2.5</b> Parameter Estimates</a></li>
-<li class="chapter" data-level="5.2.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plot"><i class="fa fa-check"></i><b>5.2.6</b> Marginal Model Plot</a></li>
-<li class="chapter" data-level="5.2.7" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#residual-diagnostics"><i class="fa fa-check"></i><b>5.2.7</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="3.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>3.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="3.4.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>3.4.2</b> Plot the Model</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>6</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a><ul>
-<li class="chapter" data-level="6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-2"><i class="fa fa-check"></i><b>6.1</b> Background</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>6.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="6.1.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>6.1.2</b> Declare Factors</a></li>
+<li class="chapter" data-level="4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>4.1</b> Purpose</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>6.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="6.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-un-adjusted"><i class="fa fa-check"></i><b>6.3</b> Logistic Regression - Simple, un-adjusted</a></li>
-<li class="chapter" data-level="6.4" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>6.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
-<li class="chapter" data-level="6.5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>6.5</b> Logistic Regression - Multivariate, with Interactions</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>6.5.1</b> Age and Weight</a></li>
-<li class="chapter" data-level="6.5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>6.5.2</b> Age and Smoking</a></li>
-<li class="chapter" data-level="6.5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>6.5.3</b> Weight and Smoking</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>4.2.2</b> Bivariate Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>6.6</b> Logistic Regression - Multivariate, Simplify</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>6.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>4.3.1</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="4.3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>4.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>6.7</b> Logistic Regression - Multivariate, Final Model</a><ul>
-<li class="chapter" data-level="6.7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>6.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
-<li class="chapter" data-level="6.7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>6.7.2</b> Parameter Estiamtes Table</a></li>
-<li class="chapter" data-level="6.7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot-1"><i class="fa fa-check"></i><b>6.7.3</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>4.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>5</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a><ul>
+<li class="chapter" data-level="5.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>5.1</b> Purpose</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="5.1.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>5.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>5.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>5.3.1</b> Subset the Sample</a></li>
+<li class="chapter" data-level="5.3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>5.3.2</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>5.3.3</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="5.3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>5.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>5.4</b> Conclusion</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>5.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="5.4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>5.4.2</b> Plot the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>5.5</b> Write-up</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>6</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a><ul>
+<li class="chapter" data-level="6.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>6.1</b> Background</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>6.1.1</b> Source</a></li>
+<li class="chapter" data-level="6.1.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>6.1.2</b> Reference</a></li>
+<li class="chapter" data-level="6.1.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>6.1.3</b> Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion"><i class="fa fa-check"></i><b>6.2</b> Logistic Regresion</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#fit-the-models"><i class="fa fa-check"></i><b>6.2.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="6.2.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#gof-measures"><i class="fa fa-check"></i><b>6.2.2</b> GoF Measures</a></li>
+<li class="chapter" data-level="6.2.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>6.2.3</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="6.2.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>6.2.4</b> Significance of Terms</a></li>
+<li class="chapter" data-level="6.2.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates-1"><i class="fa fa-check"></i><b>6.2.5</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="6.2.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plot"><i class="fa fa-check"></i><b>6.2.6</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="6.2.7" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#residual-diagnostics"><i class="fa fa-check"></i><b>6.2.7</b> Residual Diagnostics</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>7</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a><ul>
-<li class="chapter" data-level="7.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#background-3"><i class="fa fa-check"></i><b>7.1</b> Background</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>7.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="7.1.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>7.1.2</b> Declare Factors</a></li>
+<li class="chapter" data-level="7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a><ul>
+<li class="chapter" data-level="7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>7.1</b> Background</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>7.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="7.1.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>7.1.2</b> Declare Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>7.2</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>7.2.1</b> Husband’s Income</a></li>
-<li class="chapter" data-level="7.2.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>7.2.2</b> Children in Home</a></li>
-<li class="chapter" data-level="7.2.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>7.2.3</b> Region of Canada</a></li>
+<li class="chapter" data-level="7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>7.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-un-adjusted"><i class="fa fa-check"></i><b>7.3</b> Logistic Regression - Simple, un-adjusted</a></li>
+<li class="chapter" data-level="7.4" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>7.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
+<li class="chapter" data-level="7.5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>7.5</b> Logistic Regression - Multivariate, with Interactions</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>7.5.1</b> Age and Weight</a></li>
+<li class="chapter" data-level="7.5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>7.5.2</b> Age and Smoking</a></li>
+<li class="chapter" data-level="7.5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>7.5.3</b> Weight and Smoking</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>7.3</b> Hierarchical (nested) Logistic Regression</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>7.3.1</b> Role of Predictors on ANY working</a></li>
-<li class="chapter" data-level="7.3.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>7.3.2</b> Role of Predictors on TYPE of work</a></li>
+<li class="chapter" data-level="7.6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>7.6</b> Logistic Regression - Multivariate, Simplify</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>7.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>7.4</b> Multinomial (nominal) Logistic Regression</a></li>
-<li class="chapter" data-level="7.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>7.5</b> Proportional-odds (ordinal) Logistic Regression</a></li>
+<li class="chapter" data-level="7.7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>7.7</b> Logistic Regression - Multivariate, Final Model</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>7.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>7.7.2</b> Parameter Estiamtes Table</a></li>
+<li class="chapter" data-level="7.7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot-1"><i class="fa fa-check"></i><b>7.7.3</b> Marginal Model Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>8</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a><ul>
+<li class="chapter" data-level="8.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#background-4"><i class="fa fa-check"></i><b>8.1</b> Background</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>8.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="8.1.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>8.1.2</b> Declare Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>8.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>8.2.1</b> Husband’s Income</a></li>
+<li class="chapter" data-level="8.2.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>8.2.2</b> Children in Home</a></li>
+<li class="chapter" data-level="8.2.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>8.2.3</b> Region of Canada</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>8.3</b> Hierarchical (nested) Logistic Regression</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>8.3.1</b> Role of Predictors on ANY working</a></li>
+<li class="chapter" data-level="8.3.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>8.3.2</b> Role of Predictors on TYPE of work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>8.4</b> Multinomial (nominal) Logistic Regression</a></li>
+<li class="chapter" data-level="8.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>8.5</b> Proportional-odds (ordinal) Logistic Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -277,19 +312,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery" class="section level1">
-<h1><span class="header-section-number">6</span> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(haven)        <span class="co"># read in SPSS dataset</span>
-<span class="kw">library</span>(furniture)    <span class="co"># nice table1() descriptives</span>
-<span class="kw">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span>
-<span class="kw">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span>
-<span class="kw">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span>
-<span class="kw">library</span>(car)          <span class="co"># Companion to Applied Regression</span>
-<span class="kw">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span>
-<span class="kw">library</span>(pscl)         <span class="co"># psudo R-squared function</span>
-<span class="kw">library</span>(glue)         <span class="co"># Interpreted String Literals </span></code></pre></div>
-<div id="background-2" class="section level2">
-<h2><span class="header-section-number">6.1</span> Background</h2>
+<h1><span class="header-section-number">7</span> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</h1>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb237-2" title="2"><span class="kw">library</span>(haven)        <span class="co"># read in SPSS dataset</span></a>
+<a class="sourceLine" id="cb237-3" title="3"><span class="kw">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></a>
+<a class="sourceLine" id="cb237-4" title="4"><span class="kw">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></a>
+<a class="sourceLine" id="cb237-5" title="5"><span class="kw">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></a>
+<a class="sourceLine" id="cb237-6" title="6"><span class="kw">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></a>
+<a class="sourceLine" id="cb237-7" title="7"><span class="kw">library</span>(car)          <span class="co"># Companion to Applied Regression</span></a>
+<a class="sourceLine" id="cb237-8" title="8"><span class="kw">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></a>
+<a class="sourceLine" id="cb237-9" title="9"><span class="kw">library</span>(pscl)         <span class="co"># psudo R-squared function</span></a>
+<a class="sourceLine" id="cb237-10" title="10"><span class="kw">library</span>(glue)         <span class="co"># Interpreted String Literals </span></a></code></pre></div>
+<div id="background-3" class="section level2">
+<h2><span class="header-section-number">7.1</span> Background</h2>
 <p>More complex example demonstrating modeling decisions</p>
 <p>Another set of data from a study investigating predictors of low birth weight</p>
 <ul>
@@ -312,16 +347,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>ftv</code> Number of physician visits in 1st trimester: 0 = None, 1 = One, … 6 = six</li>
 </ul>
 <div id="raw-dataset" class="section level3">
-<h3><span class="header-section-number">6.1.1</span> Raw Dataset</h3>
+<h3><span class="header-section-number">7.1.1</span> Raw Dataset</h3>
 <p>The data is saved in a text file (.txt) without any labels.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lowbwt_raw &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Regression/lowbwt.txt&quot;</span>, 
-                         <span class="dt">header =</span> <span class="ot">TRUE</span>, 
-                         <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, 
-                         <span class="dt">na.strings =</span> <span class="st">&quot;NA&quot;</span>, 
-                         <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>, 
-                         <span class="dt">strip.white =</span> <span class="ot">TRUE</span>)
-
-tibble<span class="op">::</span><span class="kw">glimpse</span>(lowbwt_raw)</code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1">lowbwt_raw &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Regression/lowbwt.txt&quot;</span>, </a>
+<a class="sourceLine" id="cb238-2" title="2">                         <span class="dt">header =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb238-3" title="3">                         <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, </a>
+<a class="sourceLine" id="cb238-4" title="4">                         <span class="dt">na.strings =</span> <span class="st">&quot;NA&quot;</span>, </a>
+<a class="sourceLine" id="cb238-5" title="5">                         <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>, </a>
+<a class="sourceLine" id="cb238-6" title="6">                         <span class="dt">strip.white =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb238-7" title="7"></a>
+<a class="sourceLine" id="cb238-8" title="8">tibble<span class="op">::</span><span class="kw">glimpse</span>(lowbwt_raw)</a></code></pre></div>
 <pre><code>Observations: 189
 Variables: 11
 $ id    &lt;int&gt; 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, ...
@@ -337,26 +372,26 @@ $ ftv   &lt;int&gt; 0, 3, 1, 2, 0, 0, 1, 1, 1, 0, 0, 1, 0, 2, 0, 0, 0, 3, 0,...
 $ bwt   &lt;int&gt; 2523, 2551, 2557, 2594, 2600, 2622, 2637, 2637, 2663, 26...</code></pre>
 </div>
 <div id="declare-factors" class="section level3">
-<h3><span class="header-section-number">6.1.2</span> Declare Factors</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lowbwt_clean &lt;-<span class="st"> </span>lowbwt_raw <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">factor</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">low =</span> <span class="kw">factor</span>(low,
-                             <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),
-                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;birth weight &gt;2500 g (normal)&quot;</span>,
-                                        <span class="st">&quot;birth weight &lt; 2500 g (low)&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">race =</span> <span class="kw">factor</span>(race,
-                              <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,
-                              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;White&quot;</span>, 
-                                         <span class="st">&quot;Black&quot;</span>, 
-                                         <span class="st">&quot;Other&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ptl_any =</span> <span class="kw">as.numeric</span>(ptl <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st">         </span><span class="co"># colapse into 0 = none vs. 1 = at least one</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ptl =</span> <span class="kw">factor</span>(ptl)) <span class="op">%&gt;%</span><span class="st">                     </span><span class="co"># declare the number of pre-term labors to be a factor: 0, 1, 2, 3</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(smoke, ht, ui, ptl_any),           <span class="co"># declare all there variables to be factors with the same two levels</span>
-                   factor,
-                   <span class="dt">levels =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,
-                   <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)) </code></pre></div>
+<h3><span class="header-section-number">7.1.2</span> Declare Factors</h3>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1">lowbwt_clean &lt;-<span class="st"> </span>lowbwt_raw <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb240-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">factor</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb240-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">low =</span> <span class="kw">factor</span>(low,</a>
+<a class="sourceLine" id="cb240-4" title="4">                             <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb240-5" title="5">                             <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;birth weight &gt;2500 g (normal)&quot;</span>,</a>
+<a class="sourceLine" id="cb240-6" title="6">                                        <span class="st">&quot;birth weight &lt; 2500 g (low)&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb240-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">race =</span> <span class="kw">factor</span>(race,</a>
+<a class="sourceLine" id="cb240-8" title="8">                              <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb240-9" title="9">                              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;White&quot;</span>, </a>
+<a class="sourceLine" id="cb240-10" title="10">                                         <span class="st">&quot;Black&quot;</span>, </a>
+<a class="sourceLine" id="cb240-11" title="11">                                         <span class="st">&quot;Other&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb240-12" title="12"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ptl_any =</span> <span class="kw">as.numeric</span>(ptl <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st">         </span><span class="co"># colapse into 0 = none vs. 1 = at least one</span></a>
+<a class="sourceLine" id="cb240-13" title="13"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ptl =</span> <span class="kw">factor</span>(ptl)) <span class="op">%&gt;%</span><span class="st">                     </span><span class="co"># declare the number of pre-term labors to be a factor: 0, 1, 2, 3</span></a>
+<a class="sourceLine" id="cb240-14" title="14"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(smoke, ht, ui, ptl_any),           <span class="co"># declare all there variables to be factors with the same two levels</span></a>
+<a class="sourceLine" id="cb240-15" title="15">                   factor,</a>
+<a class="sourceLine" id="cb240-16" title="16">                   <span class="dt">levels =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb240-17" title="17">                   <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)) </a></code></pre></div>
 <p>Display the structure of the ‘clean’ version of the dataset</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(lowbwt_clean)</code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">str</span>(lowbwt_clean)</a></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   189 obs. of  12 variables:
  $ id     : Factor w/ 189 levels &quot;4&quot;,&quot;10&quot;,&quot;11&quot;,..: 60 61 62 63 64 65 66 67 68 69 ...
  $ low    : Factor w/ 2 levels &quot;birth weight &gt;2500 g (normal)&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
@@ -373,24 +408,24 @@ $ bwt   &lt;int&gt; 2523, 2551, 2557, 2594, 2600, 2622, 2637, 2637, 2663, 26...<
 </div>
 </div>
 <div id="exploratory-data-analysis-3" class="section level2">
-<h2><span class="header-section-number">6.2</span> Exploratory Data Analysis</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Knit to Website: output = &quot;html&quot; </span>
-<span class="co"># Knit to PDF:     output = &quot;latex2&quot;</span>
-<span class="co"># View on Screen:  output = &quot;&quot;text&quot;, or &quot;markdown&quot;, &quot;html&quot;</span>
-
-lowbwt_clean <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(<span class="st">&quot;Age, years&quot;</span> =<span class="st"> </span>age, 
-                    <span class="st">&quot;Weight, pounds&quot;</span> =<span class="st"> </span>lwt, 
-                    <span class="st">&quot;Race&quot;</span> =<span class="st"> </span>race, 
-                    <span class="st">&quot;Smoking During pregnancy&quot;</span> =<span class="st"> </span>smoke, 
-                    <span class="st">&quot;History of Premature Labor, any&quot;</span> =<span class="st"> </span>ptl_any, 
-                    <span class="st">&quot;History of Premature Labor, number&quot;</span> =<span class="st"> </span>ptl, 
-                    <span class="st">&quot;History of Hypertension&quot;</span> =<span class="st"> </span>ht, 
-                    <span class="st">&quot;Uterince Irritability&quot;</span> =<span class="st"> </span>ui, 
-                    <span class="st">&quot;1st Tri Dr Visits&quot;</span> =<span class="st"> </span>ftv, 
-                    <span class="dt">splitby =</span> <span class="op">~</span><span class="st"> </span>low,
-                    <span class="dt">test =</span> <span class="ot">TRUE</span>,
-                    <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
+<h2><span class="header-section-number">7.2</span> Exploratory Data Analysis</h2>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="co"># Knit to Website: output = &quot;html&quot; </span></a>
+<a class="sourceLine" id="cb243-2" title="2"><span class="co"># Knit to PDF:     output = &quot;latex2&quot;</span></a>
+<a class="sourceLine" id="cb243-3" title="3"><span class="co"># View on Screen:  output = &quot;&quot;text&quot;, or &quot;markdown&quot;, &quot;html&quot;</span></a>
+<a class="sourceLine" id="cb243-4" title="4"></a>
+<a class="sourceLine" id="cb243-5" title="5">lowbwt_clean <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb243-6" title="6"><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(<span class="st">&quot;Age, years&quot;</span> =<span class="st"> </span>age, </a>
+<a class="sourceLine" id="cb243-7" title="7">                    <span class="st">&quot;Weight, pounds&quot;</span> =<span class="st"> </span>lwt, </a>
+<a class="sourceLine" id="cb243-8" title="8">                    <span class="st">&quot;Race&quot;</span> =<span class="st"> </span>race, </a>
+<a class="sourceLine" id="cb243-9" title="9">                    <span class="st">&quot;Smoking During pregnancy&quot;</span> =<span class="st"> </span>smoke, </a>
+<a class="sourceLine" id="cb243-10" title="10">                    <span class="st">&quot;History of Premature Labor, any&quot;</span> =<span class="st"> </span>ptl_any, </a>
+<a class="sourceLine" id="cb243-11" title="11">                    <span class="st">&quot;History of Premature Labor, number&quot;</span> =<span class="st"> </span>ptl, </a>
+<a class="sourceLine" id="cb243-12" title="12">                    <span class="st">&quot;History of Hypertension&quot;</span> =<span class="st"> </span>ht, </a>
+<a class="sourceLine" id="cb243-13" title="13">                    <span class="st">&quot;Uterince Irritability&quot;</span> =<span class="st"> </span>ui, </a>
+<a class="sourceLine" id="cb243-14" title="14">                    <span class="st">&quot;1st Tri Dr Visits&quot;</span> =<span class="st"> </span>ftv, </a>
+<a class="sourceLine" id="cb243-15" title="15">                    <span class="dt">splitby =</span> <span class="op">~</span><span class="st"> </span>low,</a>
+<a class="sourceLine" id="cb243-16" title="16">                    <span class="dt">test =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb243-17" title="17">                    <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -763,25 +798,25 @@ Yes
 </table>
 </div>
 <div id="logistic-regression---simple-un-adjusted" class="section level2">
-<h2><span class="header-section-number">6.3</span> Logistic Regression - Simple, un-adjusted</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1.age   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age,     <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.lwt   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>lwt,     <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.race  &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>race,    <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.smoke &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>smoke,   <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.ptl   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ptl_any, <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.ht    &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ht,      <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.ui    &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ui,      <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)
-low1.ftv   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ftv,     <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</code></pre></div>
+<h2><span class="header-section-number">7.3</span> Logistic Regression - Simple, un-adjusted</h2>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">low1.age   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age,     <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-2" title="2">low1.lwt   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>lwt,     <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-3" title="3">low1.race  &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>race,    <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-4" title="4">low1.smoke &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>smoke,   <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-5" title="5">low1.ptl   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ptl_any, <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-6" title="6">low1.ht    &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ht,      <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-7" title="7">low1.ui    &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ui,      <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a>
+<a class="sourceLine" id="cb244-8" title="8">low1.ftv   &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>ftv,     <span class="dt">family=</span><span class="kw">binomial</span>(logit), <span class="dt">data=</span>lowbwt_clean)</a></code></pre></div>
 <p>Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Knit to Website: texreg::htmlreg()</span>
-<span class="co"># Knit to PDF:     texreg::texreg()</span>
-<span class="co"># View on Screen:  texreg::screenreg()</span>
-
-texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">list</span>(low1.age, low1.lwt, low1.race, low1.smoke),
-                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Weight&quot;</span>, <span class="st">&quot;Race&quot;</span>, <span class="st">&quot;Smoker&quot;</span>),
-                <span class="dt">caption =</span> <span class="st">&quot;Simple, Unadjusted Logistic Regression: Models 1-4&quot;</span>,
-                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="co"># Knit to Website: texreg::htmlreg()</span></a>
+<a class="sourceLine" id="cb245-2" title="2"><span class="co"># Knit to PDF:     texreg::texreg()</span></a>
+<a class="sourceLine" id="cb245-3" title="3"><span class="co"># View on Screen:  texreg::screenreg()</span></a>
+<a class="sourceLine" id="cb245-4" title="4"></a>
+<a class="sourceLine" id="cb245-5" title="5">texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">list</span>(low1.age, low1.lwt, low1.race, low1.smoke),</a>
+<a class="sourceLine" id="cb245-6" title="6">                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Weight&quot;</span>, <span class="st">&quot;Race&quot;</span>, <span class="st">&quot;Smoker&quot;</span>),</a>
+<a class="sourceLine" id="cb245-7" title="7">                <span class="dt">caption =</span> <span class="st">&quot;Simple, Unadjusted Logistic Regression: Models 1-4&quot;</span>,</a>
+<a class="sourceLine" id="cb245-8" title="8">                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd" class="uri">http://www.w3.org/TR/html4/loose.dtd</a>”&gt;
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="top" style="margin-bottom:0.3em;">
 Simple, Unadjusted Logistic Regression: Models 1-4
@@ -1062,15 +1097,15 @@ Num. obs.
 </td>
 </tr>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Knit to Website: texreg::htmlreg()</span>
-<span class="co"># Knit to PDF:     texreg::texreg()</span>
-<span class="co"># View on Screen:  texreg::screenreg()</span>
-
-texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">list</span>(low1.ptl, low1.ht, low1.ui, low1.ftv),
-                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Pre-Labor&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Uterine&quot;</span>, <span class="st">&quot;Visits&quot;</span>),
-                <span class="dt">caption =</span> <span class="st">&quot;Simple, Unadjusted Logistic Regression: Models 5-8&quot;</span>,
-                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="co"># Knit to Website: texreg::htmlreg()</span></a>
+<a class="sourceLine" id="cb246-2" title="2"><span class="co"># Knit to PDF:     texreg::texreg()</span></a>
+<a class="sourceLine" id="cb246-3" title="3"><span class="co"># View on Screen:  texreg::screenreg()</span></a>
+<a class="sourceLine" id="cb246-4" title="4"></a>
+<a class="sourceLine" id="cb246-5" title="5">texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">list</span>(low1.ptl, low1.ht, low1.ui, low1.ftv),</a>
+<a class="sourceLine" id="cb246-6" title="6">                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Pre-Labor&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Uterine&quot;</span>, <span class="st">&quot;Visits&quot;</span>),</a>
+<a class="sourceLine" id="cb246-7" title="7">                <span class="dt">caption =</span> <span class="st">&quot;Simple, Unadjusted Logistic Regression: Models 5-8&quot;</span>,</a>
+<a class="sourceLine" id="cb246-8" title="8">                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd" class="uri">http://www.w3.org/TR/html4/loose.dtd</a>”&gt;
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="top" style="margin-bottom:0.3em;">
 Simple, Unadjusted Logistic Regression: Models 5-8
@@ -1326,13 +1361,13 @@ Num. obs.
 </table>
 </div>
 <div id="logistic-regression---multivariate-with-main-effects-only" class="section level2">
-<h2><span class="header-section-number">6.4</span> Logistic Regression - Multivariate, with Main Effects Only</h2>
+<h2><span class="header-section-number">7.4</span> Logistic Regression - Multivariate, with Main Effects Only</h2>
 <p>Main-effects multiple logistic regression model</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui,
-              <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-              <span class="dt">data =</span> lowbwt_clean)
-
-<span class="kw">summary</span>(low1_<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1">low1_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui,</a>
+<a class="sourceLine" id="cb247-2" title="2">              <span class="dt">family =</span> <span class="kw">binomial</span>(logit), </a>
+<a class="sourceLine" id="cb247-3" title="3">              <span class="dt">data =</span> lowbwt_clean)</a>
+<a class="sourceLine" id="cb247-4" title="4"></a>
+<a class="sourceLine" id="cb247-5" title="5"><span class="kw">summary</span>(low1_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = low ~ age + lwt + race + smoke + ptl_any + ht + 
@@ -1365,16 +1400,16 @@ AIC: 214.83
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <div id="logistic-regression---multivariate-with-interactions" class="section level2">
-<h2><span class="header-section-number">6.5</span> Logistic Regression - Multivariate, with Interactions</h2>
+<h2><span class="header-section-number">7.5</span> Logistic Regression - Multivariate, with Interactions</h2>
 <p>Before removing non-significant main effects, test plausible interactions</p>
 <p>Try interactions between age and lwt, age and smoke, lwt and smoke, 1 at a time</p>
 <div id="age-and-weight" class="section level3">
-<h3><span class="header-section-number">6.5.1</span> Age and Weight</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui <span class="op">+</span><span class="st"> </span>age<span class="op">:</span>lwt,
-                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-                 <span class="dt">data =</span> lowbwt_clean)
-
-<span class="kw">summary</span>(low1_<span class="dv">2</span>)</code></pre></div>
+<h3><span class="header-section-number">7.5.1</span> Age and Weight</h3>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1">low1_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui <span class="op">+</span><span class="st"> </span>age<span class="op">:</span>lwt,</a>
+<a class="sourceLine" id="cb249-2" title="2">                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), </a>
+<a class="sourceLine" id="cb249-3" title="3">                 <span class="dt">data =</span> lowbwt_clean)</a>
+<a class="sourceLine" id="cb249-4" title="4"></a>
+<a class="sourceLine" id="cb249-5" title="5"><span class="kw">summary</span>(low1_<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = low ~ age + lwt + race + smoke + ptl_any + ht + 
@@ -1406,9 +1441,9 @@ Residual deviance: 196.82  on 179  degrees of freedom
 AIC: 216.82
 
 Number of Fisher Scoring iterations: 5</code></pre>
-<div id="compare-model-fits-vs.likelihood-ratio-test" class="section level4">
-<h4><span class="header-section-number">6.5.1.1</span> Compare Model Fits vs. Likelihood Ratio Test</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(low1_<span class="dv">1</span>, low1_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&#39;Chi&#39;</span>)</code></pre></div>
+<div id="compare-model-fits-vs.-likelihood-ratio-test" class="section level4">
+<h4><span class="header-section-number">7.5.1.1</span> Compare Model Fits vs. Likelihood Ratio Test</h4>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="kw">anova</span>(low1_<span class="dv">1</span>, low1_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&#39;Chi&#39;</span>)</a></code></pre></div>
 <pre><code># A tibble: 2 x 5
   `Resid. Df` `Resid. Dev`    Df Deviance `Pr(&gt;Chi)`
         &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -1416,8 +1451,8 @@ Number of Fisher Scoring iterations: 5</code></pre>
 2         179         197.     1   0.0170      0.896</code></pre>
 </div>
 <div id="type-ii-analysis-of-deviance-table" class="section level4">
-<h4><span class="header-section-number">6.5.1.2</span> Type II Analysis of Deviance Table</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Anova</span>(low1_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&#39;LR&#39;</span>) </code></pre></div>
+<h4><span class="header-section-number">7.5.1.2</span> Type II Analysis of Deviance Table</h4>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="kw">Anova</span>(low1_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&#39;LR&#39;</span>) </a></code></pre></div>
 <pre><code># A tibble: 8 x 3
   `LR Chisq`    Df `Pr(&gt;Chisq)`
        &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
@@ -1431,8 +1466,8 @@ Number of Fisher Scoring iterations: 5</code></pre>
 8     0.0170     1      0.896  </code></pre>
 </div>
 <div id="type-iii-analysis-of-deviance-table" class="section level4">
-<h4><span class="header-section-number">6.5.1.3</span> Type III Analysis of Deviance Table</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Anova</span>(low1_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&#39;LR&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;III&#39;</span>) </code></pre></div>
+<h4><span class="header-section-number">7.5.1.3</span> Type III Analysis of Deviance Table</h4>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1"><span class="kw">Anova</span>(low1_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&#39;LR&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;III&#39;</span>) </a></code></pre></div>
 <pre><code># A tibble: 8 x 3
   `LR Chisq`    Df `Pr(&gt;Chisq)`
        &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
@@ -1447,12 +1482,12 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <div id="age-and-smoking" class="section level3">
-<h3><span class="header-section-number">6.5.2</span> Age and Smoking</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui <span class="op">+</span><span class="st"> </span>age<span class="op">:</span>smoke,
-                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-                 <span class="dt">data =</span> lowbwt_clean)
-
-<span class="kw">summary</span>(low1_<span class="dv">3</span>)</code></pre></div>
+<h3><span class="header-section-number">7.5.2</span> Age and Smoking</h3>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1">low1_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui <span class="op">+</span><span class="st"> </span>age<span class="op">:</span>smoke,</a>
+<a class="sourceLine" id="cb257-2" title="2">                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), </a>
+<a class="sourceLine" id="cb257-3" title="3">                 <span class="dt">data =</span> lowbwt_clean)</a>
+<a class="sourceLine" id="cb257-4" title="4"></a>
+<a class="sourceLine" id="cb257-5" title="5"><span class="kw">summary</span>(low1_<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = low ~ age + lwt + race + smoke + ptl_any + ht + 
@@ -1484,9 +1519,9 @@ Residual deviance: 196.14  on 179  degrees of freedom
 AIC: 216.14
 
 Number of Fisher Scoring iterations: 5</code></pre>
-<div id="compare-model-fits-vs.likelihood-ratio-test-1" class="section level4">
-<h4><span class="header-section-number">6.5.2.1</span> Compare Model Fits vs. Likelihood Ratio Test</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(low1_<span class="dv">1</span>, low1_<span class="dv">3</span>, <span class="dt">test =</span> <span class="st">&#39;Chi&#39;</span>)</code></pre></div>
+<div id="compare-model-fits-vs.-likelihood-ratio-test-1" class="section level4">
+<h4><span class="header-section-number">7.5.2.1</span> Compare Model Fits vs. Likelihood Ratio Test</h4>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1"><span class="kw">anova</span>(low1_<span class="dv">1</span>, low1_<span class="dv">3</span>, <span class="dt">test =</span> <span class="st">&#39;Chi&#39;</span>)</a></code></pre></div>
 <pre><code># A tibble: 2 x 5
   `Resid. Df` `Resid. Dev`    Df Deviance `Pr(&gt;Chi)`
         &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -1495,12 +1530,12 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <div id="weight-and-smoking" class="section level3">
-<h3><span class="header-section-number">6.5.3</span> Weight and Smoking</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui <span class="op">+</span><span class="st"> </span>lwt<span class="op">:</span>smoke,
-                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-                 <span class="dt">data =</span> lowbwt_clean)
-
-<span class="kw">summary</span>(low1_<span class="dv">4</span>)</code></pre></div>
+<h3><span class="header-section-number">7.5.3</span> Weight and Smoking</h3>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1">low1_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht <span class="op">+</span><span class="st"> </span>ui <span class="op">+</span><span class="st"> </span>lwt<span class="op">:</span>smoke,</a>
+<a class="sourceLine" id="cb261-2" title="2">                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), </a>
+<a class="sourceLine" id="cb261-3" title="3">                 <span class="dt">data =</span> lowbwt_clean)</a>
+<a class="sourceLine" id="cb261-4" title="4"></a>
+<a class="sourceLine" id="cb261-5" title="5"><span class="kw">summary</span>(low1_<span class="dv">4</span>)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = low ~ age + lwt + race + smoke + ptl_any + ht + 
@@ -1532,9 +1567,9 @@ Residual deviance: 195.44  on 179  degrees of freedom
 AIC: 215.44
 
 Number of Fisher Scoring iterations: 5</code></pre>
-<div id="compare-model-fits-vs.likelihood-ratio-test-2" class="section level4">
-<h4><span class="header-section-number">6.5.3.1</span> Compare Model Fits vs. Likelihood Ratio Test</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(low1_<span class="dv">1</span>, low1_<span class="dv">4</span>, <span class="dt">test =</span> <span class="st">&#39;Chi&#39;</span>)</code></pre></div>
+<div id="compare-model-fits-vs.-likelihood-ratio-test-2" class="section level4">
+<h4><span class="header-section-number">7.5.3.1</span> Compare Model Fits vs. Likelihood Ratio Test</h4>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1"><span class="kw">anova</span>(low1_<span class="dv">1</span>, low1_<span class="dv">4</span>, <span class="dt">test =</span> <span class="st">&#39;Chi&#39;</span>)</a></code></pre></div>
 <pre><code># A tibble: 2 x 5
   `Resid. Df` `Resid. Dev`    Df Deviance `Pr(&gt;Chi)`
         &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -1544,15 +1579,16 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <div id="logistic-regression---multivariate-simplify" class="section level2">
-<h2><span class="header-section-number">6.6</span> Logistic Regression - Multivariate, Simplify</h2>
-<p>No interactions are significant Remove non-significant main effects</p>
+<h2><span class="header-section-number">7.6</span> Logistic Regression - Multivariate, Simplify</h2>
+<p>No interactions are significant
+Remove non-significant main effects</p>
 <div id="remove-the-least-significant-perdictor-ui" class="section level3">
-<h3><span class="header-section-number">6.6.1</span> Remove the least significant perdictor: <code>ui</code></h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht,
-                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-                 <span class="dt">data =</span> lowbwt_clean)
-
-<span class="kw">summary</span>(low1_<span class="dv">5</span>)</code></pre></div>
+<h3><span class="header-section-number">7.6.1</span> Remove the least significant perdictor: <code>ui</code></h3>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1">low1_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>lwt <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht,</a>
+<a class="sourceLine" id="cb265-2" title="2">                 <span class="dt">family =</span> <span class="kw">binomial</span>(logit), </a>
+<a class="sourceLine" id="cb265-3" title="3">                 <span class="dt">data =</span> lowbwt_clean)</a>
+<a class="sourceLine" id="cb265-4" title="4"></a>
+<a class="sourceLine" id="cb265-5" title="5"><span class="kw">summary</span>(low1_<span class="dv">5</span>)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = low ~ age + lwt + race + smoke + ptl_any + ht, 
@@ -1585,14 +1621,14 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
 <div id="logistic-regression---multivariate-final-model" class="section level2">
-<h2><span class="header-section-number">6.7</span> Logistic Regression - Multivariate, Final Model</h2>
+<h2><span class="header-section-number">7.7</span> Logistic Regression - Multivariate, Final Model</h2>
 <p>Since the mother’s age is theoretically a meaningful variable, it should probably be retained.</p>
 <p>Revise so that age is interpreted in 5-year and lwt in 20 lb increments and the intercept has meaning.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">low1_<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span><span class="kw">I</span>((age <span class="op">-</span><span class="st"> </span><span class="dv">20</span>)<span class="op">/</span><span class="dv">5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>((lwt <span class="op">-</span><span class="st"> </span><span class="dv">125</span>)<span class="op">/</span><span class="dv">20</span>) <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht,
-              <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-              <span class="dt">data =</span> lowbwt_clean)
-
-<span class="kw">summary</span>(low1_<span class="dv">6</span>)</code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1">low1_<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(low <span class="op">~</span><span class="st"> </span><span class="kw">I</span>((age <span class="op">-</span><span class="st"> </span><span class="dv">20</span>)<span class="op">/</span><span class="dv">5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>((lwt <span class="op">-</span><span class="st"> </span><span class="dv">125</span>)<span class="op">/</span><span class="dv">20</span>) <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke <span class="op">+</span><span class="st"> </span>ptl_any <span class="op">+</span><span class="st"> </span>ht,</a>
+<a class="sourceLine" id="cb267-2" title="2">              <span class="dt">family =</span> <span class="kw">binomial</span>(logit), </a>
+<a class="sourceLine" id="cb267-3" title="3">              <span class="dt">data =</span> lowbwt_clean)</a>
+<a class="sourceLine" id="cb267-4" title="4"></a>
+<a class="sourceLine" id="cb267-5" title="5"><span class="kw">summary</span>(low1_<span class="dv">6</span>)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = low ~ I((age - 20)/5) + I((lwt - 125)/20) + race + 
@@ -1623,24 +1659,24 @@ AIC: 215.15
 
 Number of Fisher Scoring iterations: 4</code></pre>
 <div id="several-r2-measures-with-the-psclpr2-function" class="section level3">
-<h3><span class="header-section-number">6.7.1</span> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pscl<span class="op">::</span><span class="kw">pR2</span>(low1_<span class="dv">6</span>)</code></pre></div>
+<h3><span class="header-section-number">7.7.1</span> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</h3>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1">pscl<span class="op">::</span><span class="kw">pR2</span>(low1_<span class="dv">6</span>)</a></code></pre></div>
 <pre><code>         llh      llhNull           G2     McFadden         r2ML 
  -99.5757045 -117.3359981   35.5205871    0.1513627    0.1713353 
         r2CU 
    0.2409463 </code></pre>
 </div>
 <div id="parameter-estiamtes-table" class="section level3">
-<h3><span class="header-section-number">6.7.2</span> Parameter Estiamtes Table</h3>
+<h3><span class="header-section-number">7.7.2</span> Parameter Estiamtes Table</h3>
 <div id="using-texregscreenreg" class="section level4">
-<h4><span class="header-section-number">6.7.2.1</span> Using <code>texreg::screenreg()</code></h4>
+<h4><span class="header-section-number">7.7.2.1</span> Using <code>texreg::screenreg()</code></h4>
 <p>Default: parameters are in terms of the ‘logit’ or log odds ratio</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Knit to Website: texreg::htmlreg()</span>
-<span class="co"># Knit to PDF:     texreg::texreg()</span>
-<span class="co"># View on Screen:  texreg::screenreg()</span>
-
-texreg<span class="op">::</span><span class="kw">htmlreg</span>(low1_<span class="dv">6</span>)</code></pre></div>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="co"># Knit to Website: texreg::htmlreg()</span></a>
+<a class="sourceLine" id="cb271-2" title="2"><span class="co"># Knit to PDF:     texreg::texreg()</span></a>
+<a class="sourceLine" id="cb271-3" title="3"><span class="co"># View on Screen:  texreg::screenreg()</span></a>
+<a class="sourceLine" id="cb271-4" title="4"></a>
+<a class="sourceLine" id="cb271-5" title="5">texreg<span class="op">::</span><span class="kw">htmlreg</span>(low1_<span class="dv">6</span>)</a></code></pre></div>
+&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd" class="uri">http://www.w3.org/TR/html4/loose.dtd</a>”&gt;
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="bottom" style="margin-top:0.3em;">
 Statistical models
@@ -1820,32 +1856,32 @@ Num. obs.
 </tr>
 </table>
 <p>The <code>texreg</code> package uses an intermediate function called <code>extract()</code> to extract information for the model and then put it in the right places in the table. We can invervene by writing our own <code>extract_exp()</code> function to use instead.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extract_exp &lt;-<span class="st"> </span><span class="cf">function</span>(fit_glm){
-  beta   =<span class="st"> </span><span class="kw">coef</span>(fit_glm)    
-  betaci =<span class="st"> </span><span class="kw">confint</span>(fit_glm) 
-  fit_glm_exp        =<span class="st"> </span>texreg<span class="op">::</span><span class="kw">extract</span>(fit_glm)
-  fit_glm_exp<span class="op">@</span>coef   =<span class="st"> </span><span class="kw">exp</span>(beta)
-  fit_glm_exp<span class="op">@</span>ci.low =<span class="st"> </span><span class="kw">exp</span>(betaci[, <span class="dv">1</span>])
-  fit_glm_exp<span class="op">@</span>ci.up  =<span class="st"> </span><span class="kw">exp</span>(betaci[, <span class="dv">2</span>])
-  <span class="kw">return</span>(fit_glm_exp)
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Knit to Website: texreg::htmlreg()</span>
-<span class="co"># Knit to PDF:     texreg::texreg()</span>
-<span class="co"># View on Screen:  texreg::screenreg()</span>
-
-texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">extract_exp</span>(low1_<span class="dv">6</span>),
-                <span class="dt">custom.coef.names =</span> <span class="kw">c</span>(<span class="st">&quot;BL: 125 lb, 20 yr old White Mother&quot;</span>,
-                                      <span class="st">&quot;Additional 5 years older&quot;</span>,
-                                      <span class="st">&quot;Additional 20 lbs pre-pregnancy&quot;</span>,
-                                      <span class="st">&quot;Race: Black vs. White&quot;</span>,
-                                      <span class="st">&quot;Race: Other vs. White&quot;</span>,
-                                      <span class="st">&quot;Smoking During pregnancy&quot;</span>,
-                                      <span class="st">&quot;History of Any Premature Labor&quot;</span>,
-                                      <span class="st">&quot;History of Hypertension&quot;</span>),
-                <span class="dt">custom.model.names =</span> <span class="st">&quot;OR, Low Birth Weight&quot;</span>,
-                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,
-                <span class="dt">custom.note =</span> <span class="st">&quot;* The value of &#39;1&#39; is outside the confidence interval for the OR&quot;</span>)</code></pre></div>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1">extract_exp &lt;-<span class="st"> </span><span class="cf">function</span>(fit_glm){</a>
+<a class="sourceLine" id="cb272-2" title="2">  beta   =<span class="st"> </span><span class="kw">coef</span>(fit_glm)    </a>
+<a class="sourceLine" id="cb272-3" title="3">  betaci =<span class="st"> </span><span class="kw">confint</span>(fit_glm) </a>
+<a class="sourceLine" id="cb272-4" title="4">  fit_glm_exp        =<span class="st"> </span>texreg<span class="op">::</span><span class="kw">extract</span>(fit_glm)</a>
+<a class="sourceLine" id="cb272-5" title="5">  fit_glm_exp<span class="op">@</span>coef   =<span class="st"> </span><span class="kw">exp</span>(beta)</a>
+<a class="sourceLine" id="cb272-6" title="6">  fit_glm_exp<span class="op">@</span>ci.low =<span class="st"> </span><span class="kw">exp</span>(betaci[, <span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb272-7" title="7">  fit_glm_exp<span class="op">@</span>ci.up  =<span class="st"> </span><span class="kw">exp</span>(betaci[, <span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb272-8" title="8">  <span class="kw">return</span>(fit_glm_exp)</a>
+<a class="sourceLine" id="cb272-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1"><span class="co"># Knit to Website: texreg::htmlreg()</span></a>
+<a class="sourceLine" id="cb273-2" title="2"><span class="co"># Knit to PDF:     texreg::texreg()</span></a>
+<a class="sourceLine" id="cb273-3" title="3"><span class="co"># View on Screen:  texreg::screenreg()</span></a>
+<a class="sourceLine" id="cb273-4" title="4"></a>
+<a class="sourceLine" id="cb273-5" title="5">texreg<span class="op">::</span><span class="kw">htmlreg</span>(<span class="kw">extract_exp</span>(low1_<span class="dv">6</span>),</a>
+<a class="sourceLine" id="cb273-6" title="6">                <span class="dt">custom.coef.names =</span> <span class="kw">c</span>(<span class="st">&quot;BL: 125 lb, 20 yr old White Mother&quot;</span>,</a>
+<a class="sourceLine" id="cb273-7" title="7">                                      <span class="st">&quot;Additional 5 years older&quot;</span>,</a>
+<a class="sourceLine" id="cb273-8" title="8">                                      <span class="st">&quot;Additional 20 lbs pre-pregnancy&quot;</span>,</a>
+<a class="sourceLine" id="cb273-9" title="9">                                      <span class="st">&quot;Race: Black vs. White&quot;</span>,</a>
+<a class="sourceLine" id="cb273-10" title="10">                                      <span class="st">&quot;Race: Other vs. White&quot;</span>,</a>
+<a class="sourceLine" id="cb273-11" title="11">                                      <span class="st">&quot;Smoking During pregnancy&quot;</span>,</a>
+<a class="sourceLine" id="cb273-12" title="12">                                      <span class="st">&quot;History of Any Premature Labor&quot;</span>,</a>
+<a class="sourceLine" id="cb273-13" title="13">                                      <span class="st">&quot;History of Hypertension&quot;</span>),</a>
+<a class="sourceLine" id="cb273-14" title="14">                <span class="dt">custom.model.names =</span> <span class="st">&quot;OR, Low Birth Weight&quot;</span>,</a>
+<a class="sourceLine" id="cb273-15" title="15">                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb273-16" title="16">                <span class="dt">custom.note =</span> <span class="st">&quot;* The value of &#39;1&#39; is outside the confidence interval for the OR&quot;</span>)</a></code></pre></div>
+&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd" class="uri">http://www.w3.org/TR/html4/loose.dtd</a>”&gt;
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="bottom" style="margin-top:0.3em;">
 Statistical models
@@ -1970,18 +2006,18 @@ Num. obs.
 </table>
 </div>
 <div id="using-sjplottab_model" class="section level4">
-<h4><span class="header-section-number">6.7.2.2</span> Using <code>sjPlot::tab_model()</code></h4>
+<h4><span class="header-section-number">7.7.2.2</span> Using <code>sjPlot::tab_model()</code></h4>
 <p>Parameters Exponentiated:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sjPlot<span class="op">::</span><span class="kw">tab_model</span>(low1_<span class="dv">6</span>,
-                  <span class="dt">emph.p =</span> <span class="ot">TRUE</span>,
-                  <span class="dt">pred.labels =</span> <span class="kw">c</span>(<span class="st">&quot;BL: 125 lb, 20 yr old White Mother&quot;</span>,
-                                  <span class="st">&quot;Additional 5 years old&quot;</span>,
-                                  <span class="st">&quot;Additional 20 lbs pre-pregnancy&quot;</span>,
-                                  <span class="st">&quot;Race: Black vs. White&quot;</span>,
-                                  <span class="st">&quot;Race: Other vs. White&quot;</span>,
-                                  <span class="st">&quot;Smoking During pregnancy&quot;</span>,
-                                  <span class="st">&quot;History of Any Premature Labor&quot;</span>,
-                                  <span class="st">&quot;History of Hypertension&quot;</span>)) </code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1">sjPlot<span class="op">::</span><span class="kw">tab_model</span>(low1_<span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb274-2" title="2">                  <span class="dt">emph.p =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb274-3" title="3">                  <span class="dt">pred.labels =</span> <span class="kw">c</span>(<span class="st">&quot;BL: 125 lb, 20 yr old White Mother&quot;</span>,</a>
+<a class="sourceLine" id="cb274-4" title="4">                                  <span class="st">&quot;Additional 5 years old&quot;</span>,</a>
+<a class="sourceLine" id="cb274-5" title="5">                                  <span class="st">&quot;Additional 20 lbs pre-pregnancy&quot;</span>,</a>
+<a class="sourceLine" id="cb274-6" title="6">                                  <span class="st">&quot;Race: Black vs. White&quot;</span>,</a>
+<a class="sourceLine" id="cb274-7" title="7">                                  <span class="st">&quot;Race: Other vs. White&quot;</span>,</a>
+<a class="sourceLine" id="cb274-8" title="8">                                  <span class="st">&quot;Smoking During pregnancy&quot;</span>,</a>
+<a class="sourceLine" id="cb274-9" title="9">                                  <span class="st">&quot;History of Any Premature Labor&quot;</span>,</a>
+<a class="sourceLine" id="cb274-10" title="10">                                  <span class="st">&quot;History of Hypertension&quot;</span>)) </a></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -2127,76 +2163,76 @@ Observations
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Cox &amp; Snell’s R<sup>2</sup> / Nagelkerke’s R<sup>2</sup>
+R<sup>2</sup> Tjur
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.171 / 0.241
+0.180
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div id="marginal-model-plot-1" class="section level3">
-<h3><span class="header-section-number">6.7.3</span> Marginal Model Plot</h3>
+<h3><span class="header-section-number">7.7.3</span> Marginal Model Plot</h3>
 <div id="focus-on-mothers-age-weight-and-race" class="section level4">
-<h4><span class="header-section-number">6.7.3.1</span> Focus on: Mother’s Age, weight, and race</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;lwt&quot;</span>, <span class="st">&quot;race&quot;</span>),
-                <span class="dt">mod =</span> low1_<span class="dv">6</span>,
-                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>),
-                               <span class="dt">lwt =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">80</span>, <span class="dt">to =</span> <span class="dv">250</span>, <span class="dt">by =</span> <span class="dv">5</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">age_labels =</span> <span class="kw">glue</span>(<span class="st">&quot;Mother Age: {age}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lwt,
-             <span class="dt">y =</span> fit)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> race,
-                <span class="dt">linetype =</span> race),
-            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span><span class="st"> </span>age_labels) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Risk of Low Birth Weight&quot;</span>,
-       <span class="dt">subtitle =</span> <span class="st">&quot;Illustates risk given mother is a non-smoker, without a history of pre-term labor or hypertension&quot;</span>,
-       <span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Weight Pre-Pregnancy, pounds&quot;</span>,
-       <span class="dt">y =</span> <span class="st">&quot;Predicted Probability</span><span class="ch">\n</span><span class="st">Baby has Low Birth Weight (&lt; 2500 grams)&quot;</span>,
-       <span class="dt">color    =</span> <span class="st">&quot;Mother&#39;s Race&quot;</span>,
-       <span class="dt">linetype =</span> <span class="st">&quot;Mother&#39;s Race&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),
-        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>),
-        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),
-        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>( <span class="st">&quot;coral2&quot;</span>, <span class="st">&quot;dodger blue&quot;</span>, <span class="st">&quot;gray50&quot;</span>))</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-188-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<h4><span class="header-section-number">7.7.3.1</span> Focus on: Mother’s Age, weight, and race</h4>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;lwt&quot;</span>, <span class="st">&quot;race&quot;</span>),</a>
+<a class="sourceLine" id="cb275-2" title="2">                <span class="dt">mod =</span> low1_<span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb275-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>),</a>
+<a class="sourceLine" id="cb275-4" title="4">                               <span class="dt">lwt =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">80</span>, <span class="dt">to =</span> <span class="dv">250</span>, <span class="dt">by =</span> <span class="dv">5</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb275-5" title="5"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb275-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">age_labels =</span> <span class="kw">glue</span>(<span class="st">&quot;Mother Age: {age}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb275-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lwt,</a>
+<a class="sourceLine" id="cb275-8" title="8">             <span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> race,</a>
+<a class="sourceLine" id="cb275-10" title="10">                <span class="dt">linetype =</span> race),</a>
+<a class="sourceLine" id="cb275-11" title="11">            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-12" title="12"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-13" title="13"><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span><span class="st"> </span>age_labels) <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-14" title="14"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Risk of Low Birth Weight&quot;</span>,</a>
+<a class="sourceLine" id="cb275-15" title="15">       <span class="dt">subtitle =</span> <span class="st">&quot;Illustates risk given mother is a non-smoker, without a history of pre-term labor or hypertension&quot;</span>,</a>
+<a class="sourceLine" id="cb275-16" title="16">       <span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Weight Pre-Pregnancy, pounds&quot;</span>,</a>
+<a class="sourceLine" id="cb275-17" title="17">       <span class="dt">y =</span> <span class="st">&quot;Predicted Probability</span><span class="ch">\n</span><span class="st">Baby has Low Birth Weight (&lt; 2500 grams)&quot;</span>,</a>
+<a class="sourceLine" id="cb275-18" title="18">       <span class="dt">color    =</span> <span class="st">&quot;Mother&#39;s Race&quot;</span>,</a>
+<a class="sourceLine" id="cb275-19" title="19">       <span class="dt">linetype =</span> <span class="st">&quot;Mother&#39;s Race&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-20" title="20"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb275-21" title="21">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>),</a>
+<a class="sourceLine" id="cb275-22" title="22">        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb275-23" title="23">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-24" title="24"><span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb275-25" title="25"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>( <span class="st">&quot;coral2&quot;</span>, <span class="st">&quot;dodger blue&quot;</span>, <span class="st">&quot;gray50&quot;</span>))</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-197-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="focus-on-mothers-weight-and-smothing-status-during-pregnancy-as-well-as-history-of-any-per-term-labor-and-hypertension" class="section level4">
-<h4><span class="header-section-number">6.7.3.2</span> Focus on: Mother’s weight and smothing status during pregnancy, as well as history of any per-term labor and hypertension</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;lwt&quot;</span>, <span class="st">&quot;smoke&quot;</span>, <span class="st">&quot;ptl_any&quot;</span>, <span class="st">&quot;ht&quot;</span>),
-                <span class="dt">fixed.predictors =</span> <span class="kw">list</span>(<span class="dt">age =</span> <span class="dv">20</span>),
-                <span class="dt">mod =</span> low1_<span class="dv">6</span>,
-                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">lwt =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">80</span>, <span class="dt">to =</span> <span class="dv">250</span>, <span class="dt">by =</span> <span class="dv">5</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">smoke =</span> forcats<span class="op">::</span><span class="kw">fct_rev</span>(smoke)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ptl_any_labels =</span> <span class="kw">glue</span>(<span class="st">&quot;History of Preterm Labor: {ptl_any}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ht_labels =</span> <span class="kw">glue</span>(<span class="st">&quot;History of Hypertension: {ht}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>forcats<span class="op">::</span><span class="kw">fct_rev</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lwt,
-             <span class="dt">y =</span> fit)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> smoke,
-                <span class="dt">linetype =</span> smoke),
-            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_grid</span>(ht_labels <span class="op">~</span><span class="st"> </span>ptl_any_labels) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Risk of Low Birth Weight&quot;</span>,
-       <span class="dt">subtitle =</span> <span class="st">&quot;Illustates risk given the mother is 20 years old and white&quot;</span>,
-       <span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Weight Pre-Pregnancy, pounds&quot;</span>,
-       <span class="dt">y =</span> <span class="st">&quot;Predicted Probability</span><span class="ch">\n</span><span class="st">Baby has Low Birth Weight (&lt; 2500 grams)&quot;</span>,
-       <span class="dt">color    =</span> <span class="st">&quot;Mother Smoked&quot;</span>,
-       <span class="dt">linetype =</span> <span class="st">&quot;Mother Smoked&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">1</span>, .<span class="dv">5</span>),
-        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">1.15</span>),
-        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),
-        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="fl">1.5</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;solid&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>( <span class="st">&quot;coral2&quot;</span>, <span class="st">&quot;dodger blue&quot;</span>))</code></pre></div>
-<p><img src="eBook_install_files/figure-html/unnamed-chunk-189-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<h4><span class="header-section-number">7.7.3.2</span> Focus on: Mother’s weight and smothing status during pregnancy, as well as history of any per-term labor and hypertension</h4>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;lwt&quot;</span>, <span class="st">&quot;smoke&quot;</span>, <span class="st">&quot;ptl_any&quot;</span>, <span class="st">&quot;ht&quot;</span>),</a>
+<a class="sourceLine" id="cb276-2" title="2">                <span class="dt">fixed.predictors =</span> <span class="kw">list</span>(<span class="dt">age =</span> <span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb276-3" title="3">                <span class="dt">mod =</span> low1_<span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb276-4" title="4">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">lwt =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">80</span>, <span class="dt">to =</span> <span class="dv">250</span>, <span class="dt">by =</span> <span class="dv">5</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-5" title="5"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">smoke =</span> forcats<span class="op">::</span><span class="kw">fct_rev</span>(smoke)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ptl_any_labels =</span> <span class="kw">glue</span>(<span class="st">&quot;History of Preterm Labor: {ptl_any}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-8" title="8"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">ht_labels =</span> <span class="kw">glue</span>(<span class="st">&quot;History of Hypertension: {ht}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>forcats<span class="op">::</span><span class="kw">fct_rev</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-9" title="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lwt,</a>
+<a class="sourceLine" id="cb276-10" title="10">             <span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> smoke,</a>
+<a class="sourceLine" id="cb276-12" title="12">                <span class="dt">linetype =</span> smoke),</a>
+<a class="sourceLine" id="cb276-13" title="13">            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-14" title="14"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-15" title="15"><span class="st">  </span><span class="kw">facet_grid</span>(ht_labels <span class="op">~</span><span class="st"> </span>ptl_any_labels) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-16" title="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Risk of Low Birth Weight&quot;</span>,</a>
+<a class="sourceLine" id="cb276-17" title="17">       <span class="dt">subtitle =</span> <span class="st">&quot;Illustates risk given the mother is 20 years old and white&quot;</span>,</a>
+<a class="sourceLine" id="cb276-18" title="18">       <span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Weight Pre-Pregnancy, pounds&quot;</span>,</a>
+<a class="sourceLine" id="cb276-19" title="19">       <span class="dt">y =</span> <span class="st">&quot;Predicted Probability</span><span class="ch">\n</span><span class="st">Baby has Low Birth Weight (&lt; 2500 grams)&quot;</span>,</a>
+<a class="sourceLine" id="cb276-20" title="20">       <span class="dt">color    =</span> <span class="st">&quot;Mother Smoked&quot;</span>,</a>
+<a class="sourceLine" id="cb276-21" title="21">       <span class="dt">linetype =</span> <span class="st">&quot;Mother Smoked&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-22" title="22"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.5</span>),</a>
+<a class="sourceLine" id="cb276-23" title="23">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">1.15</span>),</a>
+<a class="sourceLine" id="cb276-24" title="24">        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb276-25" title="25">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="fl">1.5</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-26" title="26"><span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;solid&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-27" title="27"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>( <span class="st">&quot;coral2&quot;</span>, <span class="st">&quot;dodger blue&quot;</span>))</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-198-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
@@ -2259,7 +2295,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
