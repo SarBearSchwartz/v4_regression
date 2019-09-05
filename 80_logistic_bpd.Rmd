@@ -120,7 +120,7 @@ logLik(fit_glm_0)
 logLik(fit_glm_1)
 ```
 
-#### Deviance
+#### Deviance = -1 times the Log Likelihood
 
 ```{r}
 deviance(fit_glm_0)

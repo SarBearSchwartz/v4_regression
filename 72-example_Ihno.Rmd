@@ -103,6 +103,7 @@ data_ihno %>%
                                  include.lowest = TRUE)) %>% 
   furniture::table1(mathquiz, statquiz,
                     splitby = ~ phobia_cut3,
+                    na.rm = FALSE,
                     test = TRUE,
                     output = "html")
 ```
@@ -312,13 +313,11 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
   ggplot() +
   aes(x = mathquiz,
       y = fit,
-      fill = phobia,
-      color = phobia) +
+      fill = phobia) +
   geom_ribbon(aes(ymin = fit - se, 
                   ymax = fit + se),
               alpha = .3) +
-  geom_point() +
-  geom_line() +
+  geom_line(aes(color = phobia)) +
   theme_bw() +
   labs(x = "Score on Math Quiz",
        y = "Estimated Marginal Mean\nScore on Stat Quiz",
@@ -326,7 +325,8 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
        color = "Self Rated\nMath Phobia") +
   theme(legend.background = element_rect(color = "black"),
         legend.position = c(0, 1),
-        legend.justification = c(0, 1))
+        legend.key.width = unit(1.5, "cm"),
+        legend.justification = c(-0.1, 1.1))
 ```
 
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
   <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html">
-<link rel="next" href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html">
+<link rel="prev" href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"/>
+<link rel="next" href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -408,8 +408,8 @@ requirement and compatible chest radiograph).</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1"><span class="kw">logLik</span>(fit_glm_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>&#39;log Lik.&#39; -101.8538 (df=4)</code></pre>
 </div>
-<div id="deviance" class="section level4">
-<h4><span class="header-section-number">6.2.1.2</span> Deviance</h4>
+<div id="deviance--1-times-the-log-likelihood" class="section level4">
+<h4><span class="header-section-number">6.2.1.2</span> Deviance = -1 times the Log Likelihood</h4>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1"><span class="kw">deviance</span>(fit_glm_<span class="dv">0</span>)</a></code></pre></div>
 <pre><code>[1] 286.14</code></pre>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1"><span class="kw">deviance</span>(fit_glm_<span class="dv">1</span>)</a></code></pre></div>
@@ -947,8 +947,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

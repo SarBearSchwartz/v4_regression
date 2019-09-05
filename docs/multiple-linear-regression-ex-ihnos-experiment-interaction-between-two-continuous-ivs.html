@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
   <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html">
-<link rel="next" href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html">
+<link rel="prev" href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"/>
+<link rel="next" href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -507,8 +507,9 @@ statquiz
 <a class="sourceLine" id="cb153-4" title="4">                                 <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb153-5" title="5"><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(mathquiz, statquiz,</a>
 <a class="sourceLine" id="cb153-6" title="6">                    <span class="dt">splitby =</span> <span class="op">~</span><span class="st"> </span>phobia_cut3,</a>
-<a class="sourceLine" id="cb153-7" title="7">                    <span class="dt">test =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb153-8" title="8">                    <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb153-7" title="7">                    <span class="dt">na.rm =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb153-8" title="8">                    <span class="dt">test =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb153-9" title="9">                    <span class="dt">output =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -533,13 +534,13 @@ P-Value
 <td>
 </td>
 <td>
-n = 35
+n = 39
 </td>
 <td>
-n = 31
+n = 37
 </td>
 <td>
-n = 19
+n = 24
 </td>
 <td>
 </td>
@@ -584,17 +585,17 @@ statquiz
 <td>
 </td>
 <td>
-0.008
+0.001
 </td>
 </tr>
 <tr>
 <td>
 </td>
 <td>
-7.5 (1.4)
+7.6 (1.3)
 </td>
 <td>
-6.6 (1.7)
+6.6 (1.6)
 </td>
 <td>
 6.1 (2.0)
@@ -1144,21 +1145,20 @@ When plotting a regression model the outcome (dependent variable) is always on t
 <a class="sourceLine" id="cb177-6" title="6"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb177-7" title="7"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> mathquiz,</a>
 <a class="sourceLine" id="cb177-8" title="8">      <span class="dt">y =</span> fit,</a>
-<a class="sourceLine" id="cb177-9" title="9">      <span class="dt">fill =</span> phobia,</a>
-<a class="sourceLine" id="cb177-10" title="10">      <span class="dt">color =</span> phobia) <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-11" title="11"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se, </a>
-<a class="sourceLine" id="cb177-12" title="12">                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se),</a>
-<a class="sourceLine" id="cb177-13" title="13">              <span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-15" title="15"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-16" title="16"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-17" title="17"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Score on Math Quiz&quot;</span>,</a>
-<a class="sourceLine" id="cb177-18" title="18">       <span class="dt">y =</span> <span class="st">&quot;Estimated Marginal Mean</span><span class="ch">\n</span><span class="st">Score on Stat Quiz&quot;</span>,</a>
-<a class="sourceLine" id="cb177-19" title="19">       <span class="dt">fill  =</span> <span class="st">&quot;Self Rated</span><span class="ch">\n</span><span class="st">Math Phobia&quot;</span>,</a>
-<a class="sourceLine" id="cb177-20" title="20">       <span class="dt">color =</span> <span class="st">&quot;Self Rated</span><span class="ch">\n</span><span class="st">Math Phobia&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-21" title="21"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
-<a class="sourceLine" id="cb177-22" title="22">        <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb177-23" title="23">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb177-9" title="9">      <span class="dt">fill =</span> phobia) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-10" title="10"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se, </a>
+<a class="sourceLine" id="cb177-11" title="11">                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se),</a>
+<a class="sourceLine" id="cb177-12" title="12">              <span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-13" title="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> phobia)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-14" title="14"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-15" title="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Score on Math Quiz&quot;</span>,</a>
+<a class="sourceLine" id="cb177-16" title="16">       <span class="dt">y =</span> <span class="st">&quot;Estimated Marginal Mean</span><span class="ch">\n</span><span class="st">Score on Stat Quiz&quot;</span>,</a>
+<a class="sourceLine" id="cb177-17" title="17">       <span class="dt">fill  =</span> <span class="st">&quot;Self Rated</span><span class="ch">\n</span><span class="st">Math Phobia&quot;</span>,</a>
+<a class="sourceLine" id="cb177-18" title="18">       <span class="dt">color =</span> <span class="st">&quot;Self Rated</span><span class="ch">\n</span><span class="st">Math Phobia&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-19" title="19"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb177-20" title="20">        <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb177-21" title="21">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="fl">1.5</span>, <span class="st">&quot;cm&quot;</span>),</a>
+<a class="sourceLine" id="cb177-22" title="22">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</a></code></pre></div>
 <p><img src="eBook_regression_files/figure-html/unnamed-chunk-138-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1232,8 +1232,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

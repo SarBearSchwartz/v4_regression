@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
   <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html">
-<link rel="next" href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html">
+<link rel="prev" href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"/>
+<link rel="next" href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -560,7 +560,7 @@ bp
 <a class="sourceLine" id="cb128-9" title="9">                             <span class="dt">combo      =</span> <span class="st">&quot;box&quot;</span>,</a>
 <a class="sourceLine" id="cb128-10" title="10">                             <span class="dt">discrete   =</span> <span class="st">&quot;facetbar&quot;</span>),</a>
 <a class="sourceLine" id="cb128-11" title="11">                <span class="dt">title =</span> <span class="st">&quot;Very Useful for Exploring Data&quot;</span>) </a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-99-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-99-1.png" width="75%" /></p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1">bp.obese <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb129-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb129-3" title="3"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x    =</span> sex, </a>
@@ -572,7 +572,7 @@ bp
 <a class="sourceLine" id="cb129-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Blood Pressure (mmHg)&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb129-10" title="10"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb129-11" title="11"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-100-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-100-1.png" width="75%" /></p>
 <p>Visual inspection for an interaction (is gender a moderator?)</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">bp.obese <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb130-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x     =</span> obese,</a>
@@ -599,7 +599,7 @@ bp
 <a class="sourceLine" id="cb130-23" title="23">        <span class="dt">legend.background    =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
 <a class="sourceLine" id="cb130-24" title="24">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), </a>
 <a class="sourceLine" id="cb130-25" title="25">        <span class="dt">legend.position      =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-101-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-101-1.png" width="75%" /></p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1">bp.obese <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb131-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">sex =</span> <span class="kw">as.numeric</span>(sex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># cor needs only numeric</span></a>
 <a class="sourceLine" id="cb131-3" title="3"><span class="st">  </span><span class="kw">cor</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -615,7 +615,7 @@ bp    -0.045 0.326  1.000</code></pre>
 <a class="sourceLine" id="cb133-4" title="4"><span class="st">  </span>corrplot<span class="op">::</span><span class="kw">corrplot.mixed</span>(<span class="dt">lower  =</span> <span class="st">&quot;ellipse&quot;</span>,</a>
 <a class="sourceLine" id="cb133-5" title="5">                           <span class="dt">upper  =</span> <span class="st">&quot;number&quot;</span>,</a>
 <a class="sourceLine" id="cb133-6" title="6">                           <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-103-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-103-1.png" width="75%" /></p>
 </div>
 </div>
 <div id="regression-analysis-1" class="section level2">
@@ -943,12 +943,12 @@ RMSE
 <h3><span class="header-section-number">4.3.3</span> Checking Assumptions via Residual Diagnostics</h3>
 <p>Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">plot</span>(fit_bp_obesex, <span class="dt">which =</span> <span class="dv">1</span>)  </a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-110-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-110-1.png" width="75%" /></p>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">plot</span>(fit_bp_obesex, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">id.n =</span> <span class="dv">10</span>)  <span class="co"># Change the number labeled</span></a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-111-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-111-1.png" width="75%" /></p>
 <p>The <code>car</code> package has a handy function called <code>residualPlots()</code> for displaying residual plots quickly <span class="citation">(Fox, Weisberg, and Price <a href="references.html#ref-R-car">2019</a>)</span>.</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">car<span class="op">::</span><span class="kw">residualPlots</span>(fit_bp_obesex)    </a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-112-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-112-1.png" width="75%" /></p>
 <pre><code>           Test stat Pr(&gt;|Test stat|)
 obese        -0.2759           0.7832
 sex                                  
@@ -973,7 +973,7 @@ Tukey test   -0.6141           0.5391</code></pre>
 <a class="sourceLine" id="cb148-17" title="17">                                  <span class="dt">to   =</span>  <span class="dv">80</span>,    <span class="co"># values to make the </span></a>
 <a class="sourceLine" id="cb148-18" title="18">                                  <span class="dt">by   =</span>  <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># tick marks at</span></a>
 <a class="sourceLine" id="cb148-19" title="19"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">FALSE</span>)               <span class="co"># no legends included</span></a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-113-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-113-1.png" width="75%" /></p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1">bp.obese <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb149-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">e_bp =</span> <span class="kw">resid</span>(fit_bp_obesex)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># add the resid to the dataset</span></a>
 <a class="sourceLine" id="cb149-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x     =</span> e_bp,              <span class="co"># y-axis variable name</span></a>
@@ -990,7 +990,7 @@ Tukey test   -0.6141           0.5391</code></pre>
 <a class="sourceLine" id="cb149-14" title="14"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-40</span>,    <span class="co"># declare a sequence of</span></a>
 <a class="sourceLine" id="cb149-15" title="15">                                  <span class="dt">to   =</span>  <span class="dv">80</span>,    <span class="co"># values to make the </span></a>
 <a class="sourceLine" id="cb149-16" title="16">                                  <span class="dt">by   =</span>  <span class="dv">20</span>))  <span class="co"># tick marks at</span></a></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-114-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-114-1.png" width="75%" /></p>
 </div>
 </div>
 <div id="conclusion-1" class="section level2">
@@ -1058,8 +1058,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
