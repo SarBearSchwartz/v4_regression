@@ -1,0 +1,575 @@
+# Count Outcome Regression - Ex: POssion and Negative Binomial
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(sjPlot)       # Quick plots and tables for models
+library(glue)         # Interpreted String Literals 
+
+library(DescTools)    # Tools for Descriptive Statistics
+library(texreghelpr)  # Helper Functions for generalized models
+
+library(pscl)         # Political Science Computational Laboratory (ZIP)
+```
+
+## Background
+
+
+### Raw Dataset
+
+```{r}
+data_gss <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav") %>% 
+  haven::as_factor()
+
+data_gss %>% 
+  dplyr::select(volteer, female, nonwhite, educate, income) %>% 
+  head()
+```
+
+
+
+## Exploratory Data Analysis
+
+### Entire Sample
+
+```{r}
+data_gss %>% 
+  furniture::tableF(volteer)
+```
+
+```{r}
+data_gss %>% 
+  dplyr::select(volteer) %>% 
+  summary()
+```
+
+
+
+```{r}
+data_gss %>% 
+  ggplot(aes(volteer)) +
+  geom_histogram() 
+```
+
+
+### By Sex
+
+
+```{r}
+data_gss %>% 
+  dplyr::group_by(female) %>% 
+  furniture::table1(factor(volteer),
+                    digits = 4,
+                    total = TRUE)
+```
+
+
+```{r}
+data_gss %>% 
+  dplyr::group_by(female) %>% 
+  furniture::table1(volteer,
+                    digits = 4,
+                    total = TRUE,
+                    test = TRUE)
+```
+
+
+
+```{r}
+data_gss %>% 
+  ggplot(aes(volteer,
+             fill = female)) +
+  geom_histogram(position = "dodge") 
+```
+
+
+
+## Poisson Reression
+
+### Single Predictor: Sex
+
+
+#### Fit the model
+
+```{r}
+glm_possion_1 <- glm(volteer ~ female,
+                     data = data_gss,
+                     family = poisson(link = "log"))
+
+summary(glm_possion_1)
+```
+
+> Note: The deviance residuals range as high as 6.47!!!
+
+
+
+#### Marginal Estimates
+
+
+> Note: Results are given on the log (not the response) scale
+
+```{r}
+glm_possion_1 %>% 
+  emmeans::emmeans(~ female)
+```
+
+
+
+
+> Note: These means are on the original scale (number of volunteer activities in the past year).  These standard errors are called "delta-method standard errors"
+
+```{r}
+effects::Effect(focal.predictors = c("female"),
+                mod = glm_possion_1) %>% 
+  data.frame()
+```
+
+
+#### Pairwise Post Hoc Test
+
+```{r}
+glm_possion_1 %>% 
+  emmeans::emmeans(~ female) %>% 
+  pairs()
+```
+
+
+#### Parameter Estimates
+
+Coefficients are in terms of the **LOG of** the number of times a person volunteers per year.
+
+```{r}
+glm_possion_1 %>% coef()
+```
+
+Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the **incident rate ratio IRR**.
+
+```{r}
+glm_possion_1 %>% coef() %>% exp()
+```
+
+
+```{r}
+texreg::screenreg(list(glm_possion_1, 
+                       texreghelpr::extract_glm_exp(glm_possion_1,
+                                                    include.aic = FALSE,
+                                                    include.bic = FALSE,
+                                                    include.loglik = FALSE,
+                                                    include.deviance = FALSE,
+                                                    include.nobs = FALSE)),
+                  custom.model.names = c("b (SE)", "RR [95% CI]"),
+                  custom.coef.map = list("(Intercept)" ="Intercept",
+                                         femalefemale = "Female vs. Male"),
+                  caption = "GLM: Simple Possion Regression",
+                  single.row = TRUE,
+                  digits = 3)
+```
+
+
+### Multiple Predictors
+
+
+
+
+#### Fit the model
+
+```{r}
+glm_possion_2 <- glm(volteer ~ female + nonwhite + educate + income,
+                     data = data_gss,
+                     family = poisson(link = "log"))
+
+summary(glm_possion_2)
+```
+
+
+#### Marginal Estimates
+
+
+> Note: These means are on the original scale (number of volunteer activities in the past year).  These standard errors are called "delta-method standard errors"
+
+```{r}
+effects::Effect(focal.predictors = c("female"),
+                mod = glm_possion_2,
+                xlevels = list(nonwhite = "non-white",
+                               educate = 5,
+                               income = 12)) %>% 
+  data.frame()
+```
+
+
+#### Parameter Estimates
+
+Coefficients are in terms of the **LOG of** the number of times a person volunteers per year.
+
+```{r}
+glm_possion_2 %>% coef()
+```
+
+Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the **incident rate ratio IRR**.
+
+```{r}
+glm_possion_2 %>% coef() %>% exp()
+```
+
+
+
+```{r}
+texreg::screenreg(list(glm_possion_2, 
+                       texreghelpr::extract_glm_exp(glm_possion_2,
+                                                    include.aic = FALSE,
+                                                    include.bic = FALSE,
+                                                    include.loglik = FALSE,
+                                                    include.deviance = FALSE,
+                                                    include.nobs = FALSE)),
+                  custom.model.names = c("b (SE)", "RR [95% CI]"),
+                  custom.coef.map = list("(Intercept)" ="Intercept",
+                                         femalefemale = "Female vs. Male",
+                                         "nonwhitenon-white" = "Non-white vs. White",
+                                         educate = "Education, Years",
+                                         income = "Income"),
+                  caption = "GLM: Multiple Possion Regression",
+                  single.row = TRUE,
+                  digits = 3)
+```
+
+
+
+#### Assess Model Fit
+
+```{r}
+DescTools::PseudoR2(glm_possion_2)
+```
+
+
+```{r}
+DescTools::PseudoR2(glm_possion_2, which = "all") %>% round(3)
+```
+
+
+
+
+#### Interpretation
+
+* `female`: Adjusting for the effects of rate/ethnicity, education, and income, FEMALES are expected to volunteer about 30% MORE activities per year than males.
+
+* `nonwhite`: Adjusting for the effects of sex, education, and income, NON-WHITES are expected to volunteer for about 24% LESS activities per year than males.
+
+* `educate`: Each one-year increase in education is associated with an 11% increase in the number of volunteer activities per year, adjusting for the effects of sex, race/ethnicity, and income.
+
+
+#### Residual Diagnostics
+
+
+```{r}
+par(mfrow = c(2, 2))
+plot(glm_possion_2)
+par(mfrow = c(1, 1))
+```
+
+
+These residuals do NOT look good, especially the Q-Q plot for normality.
+
+
+
+#### Marginal Plot
+
+
+```{r}
+data_gss %>% 
+  dplyr::select(educate, income) %>% 
+  psych::describe(skew = FALSE)
+```
+
+
+```{r}
+data_gss %>% 
+  dplyr::select(educate, income) %>% 
+  summary()
+```
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("female", "nonwhite", "educate", "income"),
+                mod = glm_possion_2,
+                xlevels = list(educate = seq(from = 0, to = 20, by = .1),
+                               income  = c(8, 10, 12))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(income = factor(income)) %>% 
+  ggplot(aes(x = educate,
+             y = fit)) +
+  geom_ribbon(aes(ymin = fit - se,  # bands = +/- 1 SEM
+                  ymax = fit + se,
+                  fill = female),
+              alpha = .2) +
+  geom_line(aes(linetype = female,
+                color = female),
+            size = 1) +
+  theme_bw() +
+  labs(x = "Education, Years",
+       y = "Predicted Mean Number of Volunteer Activities",
+       color = NULL,
+       fill = NULL,
+       linetype = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  facet_grid(nonwhite ~ income)
+```
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("female", "nonwhite", "educate", "income"),
+                mod = glm_possion_2,
+                xlevels = list(educate = seq(from = 0, to = 20, by = .1),
+                               income  = c(8, 10, 12))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(income = factor(income)) %>% 
+  ggplot(aes(x = educate,
+             y = fit)) +
+  geom_line(aes(linetype = fct_rev(income),
+                color = fct_rev(income)),
+            size = 1) +
+  theme_bw() +
+  labs(x = "Education, Years",
+       y = "Predicted Mean Number of Volunteer Activities",
+       color = "Income:",
+       fill = "Income:",
+       linetype = "Income:") +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  facet_grid(nonwhite ~ female) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
+```
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("female", "nonwhite", "educate", "income"),
+                mod = glm_possion_2,
+                xlevels = list(educate = seq(from = 0, to = 20, by = .1),
+                               income  = c(8, 10, 12))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(income = factor(income)) %>% 
+  ggplot(aes(x = educate,
+             y = fit)) +
+  geom_ribbon(aes(ymin = fit - se,  # bands = +/- 1 SEM
+                  ymax = fit + se,
+                  fill = nonwhite),
+              alpha = .2) +
+  geom_line(aes(linetype = nonwhite,
+                color = nonwhite),
+            size = 1) +
+  theme_bw() +
+  labs(x = "Education, Years",
+       y = "Predicted Mean Number of Volunteer Activities",
+       color = NULL,
+       fill = NULL,
+       linetype = NULL) +
+  theme(legend.position = c(0, .5),
+        legend.justification = c(-.05, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  facet_grid(female ~ income) +
+  scale_color_manual(values = c("darkgreen", "orange")) +
+  scale_fill_manual(values = c("darkgreen", "orange"))
+```
+
+
+
+
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("female", "educate"),
+                mod = glm_possion_2,
+                xlevels = list(educate = seq(from = 0,
+                                             to   = 20,
+                                             by = .1),
+                               income = 12)) %>% 
+  data.frame() %>% 
+  ggplot(aes(x = educate,
+             y = fit)) +
+  geom_ribbon(aes(ymin = fit - se,  # bands = +/- 1 SEM
+                  ymax = fit + se,
+                  fill = female),
+              alpha = .2) +
+  geom_line(aes(linetype = female,
+                color = female),
+            size = 1) +
+  theme_bw() +
+  labs(x = "Education, Years",
+       y = "Predicted Mean Number of Volunteer Activities",
+       color = NULL,
+       fill = NULL,
+       linetype = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) 
+```
+
+
+## Negative Binomial Regression
+
+### Multiple Predictors
+
+#### Fit the model
+
+```{r}
+glm_negbin_1 <- MASS::glm.nb(volteer ~ female + nonwhite + educate + income,
+                             data = data_gss)
+
+summary(glm_negbin_1)
+```
+
+> Note: the deviance residuals all have absolute values less than 3-4'ish...better than before
+
+
+#### Marginal Estimates
+
+
+> Note: These means are on the original scale (number of volunteer activities in the past year).  These standard errors are called "delta-method standard errors"
+
+```{r}
+effects::Effect(focal.predictors = c("female"),
+                mod = glm_negbin_1,
+                xlevels = list(nonwhite = "non-white",
+                               educate = 5,
+                               income = 12)) %>% 
+  data.frame()
+```
+
+
+
+
+#### Parameter Estimates
+
+Coefficients are in terms of the **LOG of** the number of times a person volunteers per year.
+
+```{r}
+glm_negbin_1 %>% coef()
+```
+
+Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the **incident rate ratio IRR**.
+
+```{r}
+glm_negbin_1 %>% coef() %>% exp()
+```
+
+
+
+```{r}
+texreg::screenreg(list(glm_negbin_1, 
+                       texreghelpr::extract_glm_exp(glm_negbin_1,
+                                                    include.aic = FALSE,
+                                                    include.bic = FALSE,
+                                                    include.loglik = FALSE,
+                                                    include.deviance = FALSE,
+                                                    include.nobs = FALSE)),
+                  custom.model.names = c("b (SE)", "RR [95% CI]"),
+                  custom.coef.map = list("(Intercept)" ="Intercept",
+                                         femalefemale = "Female vs. Male",
+                                         "nonwhitenon-white" = "Non-white vs. White",
+                                         educate = "Education, Years",
+                                         income = "Income"),
+                  caption = "GLM: Negitive Binomial Regression",
+                  single.row = TRUE,
+                  digits = 3)
+```
+
+
+#### Residual Diagnostics
+
+
+```{r}
+par(mfrow = c(2, 2))
+plot(glm_negbin_1)
+par(mfrow = c(1, 1))
+```
+
+These still don't look very good :(
+
+
+
+
+
+
+## Zero Inflated Poisson
+
+
+#### Fit the model
+
+```{r}
+glm_zip_1 <- pscl::zeroinfl(volteer ~ female + nonwhite + educate + income | educate,
+                               data = data_gss)
+
+summary(glm_zip_1)
+```
+
+
+
+```{r}
+glm_zip_1 %>% coef() %>% exp()
+```
+
+
+
+> Compares two models fit to the same data that do not nest via Vuong's non-nested test.
+
+```{r}
+pscl::vuong(glm_zip_1, glm_possion_2)
+```
+
+
+
+
+## Zero Inflated Negative Binomial
+
+
+#### Fit the model
+
+```{r}
+glm_zinb_1 <- pscl::zeroinfl(volteer ~ female + nonwhite + educate + income | educate,
+                               data = data_gss,
+                             dist = "negbin")
+
+summary(glm_zinb_1)
+```
+
+
+
+```{r}
+glm_zinb_1 %>% coef() %>% exp()
+```
+
+```{r}
+pscl::vuong(glm_zinb_1, glm_negbin_1)
+```
+
+
+```{r}
+pscl::vuong(glm_zip_1, glm_zinb_1)
+```
+
+ The 'best' model is the zero-inflated negative binomial
