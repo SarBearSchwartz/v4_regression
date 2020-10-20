@@ -499,30 +499,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="count-outcome-regression---ex-possion-and-negative-binomial" class="section level1" number="13">
 <h1><span class="header-section-number">13</span> Count Outcome Regression - Ex: POssion and Negative Binomial</h1>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb609-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-2"></a><span class="kw">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
-<span id="cb609-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-3"></a><span class="kw">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
-<span id="cb609-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-4"></a><span class="kw">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
-<span id="cb609-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-5"></a><span class="kw">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
-<span id="cb609-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-6"></a><span class="kw">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
-<span id="cb609-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-7"></a><span class="kw">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
-<span id="cb609-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-8"></a><span class="kw">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
-<span id="cb609-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-9"></a><span class="kw">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
-<span id="cb609-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-10"></a></span>
-<span id="cb609-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-11"></a><span class="kw">library</span>(DescTools)    <span class="co"># Tools for Descriptive Statistics</span></span>
-<span id="cb609-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-12"></a><span class="kw">library</span>(texreghelpr)  <span class="co"># Helper Functions for generalized models</span></span>
-<span id="cb609-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-13"></a></span>
-<span id="cb609-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-14"></a><span class="kw">library</span>(pscl)         <span class="co"># Political Science Computational Laboratory (ZIP)</span></span></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb604-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-2"></a><span class="kw">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
+<span id="cb604-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-3"></a><span class="kw">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
+<span id="cb604-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-4"></a><span class="kw">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
+<span id="cb604-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-5"></a><span class="kw">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
+<span id="cb604-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-6"></a><span class="kw">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
+<span id="cb604-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-7"></a><span class="kw">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
+<span id="cb604-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-8"></a><span class="kw">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
+<span id="cb604-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-9"></a><span class="kw">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
+<span id="cb604-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-10"></a></span>
+<span id="cb604-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-11"></a><span class="kw">library</span>(DescTools)    <span class="co"># Tools for Descriptive Statistics</span></span>
+<span id="cb604-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-12"></a><span class="kw">library</span>(texreghelpr)  <span class="co"># Helper Functions for generalized models</span></span>
+<span id="cb604-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-13"></a></span>
+<span id="cb604-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb604-14"></a><span class="kw">library</span>(pscl)         <span class="co"># Political Science Computational Laboratory (ZIP)</span></span></code></pre></div>
 <div id="background-5" class="section level2" number="13.1">
 <h2><span class="header-section-number">13.1</span> Background</h2>
 <div id="raw-dataset-2" class="section level3" number="13.1.1">
 <h3><span class="header-section-number">13.1.1</span> Raw Dataset</h3>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb610-1"></a>data_gss &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb610-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb610-2"></a><span class="st">  </span>haven<span class="op">::</span><span class="kw">as_factor</span>()</span>
-<span id="cb610-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb610-3"></a></span>
-<span id="cb610-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb610-4"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb610-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb610-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(volteer, female, nonwhite, educate, income) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb610-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb610-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb605-1"></a>data_gss &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb605-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb605-2"></a><span class="st">  </span>haven<span class="op">::</span><span class="kw">as_factor</span>()</span>
+<span id="cb605-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb605-3"></a></span>
+<span id="cb605-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb605-4"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb605-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb605-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(volteer, female, nonwhite, educate, income) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb605-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb605-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code># A tibble: 6 x 5
   volteer female nonwhite  educate income
     &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;
@@ -538,8 +538,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">13.2</span> Exploratory Data Analysis</h2>
 <div id="entire-sample" class="section level3" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Entire Sample</h3>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb612-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-2"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">tableF</span>(volteer)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb607-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb607-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb607-2"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">tableF</span>(volteer)</span></code></pre></div>
 <pre><code>
 --------------------------------------
  volteer Freq CumFreq Percent CumPerc
@@ -553,9 +553,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  7       6    2902    0.21%   99.97% 
  9       1    2903    0.03%   100.00%
 --------------------------------------</code></pre>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb614-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(volteer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb614-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-3"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb609-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(volteer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb609-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb609-3"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
 <pre><code>    volteer      
  Min.   :0.0000  
  1st Qu.:0.0000  
@@ -563,18 +563,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  Mean   :0.3334  
  3rd Qu.:0.0000  
  Max.   :9.0000  </code></pre>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb616-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(volteer)) <span class="op">+</span></span>
-<span id="cb616-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-405-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb611-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb611-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb611-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(volteer)) <span class="op">+</span></span>
+<span id="cb611-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb611-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-405-1.png" width="75%" /></p>
 </div>
 <div id="by-sex" class="section level3" number="13.2.2">
 <h3><span class="header-section-number">13.2.2</span> By Sex</h3>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb617-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(female) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb617-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-3"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(<span class="kw">factor</span>(volteer),</span>
-<span id="cb617-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-4"></a>                    <span class="dt">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb617-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-5"></a>                    <span class="dt">total =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb612-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(female) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb612-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-3"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(<span class="kw">factor</span>(volteer),</span>
+<span id="cb612-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-4"></a>                    <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb612-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb612-5"></a>                    <span class="dt">total =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>
 --------------------------------------------------------
                                     female 
@@ -591,12 +591,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     7            6 (0.2%)     1 (0.1%)     5 (0.3%)    
     9            1 (0%)       0 (0%)       1 (0.1%)    
 --------------------------------------------------------</code></pre>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb619-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(female) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb619-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-3"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(volteer,</span>
-<span id="cb619-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-4"></a>                    <span class="dt">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb619-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-5"></a>                    <span class="dt">total =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb619-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-6"></a>                    <span class="dt">test =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb614-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(female) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb614-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-3"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(volteer,</span>
+<span id="cb614-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-4"></a>                    <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb614-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-5"></a>                    <span class="dt">total =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb614-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb614-6"></a>                    <span class="dt">test =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>
 -----------------------------------------------------------------
                                   female 
@@ -605,11 +605,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  volteer                                                 0.365  
          0.3334 (0.8858) 0.3167 (0.8493) 0.3467 (0.9139)        
 -----------------------------------------------------------------</code></pre>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb621-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(volteer,</span>
-<span id="cb621-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-3"></a>             <span class="dt">fill =</span> female)) <span class="op">+</span></span>
-<span id="cb621-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-408-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb616-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(volteer,</span>
+<span id="cb616-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-3"></a>             <span class="dt">fill =</span> female)) <span class="op">+</span></span>
+<span id="cb616-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb616-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-408-1.png" width="75%" /></p>
 </div>
 </div>
 <div id="poisson-reression" class="section level2" number="13.3">
@@ -618,11 +618,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">13.3.1</span> Single Predictor: Sex</h3>
 <div id="fit-the-model-3" class="section level4" number="13.3.1.1">
 <h4><span class="header-section-number">13.3.1.1</span> Fit the model</h4>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb622-1"></a>glm_possion_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(volteer <span class="op">~</span><span class="st"> </span>female,</span>
-<span id="cb622-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb622-2"></a>                     <span class="dt">data =</span> data_gss,</span>
-<span id="cb622-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb622-3"></a>                     <span class="dt">family =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>))</span>
-<span id="cb622-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb622-4"></a></span>
-<span id="cb622-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb622-5"></a><span class="kw">summary</span>(glm_possion_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-1"></a>glm_possion_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(volteer <span class="op">~</span><span class="st"> </span>female,</span>
+<span id="cb617-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-2"></a>                     <span class="dt">data =</span> data_gss,</span>
+<span id="cb617-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-3"></a>                     <span class="dt">family =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>))</span>
+<span id="cb617-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-4"></a></span>
+<span id="cb617-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb617-5"></a><span class="kw">summary</span>(glm_possion_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = volteer ~ female, family = poisson(link = &quot;log&quot;), 
@@ -655,8 +655,8 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <blockquote>
 <p>Note: Results are given on the log (not the response) scale</p>
 </blockquote>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb624-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb624-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb624-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>female)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb619-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb619-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>female)</span></code></pre></div>
 <pre><code> female emmean     SE  df asymp.LCL asymp.UCL
  male    -1.15 0.0496 Inf     -1.25    -1.053
  female  -1.06 0.0422 Inf     -1.14    -0.976
@@ -666,9 +666,9 @@ Confidence level used: 0.95 </code></pre>
 <blockquote>
 <p>Note: These means are on the original scale (number of volunteer activities in the past year). These standard errors are called “delta-method standard errors”</p>
 </blockquote>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb626-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</span>
-<span id="cb626-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb626-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb626-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb626-3"></a><span class="st">  </span><span class="kw">data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</span>
+<span id="cb621-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb621-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb621-3"></a><span class="st">  </span><span class="kw">data.frame</span>()</span></code></pre></div>
 <pre><code># A tibble: 2 x 5
   female   fit     se lower upper
   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -677,9 +677,9 @@ Confidence level used: 0.95 </code></pre>
 </div>
 <div id="pairwise-post-hoc-test" class="section level4" number="13.3.1.3">
 <h4><span class="header-section-number">13.3.1.3</span> Pairwise Post Hoc Test</h4>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb628-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb628-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb628-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>female) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb628-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb628-3"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb623-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb623-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb623-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>female) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb623-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb623-3"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
 <pre><code> contrast      estimate     SE  df z.ratio p.value
  male - female  -0.0905 0.0651 Inf -1.390  0.1647 
 
@@ -688,26 +688,26 @@ Results are given on the log (not the response) scale. </code></pre>
 <div id="parameter-estimates-2" class="section level4" number="13.3.1.4">
 <h4><span class="header-section-number">13.3.1.4</span> Parameter Estimates</h4>
 <p>Coefficients are in terms of the <strong>LOG of</strong> the number of times a person volunteers per year.</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb630-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb625-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
 <pre><code> (Intercept) femalefemale 
  -1.14970081   0.09047562 </code></pre>
 <p>Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the <strong>incident rate ratio IRR</strong>.</p>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb632-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb627-1"></a>glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code> (Intercept) femalefemale 
    0.3167315    1.0946948 </code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-1"></a>texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_possion_<span class="dv">1</span>, </span>
-<span id="cb634-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-2"></a>                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_possion_<span class="dv">1</span>,</span>
-<span id="cb634-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-3"></a>                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb634-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-4"></a>                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb634-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-5"></a>                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb634-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-6"></a>                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb634-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-7"></a>                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</span>
-<span id="cb634-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-8"></a>                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</span>
-<span id="cb634-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-9"></a>                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</span>
-<span id="cb634-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-10"></a>                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>),</span>
-<span id="cb634-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-11"></a>                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Simple Possion Regression&quot;</span>,</span>
-<span id="cb634-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-12"></a>                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb634-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb634-13"></a>                  <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-1"></a>texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_possion_<span class="dv">1</span>, </span>
+<span id="cb629-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-2"></a>                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_possion_<span class="dv">1</span>,</span>
+<span id="cb629-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-3"></a>                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb629-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-4"></a>                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb629-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-5"></a>                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb629-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-6"></a>                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb629-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-7"></a>                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</span>
+<span id="cb629-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-8"></a>                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</span>
+<span id="cb629-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-9"></a>                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb629-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-10"></a>                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>),</span>
+<span id="cb629-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-11"></a>                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Simple Possion Regression&quot;</span>,</span>
+<span id="cb629-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-12"></a>                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb629-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb629-13"></a>                  <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>
 ==============================================================
                  b (SE)                 RR [95% CI]           
@@ -728,11 +728,11 @@ Num. obs.         2903
 <h3><span class="header-section-number">13.3.2</span> Multiple Predictors</h3>
 <div id="fit-the-model-4" class="section level4" number="13.3.2.1">
 <h4><span class="header-section-number">13.3.2.1</span> Fit the model</h4>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb636-1"></a>glm_possion_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income,</span>
-<span id="cb636-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb636-2"></a>                     <span class="dt">data =</span> data_gss,</span>
-<span id="cb636-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb636-3"></a>                     <span class="dt">family =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>))</span>
-<span id="cb636-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb636-4"></a></span>
-<span id="cb636-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb636-5"></a><span class="kw">summary</span>(glm_possion_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb631-1"></a>glm_possion_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income,</span>
+<span id="cb631-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb631-2"></a>                     <span class="dt">data =</span> data_gss,</span>
+<span id="cb631-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb631-3"></a>                     <span class="dt">family =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>))</span>
+<span id="cb631-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb631-4"></a></span>
+<span id="cb631-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb631-5"></a><span class="kw">summary</span>(glm_possion_<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = volteer ~ female + nonwhite + educate + income, 
@@ -766,12 +766,12 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <blockquote>
 <p>Note: These means are on the original scale (number of volunteer activities in the past year). These standard errors are called “delta-method standard errors”</p>
 </blockquote>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb638-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</span>
-<span id="cb638-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb638-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
-<span id="cb638-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb638-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">nonwhite =</span> <span class="st">&quot;non-white&quot;</span>,</span>
-<span id="cb638-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb638-4"></a>                               <span class="dt">educate =</span> <span class="dv">5</span>,</span>
-<span id="cb638-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb638-5"></a>                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb638-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb638-6"></a><span class="st">  </span><span class="kw">data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb633-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</span>
+<span id="cb633-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb633-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
+<span id="cb633-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb633-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">nonwhite =</span> <span class="st">&quot;non-white&quot;</span>,</span>
+<span id="cb633-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb633-4"></a>                               <span class="dt">educate =</span> <span class="dv">5</span>,</span>
+<span id="cb633-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb633-5"></a>                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb633-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb633-6"></a><span class="st">  </span><span class="kw">data.frame</span>()</span></code></pre></div>
 <pre><code># A tibble: 2 x 5
   female   fit     se lower upper
   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -781,33 +781,33 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <div id="parameter-estimates-3" class="section level4" number="13.3.2.3">
 <h4><span class="header-section-number">13.3.2.3</span> Parameter Estimates</h4>
 <p>Coefficients are in terms of the <strong>LOG of</strong> the number of times a person volunteers per year.</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb640-1"></a>glm_possion_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb635-1"></a>glm_possion_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
 <pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
       -3.15830174        0.26132182       -0.28037733        0.10280183 
            income 
        0.05682778 </code></pre>
 <p>Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the <strong>incident rate ratio IRR</strong>.</p>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb642-1"></a>glm_possion_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb637-1"></a>glm_possion_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
        0.04249785        1.29864553        0.75549861        1.10827176 
            income 
        1.05847350 </code></pre>
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-1"></a>texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_possion_<span class="dv">2</span>, </span>
-<span id="cb644-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-2"></a>                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_possion_<span class="dv">2</span>,</span>
-<span id="cb644-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-3"></a>                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb644-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-4"></a>                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb644-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-5"></a>                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb644-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-6"></a>                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb644-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-7"></a>                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</span>
-<span id="cb644-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-8"></a>                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</span>
-<span id="cb644-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-9"></a>                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</span>
-<span id="cb644-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-10"></a>                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>,</span>
-<span id="cb644-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-11"></a>                                         <span class="st">&quot;nonwhitenon-white&quot;</span> =<span class="st"> &quot;Non-white vs. White&quot;</span>,</span>
-<span id="cb644-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-12"></a>                                         <span class="dt">educate =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
-<span id="cb644-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-13"></a>                                         <span class="dt">income =</span> <span class="st">&quot;Income&quot;</span>),</span>
-<span id="cb644-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-14"></a>                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Multiple Possion Regression&quot;</span>,</span>
-<span id="cb644-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-15"></a>                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb644-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb644-16"></a>                  <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-1"></a>texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_possion_<span class="dv">2</span>, </span>
+<span id="cb639-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-2"></a>                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_possion_<span class="dv">2</span>,</span>
+<span id="cb639-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-3"></a>                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb639-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-4"></a>                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb639-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-5"></a>                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb639-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-6"></a>                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb639-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-7"></a>                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</span>
+<span id="cb639-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-8"></a>                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</span>
+<span id="cb639-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-9"></a>                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb639-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-10"></a>                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>,</span>
+<span id="cb639-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-11"></a>                                         <span class="st">&quot;nonwhitenon-white&quot;</span> =<span class="st"> &quot;Non-white vs. White&quot;</span>,</span>
+<span id="cb639-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-12"></a>                                         <span class="dt">educate =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
+<span id="cb639-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-13"></a>                                         <span class="dt">income =</span> <span class="st">&quot;Income&quot;</span>),</span>
+<span id="cb639-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-14"></a>                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Multiple Possion Regression&quot;</span>,</span>
+<span id="cb639-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-15"></a>                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb639-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb639-16"></a>                  <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>
 ==================================================================
                      b (SE)                 RR [95% CI]           
@@ -828,10 +828,10 @@ Num. obs.             1944
 </div>
 <div id="assess-model-fit-2" class="section level4" number="13.3.2.4">
 <h4><span class="header-section-number">13.3.2.4</span> Assess Model Fit</h4>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb646-1"></a>DescTools<span class="op">::</span><span class="kw">PseudoR2</span>(glm_possion_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb641-1"></a>DescTools<span class="op">::</span><span class="kw">PseudoR2</span>(glm_possion_<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>  McFadden 
 0.02918402 </code></pre>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb648-1"></a>DescTools<span class="op">::</span><span class="kw">PseudoR2</span>(glm_possion_<span class="dv">2</span>, <span class="dt">which =</span> <span class="st">&quot;all&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb643-1"></a>DescTools<span class="op">::</span><span class="kw">PseudoR2</span>(glm_possion_<span class="dv">2</span>, <span class="dt">which =</span> <span class="st">&quot;all&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>       McFadden     McFaddenAdj        CoxSnell      Nagelkerke   AldrichNelson 
           0.029           0.026           0.051           0.061           0.050 
 VeallZimmermann           Efron McKelveyZavoina            Tjur             AIC 
@@ -849,25 +849,25 @@ VeallZimmermann           Efron McKelveyZavoina            Tjur             AIC
 </div>
 <div id="residual-diagnostics-1" class="section level4" number="13.3.2.6">
 <h4><span class="header-section-number">13.3.2.6</span> Residual Diagnostics</h4>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb650-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb650-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb650-2"></a><span class="kw">plot</span>(glm_possion_<span class="dv">2</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-423-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb645-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb645-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb645-2"></a><span class="kw">plot</span>(glm_possion_<span class="dv">2</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-423-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb646-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p>These residuals do NOT look good, especially the Q-Q plot for normality.</p>
 </div>
 <div id="marginal-plot" class="section level4" number="13.3.2.7">
 <h4><span class="header-section-number">13.3.2.7</span> Marginal Plot</h4>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb652-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(educate, income) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb652-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-3"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">describe</span>(<span class="dt">skew =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb647-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb647-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb647-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(educate, income) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb647-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb647-3"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">describe</span>(<span class="dt">skew =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code># A tibble: 2 x 8
    vars     n  mean    sd   min   max range     se
   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 1     1  2894 13.4   2.93     0    20    20 0.0544
 2     2  1947  9.86  2.99     1    12    11 0.0677</code></pre>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb654-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(educate, income) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb654-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-3"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb649-1"></a>data_gss <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb649-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb649-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(educate, income) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb649-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb649-3"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
 <pre><code>    educate          income      
  Min.   : 0.00   Min.   : 1.000  
  1st Qu.:12.00   1st Qu.: 9.000  
@@ -876,113 +876,113 @@ VeallZimmermann           Efron McKelveyZavoina            Tjur             AIC
  3rd Qu.:16.00   3rd Qu.:12.000  
  Max.   :20.00   Max.   :12.000  
  NA&#39;s   :9       NA&#39;s   :956     </code></pre>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</span>
-<span id="cb656-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
-<span id="cb656-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</span>
-<span id="cb656-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-4"></a>                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb656-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-5"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb656-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb656-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
-<span id="cb656-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-8"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
-<span id="cb656-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-9"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></span>
-<span id="cb656-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-10"></a>                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</span>
-<span id="cb656-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-11"></a>                  <span class="dt">fill =</span> female),</span>
-<span id="cb656-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-12"></a>              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
-<span id="cb656-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> female,</span>
-<span id="cb656-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-14"></a>                <span class="dt">color =</span> female),</span>
-<span id="cb656-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-15"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb656-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-16"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb656-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
-<span id="cb656-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-18"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
-<span id="cb656-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-19"></a>       <span class="dt">color =</span> <span class="ot">NULL</span>,</span>
-<span id="cb656-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-20"></a>       <span class="dt">fill =</span> <span class="ot">NULL</span>,</span>
-<span id="cb656-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-21"></a>       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
-<span id="cb656-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb656-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-23"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
-<span id="cb656-24"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-24"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb656-25"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-25"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></span>
-<span id="cb656-26"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb656-26"></a><span class="st">  </span><span class="kw">facet_grid</span>(nonwhite <span class="op">~</span><span class="st"> </span>income)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-426-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</span>
-<span id="cb657-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
-<span id="cb657-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</span>
-<span id="cb657-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-4"></a>                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb657-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-5"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb657-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb657-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
-<span id="cb657-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-8"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
-<span id="cb657-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-9"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> <span class="kw">fct_rev</span>(income),</span>
-<span id="cb657-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-10"></a>                <span class="dt">color =</span> <span class="kw">fct_rev</span>(income)),</span>
-<span id="cb657-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-11"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb657-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-12"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb657-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-13"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
-<span id="cb657-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-14"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
-<span id="cb657-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-15"></a>       <span class="dt">color =</span> <span class="st">&quot;Income:&quot;</span>,</span>
-<span id="cb657-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-16"></a>       <span class="dt">fill =</span> <span class="st">&quot;Income:&quot;</span>,</span>
-<span id="cb657-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-17"></a>       <span class="dt">linetype =</span> <span class="st">&quot;Income:&quot;</span>) <span class="op">+</span></span>
-<span id="cb657-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-18"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb657-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-19"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
-<span id="cb657-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-20"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb657-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-21"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></span>
-<span id="cb657-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-22"></a><span class="st">  </span><span class="kw">facet_grid</span>(nonwhite <span class="op">~</span><span class="st"> </span>female) <span class="op">+</span></span>
-<span id="cb657-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-23"></a><span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;dotted&quot;</span>))</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-427-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</span>
-<span id="cb658-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
-<span id="cb658-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</span>
-<span id="cb658-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-4"></a>                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb658-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-5"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb658-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb658-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
-<span id="cb658-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-8"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
-<span id="cb658-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-9"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></span>
-<span id="cb658-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-10"></a>                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</span>
-<span id="cb658-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-11"></a>                  <span class="dt">fill =</span> nonwhite),</span>
-<span id="cb658-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-12"></a>              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
-<span id="cb658-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> nonwhite,</span>
-<span id="cb658-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-14"></a>                <span class="dt">color =</span> nonwhite),</span>
-<span id="cb658-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-15"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb658-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-16"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb658-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
-<span id="cb658-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-18"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
-<span id="cb658-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-19"></a>       <span class="dt">color =</span> <span class="ot">NULL</span>,</span>
-<span id="cb658-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-20"></a>       <span class="dt">fill =</span> <span class="ot">NULL</span>,</span>
-<span id="cb658-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-21"></a>       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
-<span id="cb658-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">.5</span>),</span>
-<span id="cb658-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-23"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">05</span>, <span class="fl">1.1</span>),</span>
-<span id="cb658-24"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-24"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb658-25"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-25"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></span>
-<span id="cb658-26"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-26"></a><span class="st">  </span><span class="kw">facet_grid</span>(female <span class="op">~</span><span class="st"> </span>income) <span class="op">+</span></span>
-<span id="cb658-27"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-27"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;orange&quot;</span>)) <span class="op">+</span></span>
-<span id="cb658-28"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb658-28"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;orange&quot;</span>))</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-428-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;educate&quot;</span>),</span>
-<span id="cb659-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
-<span id="cb659-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>,</span>
-<span id="cb659-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-4"></a>                                             <span class="dt">to   =</span> <span class="dv">20</span>,</span>
-<span id="cb659-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-5"></a>                                             <span class="dt">by =</span> <span class="fl">.1</span>),</span>
-<span id="cb659-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-6"></a>                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb659-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-7"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb659-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-8"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
-<span id="cb659-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-9"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
-<span id="cb659-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-10"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></span>
-<span id="cb659-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-11"></a>                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</span>
-<span id="cb659-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-12"></a>                  <span class="dt">fill =</span> female),</span>
-<span id="cb659-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-13"></a>              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
-<span id="cb659-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-14"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> female,</span>
-<span id="cb659-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-15"></a>                <span class="dt">color =</span> female),</span>
-<span id="cb659-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-16"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb659-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-17"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb659-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
-<span id="cb659-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-19"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
-<span id="cb659-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-20"></a>       <span class="dt">color =</span> <span class="ot">NULL</span>,</span>
-<span id="cb659-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-21"></a>       <span class="dt">fill =</span> <span class="ot">NULL</span>,</span>
-<span id="cb659-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-22"></a>       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
-<span id="cb659-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-23"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb659-24"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-24"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
-<span id="cb659-25"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-25"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb659-26"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-26"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) </span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-429-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</span>
+<span id="cb651-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
+<span id="cb651-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</span>
+<span id="cb651-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-4"></a>                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb651-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-5"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb651-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb651-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
+<span id="cb651-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-8"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb651-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-9"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></span>
+<span id="cb651-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-10"></a>                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</span>
+<span id="cb651-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-11"></a>                  <span class="dt">fill =</span> female),</span>
+<span id="cb651-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-12"></a>              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
+<span id="cb651-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> female,</span>
+<span id="cb651-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-14"></a>                <span class="dt">color =</span> female),</span>
+<span id="cb651-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-15"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb651-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-16"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb651-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
+<span id="cb651-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-18"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
+<span id="cb651-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-19"></a>       <span class="dt">color =</span> <span class="ot">NULL</span>,</span>
+<span id="cb651-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-20"></a>       <span class="dt">fill =</span> <span class="ot">NULL</span>,</span>
+<span id="cb651-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-21"></a>       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb651-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb651-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-23"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb651-24"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-24"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb651-25"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-25"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></span>
+<span id="cb651-26"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb651-26"></a><span class="st">  </span><span class="kw">facet_grid</span>(nonwhite <span class="op">~</span><span class="st"> </span>income)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-426-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</span>
+<span id="cb652-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
+<span id="cb652-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</span>
+<span id="cb652-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-4"></a>                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb652-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-5"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb652-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb652-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
+<span id="cb652-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-8"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb652-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-9"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> <span class="kw">fct_rev</span>(income),</span>
+<span id="cb652-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-10"></a>                <span class="dt">color =</span> <span class="kw">fct_rev</span>(income)),</span>
+<span id="cb652-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-11"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb652-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-12"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb652-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-13"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
+<span id="cb652-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-14"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
+<span id="cb652-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-15"></a>       <span class="dt">color =</span> <span class="st">&quot;Income:&quot;</span>,</span>
+<span id="cb652-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-16"></a>       <span class="dt">fill =</span> <span class="st">&quot;Income:&quot;</span>,</span>
+<span id="cb652-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-17"></a>       <span class="dt">linetype =</span> <span class="st">&quot;Income:&quot;</span>) <span class="op">+</span></span>
+<span id="cb652-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-18"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb652-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-19"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb652-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-20"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb652-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-21"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></span>
+<span id="cb652-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-22"></a><span class="st">  </span><span class="kw">facet_grid</span>(nonwhite <span class="op">~</span><span class="st"> </span>female) <span class="op">+</span></span>
+<span id="cb652-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb652-23"></a><span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;dotted&quot;</span>))</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-427-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</span>
+<span id="cb653-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
+<span id="cb653-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</span>
+<span id="cb653-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-4"></a>                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb653-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-5"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb653-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb653-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
+<span id="cb653-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-8"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb653-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-9"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></span>
+<span id="cb653-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-10"></a>                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</span>
+<span id="cb653-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-11"></a>                  <span class="dt">fill =</span> nonwhite),</span>
+<span id="cb653-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-12"></a>              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
+<span id="cb653-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> nonwhite,</span>
+<span id="cb653-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-14"></a>                <span class="dt">color =</span> nonwhite),</span>
+<span id="cb653-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-15"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb653-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-16"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb653-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
+<span id="cb653-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-18"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
+<span id="cb653-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-19"></a>       <span class="dt">color =</span> <span class="ot">NULL</span>,</span>
+<span id="cb653-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-20"></a>       <span class="dt">fill =</span> <span class="ot">NULL</span>,</span>
+<span id="cb653-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-21"></a>       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb653-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">.5</span>),</span>
+<span id="cb653-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-23"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">05</span>, <span class="fl">1.1</span>),</span>
+<span id="cb653-24"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-24"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb653-25"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-25"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></span>
+<span id="cb653-26"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-26"></a><span class="st">  </span><span class="kw">facet_grid</span>(female <span class="op">~</span><span class="st"> </span>income) <span class="op">+</span></span>
+<span id="cb653-27"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-27"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;orange&quot;</span>)) <span class="op">+</span></span>
+<span id="cb653-28"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb653-28"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;orange&quot;</span>))</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-428-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;educate&quot;</span>),</span>
+<span id="cb654-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-2"></a>                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</span>
+<span id="cb654-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>,</span>
+<span id="cb654-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-4"></a>                                             <span class="dt">to   =</span> <span class="dv">20</span>,</span>
+<span id="cb654-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-5"></a>                                             <span class="dt">by =</span> <span class="fl">.1</span>),</span>
+<span id="cb654-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-6"></a>                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb654-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-7"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb654-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-8"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</span>
+<span id="cb654-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-9"></a>             <span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb654-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-10"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></span>
+<span id="cb654-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-11"></a>                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</span>
+<span id="cb654-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-12"></a>                  <span class="dt">fill =</span> female),</span>
+<span id="cb654-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-13"></a>              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
+<span id="cb654-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-14"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> female,</span>
+<span id="cb654-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-15"></a>                <span class="dt">color =</span> female),</span>
+<span id="cb654-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-16"></a>            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb654-17"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-17"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb654-18"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
+<span id="cb654-19"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-19"></a>       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</span>
+<span id="cb654-20"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-20"></a>       <span class="dt">color =</span> <span class="ot">NULL</span>,</span>
+<span id="cb654-21"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-21"></a>       <span class="dt">fill =</span> <span class="ot">NULL</span>,</span>
+<span id="cb654-22"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-22"></a>       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb654-23"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-23"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb654-24"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-24"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb654-25"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-25"></a>        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb654-26"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb654-26"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) </span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-429-1.png" width="75%" /></p>
 </div>
 </div>
 </div>
@@ -992,10 +992,10 @@ VeallZimmermann           Efron McKelveyZavoina            Tjur             AIC
 <h3><span class="header-section-number">13.4.1</span> Multiple Predictors</h3>
 <div id="fit-the-model-5" class="section level4" number="13.4.1.1">
 <h4><span class="header-section-number">13.4.1.1</span> Fit the model</h4>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb660-1"></a>glm_negbin_<span class="dv">1</span> &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glm.nb</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income,</span>
-<span id="cb660-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb660-2"></a>                             <span class="dt">data =</span> data_gss)</span>
-<span id="cb660-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb660-3"></a></span>
-<span id="cb660-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb660-4"></a><span class="kw">summary</span>(glm_negbin_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb655-1"></a>glm_negbin_<span class="dv">1</span> &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glm.nb</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income,</span>
+<span id="cb655-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb655-2"></a>                             <span class="dt">data =</span> data_gss)</span>
+<span id="cb655-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb655-3"></a></span>
+<span id="cb655-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb655-4"></a><span class="kw">summary</span>(glm_negbin_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 MASS::glm.nb(formula = volteer ~ female + nonwhite + educate + 
@@ -1037,12 +1037,12 @@ Number of Fisher Scoring iterations: 1
 <blockquote>
 <p>Note: These means are on the original scale (number of volunteer activities in the past year). These standard errors are called “delta-method standard errors”</p>
 </blockquote>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb662-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</span>
-<span id="cb662-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb662-2"></a>                <span class="dt">mod =</span> glm_negbin_<span class="dv">1</span>,</span>
-<span id="cb662-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb662-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">nonwhite =</span> <span class="st">&quot;non-white&quot;</span>,</span>
-<span id="cb662-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb662-4"></a>                               <span class="dt">educate =</span> <span class="dv">5</span>,</span>
-<span id="cb662-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb662-5"></a>                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb662-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb662-6"></a><span class="st">  </span><span class="kw">data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-1"></a>effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</span>
+<span id="cb657-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-2"></a>                <span class="dt">mod =</span> glm_negbin_<span class="dv">1</span>,</span>
+<span id="cb657-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-3"></a>                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">nonwhite =</span> <span class="st">&quot;non-white&quot;</span>,</span>
+<span id="cb657-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-4"></a>                               <span class="dt">educate =</span> <span class="dv">5</span>,</span>
+<span id="cb657-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-5"></a>                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb657-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb657-6"></a><span class="st">  </span><span class="kw">data.frame</span>()</span></code></pre></div>
 <pre><code># A tibble: 2 x 5
   female   fit     se lower upper
   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1052,33 +1052,33 @@ Number of Fisher Scoring iterations: 1
 <div id="parameter-estimates-4" class="section level4" number="13.4.1.3">
 <h4><span class="header-section-number">13.4.1.3</span> Parameter Estimates</h4>
 <p>Coefficients are in terms of the <strong>LOG of</strong> the number of times a person volunteers per year.</p>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb664-1"></a>glm_negbin_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb659-1"></a>glm_negbin_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
 <pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
       -3.24738340        0.28440826       -0.31107286        0.11199528 
            income 
        0.05193102 </code></pre>
 <p>Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the <strong>incident rate ratio IRR</strong>.</p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb666-1"></a>glm_negbin_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb661-1"></a>glm_negbin_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
         0.0388758         1.3289754         0.7326605         1.1185076 
            income 
         1.0533031 </code></pre>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-1"></a>texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_negbin_<span class="dv">1</span>, </span>
-<span id="cb668-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-2"></a>                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_negbin_<span class="dv">1</span>,</span>
-<span id="cb668-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-3"></a>                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb668-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-4"></a>                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb668-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-5"></a>                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb668-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-6"></a>                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb668-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-7"></a>                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</span>
-<span id="cb668-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-8"></a>                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</span>
-<span id="cb668-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-9"></a>                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</span>
-<span id="cb668-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-10"></a>                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>,</span>
-<span id="cb668-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-11"></a>                                         <span class="st">&quot;nonwhitenon-white&quot;</span> =<span class="st"> &quot;Non-white vs. White&quot;</span>,</span>
-<span id="cb668-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-12"></a>                                         <span class="dt">educate =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
-<span id="cb668-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-13"></a>                                         <span class="dt">income =</span> <span class="st">&quot;Income&quot;</span>),</span>
-<span id="cb668-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-14"></a>                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Negitive Binomial Regression&quot;</span>,</span>
-<span id="cb668-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-15"></a>                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb668-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb668-16"></a>                  <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-1"></a>texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_negbin_<span class="dv">1</span>, </span>
+<span id="cb663-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-2"></a>                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_negbin_<span class="dv">1</span>,</span>
+<span id="cb663-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-3"></a>                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb663-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-4"></a>                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb663-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-5"></a>                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb663-6"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-6"></a>                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb663-7"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-7"></a>                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</span>
+<span id="cb663-8"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-8"></a>                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</span>
+<span id="cb663-9"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-9"></a>                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb663-10"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-10"></a>                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>,</span>
+<span id="cb663-11"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-11"></a>                                         <span class="st">&quot;nonwhitenon-white&quot;</span> =<span class="st"> &quot;Non-white vs. White&quot;</span>,</span>
+<span id="cb663-12"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-12"></a>                                         <span class="dt">educate =</span> <span class="st">&quot;Education, Years&quot;</span>,</span>
+<span id="cb663-13"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-13"></a>                                         <span class="dt">income =</span> <span class="st">&quot;Income&quot;</span>),</span>
+<span id="cb663-14"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-14"></a>                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Negitive Binomial Regression&quot;</span>,</span>
+<span id="cb663-15"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-15"></a>                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb663-16"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb663-16"></a>                  <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>
 ==================================================================
                      b (SE)                 RR [95% CI]           
@@ -1099,10 +1099,10 @@ Num. obs.             1944
 </div>
 <div id="residual-diagnostics-2" class="section level4" number="13.4.1.4">
 <h4><span class="header-section-number">13.4.1.4</span> Residual Diagnostics</h4>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb670-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb670-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb670-2"></a><span class="kw">plot</span>(glm_negbin_<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-435-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb671-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb665-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb665-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb665-2"></a><span class="kw">plot</span>(glm_negbin_<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-435-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb666-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p>These still don’t look very good :(</p>
 </div>
 </div>
@@ -1111,10 +1111,10 @@ Num. obs.             1944
 <h2><span class="header-section-number">13.5</span> Zero Inflated Poisson</h2>
 <div id="fit-the-model-6" class="section level4" number="13.5.0.1">
 <h4><span class="header-section-number">13.5.0.1</span> Fit the model</h4>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb672-1"></a>glm_zip_<span class="dv">1</span> &lt;-<span class="st"> </span>pscl<span class="op">::</span><span class="kw">zeroinfl</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income <span class="op">|</span><span class="st"> </span>educate,</span>
-<span id="cb672-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb672-2"></a>                               <span class="dt">data =</span> data_gss)</span>
-<span id="cb672-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb672-3"></a></span>
-<span id="cb672-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb672-4"></a><span class="kw">summary</span>(glm_zip_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb667-1"></a>glm_zip_<span class="dv">1</span> &lt;-<span class="st"> </span>pscl<span class="op">::</span><span class="kw">zeroinfl</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income <span class="op">|</span><span class="st"> </span>educate,</span>
+<span id="cb667-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb667-2"></a>                               <span class="dt">data =</span> data_gss)</span>
+<span id="cb667-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb667-3"></a></span>
+<span id="cb667-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb667-4"></a><span class="kw">summary</span>(glm_zip_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 pscl::zeroinfl(formula = volteer ~ female + nonwhite + educate + income | 
@@ -1141,7 +1141,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 Number of iterations in BFGS optimization: 12 
 Log-likelihood: -1434 on 7 Df</code></pre>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb674-1"></a>glm_zip_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb669-1"></a>glm_zip_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code>      count_(Intercept)      count_femalefemale count_nonwhitenon-white 
               0.3339504               1.2290310               0.8179193 
           count_educate            count_income        zero_(Intercept) 
@@ -1151,7 +1151,7 @@ Log-likelihood: -1434 on 7 Df</code></pre>
 <blockquote>
 <p>Compares two models fit to the same data that do not nest via Vuong’s non-nested test.</p>
 </blockquote>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb676-1"></a>pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zip_<span class="dv">1</span>, glm_possion_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb671-1"></a>pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zip_<span class="dv">1</span>, glm_possion_<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
@@ -1166,11 +1166,11 @@ BIC-corrected          7.759003 model1 &gt; model2 4.3299e-15</code></pre>
 <h2><span class="header-section-number">13.6</span> Zero Inflated Negative Binomial</h2>
 <div id="fit-the-model-7" class="section level4" number="13.6.0.1">
 <h4><span class="header-section-number">13.6.0.1</span> Fit the model</h4>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb678-1"></a>glm_zinb_<span class="dv">1</span> &lt;-<span class="st"> </span>pscl<span class="op">::</span><span class="kw">zeroinfl</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income <span class="op">|</span><span class="st"> </span>educate,</span>
-<span id="cb678-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb678-2"></a>                               <span class="dt">data =</span> data_gss,</span>
-<span id="cb678-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb678-3"></a>                             <span class="dt">dist =</span> <span class="st">&quot;negbin&quot;</span>)</span>
-<span id="cb678-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb678-4"></a></span>
-<span id="cb678-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb678-5"></a><span class="kw">summary</span>(glm_zinb_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb673-1"></a>glm_zinb_<span class="dv">1</span> &lt;-<span class="st"> </span>pscl<span class="op">::</span><span class="kw">zeroinfl</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income <span class="op">|</span><span class="st"> </span>educate,</span>
+<span id="cb673-2"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb673-2"></a>                               <span class="dt">data =</span> data_gss,</span>
+<span id="cb673-3"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb673-3"></a>                             <span class="dt">dist =</span> <span class="st">&quot;negbin&quot;</span>)</span>
+<span id="cb673-4"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb673-4"></a></span>
+<span id="cb673-5"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb673-5"></a><span class="kw">summary</span>(glm_zinb_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 pscl::zeroinfl(formula = volteer ~ female + nonwhite + educate + income | 
@@ -1199,14 +1199,14 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Theta = 1.0518 
 Number of iterations in BFGS optimization: 27 
 Log-likelihood: -1416 on 8 Df</code></pre>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb680-1"></a>glm_zinb_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb675-1"></a>glm_zinb_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span></code></pre></div>
 <pre><code>      count_(Intercept)      count_femalefemale count_nonwhitenon-white 
               0.1664876               1.3001178               0.7518694 
           count_educate            count_income        zero_(Intercept) 
               1.0705453               1.0543420               3.6079992 
            zero_educate 
               0.9304589 </code></pre>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb682-1"></a>pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zinb_<span class="dv">1</span>, glm_negbin_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb677-1"></a>pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zinb_<span class="dv">1</span>, glm_negbin_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
@@ -1215,7 +1215,7 @@ Log-likelihood: -1416 on 8 Df</code></pre>
 Raw                   1.3486684 model1 &gt; model2 0.088722
 AIC-corrected         0.5592184 model1 &gt; model2 0.288006
 BIC-corrected        -1.6403877 model2 &gt; model1 0.050462</code></pre>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb684-1"></a>pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zip_<span class="dv">1</span>, glm_zinb_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#cb679-1"></a>pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zip_<span class="dv">1</span>, glm_zinb_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)

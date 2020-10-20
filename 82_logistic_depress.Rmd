@@ -130,7 +130,7 @@ summary(fit_glm_1)
 ### Logit Scale
 
 
-```{r}
+```{r, results='asis'}
 texreg::knitreg(fit_glm_1,
                 caption = "Hoffman's EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51",
                 caption.above = TRUE,
@@ -140,7 +140,7 @@ texreg::knitreg(fit_glm_1,
 
 Both Logit and Odds-ratio Scales
 
-```{r}
+```{r, results='asis'}
 texreg::knitreg(list(fit_glm_1,
                      texreghelpr::extract_glm_exp(fit_glm_1)),
                 custom.model.names = c("b (SE)",
@@ -283,7 +283,7 @@ fit_glm_2 %>% summary() %>% coef()
 
 ### Tabulate Parameters
 
-```{r}
+```{r, results='asis'}
 texreg::knitreg(list(fit_glm_2,
                      texreghelpr::extract_glm_exp(fit_glm_2)),
                 custom.model.names = c("b (SE)",
@@ -356,7 +356,7 @@ fit_glm_2_redo <- glm(satlife ~ sex + iq + age + weight,
 ```
 
 
-```{r}
+```{r, results='asis'}
 texreg::knitreg(list(texreghelpr::extract_glm_exp(fit_glm_1_redo),
                      texreghelpr::extract_glm_exp(fit_glm_2_redo)),
                 custom.model.names = c("Single IV",

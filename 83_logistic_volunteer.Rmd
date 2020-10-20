@@ -103,7 +103,7 @@ fit_glm_1 <- glm(volrelig01 ~ female + z_age + z_educ,
 fit_glm_1 %>% summary() %>% coef()
 ```
 
-```{r}
+```{r, results='asis'}
 texreg::knitreg(list(fit_glm_1,
                      texreghelpr::extract_glm_exp(fit_glm_1)),
                 custom.model.names = c("b (SE)",

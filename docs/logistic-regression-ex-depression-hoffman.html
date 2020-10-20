@@ -688,116 +688,204 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <span id="cb425-3"><a href="logistic-regression-ex-depression-hoffman.html#cb425-3"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb425-4"><a href="logistic-regression-ex-depression-hoffman.html#cb425-4"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb425-5"><a href="logistic-regression-ex-depression-hoffman.html#cb425-5"></a>                <span class="dt">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
-&lt;caption&gt;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&lt;/caption&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Model 1&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.6931 (0.4629)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-1.1160 (0.5078)&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;159.6205&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;165.1449&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-77.8103&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;155.6205&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;117&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-&lt;tr&gt;
-&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;2&quot;&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Hoffman’s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.6931 (0.4629)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sexfemale
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.1160 (0.5078)<sup>*</sup>
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+159.6205
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+165.1449
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-77.8103
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+155.6205
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+117
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="2">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
 <p>Both Logit and Odds-ratio Scales</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="logistic-regression-ex-depression-hoffman.html#cb427-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(fit_glm_<span class="dv">1</span>,</span>
-<span id="cb427-2"><a href="logistic-regression-ex-depression-hoffman.html#cb427-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">1</span>)),</span>
-<span id="cb427-3"><a href="logistic-regression-ex-depression-hoffman.html#cb427-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
-<span id="cb427-4"><a href="logistic-regression-ex-depression-hoffman.html#cb427-4"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
-<span id="cb427-5"><a href="logistic-regression-ex-depression-hoffman.html#cb427-5"></a>                <span class="dt">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&quot;</span>,</span>
-<span id="cb427-6"><a href="logistic-regression-ex-depression-hoffman.html#cb427-6"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb427-7"><a href="logistic-regression-ex-depression-hoffman.html#cb427-7"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb427-8"><a href="logistic-regression-ex-depression-hoffman.html#cb427-8"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb427-9"><a href="logistic-regression-ex-depression-hoffman.html#cb427-9"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
-&lt;caption&gt;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&lt;/caption&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;b (SE)&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;OR [95 CI]&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.6931 (0.4629)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;2.0000 [0.8322; 5.2772]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-1.1160 (0.5078)&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.3276 [0.1148; 0.8625]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;159.6205&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;159.6205&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;165.1449&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;165.1449&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-77.8103&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-77.8103&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;155.6205&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;155.6205&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;117&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;117&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-&lt;tr&gt;
-&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;3&quot;&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05 (or Null hypothesis value outside the confidence interval).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="logistic-regression-ex-depression-hoffman.html#cb426-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(fit_glm_<span class="dv">1</span>,</span>
+<span id="cb426-2"><a href="logistic-regression-ex-depression-hoffman.html#cb426-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">1</span>)),</span>
+<span id="cb426-3"><a href="logistic-regression-ex-depression-hoffman.html#cb426-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb426-4"><a href="logistic-regression-ex-depression-hoffman.html#cb426-4"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
+<span id="cb426-5"><a href="logistic-regression-ex-depression-hoffman.html#cb426-5"></a>                <span class="dt">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&quot;</span>,</span>
+<span id="cb426-6"><a href="logistic-regression-ex-depression-hoffman.html#cb426-6"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb426-7"><a href="logistic-regression-ex-depression-hoffman.html#cb426-7"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb426-8"><a href="logistic-regression-ex-depression-hoffman.html#cb426-8"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb426-9"><a href="logistic-regression-ex-depression-hoffman.html#cb426-9"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Hoffman’s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+b (SE)
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+OR [95 CI]
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.6931 (0.4629)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.0000 [0.8322; 5.2772]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sexfemale
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.1160 (0.5078)<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.3276 [0.1148; 0.8625]<sup>*</sup>
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+159.6205
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+159.6205
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+165.1449
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+165.1449
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-77.8103
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-77.8103
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+155.6205
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+155.6205
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+117
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+117
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="3">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05 (or Null hypothesis value outside the confidence interval).
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 <div id="assess-model-fit" class="section level3" number="10.2.4">
 <h3><span class="header-section-number">10.2.4</span> Assess Model Fit</h3>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="logistic-regression-ex-depression-hoffman.html#cb429-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">1</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="logistic-regression-ex-depression-hoffman.html#cb427-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">1</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 2 x 5
      Df Deviance   AIC   LRT `Pr(&gt;Chi)`
   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
@@ -805,7 +893,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 2     1     161.  163.  5.13     0.0235</code></pre>
 <div id="fit-statistics" class="section level4" number="10.2.4.1">
 <h4><span class="header-section-number">10.2.4.1</span> Fit Statistics</h4>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="logistic-regression-ex-depression-hoffman.html#cb431-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="logistic-regression-ex-depression-hoffman.html#cb429-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code># A tibble: 1 x 11
   Model Type    AIC   BIC R2_Tjur  RMSE LOGLOSS SCORE_LOG SCORE_SPHERICAL   PCP
   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;
@@ -814,7 +902,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <div id="r-squared-like-measures" class="section level4" number="10.2.4.2">
 <h4><span class="header-section-number">10.2.4.2</span> R-squared “like” measures</h4>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="logistic-regression-ex-depression-hoffman.html#cb433-1"></a>rcompanion<span class="op">::</span><span class="kw">nagelkerke</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="logistic-regression-ex-depression-hoffman.html#cb431-1"></a>rcompanion<span class="op">::</span><span class="kw">nagelkerke</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>$Models
                                                                    
 Model: &quot;glm, satlife ~ sex, binomial(link = \&quot;logit\&quot;), df_depress&quot;
@@ -840,16 +928,16 @@ $Messages
 
 $Warnings
 [1] &quot;None&quot;</code></pre>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="logistic-regression-ex-depression-hoffman.html#cb435-1"></a>performance<span class="op">::</span><span class="kw">r2</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="logistic-regression-ex-depression-hoffman.html#cb433-1"></a>performance<span class="op">::</span><span class="kw">r2</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>$R2_Tjur
 Tjur&#39;s R2 
   0.04375 </code></pre>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="logistic-regression-ex-depression-hoffman.html#cb437-1"></a>performance<span class="op">::</span><span class="kw">r2_mcfadden</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="logistic-regression-ex-depression-hoffman.html#cb435-1"></a>performance<span class="op">::</span><span class="kw">r2_mcfadden</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code># R2 for Generalized Linear Regression
 
        R2: 0.032
   adj. R2: 0.019</code></pre>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="logistic-regression-ex-depression-hoffman.html#cb439-1"></a>performance<span class="op">::</span><span class="kw">r2_mcfadden</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="logistic-regression-ex-depression-hoffman.html#cb437-1"></a>performance<span class="op">::</span><span class="kw">r2_mcfadden</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
 <pre><code># R2 for Generalized Linear Regression
 
        R2: 0.032
@@ -858,23 +946,23 @@ Tjur&#39;s R2
 </div>
 <div id="plot-predicted-probabilitites" class="section level3" number="10.2.5">
 <h3><span class="header-section-number">10.2.5</span> Plot Predicted Probabilitites</h3>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="logistic-regression-ex-depression-hoffman.html#cb441-1"></a>sjPlot<span class="op">::</span><span class="kw">plot_model</span>(<span class="dt">model =</span> fit_glm_<span class="dv">1</span>,</span>
-<span id="cb441-2"><a href="logistic-regression-ex-depression-hoffman.html#cb441-2"></a>                   <span class="dt">type =</span> <span class="st">&quot;pred&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="logistic-regression-ex-depression-hoffman.html#cb439-1"></a>sjPlot<span class="op">::</span><span class="kw">plot_model</span>(<span class="dt">model =</span> fit_glm_<span class="dv">1</span>,</span>
+<span id="cb439-2"><a href="logistic-regression-ex-depression-hoffman.html#cb439-2"></a>                   <span class="dt">type =</span> <span class="st">&quot;pred&quot;</span>)</span></code></pre></div>
 <pre><code>$sex</code></pre>
 <p><img src="eBook_regression_files/figure-html/unnamed-chunk-301-1.png" width="75%" /></p>
 <div id="logit-scale-2" class="section level4" number="10.2.5.1">
 <h4><span class="header-section-number">10.2.5.1</span> Logit scale</h4>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="logistic-regression-ex-depression-hoffman.html#cb443-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb443-2"><a href="logistic-regression-ex-depression-hoffman.html#cb443-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="logistic-regression-ex-depression-hoffman.html#cb441-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb441-2"><a href="logistic-regression-ex-depression-hoffman.html#cb441-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex)</span></code></pre></div>
 <pre><code> sex    emmean    SE  df asymp.LCL asymp.UCL
  male    0.693 0.463 Inf    -0.214    1.6004
  female -0.423 0.209 Inf    -0.832   -0.0138
 
 Results are given on the logit (not the response) scale. 
 Confidence level used: 0.95 </code></pre>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="logistic-regression-ex-depression-hoffman.html#cb445-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb445-2"><a href="logistic-regression-ex-depression-hoffman.html#cb445-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb445-3"><a href="logistic-regression-ex-depression-hoffman.html#cb445-3"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="logistic-regression-ex-depression-hoffman.html#cb443-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb443-2"><a href="logistic-regression-ex-depression-hoffman.html#cb443-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb443-3"><a href="logistic-regression-ex-depression-hoffman.html#cb443-3"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
 <pre><code> contrast      estimate    SE  df z.ratio p.value
  male - female     1.12 0.508 Inf 2.198   0.0280 
 
@@ -882,19 +970,19 @@ Results are given on the log odds ratio (not the response) scale. </code></pre>
 </div>
 <div id="response-scale-probability" class="section level4" number="10.2.5.2">
 <h4><span class="header-section-number">10.2.5.2</span> Response Scale (probability)</h4>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="logistic-regression-ex-depression-hoffman.html#cb447-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb447-2"><a href="logistic-regression-ex-depression-hoffman.html#cb447-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex,</span>
-<span id="cb447-3"><a href="logistic-regression-ex-depression-hoffman.html#cb447-3"></a>                   <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="logistic-regression-ex-depression-hoffman.html#cb445-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb445-2"><a href="logistic-regression-ex-depression-hoffman.html#cb445-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb445-3"><a href="logistic-regression-ex-depression-hoffman.html#cb445-3"></a>                   <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code> sex     prob     SE  df asymp.LCL asymp.UCL
  male   0.667 0.1029 Inf     0.447     0.832
  female 0.396 0.0499 Inf     0.303     0.497
 
 Confidence level used: 0.95 
 Intervals are back-transformed from the logit scale </code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="logistic-regression-ex-depression-hoffman.html#cb449-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb449-2"><a href="logistic-regression-ex-depression-hoffman.html#cb449-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex,</span>
-<span id="cb449-3"><a href="logistic-regression-ex-depression-hoffman.html#cb449-3"></a>                   <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb449-4"><a href="logistic-regression-ex-depression-hoffman.html#cb449-4"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="logistic-regression-ex-depression-hoffman.html#cb447-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb447-2"><a href="logistic-regression-ex-depression-hoffman.html#cb447-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb447-3"><a href="logistic-regression-ex-depression-hoffman.html#cb447-3"></a>                   <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb447-4"><a href="logistic-regression-ex-depression-hoffman.html#cb447-4"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
 <pre><code> contrast      odds.ratio   SE  df z.ratio p.value
  male / female       3.05 1.55 Inf 2.198   0.0280 
 
@@ -914,7 +1002,7 @@ Tests are performed on the log odds ratio scale </code></pre>
 <h4><span class="header-section-number">10.2.7.1</span> Influential values</h4>
 <p>Influential values are extreme individual data points that can alter the quality of the logistic regression model.</p>
 <p>The most extreme values in the data can be examined by visualizing the Cook’s distance values. Here we label the top 7 largest values:</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="logistic-regression-ex-depression-hoffman.html#cb451-1"></a><span class="kw">plot</span>(fit_glm_<span class="dv">1</span>, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">id.n =</span> <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="logistic-regression-ex-depression-hoffman.html#cb449-1"></a><span class="kw">plot</span>(fit_glm_<span class="dv">1</span>, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">id.n =</span> <span class="dv">7</span>)</span></code></pre></div>
 <p><img src="eBook_regression_files/figure-html/unnamed-chunk-306-1.png" width="75%" /></p>
 <blockquote>
 <p>Note that, not all outliers are influential observations. To check whether the data contains potential influential observations, the standardized residual error can be inspected. Data points with an absolute standardized residuals above 3 represent possible outliers and may deserve closer attention.</p>
@@ -923,11 +1011,11 @@ Tests are performed on the log odds ratio scale </code></pre>
 <div id="standardized-residuals" class="section level4" number="10.2.7.2">
 <h4><span class="header-section-number">10.2.7.2</span> Standardized Residuals</h4>
 <p>The following R code computes the standardized residuals (<code>.std.resid</code>) using the R function <code>augment()</code> [<code>broom</code> package].</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="logistic-regression-ex-depression-hoffman.html#cb452-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb452-2"><a href="logistic-regression-ex-depression-hoffman.html#cb452-2"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb452-3"><a href="logistic-regression-ex-depression-hoffman.html#cb452-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> .rownames, .std.resid)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb452-4"><a href="logistic-regression-ex-depression-hoffman.html#cb452-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> sex), <span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
-<span id="cb452-5"><a href="logistic-regression-ex-depression-hoffman.html#cb452-5"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="logistic-regression-ex-depression-hoffman.html#cb450-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb450-2"><a href="logistic-regression-ex-depression-hoffman.html#cb450-2"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb450-3"><a href="logistic-regression-ex-depression-hoffman.html#cb450-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> .rownames, .std.resid)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb450-4"><a href="logistic-regression-ex-depression-hoffman.html#cb450-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> sex), <span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
+<span id="cb450-5"><a href="logistic-regression-ex-depression-hoffman.html#cb450-5"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="eBook_regression_files/figure-html/unnamed-chunk-307-1.png" width="75%" /></p>
 </div>
 </div>
@@ -936,11 +1024,11 @@ Tests are performed on the log odds ratio scale </code></pre>
 <h2><span class="header-section-number">10.3</span> Logisitic Regression Model 2: many IV’s</h2>
 <div id="fit-the-model-1" class="section level3" number="10.3.1">
 <h3><span class="header-section-number">10.3.1</span> Fit the Model</h3>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="logistic-regression-ex-depression-hoffman.html#cb453-1"></a>fit_glm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>iq <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight,</span>
-<span id="cb453-2"><a href="logistic-regression-ex-depression-hoffman.html#cb453-2"></a>                 <span class="dt">data =</span> df_depress,</span>
-<span id="cb453-3"><a href="logistic-regression-ex-depression-hoffman.html#cb453-3"></a>                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb453-4"><a href="logistic-regression-ex-depression-hoffman.html#cb453-4"></a></span>
-<span id="cb453-5"><a href="logistic-regression-ex-depression-hoffman.html#cb453-5"></a>fit_glm_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="logistic-regression-ex-depression-hoffman.html#cb451-1"></a>fit_glm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>iq <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight,</span>
+<span id="cb451-2"><a href="logistic-regression-ex-depression-hoffman.html#cb451-2"></a>                 <span class="dt">data =</span> df_depress,</span>
+<span id="cb451-3"><a href="logistic-regression-ex-depression-hoffman.html#cb451-3"></a>                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb451-4"><a href="logistic-regression-ex-depression-hoffman.html#cb451-4"></a></span>
+<span id="cb451-5"><a href="logistic-regression-ex-depression-hoffman.html#cb451-5"></a>fit_glm_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
 <pre><code>               Estimate Std. Error    z value   Pr(&gt;|z|)
 (Intercept)  9.02054236 6.01858970  1.4987801 0.13393069
 sexfemale   -1.27924381 0.55971456 -2.2855289 0.02228183
@@ -950,86 +1038,156 @@ weight      -0.03768972 0.08885942 -0.4241499 0.67145648</code></pre>
 </div>
 <div id="tabulate-parameters-1" class="section level3" number="10.3.2">
 <h3><span class="header-section-number">10.3.2</span> Tabulate Parameters</h3>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="logistic-regression-ex-depression-hoffman.html#cb455-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(fit_glm_<span class="dv">2</span>,</span>
-<span id="cb455-2"><a href="logistic-regression-ex-depression-hoffman.html#cb455-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">2</span>)),</span>
-<span id="cb455-3"><a href="logistic-regression-ex-depression-hoffman.html#cb455-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
-<span id="cb455-4"><a href="logistic-regression-ex-depression-hoffman.html#cb455-4"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
-<span id="cb455-5"><a href="logistic-regression-ex-depression-hoffman.html#cb455-5"></a>                <span class="dt">caption =</span> <span class="st">&quot;EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52&quot;</span>,</span>
-<span id="cb455-6"><a href="logistic-regression-ex-depression-hoffman.html#cb455-6"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb455-7"><a href="logistic-regression-ex-depression-hoffman.html#cb455-7"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb455-8"><a href="logistic-regression-ex-depression-hoffman.html#cb455-8"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb455-9"><a href="logistic-regression-ex-depression-hoffman.html#cb455-9"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
-&lt;caption&gt;EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52&lt;/caption&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;b (SE)&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;OR [95 CI]&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;9.0205 (6.0186)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;8271.2619 [0.0854; 2077566352.1374]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-1.2792 (0.5597)&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.2782 [0.0870;          0.8060]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;iq&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.0728 (0.0536)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9298 [0.8327;          1.0304]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;age&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.0411 (0.0525)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9597 [0.8635;          1.0627]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;weight&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.0377 (0.0889)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9630 [0.8073;          1.1472]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;137.5217&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;137.5217&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;150.4973&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;150.4973&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-63.7609&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-63.7609&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;127.5217&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;127.5217&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-&lt;tr&gt;
-&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;3&quot;&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05 (or Null hypothesis value outside the confidence interval).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="logistic-regression-ex-depression-hoffman.html#cb453-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(fit_glm_<span class="dv">2</span>,</span>
+<span id="cb453-2"><a href="logistic-regression-ex-depression-hoffman.html#cb453-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">2</span>)),</span>
+<span id="cb453-3"><a href="logistic-regression-ex-depression-hoffman.html#cb453-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb453-4"><a href="logistic-regression-ex-depression-hoffman.html#cb453-4"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
+<span id="cb453-5"><a href="logistic-regression-ex-depression-hoffman.html#cb453-5"></a>                <span class="dt">caption =</span> <span class="st">&quot;EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52&quot;</span>,</span>
+<span id="cb453-6"><a href="logistic-regression-ex-depression-hoffman.html#cb453-6"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb453-7"><a href="logistic-regression-ex-depression-hoffman.html#cb453-7"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb453-8"><a href="logistic-regression-ex-depression-hoffman.html#cb453-8"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb453-9"><a href="logistic-regression-ex-depression-hoffman.html#cb453-9"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
+<caption>
+EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+b (SE)
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+OR [95 CI]
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+9.0205 (6.0186)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8271.2619 [0.0854; 2077566352.1374]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sexfemale
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.2792 (0.5597)<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.2782 [0.0870; 0.8060]<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+iq
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.0728 (0.0536)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.9298 [0.8327; 1.0304]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+age
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.0411 (0.0525)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.9597 [0.8635; 1.0627]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+weight
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.0377 (0.0889)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.9630 [0.8073; 1.1472]
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+137.5217
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+137.5217
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+150.4973
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+150.4973
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-63.7609
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-63.7609
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+127.5217
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+127.5217
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+99
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+99
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="3">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05 (or Null hypothesis value outside the confidence interval).
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 <div id="assess-model-fit-1" class="section level3" number="10.3.3">
 <h3><span class="header-section-number">10.3.3</span> Assess Model Fit</h3>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="logistic-regression-ex-depression-hoffman.html#cb457-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="logistic-regression-ex-depression-hoffman.html#cb454-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 5 x 5
      Df Deviance   AIC    LRT `Pr(&gt;Chi)`
   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
@@ -1038,7 +1196,7 @@ weight      -0.03768972 0.08885942 -0.4241499 0.67145648</code></pre>
 3     1     129.  137.  1.91      0.167 
 4     1     128.  136.  0.621     0.431 
 5     1     128.  136.  0.180     0.671 </code></pre>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="logistic-regression-ex-depression-hoffman.html#cb459-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="logistic-regression-ex-depression-hoffman.html#cb456-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 5 x 5
      Df Deviance   AIC    LRT `Pr(&gt;Chi)`
   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
@@ -1049,7 +1207,7 @@ weight      -0.03768972 0.08885942 -0.4241499 0.67145648</code></pre>
 5     1     128.  136.  0.180     0.671 </code></pre>
 <div id="fit-statistics-1" class="section level4" number="10.3.3.1">
 <h4><span class="header-section-number">10.3.3.1</span> Fit Statistics</h4>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="logistic-regression-ex-depression-hoffman.html#cb461-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="logistic-regression-ex-depression-hoffman.html#cb458-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
 <pre><code># A tibble: 1 x 11
   Model Type    AIC   BIC R2_Tjur  RMSE LOGLOSS SCORE_LOG SCORE_SPHERICAL   PCP
   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;
@@ -1058,7 +1216,7 @@ weight      -0.03768972 0.08885942 -0.4241499 0.67145648</code></pre>
 </div>
 <div id="r-squared-lik-measures" class="section level4" number="10.3.3.2">
 <h4><span class="header-section-number">10.3.3.2</span> R-squared “lik” measures</h4>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="logistic-regression-ex-depression-hoffman.html#cb463-1"></a>rcompanion<span class="op">::</span><span class="kw">nagelkerke</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="logistic-regression-ex-depression-hoffman.html#cb460-1"></a>rcompanion<span class="op">::</span><span class="kw">nagelkerke</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>$Models
                                                                                        
 Model: &quot;glm, satlife ~ sex + iq + age + weight, binomial(link = \&quot;logit\&quot;), df_depress&quot;
@@ -1092,7 +1250,7 @@ $Warnings
 <h4><span class="header-section-number">10.3.4.1</span> Multicollinearity</h4>
 <p>Multicollinearity corresponds to a situation where the data contain highly correlated predictor variables. Read more in Chapter <span class="citation">(<span class="citeproc-not-found" data-reference-id="ref"><strong>???</strong></span>)</span>(multicollinearity).</p>
 <p>Multicollinearity is an important issue in regression analysis and should be fixed by removing the concerned variables. It can be assessed using the R function <code>vif()</code> [<code>car</code> package], which computes the variance inflation factors:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="logistic-regression-ex-depression-hoffman.html#cb465-1"></a>car<span class="op">::</span><span class="kw">vif</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="logistic-regression-ex-depression-hoffman.html#cb462-1"></a>car<span class="op">::</span><span class="kw">vif</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>     sex       iq      age   weight 
 1.011608 1.294334 1.418975 1.233364 </code></pre>
 <p>As a rule of thumb, a <strong><code>VIF</code> value that exceeds 5 or 10 indicates a problematic amount of collinearity</strong>. In our example, there is no collinearity: all variables have a value of <code>VIF</code> well below 5.</p>
@@ -1102,99 +1260,169 @@ $Warnings
 <div id="compare-models" class="section level2" number="10.4">
 <h2><span class="header-section-number">10.4</span> Compare Models</h2>
 <p>Refit Model 1 with only participant complete on all the predictors</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="logistic-regression-ex-depression-hoffman.html#cb467-1"></a>fit_glm_<span class="dv">1</span>_redo &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex,</span>
-<span id="cb467-2"><a href="logistic-regression-ex-depression-hoffman.html#cb467-2"></a>                      <span class="dt">data =</span> df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb467-3"><a href="logistic-regression-ex-depression-hoffman.html#cb467-3"></a><span class="st">                        </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(sex, iq, age, weight)))</span>
-<span id="cb467-4"><a href="logistic-regression-ex-depression-hoffman.html#cb467-4"></a></span>
-<span id="cb467-5"><a href="logistic-regression-ex-depression-hoffman.html#cb467-5"></a>fit_glm_<span class="dv">2</span>_redo &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>iq <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight,</span>
-<span id="cb467-6"><a href="logistic-regression-ex-depression-hoffman.html#cb467-6"></a>                      <span class="dt">data =</span> df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb467-7"><a href="logistic-regression-ex-depression-hoffman.html#cb467-7"></a><span class="st">                        </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(sex, iq, age, weight)))</span></code></pre></div>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="logistic-regression-ex-depression-hoffman.html#cb468-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">1</span>_redo),</span>
-<span id="cb468-2"><a href="logistic-regression-ex-depression-hoffman.html#cb468-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">2</span>_redo)),</span>
-<span id="cb468-3"><a href="logistic-regression-ex-depression-hoffman.html#cb468-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Single IV&quot;</span>,</span>
-<span id="cb468-4"><a href="logistic-regression-ex-depression-hoffman.html#cb468-4"></a>                                       <span class="st">&quot;Multiple IVs&quot;</span>),</span>
-<span id="cb468-5"><a href="logistic-regression-ex-depression-hoffman.html#cb468-5"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb468-6"><a href="logistic-regression-ex-depression-hoffman.html#cb468-6"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb468-7"><a href="logistic-regression-ex-depression-hoffman.html#cb468-7"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb468-8"><a href="logistic-regression-ex-depression-hoffman.html#cb468-8"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
-&lt;caption&gt;Statistical models&lt;/caption&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Single IV&lt;/th&gt;
-&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Multiple IVs&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;1.9477 [1.5562; 2.4377]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;12.7108 [0.8969; 180.1414]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.7436 [0.5802; 0.9529]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.7388 [0.5755;   0.9483]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;iq&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9837 [0.9606;   1.0074]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;age&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9908 [0.9677;   1.0144]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;weight&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9913 [0.9521;   1.0322]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;141.9675&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;145.7895&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;149.7528&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;161.3602&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-67.9837&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-66.8948&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;22.8889&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;22.3908&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
-&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-&lt;tr&gt;
-&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;3&quot;&gt;&lt;sup&gt;*&lt;/sup&gt; Null hypothesis value outside the confidence interval.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;</code></pre>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="logistic-regression-ex-depression-hoffman.html#cb470-1"></a><span class="kw">anova</span>(fit_glm_<span class="dv">1</span>_redo, </span>
-<span id="cb470-2"><a href="logistic-regression-ex-depression-hoffman.html#cb470-2"></a>      fit_glm_<span class="dv">2</span>_redo,</span>
-<span id="cb470-3"><a href="logistic-regression-ex-depression-hoffman.html#cb470-3"></a>      <span class="dt">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="logistic-regression-ex-depression-hoffman.html#cb464-1"></a>fit_glm_<span class="dv">1</span>_redo &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb464-2"><a href="logistic-regression-ex-depression-hoffman.html#cb464-2"></a>                      <span class="dt">data =</span> df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb464-3"><a href="logistic-regression-ex-depression-hoffman.html#cb464-3"></a><span class="st">                        </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(sex, iq, age, weight)))</span>
+<span id="cb464-4"><a href="logistic-regression-ex-depression-hoffman.html#cb464-4"></a></span>
+<span id="cb464-5"><a href="logistic-regression-ex-depression-hoffman.html#cb464-5"></a>fit_glm_<span class="dv">2</span>_redo &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>iq <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight,</span>
+<span id="cb464-6"><a href="logistic-regression-ex-depression-hoffman.html#cb464-6"></a>                      <span class="dt">data =</span> df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb464-7"><a href="logistic-regression-ex-depression-hoffman.html#cb464-7"></a><span class="st">                        </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(sex, iq, age, weight)))</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="logistic-regression-ex-depression-hoffman.html#cb465-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">1</span>_redo),</span>
+<span id="cb465-2"><a href="logistic-regression-ex-depression-hoffman.html#cb465-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">2</span>_redo)),</span>
+<span id="cb465-3"><a href="logistic-regression-ex-depression-hoffman.html#cb465-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Single IV&quot;</span>,</span>
+<span id="cb465-4"><a href="logistic-regression-ex-depression-hoffman.html#cb465-4"></a>                                       <span class="st">&quot;Multiple IVs&quot;</span>),</span>
+<span id="cb465-5"><a href="logistic-regression-ex-depression-hoffman.html#cb465-5"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb465-6"><a href="logistic-regression-ex-depression-hoffman.html#cb465-6"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb465-7"><a href="logistic-regression-ex-depression-hoffman.html#cb465-7"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb465-8"><a href="logistic-regression-ex-depression-hoffman.html#cb465-8"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Single IV
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Multiple IVs
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.9477 [1.5562; 2.4377]<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+12.7108 [0.8969; 180.1414]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sexfemale
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.7436 [0.5802; 0.9529]<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.7388 [0.5755; 0.9483]<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+iq
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.9837 [0.9606; 1.0074]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+age
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.9908 [0.9677; 1.0144]
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+weight
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.9913 [0.9521; 1.0322]
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+141.9675
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+145.7895
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+149.7528
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+161.3602
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-67.9837
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-66.8948
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+22.8889
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+22.3908
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+99
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+99
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="3">
+<sup>*</sup> Null hypothesis value outside the confidence interval.
+</td>
+</tr>
+</tfoot>
+</table>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="logistic-regression-ex-depression-hoffman.html#cb466-1"></a><span class="kw">anova</span>(fit_glm_<span class="dv">1</span>_redo, </span>
+<span id="cb466-2"><a href="logistic-regression-ex-depression-hoffman.html#cb466-2"></a>      fit_glm_<span class="dv">2</span>_redo,</span>
+<span id="cb466-3"><a href="logistic-regression-ex-depression-hoffman.html#cb466-3"></a>      <span class="dt">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 2 x 5
   `Resid. Df` `Resid. Dev`    Df Deviance `Pr(&gt;Chi)`
         &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
 1          97         22.9    NA   NA         NA    
 2          94         22.4     3    0.498      0.554</code></pre>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="logistic-regression-ex-depression-hoffman.html#cb472-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">1</span>_redo, </span>
-<span id="cb472-2"><a href="logistic-regression-ex-depression-hoffman.html#cb472-2"></a>                                 fit_glm_<span class="dv">2</span>_redo, </span>
-<span id="cb472-3"><a href="logistic-regression-ex-depression-hoffman.html#cb472-3"></a>                                 <span class="dt">rank =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="logistic-regression-ex-depression-hoffman.html#cb468-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">1</span>_redo, </span>
+<span id="cb468-2"><a href="logistic-regression-ex-depression-hoffman.html#cb468-2"></a>                                 fit_glm_<span class="dv">2</span>_redo, </span>
+<span id="cb468-3"><a href="logistic-regression-ex-depression-hoffman.html#cb468-3"></a>                                 <span class="dt">rank =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code># A tibble: 2 x 8
   Model          Type    AIC   BIC R2_Nagelkerke  RMSE      BF Performance_Score
   &lt;chr&gt;          &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;             &lt;dbl&gt;
