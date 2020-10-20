@@ -21,6 +21,9 @@ library(car)          # Companion to Applied Regression
 library(sjPlot)       # Quick plots and tables for models
 library(pscl)         # psudo R-squared function
 library(glue)         # Interpreted String Literals 
+library(interactions) # interaction plots
+library(sjPlot)       # various plots
+library(performance)  # r-squared values
 ```
 
 ## Background
@@ -33,11 +36,14 @@ Another set of data from a study investigating predictors of low birth weight
 
 Dependent variable (DV) or outcome    
 
-* `low` Low birth weight (outcome) (0 = birth weight >2500 g (normal), 1 = birth weight < 2500 g (low))
+* `low` Low birth weight (outcome) 
+    - 0 = birth weight >2500 g (normal)
+    - 1 = birth weight < 2500 g (low))  
+    
 * `bwt` actual infant birth weight in grams
 
 
-Indepdentend variables (IV) or predictors
+Independent variables (IV) or predictors
 
 * `age` Age of mother, in years
 * `lwt` Mother's weight at last menstrual period, in pounds
@@ -72,16 +78,16 @@ tibble::glimpse(lowbwt_raw)
 ```{r}
 lowbwt_clean <- lowbwt_raw %>% 
   dplyr::mutate(id = factor(id)) %>% 
-  dplyr::mutate(low = factor(low,
-                             levels = c(0, 1),
-                             labels = c("birth weight >2500 g (normal)",
-                                        "birth weight < 2500 g (low)"))) %>% 
-  dplyr::mutate(race = factor(race,
-                              levels = 1:3,
-                              labels = c("White", 
-                                         "Black", 
-                                         "Other"))) %>% 
-  dplyr::mutate(ptl_any = as.numeric(ptl > 0)) %>%         # colapse into 0 = none vs. 1 = at least one
+  dplyr::mutate(low = low %>% 
+                  factor() %>% 
+                  forcats::fct_recode("birth weight >2500 g (normal)" = "0",
+                                      "birth weight < 2500 g (low)"   = "1")) %>% 
+  dplyr::mutate(race = race %>% 
+                  factor() %>% 
+                  forcats::fct_recode("White" = "1",
+                                      "Black" = "2",
+                                      "Other" = "3")) %>% 
+  dplyr::mutate(ptl_any = as.numeric(ptl > 0)) %>%         # collapse into 0 = none vs. 1 = at least one
   dplyr::mutate(ptl = factor(ptl)) %>%                     # declare the number of pre-term labors to be a factor: 0, 1, 2, 3
   dplyr::mutate_at(vars(smoke, ht, ui, ptl_any),           # declare all there variables to be factors with the same two levels
                    factor,
@@ -93,9 +99,12 @@ lowbwt_clean <- lowbwt_raw %>%
 Display the structure of the 'clean' version of the dataset
 
 ```{r}
-str(lowbwt_clean)
+tibble::glimpse(lowbwt_clean)
 ```
 
+```{r}
+lowbwt_clean
+```
 
 
 
@@ -103,10 +112,6 @@ str(lowbwt_clean)
 ## Exploratory Data Analysis
 
 ```{r}
-# Knit to Website: output = "html" 
-# Knit to PDF:     output = "latex2"
-# View on Screen:  output = ""text", or "markdown", "html"
-
 lowbwt_clean %>% 
   furniture::table1("Age, years" = age, 
                     "Weight, pounds" = lwt, 
@@ -119,7 +124,7 @@ lowbwt_clean %>%
                     "1st Tri Dr Visits" = ftv, 
                     splitby = ~ low,
                     test = TRUE,
-                    output = "html")
+                    output = "markdown")
 ```
 
 
@@ -127,42 +132,36 @@ lowbwt_clean %>%
 
 
 
-## Logistic Regression - Simple, un-adjusted
+## Logistic Regression - Simple, unadjusted models
 
 ```{r}
-low1.age   <- glm(low ~ age,     family=binomial(logit), data=lowbwt_clean)
-low1.lwt   <- glm(low ~ lwt,     family=binomial(logit), data=lowbwt_clean)
-low1.race  <- glm(low ~ race,    family=binomial(logit), data=lowbwt_clean)
-low1.smoke <- glm(low ~ smoke,   family=binomial(logit), data=lowbwt_clean)
-low1.ptl   <- glm(low ~ ptl_any, family=binomial(logit), data=lowbwt_clean)
-low1.ht    <- glm(low ~ ht,      family=binomial(logit), data=lowbwt_clean)
-low1.ui    <- glm(low ~ ui,      family=binomial(logit), data=lowbwt_clean)
-low1.ftv   <- glm(low ~ ftv,     family=binomial(logit), data=lowbwt_clean)
+low1.age   <- glm(low ~ age,     family = binomial(logit), data = lowbwt_clean)
+low1.lwt   <- glm(low ~ lwt,     family = binomial(logit), data = lowbwt_clean)
+low1.race  <- glm(low ~ race,    family = binomial(logit), data = lowbwt_clean)
+low1.smoke <- glm(low ~ smoke,   family = binomial(logit), data = lowbwt_clean)
+low1.ptl   <- glm(low ~ ptl_any, family = binomial(logit), data = lowbwt_clean)
+low1.ht    <- glm(low ~ ht,      family = binomial(logit), data = lowbwt_clean)
+low1.ui    <- glm(low ~ ui,      family = binomial(logit), data = lowbwt_clean)
+low1.ftv   <- glm(low ~ ftv,     family = binomial(logit), data = lowbwt_clean)
 ```
 
 Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(list(low1.age, low1.lwt, low1.race, low1.smoke),
+texreg::knitreg(list(low1.age, low1.lwt, low1.race, low1.smoke),
                 custom.model.names = c("Age", "Weight", "Race", "Smoker"),
                 caption = "Simple, Unadjusted Logistic Regression: Models 1-4",
-                caption.above = TRUE)
+                caption.above = TRUE,
+                digits = 3)
 ```
 
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(list(low1.ptl, low1.ht, low1.ui, low1.ftv),
+texreg::knitreg(list(low1.ptl, low1.ht, low1.ui, low1.ftv),
                 custom.model.names = c("Pre-Labor", "Hypertension", "Uterine", "Visits"),
                 caption = "Simple, Unadjusted Logistic Regression: Models 5-8",
-                caption.above = TRUE)
+                caption.above = TRUE,
+                digits = 3)
 ```
 
 ## Logistic Regression - Multivariate, with Main Effects Only
@@ -293,6 +292,11 @@ summary(low1_6)
 pscl::pR2(low1_6)
 ```
 
+```{r}
+performance::r2(low1_6)
+```
+
+
 
 ### Parameter Estiamtes Table
 
@@ -300,36 +304,22 @@ pscl::pR2(low1_6)
 
 Default: parameters are in terms of the 'logit' or log odds ratio
 
-```{r, include=FALSE}
-texreg::screenreg(low1_6)
-```
+
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(low1_6)
+texreg::knitreg(low1_6,
+                single.row = TRUE,
+                digits = 3)
 ```
 
 
 
-The `texreg` package uses an intermediate function called `extract()` to extract information for the model and then put it in the right places in the table.  We can invervene by writing our own `extract_exp()` function to use instead.
+The `texreg` package uses an intermediate function called `extract()` to extract information for the model and then put it in the right places in the table.  I have writen a function called `extract_glm_exp()` that is helpful.
 
-```{r}
-extract_exp <- function(fit_glm){
-  beta   = coef(fit_glm)    
-  betaci = confint(fit_glm) 
-  fit_glm_exp        = texreg::extract(fit_glm)
-  fit_glm_exp@coef   = exp(beta)
-  fit_glm_exp@ci.low = exp(betaci[, 1])
-  fit_glm_exp@ci.up  = exp(betaci[, 2])
-  return(fit_glm_exp)
-}
-```
 
-```{r, include=FALSE}
-texreg::screenreg(extract_exp(low1_6),
+
+```{r, results='asis'}
+texreg::knitreg(extract_glm_exp(low1_6),
                   custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
                                         "Additional 5 years older",
                                         "Additional 20 lbs pre-pregnancy",
@@ -340,52 +330,49 @@ texreg::screenreg(extract_exp(low1_6),
                                         "History of Hypertension"),
                   custom.model.names = "OR, Low Birth Weight",
                   single.row = TRUE,
-                  custom.note = "* The value of '1' is outside the confidence interval for the OR")
+                  ci.test = 1)
 ```
+
+
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(extract_exp(low1_6),
-                custom.coef.names = c("BL: 125 lb, 20 yr old White Mother",
-                                      "Additional 5 years older",
-                                      "Additional 20 lbs pre-pregnancy",
-                                      "Race: Black vs. White",
-                                      "Race: Other vs. White",
-                                      "Smoking During pregnancy",
-                                      "History of Any Premature Labor",
-                                      "History of Hypertension"),
-                custom.model.names = "OR, Low Birth Weight",
+texreg::knitreg(list(low1_6,
+                     extract_glm_exp(low1_6,
+                                     include.aic = FALSE,
+                                     include.bic = FALSE,
+                                     include.loglik = FALSE,
+                                     include.deviance = FALSE,
+                                     include.nobs = FALSE)),
+                custom.model.names = c("b (SE)",
+                                       "OR [95 CI]"),
+                custom.coef.map = list("(Intercept)" = "BL: 125 lb, 20 yr old White Mother",
+                                    "I((age - 20)/5)" = "Additional 5 years older",
+                                    "I((lwt - 125)/20)" = "Additional 20 lbs pre-pregnancy",
+                                    "raceBlack" = "Race: Black vs. White",
+                                    "raceOther" = "Race: Other vs. White",
+                                    "smokeYes" = "Smoking During pregnancy",
+                                    "ptl_anyYes" = "History of Any Premature Labor",
+                                    "htYes" = "History of Hypertension"),
+                caption = "Maternal Factors effect Low Birthweight of Infant",
+                caption.above = TRUE,
                 single.row = TRUE,
-                custom.note = "* The value of '1' is outside the confidence interval for the OR")
+                ci.test = 1)
 ```
 
-
-
-
-#### Using `sjPlot::tab_model()`
-
-Parameters Exponentiated:
-
-```{r, results = "asis"}
-sjPlot::tab_model(low1_6,
-                  emph.p = TRUE,
-                  pred.labels = c("BL: 125 lb, 20 yr old White Mother",
-                                  "Additional 5 years old",
-                                  "Additional 20 lbs pre-pregnancy",
-                                  "Race: Black vs. White",
-                                  "Race: Other vs. White",
-                                  "Smoking During pregnancy",
-                                  "History of Any Premature Labor",
-                                  "History of Hypertension")) 
-```
 
 
 ### Marginal Model Plot
 
 #### Focus on: Mother's Age, weight, and race
+
+```{r}
+interactions::interact_plot(model = low1_6,
+                            pred = lwt,
+                            modx = race,
+                            mod2 = age)
+```
+
+
 
 ```{r, fig.width=8, fig.height=6}
 effects::Effect(focal.predictors = c("age", "lwt", "race"),
@@ -415,7 +402,22 @@ effects::Effect(focal.predictors = c("age", "lwt", "race"),
   scale_color_manual(values = c( "coral2", "dodger blue", "gray50"))
 ```
 
-#### Focus on: Mother's weight and smothing status during pregnancy, as well as history of any per-term labor and hypertension
+#### Focus on: Mother's weight and smoking status during pregnancy, as well as history of any per-term labor and hypertension
+
+```{r}
+interactions::interact_plot(model = low1_6,
+                            pred = lwt,
+                            modx = smoke,
+                            mod2 = ptl_any)
+```
+
+
+```{r}
+interactions::interact_plot(model = low1_6,
+                            pred = lwt,
+                            modx = smoke,
+                            mod2 = ht)
+```
 
 ```{r, fig.width=8, fig.height=6}
 effects::Effect(focal.predictors = c("lwt", "smoke", "ptl_any", "ht"),

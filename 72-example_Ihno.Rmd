@@ -43,7 +43,7 @@ Inho's dataset is included in the textbook "Explaining Psychological Statistics"
 ```
 
 ```{r}
-data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav") %>% 
+data_ihno <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/Ihno_dataset.sav") %>% 
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(gender = factor(gender, 
                                levels = c(1, 2),
@@ -70,7 +70,14 @@ data_ihno <- haven::read_spss("http://www.psych.nyu.edu/cohen/Ihno_dataset.sav")
   dplyr::mutate(coffee = factor(coffee,
                                 levels = c(0, 1),
                                 labels = c("Not a regular coffee drinker",
-                                           "Regularly drinks coffee"))) 
+                                           "Regularly drinks coffee"))) %>% 
+  dplyr::mutate(mathquiz = as.numeric(mathquiz))
+```
+
+
+
+```{r}
+tibble::glimpse(data_ihno)
 ```
 
 
@@ -83,11 +90,11 @@ Before embarking on any inferencial anlaysis or modeling, always get familiar wi
 
 Summary Statistics for all three variables of interest [@R-stargazer].
 
-```{r, results='asis'}
+```{r}
 data_ihno %>% 
   dplyr::select(phobia, mathquiz, statquiz) %>% 
   data.frame() %>% 
-  stargazer::stargazer(type = "html")
+  stargazer::stargazer(type = "text")
 ```
 
 ### Bivariate Relationships
@@ -154,7 +161,7 @@ This complicates model comparisons, which require nested models be fit to the sa
 data_ihno_fitting <- data_ihno %>% 
                       dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
 
-dim(data_ihno_fitting)
+tibble::glimpse(data_ihno_fitting)
 ```      
  
 
@@ -194,7 +201,7 @@ Again the `texreg` package comes in handy to display several models in the same 
 
 
 ```{r, results='asis'}
-texreg::htmlreg(list(fit_ihno_lm_0, 
+texreg::knitreg(list(fit_ihno_lm_0, 
                      fit_ihno_lm_1, 
                      fit_ihno_lm_2, 
                      fit_ihno_lm_3, 
@@ -277,16 +284,9 @@ summary(fit_ihno_lm_4)
 
 Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
 
-```{block type='rmdlightbulb', echo=TRUE}
-The `texreg` package contains three version of the regression table function [@R-texreg].  
-
-* `screenreg()` Use when working on a project and viewing tables on your computer screen
-* `htmlreg()` Use when knitting your .Rmd file to a .html document 
-* `texreg()` Use when knitting your .Rmd file to a .pdf via LaTeX
-```
 
 ```{r, results='asis'}
-texreg::htmlreg(fit_ihno_lm_3,
+texreg::knitreg(fit_ihno_lm_3,
                custom.model.names = "Main Effects Model",
                ci.force = TRUE,                              # request 95% conf interv
                caption = "Final Model for Stat's Quiz",
@@ -298,17 +298,51 @@ texreg::htmlreg(fit_ihno_lm_3,
 
 When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
 
+```{r}
+interactions::interact_plot(model = fit_ihno_lm_3,
+                            pred = mathquiz,
+                            modx = phobia)
+```
+
+
+Interval = 95% Confidence Interval
+
+```{r}
+interactions::interact_plot(model = fit_ihno_lm_3,
+                            pred = mathquiz,
+                            modx = phobia,
+                            modx.values = c(0, 5, 10),
+                            interval = TRUE)
+```
+
+
+Interval = plus-or-minus one standard error for the mean (SEM)
+
+```{r}
+interactions::interact_plot(model = fit_ihno_lm_3,
+                            pred = mathquiz,
+                            modx = phobia,
+                            modx.values = c(0, 5, 10),
+                            interval = TRUE,
+                            int.width = .68)
+```
+
+
 The `Effect()` function from the `effects` package chooses '5 or 6 nice values' for each of your continuous independent variable ($X's$) based on the range of values found in the dataset on which the model and plugs all possible combinations of them into the regression equation $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 \dots \beta_k X_k$ to compute the predicted *mean* value of the outcome ($Y$) [@R-effects].
 
 ```{block type='rmdlightbulb', echo=TRUE}
 When plotting a regression model the outcome (dependent variable) is always on the y-axis (`fit`) and only one predictor (independent variable) may be used on the x-axis.  You may incorporate additional predictor using colors, shapes, linetypes, or facets. For these predictors, you will want to specify only 2-4 values for illustration and then declare them as factors prior to plotting.
 ```
 
+
+
+
+
 ```{r}
 effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                 mod = fit_ihno_lm_3,
                 xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
-  data.frame %>% 
+  data.frame() %>% 
   dplyr::mutate(phobia = factor(phobia)) %>%               # factor for illustration
   ggplot() +
   aes(x = mathquiz,
@@ -342,4 +376,21 @@ Not surprizingly, while higher self-reported math phobia was associated with low
 There was no evidence that math phobia moderated the relationship between math and quiz performance, $p=.377$. 
 
 
+# New Playground
+
+### Variable Inflation Factors (VIF)
+
+```{r}
+car::vif(fit_ihno_lm_3)
+```
+
+
+
+```{r}
+
+fit_ihno_lm_5 <- lm(statquiz ~ mathquiz*phobia*reason,      # additional interaction
+                    data = data_ihno_fitting)
+
+texreg::screenreg(fit_ihno_lm_5)
+```
 

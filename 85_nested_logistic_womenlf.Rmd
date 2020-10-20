@@ -86,29 +86,24 @@ Womenlf$partic %>% levels()  # view the levels (in order) of the variable
 
 ```{r}
 Womenlf_clean <- Womenlf %>% 
-  dplyr::mutate(working_ord  = dplyr::case_when(partic == "fulltime" ~ 2,         # manually re-code a factor
-                                                partic == "not.work" ~ 0,         #  into a numeric variable
-                                                partic == "parttime" ~ 1) %>% 
-                  factor(levels = c(0, 1, 2),                                     # maually declare the level order
-                         labels = c("Not at All",                                 #  and labels of the levels)
-                                    "Part Time",
-                                    "Full Time"))) %>%     
-  dplyr::mutate(working_any  = dplyr::case_when(partic == "fulltime" ~ 1,         # manually re-code a factor
-                                                partic == "not.work" ~ 0,         #  into a numeric variable
-                                                partic == "parttime" ~ 1) %>% 
-                  factor(levels = c(0, 1),                                        # maually declare the level order
-                         labels = c("Not at All",                                 #  and labels of the levels)
+  dplyr::mutate(working_ord = partic %>% 
+                  forcats::fct_recode("Full Time"  = "fulltime",
+                                      "Not at All" = "not.work",
+                                      "Part Time"  = "parttime") %>% 
+                  factor(levels = c("Not at All", 
+                                    "Part Time", 
+                                    "Full Time"))) %>% 
+  dplyr::mutate(working_any  = dplyr::case_when(partic %in% c("fulltime", "parttime") ~ "At Least Part Time",
+                                                partic == "not.work" ~ "Not at All") %>% 
+                  factor(levels = c("Not at All",                                
                                     "At Least Part Time"))) %>%     
-  dplyr::mutate(working_full = dplyr::case_when(partic == "fulltime" ~ 1,         # manually re-code a factor
-                                                partic == "not.work" ~ 0,         #  into a numeric variable
-                                                partic == "parttime" ~ 0)%>% 
-                  factor(levels = c(0, 1),                                        # maually declare the level order
-                         labels = c("Less Than Full Time",                        #  and labels of the levels)
+  dplyr::mutate(working_full = dplyr::case_when(partic == "fulltime" ~ "Full Time",    
+                                                partic %in% c("not.work", "parttime") ~ "Less Than Full Time")%>% 
+                  factor(levels = c("Less Than Full Time",
                                     "Full Time"))) %>%         
-  dplyr::mutate(working_type = dplyr::case_when(partic == "fulltime" ~ 1,         # manually re-code a factor
-                                                partic == "parttime" ~ 0)%>%      #  into a numeric variable
-                  factor(levels = c(0, 1),                                        # maually declare the level order
-                         labels = c("Part Time",                                  #  and labels of the levels)
+  dplyr::mutate(working_type = dplyr::case_when(partic == "fulltime" ~ "Full Time",        
+                                                partic == "parttime" ~ "Part Time")%>%      
+                  factor(levels = c("Part Time",                                
                                     "Full Time")))                            
 ```
 
@@ -124,15 +119,11 @@ str(Womenlf_clean)  # view the structure of the data
 Three versions of the outcome
 
 ```{r}
-# Knit to Website: output = "html" 
-# Knit to PDF:     output = "latex2"
-# View on Screen:  output = ""text", or "markdown", "html"
-
 Womenlf_clean %>%
   furniture::table1(working_ord, working_any, 
                     working_full, working_type,
                     na.rm = FALSE,              # do NOT restrict to complete cases!!!
-                    output = "html")
+                    output = "markdown")
 ```
 
 
@@ -140,22 +131,14 @@ Other Predisctors, univariate
 
 
 ```{r}
-# Knit to Website: output = "html" 
-# Knit to PDF:     output = "latex2"
-# View on Screen:  output = ""text", or "markdown", "html"
-
 Womenlf_clean %>%
   furniture::table1("Husband's Income, $1000's" = hincome, 
                     "Children In the Home" = children, 
                     "Region of Canada" = region,
-                    output = "html")
+                    output = "markdown")
 ```
 
 ```{r}
-# Knit to Website: output = "html" 
-# Knit to PDF:     output = "latex2"
-# View on Screen:  output = ""text", or "markdown", "html"
-
 Womenlf_clean %>%
   furniture::table1("Husband's Income, $1000's" = hincome, 
                     "Children In the Home" = children, 
@@ -163,7 +146,8 @@ Womenlf_clean %>%
                     splitby = ~ working_ord, 
                     row_wise = TRUE,                        # show row %s rather than default column %s
                     test = TRUE,
-                    output = "html")
+                    total = TRUE,
+                    output = "markdown")
 ```
 
 ### Husband's Income
@@ -202,7 +186,14 @@ Womenlf_clean %>%
   ggplot(aes(hincome,
              x = working_ord,
              fill = working_ord)) +
-  geom_violin(alpha = .3)
+  geom_violin(alpha = .3) + 
+  stat_summary(fun = mean, 
+               geom = "errorbar", 
+               aes(ymax = ..y.., 
+                   ymin = ..y..),
+               width = .75, 
+               color = "red",
+               size = 1)
 ```
 
 ### Children in Home
@@ -304,23 +295,10 @@ extract_exp <- function(fit_glm){
 }
 ```
 
-```{r, include=FALSE}
-texreg::screenreg(extract_exp(fit_glm_2),
-                  custom.coef.names = c("BL: No children, Husband Earns $14,000/yr",
-                                        "Husband's Income, $1000's",
-                                        "Children in the Home"),
-                  custom.model.names = "OR, Women is in the Workforce at All",
-                  single.row = TRUE,
-                  custom.note = "* The value of '1' is outside the confidence interval for the OR")
-```
 
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(extract_exp(fit_glm_2),
+texreg::knitreg(extract_glm_exp(fit_glm_2),
                 custom.coef.names = c("BL: No children, Husband Earns $14,000/yr",
                                       "Husband's Income, $1000's",
                                       "Children in the Home"),
@@ -337,6 +315,32 @@ texreg::htmlreg(extract_exp(fit_glm_2),
 * For each additional thousand dollars the husband makes, the odds ratio decreases by about 4 percent.
 
 * If there are children in the home, the odds of being in the workforce is nearly a fifth as large.
+
+```{r}
+interactions::interact_plot(model = fit_glm_2,
+                            pred = hincome,
+                            modx = children,
+                            interval = TRUE)
+```
+
+
+
+```{r}
+interactions::interact_plot(model = fit_glm_2,
+                            pred = hincome,
+                            modx = children,
+                            interval = TRUE,
+                            x.label = "Husband's Income, in $1,000's",
+                            y.label = "Predicted Probability of\nWomen Being in the Workforce",
+                            legend.main = "Children in the Home:",
+                            modx.labels = c("Absent", "Present"),
+                            colors = rep("black", 2)) +
+  geom_vline(xintercept = 14, color = "gray25") +   # reference line for intercept
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2, "cm"))
+```
+
 
 
 ```{r}
@@ -402,24 +406,10 @@ The `texreg` package uses an intermediate function called `extract()` to extract
 
 
 
-```{r, include=FALSE}
-texreg::screenreg(list(extract_exp(fit_glm_2), extract_exp(fit_glm_4)),
-                  custom.coef.names = c("BL: No children, Husband Earns $14,000/yr",
-                                        "Husband's Income, $1000's",
-                                        "Children in the Home"),
-                  custom.model.names = c("Working at All",
-                                         "Full vs. Part-Time"),
-                  single.row = TRUE,
-                  custom.note = "* The value of '1' is outside the confidence interval for the OR")
-```
-
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(list(extract_exp(fit_glm_2), extract_exp(fit_glm_4)),
+texreg::knitreg(list(extract_glm_exp(fit_glm_2), 
+                     extract_glm_exp(fit_glm_4)),
                 custom.coef.names = c("BL: No children, Husband Earns $14,000/yr",
                                       "Husband's Income, $1000's",
                                       "Children in the Home"),
@@ -439,6 +429,33 @@ texreg::htmlreg(list(extract_exp(fit_glm_2), extract_exp(fit_glm_4)),
 * If there are children in the home, the odds of being in the workforce is drastically reduced.
 
 
+
+```{r}
+interactions::interact_plot(model = fit_glm_4,
+                            pred = hincome,
+                            modx = children,
+                            interval = TRUE)
+```
+
+
+
+```{r}
+interactions::interact_plot(model = fit_glm_4,
+                            pred = hincome,
+                            modx = children,
+                            interval = TRUE,
+                            x.label = "Husband's Income, in $1,000's",
+                            y.label = "Predicted Probability of\nWomen Being in the Workforce Full Time\nif they are working",
+                            legend.main = "Children in the Home:",
+                            modx.labels = c("Absent", "Present"),
+                            colors = rep("black", 2)) +
+  geom_vline(xintercept = 14, color = "gray25") +   # reference line for intercept
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2, "cm"))
+```
+
+
 ```{r}
 effects::allEffects(fit_glm_4)
 ```
@@ -456,7 +473,7 @@ effects::Effect(focal.predictors = c("hincome", "children"),
   geom_line(size = 1) +
   theme_bw() +
   labs(x = "Husband's Income, in $1000's",
-       y = "Predicted Probability of\nEmployed Women Work Full Time vs. Part Time",
+       y = "Predicted Probability of\nWomen Being in the Workforce Full Time\nif they are working",
        color    = "Children in\nthe Home:",
        linetype = "Children in\nthe Home:") +
   theme(legend.position = c(1, 1),
@@ -469,6 +486,8 @@ effects::Effect(focal.predictors = c("hincome", "children"),
 
 Multinomial Logistic Regression fits a single model by specifing a reference level of the outcome and comparing each additional level to it.  In our case we will choose `not working` as the reference category adn get a set of parameter estimates (betas) for each of the two options `part time` and `full time`.
 
+### Fit Model 1: main effects only
+
 Use `multinom()` function in the base $R$ `nnet` package.  You will also need the `MASS` and $R$ package (only to compute MLEs).  Make sure to remove cases with missing data on predictors before modeling or use the `na.action = na.omit` optin in the `multinom()` model command.
 
 ```{r}
@@ -479,6 +498,9 @@ summary(fit_multnom_1,
         corr = FALSE,
         wald = TRUE)
 ```
+
+
+### Fit Model 2: only significant predictors
 
 Reduce the model by removing the `region` variable.
 
@@ -491,11 +513,24 @@ summary(fit_multnom_2,
         wald = TRUE)
 ```
 
+
+### Compre model fit
+
 Check if we need to keep the `region` variable in our model.
 
 ```{r}
 anova(fit_multnom_1, fit_multnom_2)
 ```
+
+```{r}
+performance::compare_performance(fit_multnom_1, fit_multnom_2, rank = TRUE)
+```
+
+
+### Extract parameters
+
+
+#### Logit Scale
 
 Here is one way to extract the parameter estimates, but recall they are in terms of the **logit** or log-odds, not probability.
 
@@ -504,33 +539,41 @@ broom::tidy(fit_multnom_2) %>%
   dplyr::mutate(p.value = round(p.value, 4))
 ```
 
+
+#### Odds-Ratio Scale
+
 The `effects::allEffects()` function provides probability estimates for each outcome level for different levels of the predictors.
 
 ```{r}
 effects::allEffects(fit_multnom_2)
 ```
 
-The `texreg` package know how to handle this type of model and displays the parameteri estimates in two seperate columns.  It is unable to use the `extract_exp()` helper function to exponentiate the betas.
+### Tabulate parameters
 
-```{r, include=FALSE}
-texreg::screenreg(fit_multnom_2,
-                  custom.coef.names = c("BL: No children, Husband Earns $14,000/yr",
-                                        "Husband's Income, $1000's",
-                                        "Children in the Home"),
-                  single.row = TRUE)
+The `texreg` package know how to handle this type of model and displays the parameters estimates in two separate columns. 
+
+```{r}
+texreg::extract(fit_multnom_2)
 ```
 
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
+texreg::knitreg(fit_multnom_2,
+                custom.model.name = c("b (SE)"),
+                custom.coef.map = list("Part Time: (Intercept)"     = "PT-BL: No children, Husband Earns $14,000/yr",
+                                       "Part Time: I(hincome - 14)" = "PT-Husband's Income, in $1,000's",
+                                       "Part Time: childrenpresent" = "PT-Children in the Home",
+                                       "Full Time: (Intercept)"     = "FT-BL: No children, Husband Earns $14,000/yr",
+                                       "Full Time: I(hincome - 14)" = "FT-Husband's Income, in $1,000's",
+                                       "Full Time: childrenpresent" = "FT-Children in the Home"),
+                groups = list("Part Time" = 1:3,
+                              "Full Time" = 4:6),
+                single.row = TRUE)
+```
 
-texreg::htmlreg(fit_multnom_2,
-                  custom.coef.names = c("BL: No children, Husband Earns $14,000/yr",
-                                        "Husband's Income, $1000's",
-                                        "Children in the Home"),
-                  single.row = TRUE)
+
+```{r}
+fit_multnom_2 %>% coef() 
 ```
 
 
@@ -538,8 +581,196 @@ texreg::htmlreg(fit_multnom_2,
 fit_multnom_2 %>% coef() %>% exp()
 ```
 
+```{r}
+fit_multnom_2 %>% confint() %>% exp()
+```
 
-**Interpretation: **
+
+
+
+### Plot Predicted Probabilities
+
+> NOTE:  I'm not sure how to use the `interactions::interact_plot()` function with multinomial models.
+
+#### Manually Compute
+
+* estimates for probabilities and the associated 95% confidence intervals
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_multnom_2)
+```
+
+#### Wrange 
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_multnom_2) %>% 
+  data.frame() 
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_multnom_2) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time)
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_multnom_2) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time) %>% 
+  tidyr::pivot_longer(cols = starts_with("est"),
+                      names_to = c(".value", "work_level"),
+                      names_pattern = "est_(.*)_(.*)",
+                      values_to = "fit")
+                      
+```
+
+#### Plot, version 1
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
+                mod = fit_multnom_2) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time) %>% 
+  tidyr::pivot_longer(cols = starts_with("est"),
+                      names_to = c(".value", "work_level"),
+                      names_pattern = "est_(.*)_(.*)",
+                      values_to = "fit") %>% 
+  dplyr::mutate(work_level = work_level %>% 
+                  factor() %>% 
+                  forcats::fct_recode("Not at All" = "none",
+                                      "Part Time"  = "part",
+                                      "Full Time"  = "full") %>% 
+                  forcats::fct_rev()) %>%
+  ggplot(aes(x = hincome,
+             y = fit)) +
+  geom_vline(xintercept = 14,  color = "gray50") +  # reference line for intercept
+  geom_hline(yintercept = 0.5, color = "gray50") + # 50% chance line for reference
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper,
+                  fill = work_level),
+              alpha = .3) + 
+  geom_line(aes(color = work_level,
+                linetype = work_level),
+            size = 1) +
+  facet_grid(. ~ children, labeller = label_both) +
+  theme_bw() +
+  labs(x = "Husband's Income, in $1000's",
+       y = "Predicted Probability",
+       color    = "Woman Works:",
+       fill     = "Woman Works:",
+       linetype = "Woman Works:") +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2, "cm")) +
+  coord_cartesian(ylim = c(0, 1)) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
+```
+
+#### Plot, version 2
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
+                mod = fit_multnom_2) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time) %>% 
+  tidyr::pivot_longer(cols = starts_with("est"),
+                      names_to = c(".value", "work_level"),
+                      names_pattern = "est_(.*)_(.*)",
+                      values_to = "fit") %>% 
+  dplyr::mutate(work_level = factor(work_level,
+                                    levels = c("none", "part", "full"),
+                                    labels = c("Not at All",
+                                               "Part Time",
+                                               "Full Time"))) %>% 
+  ggplot(aes(x = hincome,
+             y = fit)) +
+  geom_vline(xintercept = 14,  color = "gray50") +  # reference line for intercept
+  geom_hline(yintercept = 0.5, color = "gray50") + # 50% chance line for reference
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper,
+                  fill = children),
+              alpha = .3) + 
+  geom_line(aes(color    = children,
+                linetype = children),
+            size = 1) +
+  facet_grid(. ~ work_level) +
+  theme_bw() +
+  labs(x = "Husband's Income, in $1000's",
+       y = "Predicted Probability",
+       color    = "Children in the Home:",
+       fill     = "Children in the Home:",
+       linetype = "Children in the Home:") +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2, "cm")) +
+  coord_cartesian(ylim = c(0, 1)) +
+  scale_linetype_manual(values = c("solid", "longdash")) +
+  scale_fill_manual(values = c("dodgerblue", "coral3"))+
+  scale_color_manual(values = c("dodgerblue", "coral3"))
+```
+
+
+### Interpretation
 
 * Among women without children in the home and a husband making $14,000 annually, there is about 1:4 odds she is working part time verses not at all. and a 1.8:1 odds she is working full time.
 
@@ -550,84 +781,13 @@ fit_multnom_2 %>% coef() %>% exp()
 
 
 
-```{r}
-effects::Effect(focal.predictors = c("hincome", "children"),
-                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
-                mod = fit_multnom_2) %>% 
-  data.frame() %>% 
-  dplyr::select(hincome, children, starts_with("prob")) %>% 
-  dplyr::rename(none = prob.Not.at.All,
-                part = prob.Part.Time,
-                full = prob.Full.Time) %>% 
-  tidyr::gather(key = work_level,
-                value = fit,
-                none, part, full) %>% 
-  dplyr::mutate(work_level = factor(work_level,
-                                    levels = c("none", "part", "full"),
-                                    labels = c("Not at All",
-                                               "Part Time",
-                                               "Full Time"))) %>% 
-  ggplot(aes(x = hincome,
-             y = fit,
-             color = work_level %>% fct_rev,
-             linetype = work_level %>% fct_rev)) +
-  geom_vline(xintercept = 14, color = "gray25") +   # reference line for intercept
-  geom_line(size = 1) +
-  facet_grid(. ~ children, labeller = label_both) +
-  theme_bw() +
-  labs(x = "Husband's Income, in $1000's",
-       y = "Predicted Probability",
-       color    = "Woman Works:",
-       linetype = "Woman Works:") +
-  theme(legend.key.width = unit(1, "cm")) +
-  coord_cartesian(ylim = c(0, 1)) +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
-```
-
-
-```{r}
-effects::Effect(focal.predictors = c("hincome", "children"),
-                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
-                mod = fit_multnom_2) %>% 
-  data.frame() %>% 
-  dplyr::select(hincome, children, starts_with("prob")) %>% 
-  dplyr::rename(none = prob.Not.at.All,
-                part = prob.Part.Time,
-                full = prob.Full.Time) %>% 
-  tidyr::gather(key = work_level,
-                value = fit,
-                none, part, full) %>% 
-  dplyr::mutate(work_level = factor(work_level,
-                                    levels = c("none", "part", "full"),
-                                    labels = c("Not at All",
-                                               "Part Time",
-                                               "Full Time"))) %>% 
-  ggplot(aes(x = hincome,
-             y = fit,
-             color = children %>% fct_rev,
-             linetype = children %>% fct_rev)) +
-  geom_vline(xintercept = 14, color = "gray25") +   # reference line for intercept
-  geom_line(size = 1) +
-  facet_grid(. ~ work_level) +
-  theme_bw() +
-  labs(x = "Husband's Income, in $1000's",
-       y = "Predicted Probability",
-       color    = "Children in\nthe Home:",
-       linetype = "Children in\nthe Home:") +
-  theme(legend.position = c(1, 1),
-        legend.justification = c(1.1, 1.1),
-        legend.background = element_rect(color = "black"),
-        legend.key.width = unit(1, "cm")) +
-  coord_cartesian(ylim = c(0, 1)) +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
-```
-
-
 ## Proportional-odds (ordinal) Logistic Regression
 
 This type of logisit regression model forces the predictors to have similar relationship with the outcome (slopes), but different means (intercepts).  This is called the proportional odds assumption.
 
-Use `polr()` function in the base $R$ `MASS` package.  While outcome variable may be a regualr `factor`, it is prefereable to specify it as an `ordered` factor.
+### Fit the Model
+
+Use `polr()` function in the base $R$ `MASS` package.  While outcome variable (dependent variable, "Y") may be a regular `factor`, it is preferable to specify it as an `ordered` factor.
 
 ```{r}
 fit_polr_1 <- MASS::polr(working_ord ~ hincome + children,
@@ -636,10 +796,22 @@ fit_polr_1 <- MASS::polr(working_ord ~ hincome + children,
 summary(fit_polr_1)
 ```
 
+### Extract Parameters
+
+#### Logit Scale
+
+
 ```{r}
-fit_polr_1$zeta %>% exp()
+fit_polr_1$zeta
 ```
 
+
+
+```{r}
+fit_polr_1 %>% confint()
+```
+
+#### Odds-Ratio Scale
 
 ```{r}
 fit_polr_1 %>% coef() %>% exp()
@@ -650,41 +822,211 @@ fit_polr_1 %>% coef() %>% exp()
 fit_polr_1 %>% confint() %>% exp()
 ```
 
+#### Predicted Probabilities
 
 ```{r}
 effects::allEffects(fit_polr_1)
 ```
 
-
-
-
-```{r, include=FALSE}
-texreg::screenreg(fit_polr_1)
-```
-
-
-```{r, include=FALSE}
-texreg::screenreg(fit_polr_1,
-                custom.coef.names = c("Husband's Income, $1000's",
-                                      "Children in the Home"),
-                single.row = TRUE)
-```
+### Tabulate parameters
 
 
 ```{r, results='asis'}
-# Knit to Website: texreg::htmlreg()
-# Knit to PDF:     texreg::texreg()
-# View on Screen:  texreg::screenreg()
-
-texreg::htmlreg(fit_polr_1,
-                custom.coef.names = c("Husband's Income, $1000's",
-                                      "Children in the Home"),
+texreg::knitreg(fit_polr_1,
+                custom.model.name = "Proportional Odds",
+                custom.coef.map = list("hincome" = "Husband's Income, $1000's",
+                                       "childrenpresent" = "Children in the Home",
+                                       "Not at All|Part Time" = "Not at All vs.Part Time",
+                                       "Part Time|Full Time"  = "Part Time vs.Full Time"),
+                groups = list("Coefficents" = 1:2,
+                              "Intercepts" = 3:4),
+                caption = "Proportional-odds (ordinal) Logistic Regression",
+                caption.above = TRUE,
                 single.row = TRUE)
 ```
 
 
+### Plot Predicted Probabilities
 
-**Interpretation: **
+#### Manually Compute
+
+* estimates for probabilities and the associated 95% confidence intervals
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_polr_1)
+```
+
+#### Wrangle
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_polr_1) %>% 
+  data.frame()
+```
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_polr_1) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time)
+```
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = c(20, 30, 40)),
+                mod = fit_polr_1) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time) %>% 
+  tidyr::pivot_longer(cols = starts_with("est"),
+                      names_to = c(".value", "work_level"),
+                      names_pattern = "est_(.*)_(.*)",
+                      values_to = "fit")
+                      
+```
+
+#### Plot, version 1
+
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
+                mod = fit_polr_1) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time) %>% 
+  tidyr::pivot_longer(cols = starts_with("est"),
+                      names_to = c(".value", "work_level"),
+                      names_pattern = "est_(.*)_(.*)",
+                      values_to = "fit") %>% 
+  dplyr::mutate(work_level = work_level %>% 
+                  factor() %>% 
+                  forcats::fct_recode("Not at All" = "none",
+                                      "Part Time"  = "part",
+                                      "Full Time"  = "full") %>% 
+                  forcats::fct_rev()) %>%
+  ggplot(aes(x = hincome,
+             y = fit)) +
+  geom_vline(xintercept = 14,  color = "gray50") +  # reference line for intercept
+  geom_hline(yintercept = 0.5, color = "gray50") + # 50% chance line for reference
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper,
+                  fill = work_level),
+              alpha = .3) + 
+  geom_line(aes(color = work_level,
+                linetype = work_level),
+            size = 1) +
+  facet_grid(. ~ children, labeller = label_both) +
+  theme_bw() +
+  labs(x = "Husband's Income, in $1000's",
+       y = "Predicted Probability",
+       color    = "Woman Works:",
+       fill     = "Woman Works:",
+       linetype = "Woman Works:") +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2, "cm")) +
+  coord_cartesian(ylim = c(0, 1)) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
+```
+
+
+
+#### Plot, version 2
+
+```{r}
+effects::Effect(focal.predictors = c("hincome", "children"),
+                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
+                mod = fit_polr_1) %>% 
+  data.frame() %>% 
+  dplyr::select(hincome, children, 
+                starts_with("prob"), 
+                starts_with("L.prob"), 
+                starts_with("U.prob")) %>% 
+  dplyr::rename(est_fit_none = prob.Not.at.All,
+                est_fit_part = prob.Part.Time,
+                est_fit_full = prob.Full.Time,
+                est_lower_none = L.prob.Not.at.All,
+                est_lower_part = L.prob.Part.Time,
+                est_lower_full = L.prob.Full.Time,
+                est_upper_none = U.prob.Not.at.All,
+                est_upper_part = U.prob.Part.Time,
+                est_upper_full = U.prob.Full.Time) %>% 
+  tidyr::pivot_longer(cols = starts_with("est"),
+                      names_to = c(".value", "work_level"),
+                      names_pattern = "est_(.*)_(.*)",
+                      values_to = "fit") %>% 
+  dplyr::mutate(work_level = factor(work_level,
+                                    levels = c("none", "part", "full"),
+                                    labels = c("Not at All",
+                                               "Part Time",
+                                               "Full Time"))) %>% 
+  ggplot(aes(x = hincome,
+             y = fit)) +
+  geom_vline(xintercept = 14,  color = "gray50") +  # reference line for intercept
+  geom_hline(yintercept = 0.5, color = "gray50") + # 50% chance line for reference
+  geom_ribbon(aes(ymin = lower,
+                  ymax = upper,
+                  fill = children),
+              alpha = .3) + 
+  geom_line(aes(color    = children,
+                linetype = children),
+            size = 1) +
+  facet_grid(. ~ work_level) +
+  theme_bw() +
+  labs(x = "Husband's Income, in $1000's",
+       y = "Predicted Probability",
+       color    = "Children in the Home:",
+       fill     = "Children in the Home:",
+       linetype = "Children in the Home:") +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2, "cm")) +
+  coord_cartesian(ylim = c(0, 1)) +
+  scale_linetype_manual(values = c("solid", "longdash")) +
+  scale_fill_manual(values = c("dodgerblue", "coral3"))+
+  scale_color_manual(values = c("dodgerblue", "coral3"))
+```
+
+
+### Interpretation
 
 * Among women without children in the home and a husband making $14,000 annually, there is a 26% chance she is not working, 21% change she is working part time and just over a 53% change she is working full time.
 
@@ -693,73 +1035,21 @@ texreg::htmlreg(fit_polr_1,
 * If there are children in the home, the odds ratio of working part time vs not at all decreases by 86% and similartly the odds ratio fo working full time vs part time also decreases by 86%.
 
 
-```{r}
-effects::Effect(focal.predictors = c("hincome", "children"),
-                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
-                mod = fit_polr_1) %>% 
-  data.frame() %>% 
-  dplyr::select(hincome, children, starts_with("prob")) %>% 
-  dplyr::rename(none = prob.Not.at.All,
-                part = prob.Part.Time,
-                full = prob.Full.Time) %>% 
-  tidyr::gather(key = work_level,
-                value = fit,
-                none, part, full) %>% 
-  dplyr::mutate(work_level = factor(work_level,
-                                    levels = c("none", "part", "full"),
-                                    labels = c("Not at All",
-                                               "Part Time",
-                                               "Full Time"))) %>% 
-  ggplot(aes(x = hincome,
-             y = fit,
-             color = work_level %>% fct_rev,
-             linetype = work_level %>% fct_rev)) +
-  geom_vline(xintercept = 14, color = "gray25") +   # reference line for intercept
-  geom_line(size = 1) +
-  facet_grid(. ~ children, labeller = label_both) +
-  theme_bw() +
-  labs(x = "Husband's Income, in $1000's",
-       y = "Predicted Probability",
-       color    = "Woman Works:",
-       linetype = "Woman Works:") +
-  theme(legend.key.width = unit(1, "cm")) +
-  coord_cartesian(ylim = c(0, 1)) +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
-```
+
+
+
+## Compare Model Fits: Multinomial vs. Ordinal
+
+The multinomail and proportional-odds models aren't truely nested, so you can NOT conduct a Likelihood-Ratio Test (aka Deviance Difference Test) with the `anova()` command.  
+
+You can use the `performance::compare_performance()` command to compare overal model performance via the Bayes factor (`BF`).
+
 
 ```{r}
-effects::Effect(focal.predictors = c("hincome", "children"),
-                xlevels = list(hincome = seq(from = 1, to = 45, by = .1)),
-                mod = fit_polr_1) %>% 
-  data.frame() %>% 
-  dplyr::select(hincome, children, starts_with("prob")) %>% 
-  dplyr::rename(none = prob.Not.at.All,
-                part = prob.Part.Time,
-                full = prob.Full.Time) %>% 
-  tidyr::gather(key = work_level,
-                value = fit,
-                none, part, full) %>% 
-  dplyr::mutate(work_level = factor(work_level,
-                                    levels = c("none", "part", "full"),
-                                    labels = c("Not at All",
-                                               "Part Time",
-                                               "Full Time"))) %>% 
-  ggplot(aes(x = hincome,
-             y = fit,
-             color = children %>% fct_rev,
-             linetype = children %>% fct_rev)) +
-  geom_vline(xintercept = 14, color = "gray25") +   # reference line for intercept
-  geom_line(size = 1) +
-  facet_grid(. ~ work_level) +
-  theme_bw() +
-  labs(x = "Husband's Income, in $1000's",
-       y = "Predicted Probability",
-       color    = "Children in\nthe Home:",
-       linetype = "Children in\nthe Home:") +
-  theme(legend.position = c(1, 1),
-        legend.justification = c(1.1, 1.1),
-        legend.background = element_rect(color = "black"),
-        legend.key.width = unit(1, "cm")) +
-  coord_cartesian(ylim = c(0, 1)) +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
+performance::compare_performance(fit_multnom_2, fit_polr_1, rank = TRUE)
 ```
+
+### Interpretation
+
+The multinomial model looks to fit these data better than the proportional-odds (aka ordinal) logisic model.
+

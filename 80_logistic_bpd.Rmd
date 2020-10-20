@@ -27,15 +27,28 @@ knitr::opts_chunk$set(comment     = "",
                       fig.height  = 4)        # set default figure height to 3 inches
 ```
 
+
+Install a package Dr. Schwartz wrote:
+
+```{r}
+remotes::install_github("sarbearschwartz/texreghelpr")
+```
+
+
+
 ```{r, message=FALSE, error=FALSE}
 library(tidyverse)
 library(haven)        # read in SPSS dataset
 library(furniture)    # nice table1() descriptives
 library(stargazer)    # display nice tables: summary & regression
-library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(texreg)       # Convert Regression Output to LaTeX or HTML tables
+library(texreghelpr)  # Dr. Schwartz's helper funtcions for texreg tables
 library(psych)        # contains some useful functions, like headTail
 library(car)          # Companion to Applied Regression
 library(pscl)         # psudo R-squared function
+library(interactions) # interaction plots
+library(sjPlot)       # various plots
+library(performance)  # r-squared values
 ```
 
 ## Background
@@ -51,15 +64,14 @@ Data courtesy of Dr. Linda Van Marter.
 
 Van Marter, L.J., Leviton, A., Kuban, K.C.K., Pagano, M. & Allred, E.N. (1990).  *Maternal glucocorticoid therapy and reduced risk of bronchopulmonary dysplasia.* Pediatrics, 86, 331-336.
 
-The data are from a study of low birth weight infants in a neonatal intensive care unit. The study was designed to examine the development of **bronchopulmonary dysplasia (BPD)**, a chronic lung disease, in a sample of 223 infants weighing less than 1750 grams. The response variable is binary, denoting whether an infant develops BPD by day 28 of life (where BPD is defined by both oxygen 
-requirement and compatible chest radiograph).
+The data are from a study of low birth weight infants in a neonatal intensive care unit. The study was designed to examine the development of **bronchopulmonary dysplasia (BPD)**, a chronic lung disease, in a sample of 223 infants weighing less than 1750 grams. The response variable is binary, denoting whether an infant develops BPD by day 28 of life (where BPD is defined by both oxygen requirement and compatible chest radiograph).
 
 ### Variables    
 
-* bpd(0 [N],1 [Y])    
-* brthwght (grams)    
-* gestage (weeks)    
-* toxemia (0 [N] ,1 [Y]) in mother    
+* `bpd` 0 = no, 1 = yes    
+* `brthwght` number of grams    
+* `gestage` number of weeks    
+* `toxemia` in mother, 0 = no, 1 = yes    
 
 ```{r}
 bpd_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/data/master/Regression/VanMarter_%20BPD.txt", 
@@ -74,14 +86,14 @@ n
 
 
 ```{r}
-str(bpd_raw)
+tibble::glimpse(bpd_raw)
 ```
 
 ```{r}
 head(bpd_raw)
 ```
 
-
+> Note: For logistic regression, you need to leave the outcome (dependent variable) coded as zeros `0` and ones `1` and NOT apply lables.  You do want to apply labels to factors that function as predictors (independent varaibles).
 
 ```{r}
 bpd_clean <- bpd_raw %>% 
@@ -100,31 +112,49 @@ summary(bpd_clean)
 
 ## Logistic Regresion
 
+Instead of using the `lm()` function from base R, you use `glm()`.  You also need to add an option to specify which generalization you want to use.  To do logistic regression for a binary outcome, use `family = binomial(link = "logit")`.
+
 ### Fit the Models
+
+Null Model:
 
 ```{r}
 fit_glm_0 <- glm(bpd ~ 1, 
                  data = bpd_clean, 
-                 family = binomial(link = "logit")) 
+                 family = binomial(link = "logit"))
+```
 
+Main Effects Model:
 
+```{r}
 fit_glm_1 <- glm(bpd ~ I(brthwght/100) + gestage + toxemia, 
                  data = bpd_clean, 
                  family = binomial(link = "logit")) 
 ```
 
+
+
+
 #### Log Likelihood
 
 ```{r}
-logLik(fit_glm_0)
-logLik(fit_glm_1)
+logLik(fit_glm_0) # Null Model
+```
+
+
+```{r}
+logLik(fit_glm_1) # Full Model
 ```
 
 #### Deviance = -1 times the Log Likelihood
 
 ```{r}
-deviance(fit_glm_0)
-deviance(fit_glm_1)
+deviance(fit_glm_0) # Null Model
+```
+
+
+```{r}
+deviance(fit_glm_1) # Full Model
 ```
 
 ### GoF Measures
@@ -132,9 +162,13 @@ deviance(fit_glm_1)
 #### AIC
 
 ```{r}
-AIC(fit_glm_0)
-AIC(fit_glm_1)
-```      
+AIC(fit_glm_0)  # Null Model
+```
+
+
+```{r}
+AIC(fit_glm_1)  # Full Model
+```
 
 
 
@@ -142,10 +176,12 @@ AIC(fit_glm_1)
 
 http://thestatsgeek.com/2014/02/08/r-squared-in-logistic-regression/ 
 
-Technically, $R^2$ cannot be computed the same way in logistic regression as it is in OLS regression. The $pseudo-R^2$, in logistic regression, is defined as $1−\frac{L_1}{L_0}$, where $L_0$ represents the log likelihood for the "constant-only" or NULL model and $L_1$ is the log likelihood for the full model with constant and predictors.
+Technically, $R^2$ cannot be computed the same way in logistic regression as it is in OLS regression. NULL model and $L_1$ is the log likelihood for the full model with constant and predictors.  There are several (over 10) alternatives that endever to calculate a similar metric in different ways.  
 
 
-#### McFadden's pseud- R^2
+#### McFadden's pseud-R^2
+
+McFadden's $pseudo-R^2$, in logistic regression, is defined as $1−\frac{L_1}{L_0}$, where $L_0$ represents the log likelihood for the "constant-only" or 
 
 $$
 R^2_{McF} = 1 - \frac{L_1}{L_0}
@@ -160,7 +196,7 @@ MFR2
 
 #### Cox & Snell
 
-$l = e^{L}$, sinc $L$ is the log of the likelihood and $l$ is the likelihood...$log(l) = L$
+$l = e^{L}$, since $L$ is the log of the likelihood and $l$ is the likelihood...$log(l) = L$
 
 $$
 R^2_{CS} = 1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n} \\
@@ -188,11 +224,22 @@ NR2 <- CSR2 / (1 - exp(logLik(fit_glm_0))^(2/n))
 NR2 
 ```
 
+
+#### Tjur
+
+
+```{r}
+performance::r2(fit_glm_1)
+```
+
+
 #### Several with the `pscl::pR2()` function 
 
 ```{r}
 pscl::pR2(fit_glm_1)
 ```
+
+
 
 
 
@@ -223,7 +270,7 @@ fit_glm_1 %>% confint() %>% exp()
 
 ### Significance of Terms
 
-#### Likelihood Ratio Test of all Nested Models
+#### Likelihood Ratio Test (Deviance Difference) of all Nested Models
 
 ```{r}
 anova(fit_glm_0, fit_glm_1)
@@ -270,28 +317,45 @@ sjPlot::tab_model(fit_glm_1,
 
 
 
-#### `texreg` default
+#### `texreg` default = Logit scale
 
-```{r}
-texreg::screenreg(fit_glm_1)
+```{r, results='asis'}
+texreg::knitreg(fit_glm_1,
+                single.row = TRUE)
 ```
 
-#### `texreg` Confidence Intervals on Logit Scale
+#### `texreg` Confidence Intervals on Logit scale
 
-```{r}
-texreg::screenreg(fit_glm_1,
-                  ci.force = TRUE)
-```
-
-
-#### `texreg` exponentiate the betas (SE are not exp)
-
-```{r}
-texreg::screenreg(fit_glm_1,
-                  override.coef = list(fit_glm_1 %>% coef() %>% exp()))
+```{r, results='asis'}
+texreg::knitreg(fit_glm_1,
+                single.row = TRUE,
+                ci.force = TRUE)
 ```
 
 
+#### `texreg` exponentiate the betas (SE are not exp) with 95% confidence intervals
+
+```{r, results='asis'}
+texreg::knitreg(texreghelpr::extract_glm_exp(fit_glm_1),
+                single.row = TRUE)
+```
+
+
+#### `texreg` with Logit and OR values BOTH
+
+```{r, results='asis'}
+texreg::knitreg(list(fit_glm_1,
+                     texreghelpr::extract_glm_exp(fit_glm_1,
+                                                  include.aic = FALSE,
+                                                  include.bic = FALSE,
+                                                  include.loglik = FALSE,
+                                                  include.deviance = FALSE,
+                                                  include.nobs = FALSE)),
+                custom.model.names = c("b (SE)",
+                                       "OR [95% CI]"),
+                single.row = TRUE,
+                ci.test = 1)
+```
 
 
 
@@ -305,6 +369,49 @@ texreg::screenreg(fit_glm_1,
 
 ```{r}
 summary(bpd_clean)
+```
+
+```{r}
+sjPlot::plot_model(fit_glm_1,
+                   type = "pred")
+```
+
+```{r}
+interactions::interact_plot(model = fit_glm_1,
+                            pred = brthwght,
+                            modx = gestage,
+                            mod2 = toxemia,
+                            outcome.scale = "link")
+```
+
+```{r}
+interactions::interact_plot(model = fit_glm_1,
+                            pred = brthwght,
+                            modx = gestage,
+                            mod2 = toxemia,
+                            outcome.scale = "response")
+```
+
+
+```{r}
+interactions::interact_plot(model = fit_glm_1,
+                            pred = brthwght,
+                            modx = gestage,
+                            modx.labels = c(28, 30, 32),
+                            mod2 = toxemia,
+                            outcome.scale = "response",
+                            x.label = "Birthweight, grams",
+                            y.label = "Probability of Bronchopulmonary Dysplasia",
+                            legend.main = "Gestational Age, weeks",
+                            mod2.label = c("Mother HAS Toxemia",
+                                           "Mother does NOT have Toxemia"),
+                            colors = rep("black", 3)) +
+  geom_hline(yintercept = .5, alpha = .2) +
+  theme_bw() +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.key.width = unit(2, "cm"))
 ```
 
 
@@ -348,17 +455,13 @@ effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
 
 ### Residual Diagnostics
 
-#### `sjPlot`
+
 
 ```{r}
 sjPlot::plot_model(fit_glm_1, type = "diag")
 ```
 
-#### base R graphics
 
-```{r}
-plot(fit_glm_1)
-```
 
 
 
