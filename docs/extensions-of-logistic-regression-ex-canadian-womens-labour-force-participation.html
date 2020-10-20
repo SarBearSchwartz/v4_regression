@@ -493,16 +493,16 @@ $ region   &lt;fct&gt; Ontario, Ontario, Ontario, Ontario, Ontario, Ontario, Ont
 <pre><code># A tibble: 10 x 4
    partic   hincome children region  
    &lt;fct&gt;      &lt;int&gt; &lt;fct&gt;    &lt;fct&gt;   
- 1 not.work      13 present  Ontario 
- 2 fulltime      15 absent   Prairie 
- 3 not.work       9 absent   Ontario 
- 4 not.work      23 present  Atlantic
- 5 fulltime      17 present  Ontario 
- 6 fulltime      27 absent   BC      
- 7 fulltime       1 absent   Prairie 
- 8 not.work      13 present  Quebec  
- 9 not.work      13 present  Quebec  
-10 fulltime       6 present  Quebec  </code></pre>
+ 1 not.work       9 present  Prairie 
+ 2 not.work      45 present  Atlantic
+ 3 not.work       9 present  Ontario 
+ 4 parttime       9 present  Ontario 
+ 5 parttime      13 present  Prairie 
+ 6 not.work      28 present  Ontario 
+ 7 not.work      23 present  BC      
+ 8 fulltime       9 absent   Ontario 
+ 9 fulltime       5 absent   Quebec  
+10 not.work      23 absent   Quebec  </code></pre>
 <p>Notice the order of the factor levels, especially for the <code>partic</code> factor</p>
 <div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#cb416-1"></a><span class="kw">str</span>(Womenlf)  <span class="co"># view the structure of the data</span></span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   263 obs. of  4 variables:
@@ -2468,7 +2468,7 @@ hincome    absent    present
           </div>
         </div>
       </div>
-<a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="count-outcome-regression-ex-possion-and-negative-binomial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -2527,9 +2527,8 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

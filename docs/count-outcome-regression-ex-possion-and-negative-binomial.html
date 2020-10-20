@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Count Outcome Regression - Ex: POssion and Negative Binomial | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Count Outcome Regression - Ex: POssion and Negative Binomial | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="cehs-research/eBook_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Count Outcome Regression - Ex: POssion and Negative Binomial | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html">
+<link rel="next" href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-authors"><i class="fa fa-check"></i>The Authors</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation - Example: Cancer Experiment</a><ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression - Example: Cancer Experiment</a><ul>
+<li class="chapter" data-level="2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>2.1</b> Background</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>2.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>2.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis: i.e. the eyeball method</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.1</b> Scatterplot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a><ul>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>3.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>3.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>3.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Manually checking residual diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>3.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="3.4.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>3.4.2</b> Plot the Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>4.1</b> Purpose</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>4.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>4.3.1</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="4.3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>4.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>4.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>5</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a><ul>
+<li class="chapter" data-level="5.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>5.1</b> Purpose</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="5.1.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>5.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>5.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.3</b> Regression Analysis</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>5.3.1</b> Subset the Sample</a></li>
+<li class="chapter" data-level="5.3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>5.3.2</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>5.3.3</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="5.3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>5.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>5.4</b> Conclusion</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>5.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="5.4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>5.4.2</b> Plot the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>5.5</b> Write-up</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>6</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a><ul>
+<li class="chapter" data-level="6.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>6.1</b> Background</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>6.1.1</b> Source</a></li>
+<li class="chapter" data-level="6.1.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>6.1.2</b> Reference</a></li>
+<li class="chapter" data-level="6.1.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>6.1.3</b> Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion"><i class="fa fa-check"></i><b>6.2</b> Logistic Regresion</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#fit-the-models"><i class="fa fa-check"></i><b>6.2.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="6.2.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#gof-measures"><i class="fa fa-check"></i><b>6.2.2</b> GoF Measures</a></li>
+<li class="chapter" data-level="6.2.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>6.2.3</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="6.2.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>6.2.4</b> Significance of Terms</a></li>
+<li class="chapter" data-level="6.2.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates-1"><i class="fa fa-check"></i><b>6.2.5</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="6.2.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plot"><i class="fa fa-check"></i><b>6.2.6</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="6.2.7" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#residual-diagnostics"><i class="fa fa-check"></i><b>6.2.7</b> Residual Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a><ul>
+<li class="chapter" data-level="7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>7.1</b> Background</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>7.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="7.1.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>7.1.2</b> Declare Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>7.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-un-adjusted"><i class="fa fa-check"></i><b>7.3</b> Logistic Regression - Simple, un-adjusted</a></li>
+<li class="chapter" data-level="7.4" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>7.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
+<li class="chapter" data-level="7.5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>7.5</b> Logistic Regression - Multivariate, with Interactions</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>7.5.1</b> Age and Weight</a></li>
+<li class="chapter" data-level="7.5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>7.5.2</b> Age and Smoking</a></li>
+<li class="chapter" data-level="7.5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>7.5.3</b> Weight and Smoking</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>7.6</b> Logistic Regression - Multivariate, Simplify</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>7.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>7.7</b> Logistic Regression - Multivariate, Final Model</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>7.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>7.7.2</b> Parameter Estiamtes Table</a></li>
+<li class="chapter" data-level="7.7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot-1"><i class="fa fa-check"></i><b>7.7.3</b> Marginal Model Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html"><i class="fa fa-check"></i><b>8</b> Count Outcome Regression - Ex: POssion and Negative Binomial</a><ul>
+<li class="chapter" data-level="8.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#background-4"><i class="fa fa-check"></i><b>8.1</b> Background</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#raw-dataset-1"><i class="fa fa-check"></i><b>8.1.1</b> Raw Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>8.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#entire-sample"><i class="fa fa-check"></i><b>8.2.1</b> Entire Sample</a></li>
+<li class="chapter" data-level="8.2.2" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#by-sex"><i class="fa fa-check"></i><b>8.2.2</b> By Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#poisson-reression"><i class="fa fa-check"></i><b>8.3</b> Poisson Reression</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#single-predictor-sex"><i class="fa fa-check"></i><b>8.3.1</b> Single Predictor: Sex</a></li>
+<li class="chapter" data-level="8.3.2" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#multiple-predictors"><i class="fa fa-check"></i><b>8.3.2</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#negative-binomial-regression"><i class="fa fa-check"></i><b>8.4</b> Negative Binomial Regression</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#multiple-predictors-1"><i class="fa fa-check"></i><b>8.4.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>8.5</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="8.6" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>8.6</b> Zero Inflated Negative Binomial</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>9</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a><ul>
+<li class="chapter" data-level="9.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#background-5"><i class="fa fa-check"></i><b>9.1</b> Background</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#raw-dataset-2"><i class="fa fa-check"></i><b>9.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="9.1.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>9.1.2</b> Declare Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>9.2</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>9.2.1</b> Husband’s Income</a></li>
+<li class="chapter" data-level="9.2.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>9.2.2</b> Children in Home</a></li>
+<li class="chapter" data-level="9.2.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>9.2.3</b> Region of Canada</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>9.3</b> Hierarchical (nested) Logistic Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>9.3.1</b> Role of Predictors on ANY working</a></li>
+<li class="chapter" data-level="9.3.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>9.3.2</b> Role of Predictors on TYPE of work</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>9.4</b> Multinomial (nominal) Logistic Regression</a></li>
+<li class="chapter" data-level="9.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>9.5</b> Proportional-odds (ordinal) Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="count-outcome-regression---ex-possion-and-negative-binomial" class="section level1">
+<h1><span class="header-section-number">8</span> Count Outcome Regression - Ex: POssion and Negative Binomial</h1>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb277-2" title="2"><span class="kw">library</span>(haven)        <span class="co"># read in SPSS dataset</span></a>
+<a class="sourceLine" id="cb277-3" title="3"><span class="kw">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></a>
+<a class="sourceLine" id="cb277-4" title="4"><span class="kw">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></a>
+<a class="sourceLine" id="cb277-5" title="5"><span class="kw">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></a>
+<a class="sourceLine" id="cb277-6" title="6"><span class="kw">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></a>
+<a class="sourceLine" id="cb277-7" title="7"><span class="kw">library</span>(car)          <span class="co"># Companion to Applied Regression</span></a>
+<a class="sourceLine" id="cb277-8" title="8"><span class="kw">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></a>
+<a class="sourceLine" id="cb277-9" title="9"><span class="kw">library</span>(glue)         <span class="co"># Interpreted String Literals </span></a>
+<a class="sourceLine" id="cb277-10" title="10"></a>
+<a class="sourceLine" id="cb277-11" title="11"><span class="kw">library</span>(DescTools)    <span class="co"># Tools for Descriptive Statistics</span></a>
+<a class="sourceLine" id="cb277-12" title="12"><span class="kw">library</span>(texreghelpr)  <span class="co"># Helper Functions for generalized models</span></a>
+<a class="sourceLine" id="cb277-13" title="13"></a>
+<a class="sourceLine" id="cb277-14" title="14"><span class="kw">library</span>(pscl)         <span class="co"># Political Science Computational Laboratory (ZIP)</span></a></code></pre></div>
+<div id="background-4" class="section level2">
+<h2><span class="header-section-number">8.1</span> Background</h2>
+<div id="raw-dataset-1" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Raw Dataset</h3>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1">data_gss &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb278-2" title="2"><span class="st">  </span>haven<span class="op">::</span><span class="kw">as_factor</span>()</a>
+<a class="sourceLine" id="cb278-3" title="3"></a>
+<a class="sourceLine" id="cb278-4" title="4">data_gss</a></code></pre></div>
+<pre><code># A tibble: 2,903 x 20
+      id marital divorce childs   age income polviews fund  attend spanking
+   &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;   
+ 1   402 divorc~ yes     2         54     10 middle ~ &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    
+ 2  1473 widowed no      0         24      2 slight ~ &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    
+ 3  1909 widowed no      7         75     NA extreme~ &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    
+ 4   334 widowed yes     2         41     NA middle ~ &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    
+ 5  1751 married no      2         37     12 extreme~ &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    
+ 6   456 divorc~ yes     0         40     NA extreme~ &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    
+ 7   292 never ~ no      2         36      9 &lt;NA&gt;     &lt;NA&gt;  nearl~ &lt;NA&gt;    
+ 8  2817 married yes     3         33     NA middle ~ &lt;NA&gt;  sever~ &lt;NA&gt;    
+ 9  2810 never ~ no      0         18     NA middle ~ &lt;NA&gt;  once ~ &lt;NA&gt;    
+10  2232 widowed no      2         35      6 middle ~ &lt;NA&gt;  sever~ &lt;NA&gt;    
+# ... with 2,893 more rows, and 10 more variables: totrelig &lt;dbl&gt;,
+#   sei &lt;dbl&gt;, pasei &lt;dbl&gt;, volteer &lt;dbl&gt;, female &lt;fct&gt;, nonwhite &lt;fct&gt;,
+#   prayer &lt;fct&gt;, educate &lt;dbl&gt;, volrelig &lt;fct&gt;, polview1 &lt;fct&gt;</code></pre>
+</div>
+</div>
+<div id="exploratory-data-analysis-4" class="section level2">
+<h2><span class="header-section-number">8.2</span> Exploratory Data Analysis</h2>
+<div id="entire-sample" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Entire Sample</h3>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb280-2" title="2"><span class="st">  </span>furniture<span class="op">::</span><span class="kw">tableF</span>(volteer)</a></code></pre></div>
+<pre><code>
+--------------------------------------
+ volteer Freq CumFreq Percent CumPerc
+ 0       2376 2376    81.85%  81.85% 
+ 1       286  2662    9.85%   91.70% 
+ 2       133  2795    4.58%   96.28% 
+ 3       64   2859    2.20%   98.48% 
+ 4       19   2878    0.65%   99.14% 
+ 5       11   2889    0.38%   99.52% 
+ 6       7    2896    0.24%   99.76% 
+ 7       6    2902    0.21%   99.97% 
+ 9       1    2903    0.03%   100.00%
+--------------------------------------</code></pre>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb282-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(volteer) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb282-3" title="3"><span class="st">  </span><span class="kw">summary</span>()</a></code></pre></div>
+<pre><code>    volteer      
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :0.0000  
+ Mean   :0.3334  
+ 3rd Qu.:0.0000  
+ Max.   :9.0000  </code></pre>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb284-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(volteer)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb284-3" title="3"><span class="st">  </span><span class="kw">geom_histogram</span>() </a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-204-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="by-sex" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> By Sex</h3>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb285-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(female) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb285-3" title="3"><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(<span class="kw">factor</span>(volteer),</a>
+<a class="sourceLine" id="cb285-4" title="4">                    <span class="dt">digits =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb285-5" title="5">                    <span class="dt">total =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>
+--------------------------------------------------------
+                                    female 
+                 Total        male         female      
+                 n = 2903     n = 1285     n = 1618    
+ factor(volteer)                                       
+    0            2376 (81.8%) 1057 (82.3%) 1319 (81.5%)
+    1            286 (9.9%)   132 (10.3%)  154 (9.5%)  
+    2            133 (4.6%)   50 (3.9%)    83 (5.1%)   
+    3            64 (2.2%)    26 (2%)      38 (2.3%)   
+    4            19 (0.7%)    10 (0.8%)    9 (0.6%)    
+    5            11 (0.4%)    4 (0.3%)     7 (0.4%)    
+    6            7 (0.2%)     5 (0.4%)     2 (0.1%)    
+    7            6 (0.2%)     1 (0.1%)     5 (0.3%)    
+    9            1 (0%)       0 (0%)       1 (0.1%)    
+--------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb287-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(female) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb287-3" title="3"><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(volteer,</a>
+<a class="sourceLine" id="cb287-4" title="4">                    <span class="dt">digits =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb287-5" title="5">                    <span class="dt">total =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb287-6" title="6">                    <span class="dt">test =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>
+-----------------------------------------------------------------
+                                  female 
+         Total           male            female          P-Value
+         n = 2903        n = 1285        n = 1618               
+ volteer                                                 0.365  
+         0.3334 (0.8858) 0.3167 (0.8493) 0.3467 (0.9139)        
+-----------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb289-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(volteer,</a>
+<a class="sourceLine" id="cb289-3" title="3">             <span class="dt">fill =</span> female)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb289-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) </a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-207-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="poisson-reression" class="section level2">
+<h2><span class="header-section-number">8.3</span> Poisson Reression</h2>
+<div id="single-predictor-sex" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> Single Predictor: Sex</h3>
+<div id="fit-the-model" class="section level4">
+<h4><span class="header-section-number">8.3.1.1</span> Fit the model</h4>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">glm_possion_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(volteer <span class="op">~</span><span class="st"> </span>female,</a>
+<a class="sourceLine" id="cb290-2" title="2">                     <span class="dt">data =</span> data_gss,</a>
+<a class="sourceLine" id="cb290-3" title="3">                     <span class="dt">family =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb290-4" title="4"></a>
+<a class="sourceLine" id="cb290-5" title="5"><span class="kw">summary</span>(glm_possion_<span class="dv">1</span>)</a></code></pre></div>
+<pre><code>
+Call:
+glm(formula = volteer ~ female, family = poisson(link = &quot;log&quot;), 
+    data = data_gss)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.8327  -0.8327  -0.7959  -0.7959   6.4273  
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -1.14970    0.04957  -23.19   &lt;2e-16 ***
+femalefemale  0.09048    0.06511    1.39    0.165    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 3658.1  on 2902  degrees of freedom
+Residual deviance: 3656.2  on 2901  degrees of freedom
+AIC: 4924.1
+
+Number of Fisher Scoring iterations: 6</code></pre>
+<blockquote>
+<p>Note: The deviance residuals range as high as 6.47!!!</p>
+</blockquote>
+</div>
+<div id="marginal-estimates" class="section level4">
+<h4><span class="header-section-number">8.3.1.2</span> Marginal Estimates</h4>
+<blockquote>
+<p>Note: Results are given on the log (not the response) scale</p>
+</blockquote>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb292-2" title="2"><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>female)</a></code></pre></div>
+<pre><code> female emmean     SE  df asymp.LCL asymp.UCL
+ male    -1.15 0.0496 Inf     -1.25    -1.053
+ female  -1.06 0.0422 Inf     -1.14    -0.976
+
+Results are given on the log (not the response) scale. 
+Confidence level used: 0.95 </code></pre>
+<blockquote>
+<p>Note: These means are on the original scale (number of volunteer activities in the past year). These standard errors are called “delta-method standard errors”</p>
+</blockquote>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</a>
+<a class="sourceLine" id="cb294-2" title="2">                <span class="dt">mod =</span> glm_possion_<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb294-3" title="3"><span class="st">  </span><span class="kw">data.frame</span>()</a></code></pre></div>
+<pre><code># A tibble: 2 x 5
+  female   fit     se lower upper
+  &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 male   0.317 0.0157 0.287 0.349
+2 female 0.347 0.0146 0.319 0.377</code></pre>
+</div>
+<div id="pairwise-post-hoc-test" class="section level4">
+<h4><span class="header-section-number">8.3.1.3</span> Pairwise Post Hoc Test</h4>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb296-2" title="2"><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>female) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb296-3" title="3"><span class="st">  </span><span class="kw">pairs</span>()</a></code></pre></div>
+<pre><code> contrast      estimate     SE  df z.ratio p.value
+ male - female  -0.0905 0.0651 Inf -1.390  0.1647 
+
+Results are given on the log (not the response) scale. </code></pre>
+</div>
+<div id="parameter-estimates-2" class="section level4">
+<h4><span class="header-section-number">8.3.1.4</span> Parameter Estimates</h4>
+<p>Coefficients are in terms of the <strong>LOG of</strong> the number of times a person volunteers per year.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
+<pre><code> (Intercept) femalefemale 
+ -1.14970081   0.09047562 </code></pre>
+<p>Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the <strong>incident rate ratio IRR</strong>.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">glm_possion_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<pre><code> (Intercept) femalefemale 
+   0.3167315    1.0946948 </code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1">texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_possion_<span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb302-2" title="2">                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_possion_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb302-3" title="3">                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb302-4" title="4">                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb302-5" title="5">                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb302-6" title="6">                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb302-7" title="7">                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</a>
+<a class="sourceLine" id="cb302-8" title="8">                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</a>
+<a class="sourceLine" id="cb302-9" title="9">                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</a>
+<a class="sourceLine" id="cb302-10" title="10">                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>),</a>
+<a class="sourceLine" id="cb302-11" title="11">                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Simple Possion Regression&quot;</span>,</a>
+<a class="sourceLine" id="cb302-12" title="12">                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb302-13" title="13">                  <span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>
+==============================================================
+                 b (SE)                 RR [95% CI]           
+--------------------------------------------------------------
+Intercept           -1.150 (0.050) ***  0.317 [0.287; 0.349] *
+Female vs. Male      0.090 (0.065)      1.095 [0.964; 1.244] *
+--------------------------------------------------------------
+AIC               4924.135                                    
+BIC               4936.082                                    
+Log Likelihood   -2460.068                                    
+Deviance          3656.198                                    
+Num. obs.         2903                                        
+==============================================================
+*** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05 (or 0 outside the confidence interval).</code></pre>
+</div>
+</div>
+<div id="multiple-predictors" class="section level3">
+<h3><span class="header-section-number">8.3.2</span> Multiple Predictors</h3>
+<div id="fit-the-model-1" class="section level4">
+<h4><span class="header-section-number">8.3.2.1</span> Fit the model</h4>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1">glm_possion_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income,</a>
+<a class="sourceLine" id="cb304-2" title="2">                     <span class="dt">data =</span> data_gss,</a>
+<a class="sourceLine" id="cb304-3" title="3">                     <span class="dt">family =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb304-4" title="4"></a>
+<a class="sourceLine" id="cb304-5" title="5"><span class="kw">summary</span>(glm_possion_<span class="dv">2</span>)</a></code></pre></div>
+<pre><code>
+Call:
+glm(formula = volteer ~ female + nonwhite + educate + income, 
+    family = poisson(link = &quot;log&quot;), data = data_gss)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.3061  -0.8864  -0.7597  -0.6064   5.8489  
+
+Coefficients:
+                  Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -3.15830    0.24479 -12.902  &lt; 2e-16 ***
+femalefemale       0.26132    0.07785   3.357 0.000789 ***
+nonwhitenon-white -0.28038    0.10838  -2.587 0.009681 ** 
+educate            0.10280    0.01443   7.123 1.05e-12 ***
+income             0.05683    0.01566   3.628 0.000286 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 2566.8  on 1943  degrees of freedom
+Residual deviance: 2465.5  on 1939  degrees of freedom
+  (959 observations deleted due to missingness)
+AIC: 3380.9
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+<div id="marginal-estimates-1" class="section level4">
+<h4><span class="header-section-number">8.3.2.2</span> Marginal Estimates</h4>
+<blockquote>
+<p>Note: These means are on the original scale (number of volunteer activities in the past year). These standard errors are called “delta-method standard errors”</p>
+</blockquote>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</a>
+<a class="sourceLine" id="cb306-2" title="2">                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb306-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">nonwhite =</span> <span class="st">&quot;non-white&quot;</span>,</a>
+<a class="sourceLine" id="cb306-4" title="4">                               <span class="dt">educate =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb306-5" title="5">                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb306-6" title="6"><span class="st">  </span><span class="kw">data.frame</span>()</a></code></pre></div>
+<pre><code># A tibble: 2 x 5
+  female   fit     se lower upper
+  &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 male   0.294 0.0175 0.262 0.330
+2 female 0.382 0.0201 0.344 0.423</code></pre>
+</div>
+<div id="parameter-estimates-3" class="section level4">
+<h4><span class="header-section-number">8.3.2.3</span> Parameter Estimates</h4>
+<p>Coefficients are in terms of the <strong>LOG of</strong> the number of times a person volunteers per year.</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">glm_possion_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
+<pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
+      -3.15830174        0.26132182       -0.28037733        0.10280183 
+           income 
+       0.05682778 </code></pre>
+<p>Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the <strong>incident rate ratio IRR</strong>.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">glm_possion_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
+       0.04249785        1.29864553        0.75549861        1.10827176 
+           income 
+       1.05847350 </code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_possion_<span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb312-2" title="2">                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_possion_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb312-3" title="3">                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb312-4" title="4">                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb312-5" title="5">                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb312-6" title="6">                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb312-7" title="7">                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</a>
+<a class="sourceLine" id="cb312-8" title="8">                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</a>
+<a class="sourceLine" id="cb312-9" title="9">                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</a>
+<a class="sourceLine" id="cb312-10" title="10">                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>,</a>
+<a class="sourceLine" id="cb312-11" title="11">                                         <span class="st">&quot;nonwhitenon-white&quot;</span> =<span class="st"> &quot;Non-white vs. White&quot;</span>,</a>
+<a class="sourceLine" id="cb312-12" title="12">                                         <span class="dt">educate =</span> <span class="st">&quot;Education, Years&quot;</span>,</a>
+<a class="sourceLine" id="cb312-13" title="13">                                         <span class="dt">income =</span> <span class="st">&quot;Income&quot;</span>),</a>
+<a class="sourceLine" id="cb312-14" title="14">                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Multiple Possion Regression&quot;</span>,</a>
+<a class="sourceLine" id="cb312-15" title="15">                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb312-16" title="16">                  <span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>
+==================================================================
+                     b (SE)                 RR [95% CI]           
+------------------------------------------------------------------
+Intercept               -3.158 (0.245) ***  0.042 [0.026; 0.068] *
+Female vs. Male          0.261 (0.078) ***  1.299 [1.115; 1.513] *
+Non-white vs. White     -0.280 (0.108) **   0.755 [0.608; 0.930] *
+Education, Years         0.103 (0.014) ***  1.108 [1.077; 1.140] *
+Income                   0.057 (0.016) ***  1.058 [1.027; 1.092] *
+------------------------------------------------------------------
+AIC                   3380.860                                    
+BIC                   3408.722                                    
+Log Likelihood       -1685.430                                    
+Deviance              2465.514                                    
+Num. obs.             1944                                        
+==================================================================
+*** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05 (or 0 outside the confidence interval).</code></pre>
+</div>
+<div id="assess-model-fit" class="section level4">
+<h4><span class="header-section-number">8.3.2.4</span> Assess Model Fit</h4>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1">DescTools<span class="op">::</span><span class="kw">PseudoR2</span>(glm_possion_<span class="dv">2</span>)</a></code></pre></div>
+<pre><code> McFadden 
+0.3151547 </code></pre>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1">DescTools<span class="op">::</span><span class="kw">PseudoR2</span>(glm_possion_<span class="dv">2</span>, <span class="dt">which =</span> <span class="st">&quot;all&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</a></code></pre></div>
+<pre><code>       McFadden     McFaddenAdj        CoxSnell      Nagelkerke 
+          0.315           0.313           0.550           0.597 
+  AldrichNelson VeallZimmermann           Efron McKelveyZavoina 
+          0.444           0.619           0.020              NA 
+           Tjur             AIC             BIC          logLik 
+             NA        3380.860        3408.722       -1685.430 
+        logLik0              G2 
+      -2461.037        1551.215 </code></pre>
+</div>
+<div id="interpretation" class="section level4">
+<h4><span class="header-section-number">8.3.2.5</span> Interpretation</h4>
+<ul>
+<li><p><code>female</code>: Adjusting for the effects of rate/ethnicity, education, and income, FEMALES are expected to volunteer about 30% MORE activities per year than males.</p></li>
+<li><p><code>nonwhite</code>: Adjusting for the effects of sex, education, and income, NON-WHITES are expected to volunteer for about 24% LESS activities per year than males.</p></li>
+<li><p><code>educate</code>: Each one-year increase in education is associated with an 11% increase in the number of volunteer activities per year, adjusting for the effects of sex, race/ethnicity, and income.</p></li>
+</ul>
+</div>
+<div id="residual-diagnostics-1" class="section level4">
+<h4><span class="header-section-number">8.3.2.6</span> Residual Diagnostics</h4>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb318-2" title="2"><span class="kw">plot</span>(glm_possion_<span class="dv">2</span>)</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-222-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
+<p>These residuals do NOT look good, especially the Q-Q plot for normality.</p>
+</div>
+<div id="marginal-plot" class="section level4">
+<h4><span class="header-section-number">8.3.2.7</span> Marginal Plot</h4>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb320-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(educate, income) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb320-3" title="3"><span class="st">  </span>psych<span class="op">::</span><span class="kw">describe</span>(<span class="dt">skew =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code># A tibble: 2 x 8
+   vars     n  mean    sd   min   max range     se
+  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1     1  2894 13.4   2.93     0    20    20 0.0544
+2     2  1947  9.86  2.99     1    12    11 0.0677</code></pre>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1">data_gss <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb322-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(educate, income) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb322-3" title="3"><span class="st">  </span><span class="kw">summary</span>()</a></code></pre></div>
+<pre><code>    educate          income      
+ Min.   : 0.00   Min.   : 1.000  
+ 1st Qu.:12.00   1st Qu.: 9.000  
+ Median :13.00   Median :11.000  
+ Mean   :13.36   Mean   : 9.862  
+ 3rd Qu.:16.00   3rd Qu.:12.000  
+ Max.   :20.00   Max.   :12.000  
+ NA&#39;s   :9       NA&#39;s   :956     </code></pre>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</a>
+<a class="sourceLine" id="cb324-2" title="2">                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb324-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</a>
+<a class="sourceLine" id="cb324-4" title="4">                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb324-5" title="5"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb324-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb324-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</a>
+<a class="sourceLine" id="cb324-8" title="8">             <span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb324-9" title="9"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></a>
+<a class="sourceLine" id="cb324-10" title="10">                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</a>
+<a class="sourceLine" id="cb324-11" title="11">                  <span class="dt">fill =</span> female),</a>
+<a class="sourceLine" id="cb324-12" title="12">              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb324-13" title="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> female,</a>
+<a class="sourceLine" id="cb324-14" title="14">                <span class="dt">color =</span> female),</a>
+<a class="sourceLine" id="cb324-15" title="15">            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb324-16" title="16"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb324-17" title="17"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</a>
+<a class="sourceLine" id="cb324-18" title="18">       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</a>
+<a class="sourceLine" id="cb324-19" title="19">       <span class="dt">color =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb324-20" title="20">       <span class="dt">fill =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb324-21" title="21">       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb324-22" title="22"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb324-23" title="23">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</a>
+<a class="sourceLine" id="cb324-24" title="24">        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb324-25" title="25">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb324-26" title="26"><span class="st">  </span><span class="kw">facet_grid</span>(nonwhite <span class="op">~</span><span class="st"> </span>income)</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-225-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</a>
+<a class="sourceLine" id="cb325-2" title="2">                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb325-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</a>
+<a class="sourceLine" id="cb325-4" title="4">                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb325-5" title="5"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb325-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb325-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</a>
+<a class="sourceLine" id="cb325-8" title="8">             <span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb325-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> <span class="kw">fct_rev</span>(income),</a>
+<a class="sourceLine" id="cb325-10" title="10">                <span class="dt">color =</span> <span class="kw">fct_rev</span>(income)),</a>
+<a class="sourceLine" id="cb325-11" title="11">            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb325-12" title="12"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb325-13" title="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</a>
+<a class="sourceLine" id="cb325-14" title="14">       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</a>
+<a class="sourceLine" id="cb325-15" title="15">       <span class="dt">color =</span> <span class="st">&quot;Income:&quot;</span>,</a>
+<a class="sourceLine" id="cb325-16" title="16">       <span class="dt">fill =</span> <span class="st">&quot;Income:&quot;</span>,</a>
+<a class="sourceLine" id="cb325-17" title="17">       <span class="dt">linetype =</span> <span class="st">&quot;Income:&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb325-18" title="18"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb325-19" title="19">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</a>
+<a class="sourceLine" id="cb325-20" title="20">        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb325-21" title="21">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb325-22" title="22"><span class="st">  </span><span class="kw">facet_grid</span>(nonwhite <span class="op">~</span><span class="st"> </span>female) <span class="op">+</span></a>
+<a class="sourceLine" id="cb325-23" title="23"><span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;dotted&quot;</span>))</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-226-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;nonwhite&quot;</span>, <span class="st">&quot;educate&quot;</span>, <span class="st">&quot;income&quot;</span>),</a>
+<a class="sourceLine" id="cb326-2" title="2">                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb326-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">.1</span>),</a>
+<a class="sourceLine" id="cb326-4" title="4">                               <span class="dt">income  =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb326-5" title="5"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb326-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">factor</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb326-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</a>
+<a class="sourceLine" id="cb326-8" title="8">             <span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-9" title="9"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></a>
+<a class="sourceLine" id="cb326-10" title="10">                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</a>
+<a class="sourceLine" id="cb326-11" title="11">                  <span class="dt">fill =</span> nonwhite),</a>
+<a class="sourceLine" id="cb326-12" title="12">              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-13" title="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> nonwhite,</a>
+<a class="sourceLine" id="cb326-14" title="14">                <span class="dt">color =</span> nonwhite),</a>
+<a class="sourceLine" id="cb326-15" title="15">            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-16" title="16"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-17" title="17"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</a>
+<a class="sourceLine" id="cb326-18" title="18">       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</a>
+<a class="sourceLine" id="cb326-19" title="19">       <span class="dt">color =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb326-20" title="20">       <span class="dt">fill =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb326-21" title="21">       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-22" title="22"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">.5</span>),</a>
+<a class="sourceLine" id="cb326-23" title="23">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">05</span>, <span class="fl">1.1</span>),</a>
+<a class="sourceLine" id="cb326-24" title="24">        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb326-25" title="25">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-26" title="26"><span class="st">  </span><span class="kw">facet_grid</span>(female <span class="op">~</span><span class="st"> </span>income) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-27" title="27"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;orange&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb326-28" title="28"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;orange&quot;</span>))</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-227-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;educate&quot;</span>),</a>
+<a class="sourceLine" id="cb327-2" title="2">                <span class="dt">mod =</span> glm_possion_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb327-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">educate =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb327-4" title="4">                                             <span class="dt">to   =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb327-5" title="5">                                             <span class="dt">by =</span> <span class="fl">.1</span>),</a>
+<a class="sourceLine" id="cb327-6" title="6">                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb327-7" title="7"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb327-8" title="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> educate,</a>
+<a class="sourceLine" id="cb327-9" title="9">             <span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb327-10" title="10"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> fit <span class="op">-</span><span class="st"> </span>se,  <span class="co"># bands = +/- 1 SEM</span></a>
+<a class="sourceLine" id="cb327-11" title="11">                  <span class="dt">ymax =</span> fit <span class="op">+</span><span class="st"> </span>se,</a>
+<a class="sourceLine" id="cb327-12" title="12">                  <span class="dt">fill =</span> female),</a>
+<a class="sourceLine" id="cb327-13" title="13">              <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb327-14" title="14"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> female,</a>
+<a class="sourceLine" id="cb327-15" title="15">                <span class="dt">color =</span> female),</a>
+<a class="sourceLine" id="cb327-16" title="16">            <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb327-17" title="17"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb327-18" title="18"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Education, Years&quot;</span>,</a>
+<a class="sourceLine" id="cb327-19" title="19">       <span class="dt">y =</span> <span class="st">&quot;Predicted Mean Number of Volunteer Activities&quot;</span>,</a>
+<a class="sourceLine" id="cb327-20" title="20">       <span class="dt">color =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb327-21" title="21">       <span class="dt">fill =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb327-22" title="22">       <span class="dt">linetype =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb327-23" title="23"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb327-24" title="24">        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</a>
+<a class="sourceLine" id="cb327-25" title="25">        <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb327-26" title="26">        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) </a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-228-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="negative-binomial-regression" class="section level2">
+<h2><span class="header-section-number">8.4</span> Negative Binomial Regression</h2>
+<div id="multiple-predictors-1" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> Multiple Predictors</h3>
+<div id="fit-the-model-2" class="section level4">
+<h4><span class="header-section-number">8.4.1.1</span> Fit the model</h4>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" title="1">glm_negbin_<span class="dv">1</span> &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glm.nb</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income,</a>
+<a class="sourceLine" id="cb328-2" title="2">                             <span class="dt">data =</span> data_gss)</a>
+<a class="sourceLine" id="cb328-3" title="3"></a>
+<a class="sourceLine" id="cb328-4" title="4"><span class="kw">summary</span>(glm_negbin_<span class="dv">1</span>)</a></code></pre></div>
+<pre><code>
+Call:
+MASS::glm.nb(formula = volteer ~ female + nonwhite + educate + 
+    income, data = data_gss, init.theta = 0.2559648877, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.8798  -0.6897  -0.6141  -0.5211   2.7019  
+
+Coefficients:
+                  Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -3.24738    0.37283  -8.710  &lt; 2e-16 ***
+femalefemale       0.28441    0.12312   2.310   0.0209 *  
+nonwhitenon-white -0.31107    0.16203  -1.920   0.0549 .  
+educate            0.11200    0.02321   4.825  1.4e-06 ***
+income             0.05193    0.02264   2.293   0.0218 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for Negative Binomial(0.256) family taken to be 1)
+
+    Null deviance: 1068.5  on 1943  degrees of freedom
+Residual deviance: 1024.3  on 1939  degrees of freedom
+  (959 observations deleted due to missingness)
+AIC: 2851.6
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  0.2560 
+          Std. Err.:  0.0251 
+
+ 2 x log-likelihood:  -2839.5640 </code></pre>
+<blockquote>
+<p>Note: the deviance residuals all have absolute values less than 3-4’ish…better than before</p>
+</blockquote>
+</div>
+<div id="marginal-estimates-2" class="section level4">
+<h4><span class="header-section-number">8.4.1.2</span> Marginal Estimates</h4>
+<blockquote>
+<p>Note: These means are on the original scale (number of volunteer activities in the past year). These standard errors are called “delta-method standard errors”</p>
+</blockquote>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1">effects<span class="op">::</span><span class="kw">Effect</span>(<span class="dt">focal.predictors =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>),</a>
+<a class="sourceLine" id="cb330-2" title="2">                <span class="dt">mod =</span> glm_negbin_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb330-3" title="3">                <span class="dt">xlevels =</span> <span class="kw">list</span>(<span class="dt">nonwhite =</span> <span class="st">&quot;non-white&quot;</span>,</a>
+<a class="sourceLine" id="cb330-4" title="4">                               <span class="dt">educate =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb330-5" title="5">                               <span class="dt">income =</span> <span class="dv">12</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb330-6" title="6"><span class="st">  </span><span class="kw">data.frame</span>()</a></code></pre></div>
+<pre><code># A tibble: 2 x 5
+  female   fit     se lower upper
+  &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 male   0.289 0.0257 0.243 0.344
+2 female 0.384 0.0322 0.326 0.453</code></pre>
+</div>
+<div id="parameter-estimates-4" class="section level4">
+<h4><span class="header-section-number">8.4.1.3</span> Parameter Estimates</h4>
+<p>Coefficients are in terms of the <strong>LOG of</strong> the number of times a person volunteers per year.</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" title="1">glm_negbin_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</a></code></pre></div>
+<pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
+      -3.24738340        0.28440826       -0.31107286        0.11199528 
+           income 
+       0.05193102 </code></pre>
+<p>Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the <strong>incident rate ratio IRR</strong>.</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1">glm_negbin_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<pre><code>      (Intercept)      femalefemale nonwhitenon-white           educate 
+        0.0388758         1.3289754         0.7326605         1.1185076 
+           income 
+        1.0533031 </code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1">texreg<span class="op">::</span><span class="kw">screenreg</span>(<span class="kw">list</span>(glm_negbin_<span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb336-2" title="2">                       texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(glm_negbin_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb336-3" title="3">                                                    <span class="dt">include.aic =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb336-4" title="4">                                                    <span class="dt">include.bic =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb336-5" title="5">                                                    <span class="dt">include.loglik =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb336-6" title="6">                                                    <span class="dt">include.deviance =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb336-7" title="7">                                                    <span class="dt">include.nobs =</span> <span class="ot">FALSE</span>)),</a>
+<a class="sourceLine" id="cb336-8" title="8">                  <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>, <span class="st">&quot;RR [95% CI]&quot;</span>),</a>
+<a class="sourceLine" id="cb336-9" title="9">                  <span class="dt">custom.coef.map =</span> <span class="kw">list</span>(<span class="st">&quot;(Intercept)&quot;</span> =<span class="st">&quot;Intercept&quot;</span>,</a>
+<a class="sourceLine" id="cb336-10" title="10">                                         <span class="dt">femalefemale =</span> <span class="st">&quot;Female vs. Male&quot;</span>,</a>
+<a class="sourceLine" id="cb336-11" title="11">                                         <span class="st">&quot;nonwhitenon-white&quot;</span> =<span class="st"> &quot;Non-white vs. White&quot;</span>,</a>
+<a class="sourceLine" id="cb336-12" title="12">                                         <span class="dt">educate =</span> <span class="st">&quot;Education, Years&quot;</span>,</a>
+<a class="sourceLine" id="cb336-13" title="13">                                         <span class="dt">income =</span> <span class="st">&quot;Income&quot;</span>),</a>
+<a class="sourceLine" id="cb336-14" title="14">                  <span class="dt">caption =</span> <span class="st">&quot;GLM: Negitive Binomial Regression&quot;</span>,</a>
+<a class="sourceLine" id="cb336-15" title="15">                  <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb336-16" title="16">                  <span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>
+==================================================================
+                     b (SE)                 RR [95% CI]           
+------------------------------------------------------------------
+Intercept               -3.247 (0.373) ***  0.039 [0.018; 0.081] *
+Female vs. Male          0.284 (0.123) *    1.329 [1.043; 1.696] *
+Non-white vs. White     -0.311 (0.162)      0.733 [0.533; 1.008] *
+Education, Years         0.112 (0.023) ***  1.119 [1.067; 1.173] *
+Income                   0.052 (0.023) *    1.053 [1.008; 1.101] *
+------------------------------------------------------------------
+AIC                   2851.564                                    
+BIC                   2884.999                                    
+Log Likelihood       -1419.782                                    
+Deviance              1024.343                                    
+Num. obs.             1944                                        
+==================================================================
+*** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05 (or 0 outside the confidence interval).</code></pre>
+</div>
+<div id="residual-diagnostics-2" class="section level4">
+<h4><span class="header-section-number">8.4.1.4</span> Residual Diagnostics</h4>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb338-2" title="2"><span class="kw">plot</span>(glm_negbin_<span class="dv">1</span>)</a></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-234-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
+<p>These still don’t look very good :(</p>
+</div>
+</div>
+</div>
+<div id="zero-inflated-poisson" class="section level2">
+<h2><span class="header-section-number">8.5</span> Zero Inflated Poisson</h2>
+<div id="fit-the-model-3" class="section level4">
+<h4><span class="header-section-number">8.5.0.1</span> Fit the model</h4>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" title="1">glm_zip_<span class="dv">1</span> &lt;-<span class="st"> </span>pscl<span class="op">::</span><span class="kw">zeroinfl</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income <span class="op">|</span><span class="st"> </span>educate,</a>
+<a class="sourceLine" id="cb340-2" title="2">                               <span class="dt">data =</span> data_gss)</a>
+<a class="sourceLine" id="cb340-3" title="3"></a>
+<a class="sourceLine" id="cb340-4" title="4"><span class="kw">summary</span>(glm_zip_<span class="dv">1</span>)</a></code></pre></div>
+<pre><code>
+Call:
+pscl::zeroinfl(formula = volteer ~ female + nonwhite + educate + 
+    income | educate, data = data_gss)
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5778 -0.4416 -0.3908 -0.3383  9.4777 
+
+Count model coefficients (poisson with log link):
+                  Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept)       -1.09660    0.34808  -3.150  0.00163 **
+femalefemale       0.20615    0.09452   2.181  0.02918 * 
+nonwhitenon-white -0.20101    0.13444  -1.495  0.13488   
+educate            0.05648    0.02140   2.639  0.00833 **
+income             0.04888    0.01882   2.597  0.00940 **
+
+Zero-inflation model coefficients (binomial with logit link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.01161    0.41192   4.883 1.04e-06 ***
+educate     -0.07179    0.02768  -2.593  0.00951 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+
+Number of iterations in BFGS optimization: 18 
+Log-likelihood: -1434 on 7 Df</code></pre>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" title="1">glm_zip_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<pre><code>      count_(Intercept)      count_femalefemale count_nonwhitenon-white 
+              0.3340048               1.2289390               0.8179079 
+          count_educate            count_income        zero_(Intercept) 
+              1.0581037               1.0500947               7.4753687 
+           zero_educate 
+              0.9307240 </code></pre>
+<blockquote>
+<p>Compares two models fit to the same data that do not nest via Vuong’s non-nested test.</p>
+</blockquote>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zip_<span class="dv">1</span>, glm_possion_<span class="dv">2</span>)</a></code></pre></div>
+<pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A    p-value
+Raw                    8.000302 model1 &gt; model2 6.6613e-16
+AIC-corrected          7.936568 model1 &gt; model2 9.9920e-16
+BIC-corrected          7.758989 model1 &gt; model2 4.3299e-15</code></pre>
+</div>
+</div>
+<div id="zero-inflated-negative-binomial" class="section level2">
+<h2><span class="header-section-number">8.6</span> Zero Inflated Negative Binomial</h2>
+<div id="fit-the-model-4" class="section level4">
+<h4><span class="header-section-number">8.6.0.1</span> Fit the model</h4>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" title="1">glm_zinb_<span class="dv">1</span> &lt;-<span class="st"> </span>pscl<span class="op">::</span><span class="kw">zeroinfl</span>(volteer <span class="op">~</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>nonwhite <span class="op">+</span><span class="st"> </span>educate <span class="op">+</span><span class="st"> </span>income <span class="op">|</span><span class="st"> </span>educate,</a>
+<a class="sourceLine" id="cb346-2" title="2">                               <span class="dt">data =</span> data_gss,</a>
+<a class="sourceLine" id="cb346-3" title="3">                             <span class="dt">dist =</span> <span class="st">&quot;negbin&quot;</span>)</a>
+<a class="sourceLine" id="cb346-4" title="4"></a>
+<a class="sourceLine" id="cb346-5" title="5"><span class="kw">summary</span>(glm_zinb_<span class="dv">1</span>)</a></code></pre></div>
+<pre><code>
+Call:
+pscl::zeroinfl(formula = volteer ~ female + nonwhite + educate + 
+    income | educate, data = data_gss, dist = &quot;negbin&quot;)
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5146 -0.4122 -0.3704 -0.3222  8.8088 
+
+Count model coefficients (negbin with log link):
+                  Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept)       -1.79278    0.54745  -3.275  0.00106 **
+femalefemale       0.26245    0.11745   2.235  0.02545 * 
+nonwhitenon-white -0.28519    0.15603  -1.828  0.06758 . 
+educate            0.06817    0.03317   2.055  0.03987 * 
+income             0.05292    0.02159   2.451  0.01426 * 
+Log(theta)         0.05056    0.46242   0.109  0.91293   
+
+Zero-inflation model coefficients (binomial with logit link):
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)  1.28322    0.71435   1.796   0.0724 .
+educate     -0.07208    0.04684  -1.539   0.1238  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+
+Theta = 1.0519 
+Number of iterations in BFGS optimization: 33 
+Log-likelihood: -1416 on 8 Df</code></pre>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1">glm_zinb_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a></code></pre></div>
+<pre><code>      count_(Intercept)      count_femalefemale count_nonwhitenon-white 
+              0.1664962               1.3001110               0.7518708 
+          count_educate            count_income        zero_(Intercept) 
+              1.0705424               1.0543416               3.6082563 
+           zero_educate 
+              0.9304550 </code></pre>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" title="1">pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zinb_<span class="dv">1</span>, glm_negbin_<span class="dv">1</span>)</a></code></pre></div>
+<pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A  p-value
+Raw                   1.3486325 model1 &gt; model2 0.088728
+AIC-corrected         0.5592035 model1 &gt; model2 0.288011
+BIC-corrected        -1.6403440 model2 &gt; model1 0.050467</code></pre>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1">pscl<span class="op">::</span><span class="kw">vuong</span>(glm_zip_<span class="dv">1</span>, glm_zinb_<span class="dv">1</span>)</a></code></pre></div>
+<pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A   p-value
+Raw                   -2.428612 model2 &gt; model1 0.0075784
+AIC-corrected         -2.428612 model2 &gt; model1 0.0075784
+BIC-corrected         -2.428612 model2 &gt; model1 0.0075784</code></pre>
+<p>The ‘best’ model is the zero-inflated negative binomial</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
