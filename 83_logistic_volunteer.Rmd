@@ -1,0 +1,167 @@
+# Logistic Regression - Ex: volunteering (Hoffman)
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(texreghelpr)  # GITHUB: sarbearschartz/texreghelpr
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(sjPlot)       # Quick plots and tables for models
+library(pscl)         # psudo R-squared function
+library(glue)         # Interpreted String Literals 
+library(interactions) # interaction plots
+library(sjPlot)       # various plots
+library(performance)  # r-squared values
+```
+
+
+This dataset comes from John Hoffman's textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) [Amazon link, 2014 edition](https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&qid=1603172859&refinements=p_27%3ADr.+John+P.+Hoffmann&s=books&sr=1-2&text=Dr.+John+P.+Hoffmann)
+
+> Chapter 3: Logistic and Probit Regression Models 
+
+Dataset:  The following example uses the SPSS data set `gss.sav`. The dependent variable of interest is labelled `volrelig`. 
+
+
+> "The variable labeled `volrelig`, which indicates whether or not a respondent volunteered for a religious organization in the previous year (coded `0` = no, `1` = yes). **A hypothesis we wish to explore is that females are more likely than males to volunteer for religious organizations.** Hence, in this data set, we code gender as `0` = male and `1` = female. In order to preclude the possibility that age and education explain the proposed association between `gender` and `volrelig`, we include these variables in the model after transforming them into z-scores. An advantage of this transformation is that it becomes a simple exercise to compute odds or probabilities for males and females at the mean of age and education, because these variables have now been transformed to have a mean of zero.
+
+
+```{r}
+df_gss <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav") %>% 
+  haven::as_factor()
+
+tibble::glimpse(df_gss)
+```
+
+```{r}
+psych::headTail(df_gss)
+```
+
+
+
+## Exploratory Data Analysis
+
+### Visualization
+
+```{r}
+df_gss %>% 
+  ggplot(aes(x = educate,
+             y = volrelig)) +
+  geom_count() +
+  theme_bw() +
+  labs(x = "Education in Years",
+       y = "Respondent Volunteered for a Religious Organization\nin the Previous Year")
+```
+
+### Summary Statistics
+
+```{r}
+df_gss %>% 
+  dplyr::group_by(volrelig) %>% 
+  furniture::table1(female,
+                    age,
+                    educate,
+                    total = TRUE,
+                    test = TRUE,
+                    digits = 3)
+```
+
+
+
+## Fit Model
+
+```{r}
+df_gss_model <- df_gss %>% 
+  dplyr::mutate(volrelig01 = case_when(volrelig == "no" ~ 0,
+                                       volrelig == "yes" ~ 1)) %>% 
+  dplyr::mutate(z_age = (age - 44.767)/16.850) %>% 
+  dplyr::mutate(z_educ = (educate - 13.363)/2.928) %>% 
+  dplyr::select(id, age, z_age, educate, z_educ, female, volrelig, volrelig01)
+
+df_gss_model
+```
+
+
+
+```{r}
+fit_glm_1 <- glm(volrelig01 ~ female + z_age + z_educ,
+                 data = df_gss_model,
+                 family = binomial(link = "logit"))
+
+fit_glm_1 %>% summary() %>% coef()
+```
+
+```{r}
+texreg::knitreg(list(fit_glm_1,
+                     texreghelpr::extract_glm_exp(fit_glm_1)),
+                custom.model.names = c("b (SE)",
+                                       "OR [95 CI]"),
+                caption = "Hoffman's EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4,
+                ci.test = 1)
+```
+
+
+
+
+## Interpretation
+
+### Odds-ratio Scale
+
+```{r}
+fit_glm_1 %>% coef()
+```
+
+```{r}
+exp(-2.831)
+exp(-2.831 + 0.354)
+```
+
+Controlling for age and education, 
+
+* the **odds** of volunteering among MALES is `exp(-2.831) = .0589`, and 
+* the **odds** of volunteering among FEMALES is `exp(-2.831 + 0.354) = exp(-2.48) = .0840`. 
+
+> What, then, is the odds ratio?
+
+```{r}
+0.0840/0.0589
+```
+
+
+### Response Scale (aka Probability)
+ 
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ female,
+                   type = "response")
+```
+
+
+Controlling for age and education,
+
+* the **probability** of volunteering among MALES is `.0556` and 
+* the **probability** of volunteering among FEMALES is `.0774`. 
+
+> Use these probabilities to compute the odds ratio for gender.
+
+```{r}
+.0774/.0556
+```
+
+*Note that these **odds** and **probabilities** are similar. This often occurs when we are dealing with probabilities that are relatively close to zero; in other words, it is a common occurrence for rare events. To see this, simply compute a cross-tabulation of `volrelig` and `gender` and compare the odds and probabilities. Then try it out for any rare event you may wish to simulate*

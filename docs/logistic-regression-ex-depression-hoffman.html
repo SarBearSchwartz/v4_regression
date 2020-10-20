@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Logistic Regression - Ex: Depression (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Logistic Regression - Ex: Depression (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="cehs-research/eBook_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Logistic Regression - Ex: Depression (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz &amp; Tyson Barrett" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"/>
+<link rel="next" href="logistic-regression-ex-volunteering-hoffman.html"/>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-authors"><i class="fa fa-check"></i>The Authors</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation - Example: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression - Example: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>2.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>2.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>2.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.1</b> Scatterplot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>3.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>3.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>3.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Manually checking residual diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>3.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="3.4.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>3.4.2</b> Plot the Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>4.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>4.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> Regression Analysis</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>4.3.1</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="4.3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>4.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>4.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>5</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>5.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="5.1.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>5.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>5.2.2</b> Bivariate Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.3</b> Regression Analysis</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>5.3.1</b> Subset the Sample</a></li>
+<li class="chapter" data-level="5.3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>5.3.2</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>5.3.3</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="5.3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>5.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>5.4</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>5.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="5.4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>5.4.2</b> Plot the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>5.5</b> Write-up</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="new-playground.html"><a href="new-playground.html"><i class="fa fa-check"></i><b>6</b> New Playground</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="new-playground.html"><a href="new-playground.html#variable-inflation-factors-vif"><i class="fa fa-check"></i><b>6.0.1</b> Variable Inflation Factors (VIF)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactions-example.html"><a href="interactions-example.html"><i class="fa fa-check"></i><b>7</b> Interactions Example</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="interactions-example.html"><a href="interactions-example.html#motivation"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="interactions-example.html"><a href="interactions-example.html#the-weight-loss-study"><i class="fa fa-check"></i><b>7.2</b> The Weight Loss Study</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="interactions-example.html"><a href="interactions-example.html#import-data"><i class="fa fa-check"></i><b>7.2.1</b> Import Data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="interactions-example.html"><a href="interactions-example.html#wrangle-the-data"><i class="fa fa-check"></i><b>7.2.2</b> Wrangle the data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="interactions-example.html"><a href="interactions-example.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>7.3</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="interactions-example.html"><a href="interactions-example.html#summary-statistics"><i class="fa fa-check"></i><b>7.3.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="7.3.2" data-path="interactions-example.html"><a href="interactions-example.html#visualization"><i class="fa fa-check"></i><b>7.3.2</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.4</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="interactions-example.html"><a href="interactions-example.html#fit"><i class="fa fa-check"></i><b>7.4.1</b> Fit</a></li>
+<li class="chapter" data-level="7.4.2" data-path="interactions-example.html"><a href="interactions-example.html#predict"><i class="fa fa-check"></i><b>7.4.2</b> Predict</a></li>
+<li class="chapter" data-level="7.4.3" data-path="interactions-example.html"><a href="interactions-example.html#overall-slope"><i class="fa fa-check"></i><b>7.4.3</b> Overall Slope</a></li>
+<li class="chapter" data-level="7.4.4" data-path="interactions-example.html"><a href="interactions-example.html#plot"><i class="fa fa-check"></i><b>7.4.4</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="interactions-example.html"><a href="interactions-example.html#continuous-by-continuous"><i class="fa fa-check"></i><b>7.5</b> Continuous by Continuous</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-1"><i class="fa fa-check"></i><b>7.5.1</b> Fit</a></li>
+<li class="chapter" data-level="7.5.2" data-path="interactions-example.html"><a href="interactions-example.html#table"><i class="fa fa-check"></i><b>7.5.2</b> Table</a></li>
+<li class="chapter" data-level="7.5.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-1"><i class="fa fa-check"></i><b>7.5.3</b> Predict</a></li>
+<li class="chapter" data-level="7.5.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-slope"><i class="fa fa-check"></i><b>7.5.4</b> Simple Slope</a></li>
+<li class="chapter" data-level="7.5.5" data-path="interactions-example.html"><a href="interactions-example.html#plot-1"><i class="fa fa-check"></i><b>7.5.5</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="interactions-example.html"><a href="interactions-example.html#continuous-by-categorical"><i class="fa fa-check"></i><b>7.6</b> Continuous by Categorical</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-2"><i class="fa fa-check"></i><b>7.6.1</b> Fit</a></li>
+<li class="chapter" data-level="7.6.2" data-path="interactions-example.html"><a href="interactions-example.html#table-1"><i class="fa fa-check"></i><b>7.6.2</b> Table</a></li>
+<li class="chapter" data-level="7.6.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-2"><i class="fa fa-check"></i><b>7.6.3</b> Predict</a></li>
+<li class="chapter" data-level="7.6.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes"><i class="fa fa-check"></i><b>7.6.4</b> Simple Slopes</a></li>
+<li class="chapter" data-level="7.6.5" data-path="interactions-example.html"><a href="interactions-example.html#plot-2"><i class="fa fa-check"></i><b>7.6.5</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="interactions-example.html"><a href="interactions-example.html#categorical-by-categorical"><i class="fa fa-check"></i><b>7.7</b> Categorical by Categorical</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-3"><i class="fa fa-check"></i><b>7.7.1</b> Fit</a></li>
+<li class="chapter" data-level="7.7.2" data-path="interactions-example.html"><a href="interactions-example.html#table-2"><i class="fa fa-check"></i><b>7.7.2</b> Table</a></li>
+<li class="chapter" data-level="7.7.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-3"><i class="fa fa-check"></i><b>7.7.3</b> Predict</a></li>
+<li class="chapter" data-level="7.7.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-1"><i class="fa fa-check"></i><b>7.7.4</b> Simple Slopes</a></li>
+<li class="chapter" data-level="7.7.5" data-path="interactions-example.html"><a href="interactions-example.html#plot-3"><i class="fa fa-check"></i><b>7.7.5</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="interactions-example.html"><a href="interactions-example.html#three-way-interaction"><i class="fa fa-check"></i><b>7.8</b> Three-way Interaction</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-4"><i class="fa fa-check"></i><b>7.8.1</b> Fit</a></li>
+<li class="chapter" data-level="7.8.2" data-path="interactions-example.html"><a href="interactions-example.html#table-3"><i class="fa fa-check"></i><b>7.8.2</b> Table</a></li>
+<li class="chapter" data-level="7.8.3" data-path="interactions-example.html"><a href="interactions-example.html#plot-4"><i class="fa fa-check"></i><b>7.8.3</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>8</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>8.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>8.1.1</b> Source</a></li>
+<li class="chapter" data-level="8.1.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>8.1.2</b> Reference</a></li>
+<li class="chapter" data-level="8.1.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>8.1.3</b> Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion"><i class="fa fa-check"></i><b>8.2</b> Logistic Regresion</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#fit-the-models"><i class="fa fa-check"></i><b>8.2.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#gof-measures"><i class="fa fa-check"></i><b>8.2.2</b> GoF Measures</a></li>
+<li class="chapter" data-level="8.2.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>8.2.3</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="8.2.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>8.2.4</b> Significance of Terms</a></li>
+<li class="chapter" data-level="8.2.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates-1"><i class="fa fa-check"></i><b>8.2.5</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="8.2.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plot"><i class="fa fa-check"></i><b>8.2.6</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="8.2.7" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#residual-diagnostics"><i class="fa fa-check"></i><b>8.2.7</b> Residual Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>9</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>9.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>9.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="9.1.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>9.1.2</b> Declare Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>9.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-unadjusted-models"><i class="fa fa-check"></i><b>9.3</b> Logistic Regression - Simple, unadjusted models</a></li>
+<li class="chapter" data-level="9.4" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>9.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
+<li class="chapter" data-level="9.5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>9.5</b> Logistic Regression - Multivariate, with Interactions</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>9.5.1</b> Age and Weight</a></li>
+<li class="chapter" data-level="9.5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>9.5.2</b> Age and Smoking</a></li>
+<li class="chapter" data-level="9.5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>9.5.3</b> Weight and Smoking</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>9.6</b> Logistic Regression - Multivariate, Simplify</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>9.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>9.7</b> Logistic Regression - Multivariate, Final Model</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>9.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
+<li class="chapter" data-level="9.7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>9.7.2</b> Parameter Estiamtes Table</a></li>
+<li class="chapter" data-level="9.7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot-1"><i class="fa fa-check"></i><b>9.7.3</b> Marginal Model Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression - Ex: Depression (Hoffman)</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>10.1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#visualize"><i class="fa fa-check"></i><b>10.1.1</b> Visualize</a></li>
+<li class="chapter" data-level="10.1.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#summary-table"><i class="fa fa-check"></i><b>10.1.2</b> Summary Table</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#logisitc-regression-model-1-one-iv"><i class="fa fa-check"></i><b>10.2</b> Logisitc Regression Model 1: one IV</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#fit-the-model"><i class="fa fa-check"></i><b>10.2.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="10.2.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#tabulate-parameters"><i class="fa fa-check"></i><b>10.2.2</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="10.2.3" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#logit-scale-1"><i class="fa fa-check"></i><b>10.2.3</b> Logit Scale</a></li>
+<li class="chapter" data-level="10.2.4" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#assess-model-fit"><i class="fa fa-check"></i><b>10.2.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="10.2.5" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#plot-predicted-probabilitites"><i class="fa fa-check"></i><b>10.2.5</b> Plot Predicted Probabilitites</a></li>
+<li class="chapter" data-level="10.2.6" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#interpretation"><i class="fa fa-check"></i><b>10.2.6</b> Interpretation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#diagnostics"><i class="fa fa-check"></i><b>10.2.7</b> Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#logisitic-regression-model-2-many-ivs"><i class="fa fa-check"></i><b>10.3</b> Logisitic Regression Model 2: many IV’s</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#fit-the-model-1"><i class="fa fa-check"></i><b>10.3.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#tabulate-parameters-1"><i class="fa fa-check"></i><b>10.3.2</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="10.3.3" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#assess-model-fit-1"><i class="fa fa-check"></i><b>10.3.3</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="10.3.4" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#diagnostics-1"><i class="fa fa-check"></i><b>10.3.4</b> Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#compare-models"><i class="fa fa-check"></i><b>10.4</b> Compare Models</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.4.1</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>11.1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#visualization-1"><i class="fa fa-check"></i><b>11.1.1</b> Visualization</a></li>
+<li class="chapter" data-level="11.1.2" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#summary-statistics-1"><i class="fa fa-check"></i><b>11.1.2</b> Summary Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#fit-model"><i class="fa fa-check"></i><b>11.2</b> Fit Model</a></li>
+<li class="chapter" data-level="11.3" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#interpretation-2"><i class="fa fa-check"></i><b>11.3</b> Interpretation</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#odds-ratio-scale-1"><i class="fa fa-check"></i><b>11.3.1</b> Odds-ratio Scale</a></li>
+<li class="chapter" data-level="11.3.2" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#response-scale-aka-probability"><i class="fa fa-check"></i><b>11.3.2</b> Response Scale (aka Probability)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>12</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#background-4"><i class="fa fa-check"></i><b>12.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>12.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="12.1.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>12.1.2</b> Declare Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>12.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>12.2.1</b> Husband’s Income</a></li>
+<li class="chapter" data-level="12.2.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>12.2.2</b> Children in Home</a></li>
+<li class="chapter" data-level="12.2.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>12.2.3</b> Region of Canada</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>12.3</b> Hierarchical (nested) Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>12.3.1</b> Role of Predictors on ANY working</a></li>
+<li class="chapter" data-level="12.3.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>12.3.2</b> Role of Predictors on TYPE of work</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Multinomial (nominal) Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#fit-model-1-main-effects-only"><i class="fa fa-check"></i><b>12.4.1</b> Fit Model 1: main effects only</a></li>
+<li class="chapter" data-level="12.4.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#fit-model-2-only-significant-predictors"><i class="fa fa-check"></i><b>12.4.2</b> Fit Model 2: only significant predictors</a></li>
+<li class="chapter" data-level="12.4.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#compre-model-fit"><i class="fa fa-check"></i><b>12.4.3</b> Compre model fit</a></li>
+<li class="chapter" data-level="12.4.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#extract-parameters"><i class="fa fa-check"></i><b>12.4.4</b> Extract parameters</a></li>
+<li class="chapter" data-level="12.4.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#tabulate-parameters-2"><i class="fa fa-check"></i><b>12.4.5</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="12.4.6" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities"><i class="fa fa-check"></i><b>12.4.6</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.4.7" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#interpretation-3"><i class="fa fa-check"></i><b>12.4.7</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>12.5</b> Proportional-odds (ordinal) Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#fit-the-model-2"><i class="fa fa-check"></i><b>12.5.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="12.5.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#extract-parameters-1"><i class="fa fa-check"></i><b>12.5.2</b> Extract Parameters</a></li>
+<li class="chapter" data-level="12.5.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#tabulate-parameters-3"><i class="fa fa-check"></i><b>12.5.3</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="12.5.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities-1"><i class="fa fa-check"></i><b>12.5.4</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.5.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#interpretation-4"><i class="fa fa-check"></i><b>12.5.5</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#compare-model-fits-multinomial-vs.-ordinal"><i class="fa fa-check"></i><b>12.6</b> Compare Model Fits: Multinomial vs. Ordinal</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#interpretation-5"><i class="fa fa-check"></i><b>12.6.1</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html"><i class="fa fa-check"></i><b>13</b> Count Outcome Regression - Ex: POssion and Negative Binomial</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#background-5"><i class="fa fa-check"></i><b>13.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#raw-dataset-2"><i class="fa fa-check"></i><b>13.1.1</b> Raw Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>13.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#entire-sample"><i class="fa fa-check"></i><b>13.2.1</b> Entire Sample</a></li>
+<li class="chapter" data-level="13.2.2" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#by-sex"><i class="fa fa-check"></i><b>13.2.2</b> By Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#poisson-reression"><i class="fa fa-check"></i><b>13.3</b> Poisson Reression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#single-predictor-sex"><i class="fa fa-check"></i><b>13.3.1</b> Single Predictor: Sex</a></li>
+<li class="chapter" data-level="13.3.2" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#multiple-predictors"><i class="fa fa-check"></i><b>13.3.2</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#negative-binomial-regression"><i class="fa fa-check"></i><b>13.4</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#multiple-predictors-1"><i class="fa fa-check"></i><b>13.4.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>13.5</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="13.6" data-path="count-outcome-regression-ex-possion-and-negative-binomial.html"><a href="count-outcome-regression-ex-possion-and-negative-binomial.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>13.6</b> Zero Inflated Negative Binomial</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="logistic-regression---ex-depression-hoffman" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Logistic Regression - Ex: Depression (Hoffman)</h1>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="logistic-regression-ex-depression-hoffman.html#cb411-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb411-2"><a href="logistic-regression-ex-depression-hoffman.html#cb411-2"></a><span class="kw">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
+<span id="cb411-3"><a href="logistic-regression-ex-depression-hoffman.html#cb411-3"></a><span class="kw">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
+<span id="cb411-4"><a href="logistic-regression-ex-depression-hoffman.html#cb411-4"></a><span class="kw">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
+<span id="cb411-5"><a href="logistic-regression-ex-depression-hoffman.html#cb411-5"></a><span class="kw">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
+<span id="cb411-6"><a href="logistic-regression-ex-depression-hoffman.html#cb411-6"></a><span class="kw">library</span>(texreghelpr)  <span class="co"># GITHUB: sarbearschartz/texreghelpr</span></span>
+<span id="cb411-7"><a href="logistic-regression-ex-depression-hoffman.html#cb411-7"></a><span class="kw">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
+<span id="cb411-8"><a href="logistic-regression-ex-depression-hoffman.html#cb411-8"></a><span class="kw">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
+<span id="cb411-9"><a href="logistic-regression-ex-depression-hoffman.html#cb411-9"></a><span class="kw">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
+<span id="cb411-10"><a href="logistic-regression-ex-depression-hoffman.html#cb411-10"></a><span class="kw">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
+<span id="cb411-11"><a href="logistic-regression-ex-depression-hoffman.html#cb411-11"></a><span class="kw">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
+<span id="cb411-12"><a href="logistic-regression-ex-depression-hoffman.html#cb411-12"></a><span class="kw">library</span>(interactions) <span class="co"># interaction plots</span></span>
+<span id="cb411-13"><a href="logistic-regression-ex-depression-hoffman.html#cb411-13"></a><span class="kw">library</span>(sjPlot)       <span class="co"># various plots</span></span>
+<span id="cb411-14"><a href="logistic-regression-ex-depression-hoffman.html#cb411-14"></a><span class="kw">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
+<p>This dataset comes from John Hoffman’s textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) <a href="https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&amp;qid=1603172859&amp;refinements=p_27%3ADr.+John+P.+Hoffmann&amp;s=books&amp;sr=1-2&amp;text=Dr.+John+P.+Hoffmann">Amazon link, 2014 edition</a></p>
+<blockquote>
+<p>Chapter 3: Logistic and Probit Regression Models</p>
+</blockquote>
+<p>Dataset: The following example uses the SPSS data set <code>Depress.sav</code>. The dependent variable of interest is a measure of life satisfaction, labeled <code>satlife</code>.</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="logistic-regression-ex-depression-hoffman.html#cb412-1"></a>df_depress &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/depress.sav&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb412-2"><a href="logistic-regression-ex-depression-hoffman.html#cb412-2"></a><span class="st">  </span>haven<span class="op">::</span><span class="kw">as_factor</span>()</span>
+<span id="cb412-3"><a href="logistic-regression-ex-depression-hoffman.html#cb412-3"></a></span>
+<span id="cb412-4"><a href="logistic-regression-ex-depression-hoffman.html#cb412-4"></a>tibble<span class="op">::</span><span class="kw">glimpse</span>(df_depress)</span></code></pre></div>
+<pre><code>Rows: 118
+Columns: 14
+$ id      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, ...
+$ age     &lt;dbl&gt; 39, 41, 42, 30, 35, 44, 31, 39, 35, 33, 38, 31, 40, 44, 43,...
+$ iq      &lt;dbl&gt; 94, 89, 83, 99, 94, 90, 94, 87, NA, 92, 92, 94, 91, 86, 90,...
+$ anxiety &lt;fct&gt; medium low, medium low, medium high, medium low, medium low...
+$ depress &lt;fct&gt; medium, medium, high, medium, low, low, medium, medium, med...
+$ sleep   &lt;fct&gt; low, low, low, low, high, low, NA, low, low, low, high, low...
+$ sex     &lt;fct&gt; female, female, female, female, female, male, female, femal...
+$ lifesat &lt;fct&gt; low, low, low, low, high, high, low, high, low, low, high, ...
+$ weight  &lt;dbl&gt; 4.9, 2.2, 4.0, -2.6, -0.3, 0.9, -1.5, 3.5, -1.2, 0.8, -1.9,...
+$ satlife &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1,...
+$ male    &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,...
+$ sleep1  &lt;dbl&gt; 0, 0, 0, 0, 1, 0, NA, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0...
+$ newiq   &lt;dbl&gt; 2.21, -2.79, -8.79, 7.21, 2.21, -1.79, 2.21, -4.79, NA, 0.2...
+$ newage  &lt;dbl&gt; 1.5424, 3.5424, 4.5424, -7.4576, -2.4576, 6.5424, -6.4576, ...</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="logistic-regression-ex-depression-hoffman.html#cb414-1"></a>psych<span class="op">::</span><span class="kw">headTail</span>(df_depress)</span></code></pre></div>
+<pre><code># A tibble: 9 x 14
+  id    age   iq    anxiety depress sleep sex   lifesat weight satlife male 
+  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;
+1 1     39    94    medium~ medium  low   fema~ low     4.9    0       0    
+2 2     41    89    medium~ medium  low   fema~ low     2.2    0       0    
+3 3     42    83    medium~ high    low   fema~ low     4      0       0    
+4 4     30    99    medium~ medium  low   fema~ low     -2.6   0       0    
+5 ...   ...   ...   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    ...    ...     ...  
+6 115   39    87    medium~ medium  low   male  low     &lt;NA&gt;   0       1    
+7 116   41    86    medium~ medium  high  male  low     -1     0       1    
+8 117   33    89    low     low     high  male  high    6.5    1       1    
+9 118   42    &lt;NA&gt;  medium~ medium  low   fema~ low     4.9    0       0    
+# ... with 3 more variables: sleep1 &lt;chr&gt;, newiq &lt;chr&gt;, newage &lt;chr&gt;</code></pre>
+<div id="exploratory-data-analysis-5" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Exploratory Data Analysis</h2>
+<p>Dependent Variable = <code>satlife</code> (numeric version) or <code>lifesat</code> (factor version)</p>
+<div id="visualize" class="section level3" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Visualize</h3>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="logistic-regression-ex-depression-hoffman.html#cb416-1"></a>df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb416-2"><a href="logistic-regression-ex-depression-hoffman.html#cb416-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> age,</span>
+<span id="cb416-3"><a href="logistic-regression-ex-depression-hoffman.html#cb416-3"></a>             <span class="dt">y =</span> satlife)) <span class="op">+</span></span>
+<span id="cb416-4"><a href="logistic-regression-ex-depression-hoffman.html#cb416-4"></a><span class="st">  </span><span class="kw">geom_count</span>() <span class="op">+</span></span>
+<span id="cb416-5"><a href="logistic-regression-ex-depression-hoffman.html#cb416-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></span>
+<span id="cb416-6"><a href="logistic-regression-ex-depression-hoffman.html#cb416-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb416-7"><a href="logistic-regression-ex-depression-hoffman.html#cb416-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age in Years&quot;</span>,</span>
+<span id="cb416-8"><a href="logistic-regression-ex-depression-hoffman.html#cb416-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Life Satisfaction, numeric&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-287"></span>
+<img src="eBook_regression_files/figure-html/unnamed-chunk-287-1.png" alt="Hoffman's Figure 2.3, top of page 46" width="75%" />
+<p class="caption">
+Figure 10.1: Hoffman’s Figure 2.3, top of page 46
+</p>
+</div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="logistic-regression-ex-depression-hoffman.html#cb417-1"></a>df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb417-2"><a href="logistic-regression-ex-depression-hoffman.html#cb417-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> age,</span>
+<span id="cb417-3"><a href="logistic-regression-ex-depression-hoffman.html#cb417-3"></a>             <span class="dt">y =</span> satlife)) <span class="op">+</span></span>
+<span id="cb417-4"><a href="logistic-regression-ex-depression-hoffman.html#cb417-4"></a><span class="st">  </span><span class="kw">geom_count</span>() <span class="op">+</span></span>
+<span id="cb417-5"><a href="logistic-regression-ex-depression-hoffman.html#cb417-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></span>
+<span id="cb417-6"><a href="logistic-regression-ex-depression-hoffman.html#cb417-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb417-7"><a href="logistic-regression-ex-depression-hoffman.html#cb417-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age in Years&quot;</span>,</span>
+<span id="cb417-8"><a href="logistic-regression-ex-depression-hoffman.html#cb417-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Life Satisfaction, numeric&quot;</span>) <span class="op">+</span></span>
+<span id="cb417-9"><a href="logistic-regression-ex-depression-hoffman.html#cb417-9"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></span>
+<span id="cb417-10"><a href="logistic-regression-ex-depression-hoffman.html#cb417-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-288-1.png" width="75%" /></p>
+</div>
+<div id="summary-table" class="section level3" number="10.1.2">
+<h3><span class="header-section-number">10.1.2</span> Summary Table</h3>
+<p>Independent = <code>sex</code></p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="logistic-regression-ex-depression-hoffman.html#cb418-1"></a>df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb418-2"><a href="logistic-regression-ex-depression-hoffman.html#cb418-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(lifesat, sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb418-3"><a href="logistic-regression-ex-depression-hoffman.html#cb418-3"></a><span class="st">  </span><span class="kw">table</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb418-4"><a href="logistic-regression-ex-depression-hoffman.html#cb418-4"></a><span class="st">  </span><span class="kw">addmargins</span>()</span></code></pre></div>
+<pre><code>       sex
+lifesat male female Sum
+   high   14     38  52
+   low     7     58  65
+   Sum    21     96 117</code></pre>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="logistic-regression-ex-depression-hoffman.html#cb420-1"></a>df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb420-2"><a href="logistic-regression-ex-depression-hoffman.html#cb420-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb420-3"><a href="logistic-regression-ex-depression-hoffman.html#cb420-3"></a><span class="st">  </span>furniture<span class="op">::</span><span class="kw">table1</span>(lifesat,</span>
+<span id="cb420-4"><a href="logistic-regression-ex-depression-hoffman.html#cb420-4"></a>                    <span class="dt">total =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb420-5"><a href="logistic-regression-ex-depression-hoffman.html#cb420-5"></a>                    <span class="dt">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.1 Cross-Tabulation of Gender and Life Satisfaction (top page 50)&quot;</span>,</span>
+<span id="cb420-6"><a href="logistic-regression-ex-depression-hoffman.html#cb420-6"></a>                    <span class="dt">output =</span> <span class="st">&quot;markdown&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-290">Table 10.1: </span>Hoffman’s EXAMPLE 3.1 Cross-Tabulation of Gender and Life Satisfaction (top page 50)</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>Total</th>
+<th>male</th>
+<th>female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>n = 117</td>
+<td>n = 21</td>
+<td>n = 96</td>
+</tr>
+<tr class="even">
+<td>lifesat</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>high</td>
+<td>52 (44.4%)</td>
+<td>14 (66.7%)</td>
+<td>38 (39.6%)</td>
+</tr>
+<tr class="even">
+<td>low</td>
+<td>65 (55.6%)</td>
+<td>7 (33.3%)</td>
+<td>58 (60.4%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="logisitc-regression-model-1-one-iv" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Logisitc Regression Model 1: one IV</h2>
+<div id="fit-the-model" class="section level3" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Fit the Model</h3>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="logistic-regression-ex-depression-hoffman.html#cb421-1"></a>fit_glm_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb421-2"><a href="logistic-regression-ex-depression-hoffman.html#cb421-2"></a>                 <span class="dt">data =</span> df_depress,</span>
+<span id="cb421-3"><a href="logistic-regression-ex-depression-hoffman.html#cb421-3"></a>                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb421-4"><a href="logistic-regression-ex-depression-hoffman.html#cb421-4"></a></span>
+<span id="cb421-5"><a href="logistic-regression-ex-depression-hoffman.html#cb421-5"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<pre><code>              Estimate Std. Error   z value   Pr(&gt;|z|)
+(Intercept)  0.6931472  0.4629100  1.497369 0.13429719
+sexfemale   -1.1160040  0.5077822 -2.197800 0.02796333</code></pre>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="logistic-regression-ex-depression-hoffman.html#cb423-1"></a><span class="kw">summary</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = satlife ~ sex, family = binomial(link = &quot;logit&quot;), 
+    data = df_depress)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-1.482  -1.004  -1.004   1.361   1.361  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)   0.6931     0.4629   1.497    0.134  
+sexfemale    -1.1160     0.5078  -2.198    0.028 *
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 160.75  on 116  degrees of freedom
+Residual deviance: 155.62  on 115  degrees of freedom
+  (1 observation deleted due to missingness)
+AIC: 159.62
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div id="tabulate-parameters" class="section level3" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Tabulate Parameters</h3>
+</div>
+<div id="logit-scale-1" class="section level3" number="10.2.3">
+<h3><span class="header-section-number">10.2.3</span> Logit Scale</h3>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="logistic-regression-ex-depression-hoffman.html#cb425-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(fit_glm_<span class="dv">1</span>,</span>
+<span id="cb425-2"><a href="logistic-regression-ex-depression-hoffman.html#cb425-2"></a>                <span class="dt">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&quot;</span>,</span>
+<span id="cb425-3"><a href="logistic-regression-ex-depression-hoffman.html#cb425-3"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb425-4"><a href="logistic-regression-ex-depression-hoffman.html#cb425-4"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb425-5"><a href="logistic-regression-ex-depression-hoffman.html#cb425-5"></a>                <span class="dt">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
+&lt;caption&gt;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.6931 (0.4629)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-1.1160 (0.5078)&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;159.6205&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;165.1449&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-77.8103&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;155.6205&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;117&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;2&quot;&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+<p>Both Logit and Odds-ratio Scales</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="logistic-regression-ex-depression-hoffman.html#cb427-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(fit_glm_<span class="dv">1</span>,</span>
+<span id="cb427-2"><a href="logistic-regression-ex-depression-hoffman.html#cb427-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">1</span>)),</span>
+<span id="cb427-3"><a href="logistic-regression-ex-depression-hoffman.html#cb427-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb427-4"><a href="logistic-regression-ex-depression-hoffman.html#cb427-4"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
+<span id="cb427-5"><a href="logistic-regression-ex-depression-hoffman.html#cb427-5"></a>                <span class="dt">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&quot;</span>,</span>
+<span id="cb427-6"><a href="logistic-regression-ex-depression-hoffman.html#cb427-6"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb427-7"><a href="logistic-regression-ex-depression-hoffman.html#cb427-7"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb427-8"><a href="logistic-regression-ex-depression-hoffman.html#cb427-8"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb427-9"><a href="logistic-regression-ex-depression-hoffman.html#cb427-9"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
+&lt;caption&gt;Hoffman&#39;s EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;b (SE)&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;OR [95 CI]&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.6931 (0.4629)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;2.0000 [0.8322; 5.2772]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-1.1160 (0.5078)&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.3276 [0.1148; 0.8625]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;159.6205&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;159.6205&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;165.1449&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;165.1449&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-77.8103&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-77.8103&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;155.6205&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;155.6205&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;117&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;117&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;3&quot;&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05 (or Null hypothesis value outside the confidence interval).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+</div>
+<div id="assess-model-fit" class="section level3" number="10.2.4">
+<h3><span class="header-section-number">10.2.4</span> Assess Model Fit</h3>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="logistic-regression-ex-depression-hoffman.html#cb429-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">1</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code># A tibble: 2 x 5
+     Df Deviance   AIC   LRT `Pr(&gt;Chi)`
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1    NA     156.  160. NA       NA     
+2     1     161.  163.  5.13     0.0235</code></pre>
+<div id="fit-statistics" class="section level4" number="10.2.4.1">
+<h4><span class="header-section-number">10.2.4.1</span> Fit Statistics</h4>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="logistic-regression-ex-depression-hoffman.html#cb431-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code># A tibble: 1 x 11
+  Model Type    AIC   BIC R2_Tjur  RMSE LOGLOSS SCORE_LOG SCORE_SPHERICAL   PCP
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;
+1 fit_~ glm    160.  165.  0.0437  1.15   0.665     -30.1          0.0550 0.528
+# ... with 1 more variable: BF &lt;dbl&gt;</code></pre>
+</div>
+<div id="r-squared-like-measures" class="section level4" number="10.2.4.2">
+<h4><span class="header-section-number">10.2.4.2</span> R-squared “like” measures</h4>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="logistic-regression-ex-depression-hoffman.html#cb433-1"></a>rcompanion<span class="op">::</span><span class="kw">nagelkerke</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>$Models
+                                                                   
+Model: &quot;glm, satlife ~ sex, binomial(link = \&quot;logit\&quot;), df_depress&quot;
+Null:  &quot;glm, satlife ~ 1, binomial(link = \&quot;logit\&quot;), df_depress&quot;  
+
+$Pseudo.R.squared.for.model.vs.null
+                             Pseudo.R.squared
+McFadden                            0.0319038
+Cox and Snell (ML)                  0.0428865
+Nagelkerke (Cragg and Uhler)        0.0574203
+
+$Likelihood.ratio.test
+ Df.diff LogLik.diff  Chisq  p.value
+      -1     -2.5642 5.1285 0.023536
+
+$Number.of.observations
+          
+Model: 117
+Null:  117
+
+$Messages
+[1] &quot;Note: For models fit with REML, these statistics are based on refitting with ML&quot;
+
+$Warnings
+[1] &quot;None&quot;</code></pre>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="logistic-regression-ex-depression-hoffman.html#cb435-1"></a>performance<span class="op">::</span><span class="kw">r2</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>$R2_Tjur
+Tjur&#39;s R2 
+  0.04375 </code></pre>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="logistic-regression-ex-depression-hoffman.html#cb437-1"></a>performance<span class="op">::</span><span class="kw">r2_mcfadden</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code># R2 for Generalized Linear Regression
+
+       R2: 0.032
+  adj. R2: 0.019</code></pre>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="logistic-regression-ex-depression-hoffman.html#cb439-1"></a>performance<span class="op">::</span><span class="kw">r2_mcfadden</span>(fit_glm_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code># R2 for Generalized Linear Regression
+
+       R2: 0.032
+  adj. R2: 0.019</code></pre>
+</div>
+</div>
+<div id="plot-predicted-probabilitites" class="section level3" number="10.2.5">
+<h3><span class="header-section-number">10.2.5</span> Plot Predicted Probabilitites</h3>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="logistic-regression-ex-depression-hoffman.html#cb441-1"></a>sjPlot<span class="op">::</span><span class="kw">plot_model</span>(<span class="dt">model =</span> fit_glm_<span class="dv">1</span>,</span>
+<span id="cb441-2"><a href="logistic-regression-ex-depression-hoffman.html#cb441-2"></a>                   <span class="dt">type =</span> <span class="st">&quot;pred&quot;</span>)</span></code></pre></div>
+<pre><code>$sex</code></pre>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-301-1.png" width="75%" /></p>
+<div id="logit-scale-2" class="section level4" number="10.2.5.1">
+<h4><span class="header-section-number">10.2.5.1</span> Logit scale</h4>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="logistic-regression-ex-depression-hoffman.html#cb443-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb443-2"><a href="logistic-regression-ex-depression-hoffman.html#cb443-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex)</span></code></pre></div>
+<pre><code> sex    emmean    SE  df asymp.LCL asymp.UCL
+ male    0.693 0.463 Inf    -0.214    1.6004
+ female -0.423 0.209 Inf    -0.832   -0.0138
+
+Results are given on the logit (not the response) scale. 
+Confidence level used: 0.95 </code></pre>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="logistic-regression-ex-depression-hoffman.html#cb445-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb445-2"><a href="logistic-regression-ex-depression-hoffman.html#cb445-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb445-3"><a href="logistic-regression-ex-depression-hoffman.html#cb445-3"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
+<pre><code> contrast      estimate    SE  df z.ratio p.value
+ male - female     1.12 0.508 Inf 2.198   0.0280 
+
+Results are given on the log odds ratio (not the response) scale. </code></pre>
+</div>
+<div id="response-scale-probability" class="section level4" number="10.2.5.2">
+<h4><span class="header-section-number">10.2.5.2</span> Response Scale (probability)</h4>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="logistic-regression-ex-depression-hoffman.html#cb447-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb447-2"><a href="logistic-regression-ex-depression-hoffman.html#cb447-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb447-3"><a href="logistic-regression-ex-depression-hoffman.html#cb447-3"></a>                   <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code> sex     prob     SE  df asymp.LCL asymp.UCL
+ male   0.667 0.1029 Inf     0.447     0.832
+ female 0.396 0.0499 Inf     0.303     0.497
+
+Confidence level used: 0.95 
+Intervals are back-transformed from the logit scale </code></pre>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="logistic-regression-ex-depression-hoffman.html#cb449-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb449-2"><a href="logistic-regression-ex-depression-hoffman.html#cb449-2"></a><span class="st">  </span>emmeans<span class="op">::</span><span class="kw">emmeans</span>(<span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb449-3"><a href="logistic-regression-ex-depression-hoffman.html#cb449-3"></a>                   <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb449-4"><a href="logistic-regression-ex-depression-hoffman.html#cb449-4"></a><span class="st">  </span><span class="kw">pairs</span>()</span></code></pre></div>
+<pre><code> contrast      odds.ratio   SE  df z.ratio p.value
+ male / female       3.05 1.55 Inf 2.198   0.0280 
+
+Tests are performed on the log odds ratio scale </code></pre>
+</div>
+</div>
+<div id="interpretation" class="section level3" number="10.2.6">
+<h3><span class="header-section-number">10.2.6</span> Interpretation</h3>
+<ul>
+<li><p>On average, two out of every three males is depressed, b = 0.667, odds = 1.95, 95% CI [1.58, 2.40].</p></li>
+<li><p>Females have nearly a quarter lower odds of being depressed, compared to men, b = -0.27, OR = 0.77, 95% IC [0.61, 0.96], p = .028.</p></li>
+</ul>
+</div>
+<div id="diagnostics" class="section level3" number="10.2.7">
+<h3><span class="header-section-number">10.2.7</span> Diagnostics</h3>
+<div id="influential-values" class="section level4" number="10.2.7.1">
+<h4><span class="header-section-number">10.2.7.1</span> Influential values</h4>
+<p>Influential values are extreme individual data points that can alter the quality of the logistic regression model.</p>
+<p>The most extreme values in the data can be examined by visualizing the Cook’s distance values. Here we label the top 7 largest values:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="logistic-regression-ex-depression-hoffman.html#cb451-1"></a><span class="kw">plot</span>(fit_glm_<span class="dv">1</span>, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">id.n =</span> <span class="dv">7</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-306-1.png" width="75%" /></p>
+<blockquote>
+<p>Note that, not all outliers are influential observations. To check whether the data contains potential influential observations, the standardized residual error can be inspected. Data points with an absolute standardized residuals above 3 represent possible outliers and may deserve closer attention.</p>
+</blockquote>
+</div>
+<div id="standardized-residuals" class="section level4" number="10.2.7.2">
+<h4><span class="header-section-number">10.2.7.2</span> Standardized Residuals</h4>
+<p>The following R code computes the standardized residuals (<code>.std.resid</code>) using the R function <code>augment()</code> [<code>broom</code> package].</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="logistic-regression-ex-depression-hoffman.html#cb452-1"></a>fit_glm_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb452-2"><a href="logistic-regression-ex-depression-hoffman.html#cb452-2"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb452-3"><a href="logistic-regression-ex-depression-hoffman.html#cb452-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> .rownames, .std.resid)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb452-4"><a href="logistic-regression-ex-depression-hoffman.html#cb452-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> sex), <span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
+<span id="cb452-5"><a href="logistic-regression-ex-depression-hoffman.html#cb452-5"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-307-1.png" width="75%" /></p>
+</div>
+</div>
+</div>
+<div id="logisitic-regression-model-2-many-ivs" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Logisitic Regression Model 2: many IV’s</h2>
+<div id="fit-the-model-1" class="section level3" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Fit the Model</h3>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="logistic-regression-ex-depression-hoffman.html#cb453-1"></a>fit_glm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>iq <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight,</span>
+<span id="cb453-2"><a href="logistic-regression-ex-depression-hoffman.html#cb453-2"></a>                 <span class="dt">data =</span> df_depress,</span>
+<span id="cb453-3"><a href="logistic-regression-ex-depression-hoffman.html#cb453-3"></a>                 <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb453-4"><a href="logistic-regression-ex-depression-hoffman.html#cb453-4"></a></span>
+<span id="cb453-5"><a href="logistic-regression-ex-depression-hoffman.html#cb453-5"></a>fit_glm_<span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">coef</span>()</span></code></pre></div>
+<pre><code>               Estimate Std. Error    z value   Pr(&gt;|z|)
+(Intercept)  9.02054236 6.01858970  1.4987801 0.13393069
+sexfemale   -1.27924381 0.55971456 -2.2855289 0.02228183
+iq          -0.07279837 0.05361036 -1.3579161 0.17449031
+age         -0.04112838 0.05250052 -0.7833900 0.43339814
+weight      -0.03768972 0.08885942 -0.4241499 0.67145648</code></pre>
+</div>
+<div id="tabulate-parameters-1" class="section level3" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Tabulate Parameters</h3>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="logistic-regression-ex-depression-hoffman.html#cb455-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(fit_glm_<span class="dv">2</span>,</span>
+<span id="cb455-2"><a href="logistic-regression-ex-depression-hoffman.html#cb455-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">2</span>)),</span>
+<span id="cb455-3"><a href="logistic-regression-ex-depression-hoffman.html#cb455-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb455-4"><a href="logistic-regression-ex-depression-hoffman.html#cb455-4"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
+<span id="cb455-5"><a href="logistic-regression-ex-depression-hoffman.html#cb455-5"></a>                <span class="dt">caption =</span> <span class="st">&quot;EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52&quot;</span>,</span>
+<span id="cb455-6"><a href="logistic-regression-ex-depression-hoffman.html#cb455-6"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb455-7"><a href="logistic-regression-ex-depression-hoffman.html#cb455-7"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb455-8"><a href="logistic-regression-ex-depression-hoffman.html#cb455-8"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb455-9"><a href="logistic-regression-ex-depression-hoffman.html#cb455-9"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
+&lt;caption&gt;EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;b (SE)&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;OR [95 CI]&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;9.0205 (6.0186)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;8271.2619 [0.0854; 2077566352.1374]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-1.2792 (0.5597)&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.2782 [0.0870;          0.8060]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;iq&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.0728 (0.0536)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9298 [0.8327;          1.0304]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;age&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.0411 (0.0525)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9597 [0.8635;          1.0627]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;weight&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.0377 (0.0889)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9630 [0.8073;          1.1472]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;137.5217&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;137.5217&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;150.4973&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;150.4973&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-63.7609&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-63.7609&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;127.5217&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;127.5217&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;3&quot;&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05 (or Null hypothesis value outside the confidence interval).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+</div>
+<div id="assess-model-fit-1" class="section level3" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Assess Model Fit</h3>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="logistic-regression-ex-depression-hoffman.html#cb457-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code># A tibble: 5 x 5
+     Df Deviance   AIC    LRT `Pr(&gt;Chi)`
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1    NA     128.  138. NA        NA     
+2     1     133.  141.  5.59      0.0180
+3     1     129.  137.  1.91      0.167 
+4     1     128.  136.  0.621     0.431 
+5     1     128.  136.  0.180     0.671 </code></pre>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="logistic-regression-ex-depression-hoffman.html#cb459-1"></a><span class="kw">drop1</span>(fit_glm_<span class="dv">2</span>, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code># A tibble: 5 x 5
+     Df Deviance   AIC    LRT `Pr(&gt;Chi)`
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1    NA     128.  138. NA        NA     
+2     1     133.  141.  5.59      0.0180
+3     1     129.  137.  1.91      0.167 
+4     1     128.  136.  0.621     0.431 
+5     1     128.  136.  0.180     0.671 </code></pre>
+<div id="fit-statistics-1" class="section level4" number="10.3.3.1">
+<h4><span class="header-section-number">10.3.3.1</span> Fit Statistics</h4>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="logistic-regression-ex-depression-hoffman.html#cb461-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
+<pre><code># A tibble: 1 x 11
+  Model Type    AIC   BIC R2_Tjur  RMSE LOGLOSS SCORE_LOG SCORE_SPHERICAL   PCP
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;
+1 fit_~ glm    138.  150.  0.0753  1.13   0.644     -23.1          0.0220 0.548
+# ... with 1 more variable: BF &lt;dbl&gt;</code></pre>
+</div>
+<div id="r-squared-lik-measures" class="section level4" number="10.3.3.2">
+<h4><span class="header-section-number">10.3.3.2</span> R-squared “lik” measures</h4>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="logistic-regression-ex-depression-hoffman.html#cb463-1"></a>rcompanion<span class="op">::</span><span class="kw">nagelkerke</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>$Models
+                                                                                       
+Model: &quot;glm, satlife ~ sex + iq + age + weight, binomial(link = \&quot;logit\&quot;), df_depress&quot;
+Null:  &quot;glm, satlife ~ 1, binomial(link = \&quot;logit\&quot;), df_depress&quot;                      
+
+$Pseudo.R.squared.for.model.vs.null
+                             Pseudo.R.squared
+McFadden                             0.206703
+Cox and Snell (ML)                   0.285112
+Nagelkerke (Cragg and Uhler)         0.355130
+
+$Likelihood.ratio.test
+ Df.diff LogLik.diff  Chisq    p.value
+      -4     -16.614 33.227 1.0731e-06
+
+$Number.of.observations
+          
+Model:  99
+Null:  117
+
+$Messages
+[1] &quot;Note: For models fit with REML, these statistics are based on refitting with ML&quot;
+
+$Warnings
+[1] &quot;WARNING: Fitted and null models have different numbers of observations&quot;</code></pre>
+</div>
+</div>
+<div id="diagnostics-1" class="section level3" number="10.3.4">
+<h3><span class="header-section-number">10.3.4</span> Diagnostics</h3>
+<div id="multicollinearity" class="section level4" number="10.3.4.1">
+<h4><span class="header-section-number">10.3.4.1</span> Multicollinearity</h4>
+<p>Multicollinearity corresponds to a situation where the data contain highly correlated predictor variables. Read more in Chapter <span class="citation">(<span class="citeproc-not-found" data-reference-id="ref"><strong>???</strong></span>)</span>(multicollinearity).</p>
+<p>Multicollinearity is an important issue in regression analysis and should be fixed by removing the concerned variables. It can be assessed using the R function <code>vif()</code> [<code>car</code> package], which computes the variance inflation factors:</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="logistic-regression-ex-depression-hoffman.html#cb465-1"></a>car<span class="op">::</span><span class="kw">vif</span>(fit_glm_<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>     sex       iq      age   weight 
+1.011608 1.294334 1.418975 1.233364 </code></pre>
+<p>As a rule of thumb, a <strong><code>VIF</code> value that exceeds 5 or 10 indicates a problematic amount of collinearity</strong>. In our example, there is no collinearity: all variables have a value of <code>VIF</code> well below 5.</p>
+</div>
+</div>
+</div>
+<div id="compare-models" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> Compare Models</h2>
+<p>Refit Model 1 with only participant complete on all the predictors</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="logistic-regression-ex-depression-hoffman.html#cb467-1"></a>fit_glm_<span class="dv">1</span>_redo &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex,</span>
+<span id="cb467-2"><a href="logistic-regression-ex-depression-hoffman.html#cb467-2"></a>                      <span class="dt">data =</span> df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb467-3"><a href="logistic-regression-ex-depression-hoffman.html#cb467-3"></a><span class="st">                        </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(sex, iq, age, weight)))</span>
+<span id="cb467-4"><a href="logistic-regression-ex-depression-hoffman.html#cb467-4"></a></span>
+<span id="cb467-5"><a href="logistic-regression-ex-depression-hoffman.html#cb467-5"></a>fit_glm_<span class="dv">2</span>_redo &lt;-<span class="st"> </span><span class="kw">glm</span>(satlife <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>iq <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight,</span>
+<span id="cb467-6"><a href="logistic-regression-ex-depression-hoffman.html#cb467-6"></a>                      <span class="dt">data =</span> df_depress <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb467-7"><a href="logistic-regression-ex-depression-hoffman.html#cb467-7"></a><span class="st">                        </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(sex, iq, age, weight)))</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="logistic-regression-ex-depression-hoffman.html#cb468-1"></a>texreg<span class="op">::</span><span class="kw">knitreg</span>(<span class="kw">list</span>(texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">1</span>_redo),</span>
+<span id="cb468-2"><a href="logistic-regression-ex-depression-hoffman.html#cb468-2"></a>                     texreghelpr<span class="op">::</span><span class="kw">extract_glm_exp</span>(fit_glm_<span class="dv">2</span>_redo)),</span>
+<span id="cb468-3"><a href="logistic-regression-ex-depression-hoffman.html#cb468-3"></a>                <span class="dt">custom.model.names =</span> <span class="kw">c</span>(<span class="st">&quot;Single IV&quot;</span>,</span>
+<span id="cb468-4"><a href="logistic-regression-ex-depression-hoffman.html#cb468-4"></a>                                       <span class="st">&quot;Multiple IVs&quot;</span>),</span>
+<span id="cb468-5"><a href="logistic-regression-ex-depression-hoffman.html#cb468-5"></a>                <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb468-6"><a href="logistic-regression-ex-depression-hoffman.html#cb468-6"></a>                <span class="dt">single.row =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb468-7"><a href="logistic-regression-ex-depression-hoffman.html#cb468-7"></a>                <span class="dt">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb468-8"><a href="logistic-regression-ex-depression-hoffman.html#cb468-8"></a>                <span class="dt">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>&lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&quot;&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Single IV&lt;/th&gt;
+&lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Multiple IVs&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;1.9477 [1.5562; 2.4377]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;12.7108 [0.8969; 180.1414]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;sexfemale&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.7436 [0.5802; 0.9529]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.7388 [0.5755;   0.9483]&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;iq&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9837 [0.9606;   1.0074]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;age&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9908 [0.9677;   1.0144]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;weight&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.9913 [0.9521;   1.0322]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;141.9675&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;145.7895&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;149.7528&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;161.3602&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-67.9837&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-66.8948&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Deviance&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;22.8889&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;22.3908&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
+&lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;3&quot;&gt;&lt;sup&gt;*&lt;/sup&gt; Null hypothesis value outside the confidence interval.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="logistic-regression-ex-depression-hoffman.html#cb470-1"></a><span class="kw">anova</span>(fit_glm_<span class="dv">1</span>_redo, </span>
+<span id="cb470-2"><a href="logistic-regression-ex-depression-hoffman.html#cb470-2"></a>      fit_glm_<span class="dv">2</span>_redo,</span>
+<span id="cb470-3"><a href="logistic-regression-ex-depression-hoffman.html#cb470-3"></a>      <span class="dt">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
+<pre><code># A tibble: 2 x 5
+  `Resid. Df` `Resid. Dev`    Df Deviance `Pr(&gt;Chi)`
+        &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+1          97         22.9    NA   NA         NA    
+2          94         22.4     3    0.498      0.554</code></pre>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="logistic-regression-ex-depression-hoffman.html#cb472-1"></a>performance<span class="op">::</span><span class="kw">compare_performance</span>(fit_glm_<span class="dv">1</span>_redo, </span>
+<span id="cb472-2"><a href="logistic-regression-ex-depression-hoffman.html#cb472-2"></a>                                 fit_glm_<span class="dv">2</span>_redo, </span>
+<span id="cb472-3"><a href="logistic-regression-ex-depression-hoffman.html#cb472-3"></a>                                 <span class="dt">rank =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code># A tibble: 2 x 8
+  Model          Type    AIC   BIC R2_Nagelkerke  RMSE      BF Performance_Score
+  &lt;chr&gt;          &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;             &lt;dbl&gt;
+1 fit_glm_1_redo glm    142.  150.        0.0599 0.481 1                     0.6
+2 fit_glm_2_redo glm    146.  161.        0.0827 0.476 0.00302               0.4</code></pre>
+<div id="interpretation-1" class="section level3" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> Interpretation</h3>
+<ul>
+<li>Only sex is predictive of depression. There is no evidence IQ, age, or weight are associated with depression, all p’s &gt; .16.</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic-regression-ex-volunteering-hoffman.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+# Logistic Regression - Ex: Depression (Hoffman)
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(texreghelpr)  # GITHUB: sarbearschartz/texreghelpr
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(sjPlot)       # Quick plots and tables for models
+library(pscl)         # psudo R-squared function
+library(glue)         # Interpreted String Literals 
+library(interactions) # interaction plots
+library(sjPlot)       # various plots
+library(performance)  # r-squared values
+```
+
+
+This dataset comes from John Hoffman's textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) [Amazon link, 2014 edition](https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&qid=1603172859&refinements=p_27%3ADr.+John+P.+Hoffmann&s=books&sr=1-2&text=Dr.+John+P.+Hoffmann)
+
+> Chapter 3: Logistic and Probit Regression Models 
+
+Dataset:  The following example uses the SPSS data set `Depress.sav`. The dependent variable of interest is a measure of life satisfaction, labeled `satlife`. 
+
+```{r}
+df_depress <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/depress.sav") %>% 
+  haven::as_factor()
+
+tibble::glimpse(df_depress)
+```
+
+
+```{r}
+psych::headTail(df_depress)
+```
+
+
+## Exploratory Data Analysis
+
+Dependent Variable = `satlife` (numeric version) or `lifesat` (factor version)
+
+
+### Visualize
+
+```{r, fig.cap="Hoffman's Figure 2.3, top of page 46"}
+df_depress %>% 
+  ggplot(aes(x = age,
+             y = satlife)) +
+  geom_count() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "Age in Years",
+       y = "Life Satisfaction, numeric")
+```
+
+
+
+
+```{r}
+df_depress %>% 
+  ggplot(aes(x = age,
+             y = satlife)) +
+  geom_count() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "Age in Years",
+       y = "Life Satisfaction, numeric") +
+  facet_grid(~ sex) +
+  theme(legend.position = "bottom")
+```
+
+
+### Summary Table
+
+Independent = `sex`
+
+```{r}
+df_depress %>% 
+  dplyr::select(lifesat, sex) %>% 
+  table() %>% 
+  addmargins()
+```
+
+
+
+```{r}
+df_depress %>% 
+  dplyr::group_by(sex) %>% 
+  furniture::table1(lifesat,
+                    total = TRUE,
+                    caption = "Hoffman's EXAMPLE 3.1 Cross-Tabulation of Gender and Life Satisfaction (top page 50)",
+                    output = "markdown")
+```
+
+
+
+## Logisitc Regression Model 1: one IV 
+
+
+### Fit the Model
+
+```{r}
+fit_glm_1 <- glm(satlife ~ sex,
+                 data = df_depress,
+                 family = binomial(link = "logit"))
+
+fit_glm_1 %>% summary() %>% coef()
+```
+
+```{r}
+summary(fit_glm_1)
+```
+
+
+### Tabulate Parameters
+
+
+### Logit Scale
+
+
+```{r}
+texreg::knitreg(fit_glm_1,
+                caption = "Hoffman's EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4)
+```
+
+Both Logit and Odds-ratio Scales
+
+```{r}
+texreg::knitreg(list(fit_glm_1,
+                     texreghelpr::extract_glm_exp(fit_glm_1)),
+                custom.model.names = c("b (SE)",
+                                       "OR [95 CI]"),
+                caption = "Hoffman's EXAMPLE 3.2 A Loistic Regression Model of Gender and Life Satisfaction, top of page 51",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4,
+                ci.test = 1)
+```
+
+
+### Assess Model Fit
+
+
+```{r}
+drop1(fit_glm_1, test = "Chisq")
+```
+
+
+
+#### Fit Statistics
+
+
+```{r}
+performance::compare_performance(fit_glm_1)
+```
+
+
+#### R-squared "like" measures
+
+```{r}
+rcompanion::nagelkerke(fit_glm_1)
+```
+
+
+```{r}
+performance::r2(fit_glm_1)
+```
+
+```{r}
+performance::r2_mcfadden(fit_glm_1)
+```
+
+```{r}
+performance::r2_mcfadden(fit_glm_1)
+```
+
+
+
+### Plot Predicted Probabilitites
+
+```{r}
+sjPlot::plot_model(model = fit_glm_1,
+                   type = "pred")
+```
+
+#### Logit scale
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex)
+```
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex) %>% 
+  pairs()
+```
+
+
+#### Response Scale (probability)
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex,
+                   type = "response")
+```
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex,
+                   type = "response") %>% 
+  pairs()
+```
+
+
+### Interpretation
+
+* On average, two out of every three males is depressed,  b = 0.667, odds = 1.95, 95% CI [1.58, 2.40].
+
+* Females have nearly a quarter lower odds of being depressed, compared to men, b = -0.27, OR = 0.77, 95% IC [0.61, 0.96], p = .028.
+
+
+### Diagnostics
+
+#### Influential values
+
+Influential values are extreme individual data points that can alter the quality of the logistic regression model.
+
+The most extreme values in the data can be examined by visualizing the Cook’s distance values. Here we label the top 7 largest values:
+
+
+```{r}
+plot(fit_glm_1, which = 4, id.n = 7)
+```
+
+> Note that, not all outliers are influential observations. To check whether the data contains potential influential observations, the standardized residual error can be inspected. Data points with an absolute standardized residuals above 3 represent possible outliers and may deserve closer attention.
+
+#### Standardized Residuals
+
+The following R code computes the standardized residuals (`.std.resid`) using the R function `augment()` [`broom` package].
+
+
+```{r}
+fit_glm_1 %>% 
+  broom::augment() %>% 
+  ggplot(aes(x = .rownames, .std.resid)) + 
+  geom_point(aes(color = sex), alpha = .5) +
+  theme_bw()
+```
+
+
+
+
+
+
+## Logisitic Regression Model 2: many IV's
+
+
+### Fit the Model
+
+```{r}
+fit_glm_2 <- glm(satlife ~ sex + iq + age + weight,
+                 data = df_depress,
+                 family = binomial(link = "logit"))
+
+fit_glm_2 %>% summary() %>% coef()
+```
+
+### Tabulate Parameters
+
+```{r}
+texreg::knitreg(list(fit_glm_2,
+                     texreghelpr::extract_glm_exp(fit_glm_2)),
+                custom.model.names = c("b (SE)",
+                                       "OR [95 CI]"),
+                caption = "EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4,
+                ci.test = 1)
+```
+
+
+### Assess Model Fit
+
+
+```{r}
+drop1(fit_glm_2, test = "Chisq")
+```
+
+
+
+
+```{r}
+drop1(fit_glm_2, test = "Chisq")
+```
+
+
+
+#### Fit Statistics
+
+
+```{r}
+performance::compare_performance(fit_glm_2)
+```
+
+
+#### R-squared "lik" measures
+
+```{r}
+rcompanion::nagelkerke(fit_glm_2)
+```
+
+### Diagnostics
+
+#### Multicollinearity
+
+Multicollinearity corresponds to a situation where the data contain highly correlated predictor variables. Read more in Chapter @ref(multicollinearity).
+
+Multicollinearity is an important issue in regression analysis and should be fixed by removing the concerned variables. It can be assessed using the R function `vif()` [`car` package], which computes the variance inflation factors:
+
+```{r}
+car::vif(fit_glm_2)
+```
+
+As a rule of thumb, a **`VIF` value that exceeds 5 or 10 indicates a problematic amount of collinearity**. In our example, there is no collinearity: all variables have a value of `VIF` well below 5.
+
+
+## Compare Models
+
+Refit Model 1 with only participant complete on all the predictors
+
+```{r}
+fit_glm_1_redo <- glm(satlife ~ sex,
+                      data = df_depress %>% 
+                        dplyr::filter(complete.cases(sex, iq, age, weight)))
+
+fit_glm_2_redo <- glm(satlife ~ sex + iq + age + weight,
+                      data = df_depress %>% 
+                        dplyr::filter(complete.cases(sex, iq, age, weight)))
+```
+
+
+```{r}
+texreg::knitreg(list(texreghelpr::extract_glm_exp(fit_glm_1_redo),
+                     texreghelpr::extract_glm_exp(fit_glm_2_redo)),
+                custom.model.names = c("Single IV",
+                                       "Multiple IVs"),
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4,
+                ci.test = 1)
+```
+
+
+```{r}
+anova(fit_glm_1_redo, 
+      fit_glm_2_redo,
+      test = "LRT")
+```
+
+
+```{r}
+performance::compare_performance(fit_glm_1_redo, 
+                                 fit_glm_2_redo, 
+                                 rank = TRUE)
+```
+
+
+### Interpretation
+
+* Only sex is predictive of depression.  There is no evidence IQ, age, or weight are associated with depression, all p's > .16.
