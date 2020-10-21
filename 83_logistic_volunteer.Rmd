@@ -100,8 +100,15 @@ fit_glm_1 <- glm(volrelig01 ~ female + z_age + z_educ,
                  data = df_gss_model,
                  family = binomial(link = "logit"))
 
+fit_glm_1 %>% summary() 
+```
+
+```{r}
 fit_glm_1 %>% summary() %>% coef()
 ```
+
+
+
 
 ```{r, results='asis'}
 texreg::knitreg(list(fit_glm_1,
@@ -131,19 +138,36 @@ exp(-2.831)
 exp(-2.831 + 0.354)
 ```
 
+```{r}
+exp(0.354)
+```
+
+```{r}
+fit_glm_1 %>% coef() %>% exp()
+```
+
+
+
+> NOTE: Odds = 1 --> There is a 50-50 change of that thing happening for whom ever we are refering to.
+
+> NOTE: an odds-ratio = 1 --> There is the same change of that thing happening for both groups.
+
 Controlling for age and education, 
 
 * the **odds** of volunteering among MALES is `exp(-2.831) = .0589`, and 
 * the **odds** of volunteering among FEMALES is `exp(-2.831 + 0.354) = exp(-2.48) = .0840`. 
 
+* Females have 42% higher odds of having volunteered for a religious organization over the previous Year.
+
+
 > What, then, is the odds ratio?
 
 ```{r}
-0.0840/0.0589
+(0.0840)/(0.0589)
 ```
 
 
-### Response Scale (aka Probability)
+### Response Scale (aka. Probability)
  
 
 ```{r}
@@ -161,7 +185,7 @@ Controlling for age and education,
 > Use these probabilities to compute the odds ratio for gender.
 
 ```{r}
-.0774/.0556
+(.0774/(1 - .0774))/(.0556/(1 - .0556))
 ```
 
 *Note that these **odds** and **probabilities** are similar. This often occurs when we are dealing with probabilities that are relatively close to zero; in other words, it is a common occurrence for rare events. To see this, simply compute a cross-tabulation of `volrelig` and `gender` and compare the odds and probabilities. Then try it out for any rare event you may wish to simulate*

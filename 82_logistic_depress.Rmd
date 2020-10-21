@@ -46,6 +46,14 @@ tibble::glimpse(df_depress)
 psych::headTail(df_depress)
 ```
 
+```{r}
+df_depress %>% 
+  dplyr::select(satlife, lifesat) %>% 
+  table() %>% 
+  addmargins()
+```
+
+
 
 ## Exploratory Data Analysis
 
@@ -104,12 +112,140 @@ df_depress %>%
                     output = "markdown")
 ```
 
+## Calcualte: Probability, Odds, and Odds-Ratios
+
+### Marginal, over all the sample
+
+> Tally the number of participants happy and not happy (i.e. depressed). 
+
+```{r}
+df_depress %>% 
+  dplyr::select(satlife) %>% 
+  table() %>% 
+  addmargins()
+```
+
+
+#### Probability of being happy
+
+$$
+prob_{yes} = \frac{n_{yes}}{n_{total}} = \frac{n_{yes}}{n_{yes} + n_{no}}
+$$
+
+```{r}
+prob <- 52 / 117
+
+prob
+```
+
+#### Odds of being happy
+
+$$
+odds_{yes} = \frac{n_{yes}}{n_{no}} = \frac{n_{yes}}{n_{total} - n_{yes}}
+$$
+
+```{r}
+odds <- 52/65
+
+odds
+```
+
+$$
+odds_{yes} = \frac{prob_{yes}}{prob_{no}} = \frac{prob_{yes}}{1 - prob_{yes}}
+$$
+
+
+```{r}
+prob/(1 - prob)
+```
+
+
+
+### Comparing by Sex
+
+> Cross-tabulate happiness (`satlife`) with `sex` *(male vs. female)*.
+
+```{r}
+df_depress %>% 
+  dplyr::select(satlife, sex) %>% 
+  table() %>% 
+  addmargins()
+```
+
+
+#### Probability of being happy, by sex
+
+Reference category = male
+
+```{r}
+prob_male <- 14 / 21
+
+prob_male
+```
+
+Comparison Category = female
+
+```{r}
+prob_female <- 38 / 96
+
+prob_female
+```
+
+
+#### Odds of being happy, by sex
+
+Reference category = male
+
+```{r}
+odds_male <- 14 / 7
+
+odds_male
+```
+
+Comparison Category = female
+
+```{r}
+odds_female <- 38 / 58
+
+
+odds_female
+```
+
+#### Odds-Ratio for sex
+
+
+$$
+OR_{\text{female vs. male}} = \frac{odds_{female}}{odds_{male}}
+$$
+
+```{r}
+odds_ratio <- odds_female / odds_male
+
+odds_ratio
+```
+
+$$
+OR_{\text{female vs. male}} = \frac{\frac{prob_{female}}{1 - prob_{female}}}{\frac{prob_{male}}{1 - prob_{male}}}
+$$
+
+```{r}
+(prob_female / (1 - prob_female)) / (prob_male / (1 - prob_male))
+```
+
+$$
+OR_{\text{female vs. male}} = \frac{\frac{n_{yes|female}}{n_{no|female}}}{\frac{n_{yes|male}}{n_{no|male}}}
+$$
+
+```{r}
+((38 / 58)/(14 / 7))
+```
+
 
 
 ## Logisitc Regression Model 1: one IV 
 
 
-### Fit the Model
+### Fit the Unadjusted Model
 
 ```{r}
 fit_glm_1 <- glm(satlife ~ sex,
@@ -127,7 +263,7 @@ summary(fit_glm_1)
 ### Tabulate Parameters
 
 
-### Logit Scale
+#### Logit Scale
 
 
 ```{r, results='asis'}
@@ -138,7 +274,7 @@ texreg::knitreg(fit_glm_1,
                 digits = 4)
 ```
 
-Both Logit and Odds-ratio Scales
+#### Both Logit and Odds-ratio Scales
 
 ```{r, results='asis'}
 texreg::knitreg(list(fit_glm_1,
@@ -155,14 +291,12 @@ texreg::knitreg(list(fit_glm_1,
 
 ### Assess Model Fit
 
+#### Likelihood Ratio Test (LRT, aka. Deviance Difference Test)
 
 ```{r}
-drop1(fit_glm_1, test = "Chisq")
+drop1(fit_glm_1, test = "LRT")
 ```
 
-
-
-#### Fit Statistics
 
 
 ```{r}
@@ -171,10 +305,6 @@ performance::compare_performance(fit_glm_1)
 
 
 #### R-squared "like" measures
-
-```{r}
-rcompanion::nagelkerke(fit_glm_1)
-```
 
 
 ```{r}
@@ -186,8 +316,15 @@ performance::r2_mcfadden(fit_glm_1)
 ```
 
 ```{r}
-performance::r2_mcfadden(fit_glm_1)
+performance::r2_nagelkerke(fit_glm_1)
 ```
+
+
+
+```{r}
+pscl::pR2(fit_glm_1)
+```
+
 
 
 
@@ -300,19 +437,12 @@ texreg::knitreg(list(fit_glm_2,
 
 
 ```{r}
-drop1(fit_glm_2, test = "Chisq")
+drop1(fit_glm_2, test = "LRT")
 ```
 
 
 
-
-```{r}
-drop1(fit_glm_2, test = "Chisq")
-```
-
-
-
-#### Fit Statistics
+### Variance Explained
 
 
 ```{r}
@@ -323,7 +453,7 @@ performance::compare_performance(fit_glm_2)
 #### R-squared "lik" measures
 
 ```{r}
-rcompanion::nagelkerke(fit_glm_2)
+performance::r2_nagelkerke(fit_glm_2)
 ```
 
 ### Diagnostics
@@ -343,16 +473,25 @@ As a rule of thumb, a **`VIF` value that exceeds 5 or 10 indicates a problematic
 
 ## Compare Models
 
-Refit Model 1 with only participant complete on all the predictors
+### Refit to Complete Cases
+
+Restrict the data to only participant that have all four of these predictors.
+
+```{r}
+df_depress_model <- df_depress %>% 
+                        dplyr::filter(complete.cases(sex, iq, age, weight))
+```
+
+
+
+Refit Model 1 with only participant complete on all the predictors.
 
 ```{r}
 fit_glm_1_redo <- glm(satlife ~ sex,
-                      data = df_depress %>% 
-                        dplyr::filter(complete.cases(sex, iq, age, weight)))
+                      data = df_depress_model)
 
 fit_glm_2_redo <- glm(satlife ~ sex + iq + age + weight,
-                      data = df_depress %>% 
-                        dplyr::filter(complete.cases(sex, iq, age, weight)))
+                      data = df_depress_model)
 ```
 
 

@@ -16,6 +16,7 @@ library(haven)        # read in SPSS dataset
 library(furniture)    # nice table1() descriptives
 library(stargazer)    # display nice tables: summary & regression
 library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(texreghelpr)  #
 library(psych)        # contains some useful functions, like headTail
 library(car)          # Companion to Applied Regression
 library(sjPlot)       # Quick plots and tables for models
@@ -40,7 +41,7 @@ Dependent variable (DV) or outcome
     - 0 = birth weight >2500 g (normal)
     - 1 = birth weight < 2500 g (low))  
     
-* `bwt` actual infant birth weight in grams
+* `bwt` actual infant birth weight in grams *(ignore for now)*
 
 
 Independent variables (IV) or predictors
@@ -57,7 +58,7 @@ Independent variables (IV) or predictors
 
 ### Raw Dataset
 
-The data is saved in a text file (.txt) without any labels.
+The data is saved in a text file (`.txt`) without any labels.
 
 ```{r lowbwtdata}
 lowbwt_raw <- read.table("https://raw.githubusercontent.com/CEHS-research/data/master/Regression/lowbwt.txt", 
@@ -135,14 +136,14 @@ lowbwt_clean %>%
 ## Logistic Regression - Simple, unadjusted models
 
 ```{r}
-low1.age   <- glm(low ~ age,     family = binomial(logit), data = lowbwt_clean)
-low1.lwt   <- glm(low ~ lwt,     family = binomial(logit), data = lowbwt_clean)
-low1.race  <- glm(low ~ race,    family = binomial(logit), data = lowbwt_clean)
-low1.smoke <- glm(low ~ smoke,   family = binomial(logit), data = lowbwt_clean)
-low1.ptl   <- glm(low ~ ptl_any, family = binomial(logit), data = lowbwt_clean)
-low1.ht    <- glm(low ~ ht,      family = binomial(logit), data = lowbwt_clean)
-low1.ui    <- glm(low ~ ui,      family = binomial(logit), data = lowbwt_clean)
-low1.ftv   <- glm(low ~ ftv,     family = binomial(logit), data = lowbwt_clean)
+low1.age   <- glm(low ~ age,     family = binomial(link = "logit"), data = lowbwt_clean)
+low1.lwt   <- glm(low ~ lwt,     family = binomial(link = "logit"), data = lowbwt_clean)
+low1.race  <- glm(low ~ race,    family = binomial(link = "logit"), data = lowbwt_clean)
+low1.smoke <- glm(low ~ smoke,   family = binomial(link = "logit"), data = lowbwt_clean)
+low1.ptl   <- glm(low ~ ptl_any, family = binomial(link = "logit"), data = lowbwt_clean)
+low1.ht    <- glm(low ~ ht,      family = binomial(link = "logit"), data = lowbwt_clean)
+low1.ui    <- glm(low ~ ui,      family = binomial(link = "logit"), data = lowbwt_clean)
+low1.ftv   <- glm(low ~ ftv,     family = binomial(link = "logit"), data = lowbwt_clean)
 ```
 
 Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.
@@ -170,7 +171,7 @@ Main-effects multiple logistic regression model
 
 ```{r}
 low1_1 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui,
-              family = binomial(logit), 
+              family = binomial(link = "logit"), 
               data = lowbwt_clean)
 
 summary(low1_1)
@@ -191,7 +192,7 @@ Try interactions between age and lwt, age and smoke, lwt and smoke,  1 at a time
 
 ```{r}
 low1_2 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:lwt,
-                 family = binomial(logit), 
+                 family = binomial(link = "logit"), 
                  data = lowbwt_clean)
 
 summary(low1_2)
@@ -200,7 +201,7 @@ summary(low1_2)
 #### Compare Model Fits vs. Likelihood Ratio Test
 
 ```{r}
-anova(low1_1, low1_2, test = 'Chi')
+anova(low1_1, low1_2, test = 'LRT')
 ```
 
 #### Type II Analysis of Deviance Table
@@ -221,7 +222,7 @@ Anova(low1_2, test = 'LR', type = 'III')
 
 ```{r}
 low1_3 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:smoke,
-                 family = binomial(logit), 
+                 family = binomial(link = "logit"), 
                  data = lowbwt_clean)
 
 summary(low1_3)
@@ -230,9 +231,12 @@ summary(low1_3)
 #### Compare Model Fits vs. Likelihood Ratio Test
 
 ```{r}
-anova(low1_1, low1_3, test = 'Chi')
+anova(low1_1, low1_3, test = 'LRT')
 ```
 
+```{r}
+performance::compare_performance(low1_1, low1_3, rank = TRUE)
+```
 
 
 ### Weight and Smoking
@@ -240,7 +244,7 @@ anova(low1_1, low1_3, test = 'Chi')
 
 ```{r}
 low1_4 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + lwt:smoke,
-                 family = binomial(logit), 
+                 family = binomial(link = "logit"), 
                  data = lowbwt_clean)
 
 summary(low1_4)
@@ -249,7 +253,7 @@ summary(low1_4)
 #### Compare Model Fits vs. Likelihood Ratio Test
 
 ```{r}
-anova(low1_1, low1_4, test = 'Chi')
+anova(low1_1, low1_4, test = 'LRT')
 ```
 
 ## Logistic Regression - Multivariate, Simplify
@@ -262,7 +266,7 @@ Remove non-significant main effects
 
 ```{r}
 low1_5 <- glm(low ~ age + lwt + race + smoke + ptl_any + ht,
-                 family = binomial(logit), 
+                 family = binomial(link = "logit"), 
                  data = lowbwt_clean)
 
 summary(low1_5)
@@ -279,7 +283,7 @@ Revise so that age is interpreted in 5-year and lwt in 20 lb increments and the 
 
 ```{r}
 low1_6 <- glm(low ~ I((age - 20)/5) + I((lwt - 125)/20) + race + smoke + ptl_any + ht,
-              family = binomial(logit), 
+              family = binomial(link = "logit"), 
               data = lowbwt_clean)
 
 summary(low1_6)

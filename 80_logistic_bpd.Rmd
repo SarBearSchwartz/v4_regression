@@ -110,32 +110,39 @@ summary(bpd_clean)
 
 
 
-## Logistic Regresion
+## Logistic Regresion: Fit the Model to the data
 
 Instead of using the `lm()` function from base R, you use `glm()`.  You also need to add an option to specify which generalization you want to use.  To do logistic regression for a binary outcome, use `family = binomial(link = "logit")`.
 
-### Fit the Models
-
-Null Model:
+### Null Model: no independent variables
 
 ```{r}
 fit_glm_0 <- glm(bpd ~ 1, 
                  data = bpd_clean, 
                  family = binomial(link = "logit"))
+
+summary(fit_glm_0)
 ```
 
-Main Effects Model:
+### Main Effects Model: add 3 predictors
+
+> Note: Since the unites of weight are so small, the estimated parameter will be super small.  To offset the small units, we can re-scale the weights by dividing the grams by 100 to create "hectograms".
 
 ```{r}
 fit_glm_1 <- glm(bpd ~ I(brthwght/100) + gestage + toxemia, 
                  data = bpd_clean, 
                  family = binomial(link = "logit")) 
+
+summary(fit_glm_1)
 ```
 
 
 
 
-#### Log Likelihood
+## Model Fit
+
+
+### Log Likelihood and Deviance
 
 ```{r}
 logLik(fit_glm_0) # Null Model
@@ -146,7 +153,7 @@ logLik(fit_glm_0) # Null Model
 logLik(fit_glm_1) # Full Model
 ```
 
-#### Deviance = -1 times the Log Likelihood
+> Note: Deviance = -2 times the Log Likelihood
 
 ```{r}
 deviance(fit_glm_0) # Null Model
@@ -157,29 +164,67 @@ deviance(fit_glm_0) # Null Model
 deviance(fit_glm_1) # Full Model
 ```
 
-### GoF Measures
+### AIC and BIC
 
-#### AIC
 
 ```{r}
-AIC(fit_glm_0)  # Null Model
+AIC(fit_glm_0, fit_glm_1)  # Full Model
 ```
 
 
 ```{r}
-AIC(fit_glm_1)  # Full Model
+BIC(fit_glm_0, fit_glm_1)  # Full Model
 ```
 
 
 
-#### Logistic R^2
-
-http://thestatsgeek.com/2014/02/08/r-squared-in-logistic-regression/ 
-
-Technically, $R^2$ cannot be computed the same way in logistic regression as it is in OLS regression. NULL model and $L_1$ is the log likelihood for the full model with constant and predictors.  There are several (over 10) alternatives that endever to calculate a similar metric in different ways.  
 
 
-#### McFadden's pseud-R^2
+## Variance Explained
+
+### Many Options
+
+> Technically, $R^2$ cannot be computed the same way in logistic regression as it is in OLS regression. There are several (over 10) alternatives that endever to calculate a similar metric in different ways.  
+
+
+```{block type='rmdlink', echo=TRUE}
+Website: Statistical Horizons
+
+Author: [Paul Allison](https://statisticalhorizons.com/our-instructors/paul-allison)
+
+Blog Post: [What’s the Best R-Squared for Logistic Regression?](https://statisticalhorizons.com/r2logistic)
+
+> Compares and contrasts different options and his/our progression through them, in which he now prefers Tjur’s statistic (pronounced “choor”). 
+
+> Great Quote: "For those who want an R^2 that behaves like a linear-model R^2, this is deeply unsettling."
+
+> Note: Dr. Allison is very active at answering questions in the comments of this post.
+
+```
+
+
+```{block type='rmdlink', echo=TRUE}
+Website: UCLA [Institute for Digital Research and Education (IDRE)](https://stats.idre.ucla.edu/)
+
+Article: [FAQ: WHAT ARE PSEUDO R-SQUAREDS?](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-what-are-pseudo-r-squareds/)
+
+> Describes several of the most comment R-squared type measures for logistic regression (with Stata).
+```
+
+
+```{block type='rmdlink', echo=TRUE}
+Website: [The Stats Geek](https://thestatsgeek.com/) 
+
+Author: [Jonathan Bartlett](https://thestatsgeek.com/about-thestatsgeek-com/), Department of Mathematical Sciences, University of Bath and Associate Editor for the journal Biometrics
+
+Blog Post: [2014: R squared in logistic regression](http://thestatsgeek.com/2014/02/08/r-squared-in-logistic-regression/)
+
+> Focus on McFadden's pseudo-R squared, in R.
+```
+
+
+
+### McFadden's pseud-R^2
 
 McFadden's $pseudo-R^2$, in logistic regression, is defined as $1−\frac{L_1}{L_0}$, where $L_0$ represents the log likelihood for the "constant-only" or 
 
@@ -192,9 +237,12 @@ MFR2 <- 1 - (logLik(fit_glm_1)/logLik(fit_glm_0))
 MFR2
 ```
 
+```{r}
+performance::r2_mcfadden(fit_glm_1)
+```
 
 
-#### Cox & Snell
+### Cox & Snell
 
 $l = e^{L}$, since $L$ is the log of the likelihood and $l$ is the likelihood...$log(l) = L$
 
@@ -211,8 +259,13 @@ CSR2
 ```
 
 
+```{r}
+performance::r2_coxsnell(fit_glm_1)
+```
 
-#### Nagelkerke or Cragg and Uhler's
+
+
+### Nagelkerke or Cragg and Uhler's
 
 $$
 R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
@@ -224,8 +277,13 @@ NR2 <- CSR2 / (1 - exp(logLik(fit_glm_0))^(2/n))
 NR2 
 ```
 
+```{r}
+performance::r2_nagelkerke(fit_glm_1)
+```
 
-#### Tjur
+
+
+### Tjur's statistic
 
 
 ```{r}
@@ -233,7 +291,18 @@ performance::r2(fit_glm_1)
 ```
 
 
-#### Several with the `pscl::pR2()` function 
+### Several at Once
+
+> the `pscl::pR2()` function 
+
+Outputs:
+
+* `llh` The log-likelihood from the fitted model
+* `llhNull` The log-likelihood from the intercept-only restricted model
+* `G2` Minus two times the difference in the log-likelihoods
+* `McFadden` McFadden's pseudo r-squared
+* `r2ML` Maximum likelihood pseudo r-squared
+* `r2CU` Cragg and Uhler's pseudo r-squared
 
 ```{r}
 pscl::pR2(fit_glm_1)
@@ -241,25 +310,44 @@ pscl::pR2(fit_glm_1)
 
 
 
+## Model Compairisons, Inferential
+
+### Likelihood Ratio Test (LRT, aka. Deviance Difference Test)
+
+```{r}
+anova(fit_glm_0, fit_glm_1, test = "LRT")
+```
+
+
+### Bayes Factor and Performance Score
+
+
+```{r}
+performance::compare_performance(fit_glm_0, fit_glm_1, rank = TRUE)
+```
 
 
 
 
-### Parameter Estimates
+## Parameter Estimates
 
-#### Logit Scale
+### Link: Logit Scale
 
 ```{r}
 fit_glm_1 %>% coef()
 ```
 
-#### Odds Ratio Scale
+
+```{r}
+fit_glm_1 %>% confint()
+```
+
+### Exponentiate: Odds Ratio Scale
 
 ```{r}
 fit_glm_1 %>% coef() %>% exp()
 ```
 
-#### Confidence Intervals - OR sclae
 
 ```{r}
 fit_glm_1 %>% confint() %>% exp()
@@ -268,72 +356,59 @@ fit_glm_1 %>% confint() %>% exp()
 
 
 
-### Significance of Terms
+## Significance of Terms
 
-#### Likelihood Ratio Test (Deviance Difference) of all Nested Models
-
-```{r}
-anova(fit_glm_0, fit_glm_1)
-```
-
-#### Sequential LRTs: for adding one variable at a time
+### Wald's $t$-Test
 
 ```{r}
-anova(fit_glm_1, test = "Chisq")
+fit_glm_1 %>% summary() %>% coef()
 ```
 
 
 
+### Single term deletion, $\chi^2$ LRT
 
-
-### Parameter Estimates
-
-#### Raw Output
+> Note: Significance of each variable is assessed by comparing it to the model that drops just that one term (`type = 3`); order doesn't matter.
 
 ```{r}
-summary(fit_glm_1) 
-```
-
-#### `sjPlot` - HTML tables
-
-JUST HTML for now...
-
-Parameters Exponentiated:
-
-```{r, results = "asis"}
-sjPlot::tab_model(fit_glm_1)
+drop1(fit_glm_1, type = 3, test = "LRT")
 ```
 
 
+### Sequential addition, $\chi^2$  LRT
 
-```{r, results = "asis"}
-sjPlot::tab_model(fit_glm_1,
-                  emph.p = TRUE,
-                  pred.labels = c("(Intercept)",
-                                  "Birthweight, 100 grams",
-                                  "Gestational Age, week",
-                                  "Mother had Toxemia"))         
+> Note: Signifcance of each additional variable at a time; ordered first to last
+
+```{r}
+anova(fit_glm_1, test = "LRT")
 ```
 
 
 
-#### `texreg` default = Logit scale
+
+
+## Parameter Estimate Tables
+
+
+### Logit scale (Link, default)
 
 ```{r, results='asis'}
 texreg::knitreg(fit_glm_1,
                 single.row = TRUE)
 ```
 
-#### `texreg` Confidence Intervals on Logit scale
+> Note: You may request: Confidence Intervals on Logit scale with the options: `ci.force = TRUE, ci.test = 1`
 
 ```{r, results='asis'}
 texreg::knitreg(fit_glm_1,
                 single.row = TRUE,
-                ci.force = TRUE)
+                ci.force = TRUE,
+                ci.test = 1,
+                digits = 6)
 ```
 
 
-#### `texreg` exponentiate the betas (SE are not exp) with 95% confidence intervals
+### Odds-Ratio Scale (exponentiate)
 
 ```{r, results='asis'}
 texreg::knitreg(texreghelpr::extract_glm_exp(fit_glm_1),
@@ -341,7 +416,7 @@ texreg::knitreg(texreghelpr::extract_glm_exp(fit_glm_1),
 ```
 
 
-#### `texreg` with Logit and OR values BOTH
+### BOTH: Logit and Odds-Ratio
 
 ```{r, results='asis'}
 texreg::knitreg(list(fit_glm_1,
@@ -358,23 +433,84 @@ texreg::knitreg(list(fit_glm_1,
 ```
 
 
+## Marginal or Predicted Values 
 
-### Marginal Model Plot
+### Across All Predictors
 
-
-
-
-#### Manually Specified
-
+> Note: By default it will select 5-6 "nice" values for each continuous variable.  All levels of categorical factors will be included.
 
 ```{r}
-summary(bpd_clean)
+effects::Effect(focal.predictors = c("brthwght", "gestage", "toxemia"),
+                mod = fit_glm_1)
 ```
+
+### Specify Some Predictors
+
+> Note: if a predictor is left off the`focal.predictors`, the predictions are AVERAGED over that variable.
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "gestage"),
+                mod = fit_glm_1)
+```
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "toxemia"),
+                mod = fit_glm_1)
+```
+
+### Set a constant (fixed) value for a predictor(s)
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght"),
+                fixed.predictors = list(gestage = 34, 
+                                        toxemia = "no"),
+                mod = fit_glm_1)
+```
+
+### Set values for a continuous predictor 
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "gestage"),
+                fixed.predictors = list(toxemia = "no"),
+                xlevels = list(gestage = c(24, 32, 36)),
+                mod = fit_glm_1)
+```
+
+
+### Add SE and 95% Confidence Interval
+
+```{r}
+effects::Effect(focal.predictors = c("brthwght", "gestage", "toxemia"),
+                xlevels = list(brthwght = c(500, 1000, 1500),
+                               gestage = c(30, 36)),
+                mod = fit_glm_1) %>% 
+  data.frame()
+```
+
+
+
+
+
+## Marginal Model Plots
+
+
+### Individual Marginal Plots for one IV, individually
+
+> The `sjPlot::plot_model()` function automatically transforms the predictions to the probability score when you include the `type = "pred"` option.
+
 
 ```{r}
 sjPlot::plot_model(fit_glm_1,
                    type = "pred")
 ```
+
+
+### Combination Marginal Plots for two-three IVs, all at once
+
+For continuous IV that are not on the x-axis (`pred`), be default three values will be selected: the mean and plus-or-minus one stadard error for the mean (SEM).
+
+
+> The `outcome.scale = "link"` option plots the LOGIT scale on the y-axis.
 
 ```{r}
 interactions::interact_plot(model = fit_glm_1,
@@ -384,14 +520,22 @@ interactions::interact_plot(model = fit_glm_1,
                             outcome.scale = "link")
 ```
 
+Alternatively, you may use the `modx.labels` option to set specific values at which to plot the moderator.
+
+> The `outcome.scale = "response"` option plots the PROBABILITY scale on the y-axis.
+
+
 ```{r}
 interactions::interact_plot(model = fit_glm_1,
                             pred = brthwght,
                             modx = gestage,
+                            modx.labels = c(28, 32, 36),
                             mod2 = toxemia,
                             outcome.scale = "response")
 ```
 
+
+You can always do more work to get to a PUBLISH-ABLE version
 
 ```{r}
 interactions::interact_plot(model = fit_glm_1,
@@ -403,8 +547,8 @@ interactions::interact_plot(model = fit_glm_1,
                             x.label = "Birthweight, grams",
                             y.label = "Probability of Bronchopulmonary Dysplasia",
                             legend.main = "Gestational Age, weeks",
-                            mod2.label = c("Mother HAS Toxemia",
-                                           "Mother does NOT have Toxemia"),
+                            mod2.label = c("Mother does NOT have Toxemia",
+                                           "Mother DOES have Toxemia"),
                             colors = rep("black", 3)) +
   geom_hline(yintercept = .5, alpha = .2) +
   theme_bw() +
@@ -415,11 +559,13 @@ interactions::interact_plot(model = fit_glm_1,
 ```
 
 
+### Total Control is also available 
+
 ```{r}
 effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
                 mod = fit_glm_1,
                 xlevels = list(brthwght = seq(from = 450, to = 1730, by = 10),
-                               gestage = c(28, 30, 32))) %>% 
+                               gestage = c(28, 32, 36))) %>% 
   data.frame() %>% 
   dplyr::mutate(gestage = factor(gestage)) %>% 
   ggplot(aes(x = brthwght,
@@ -440,7 +586,7 @@ effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
 effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
                 mod = fit_glm_1,
                 xlevels = list(brthwght = seq(from = 450, to = 1730, by = 10),
-                               gestage = c(28, 30, 32))) %>% 
+                               gestage = c(28, 32, 36))) %>% 
   data.frame() %>% 
   dplyr::mutate(gestage = factor(gestage)) %>% 
   ggplot(aes(x = brthwght,
@@ -453,13 +599,6 @@ effects::Effect(focal.predictors = c("brthwght", "toxemia", "gestage"),
 ```
 
 
-### Residual Diagnostics
-
-
-
-```{r}
-sjPlot::plot_model(fit_glm_1, type = "diag")
-```
 
 
 
