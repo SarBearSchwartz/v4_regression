@@ -833,7 +833,7 @@ effects::allEffects(fit_polr_1)
 
 ```{r, results='asis'}
 texreg::knitreg(fit_polr_1,
-                custom.model.name = "Proportional Odds",
+                custom.model.name = "b (SE)",
                 custom.coef.map = list("hincome" = "Husband's Income, $1000's",
                                        "childrenpresent" = "Children in the Home",
                                        "Not at All|Part Time" = "Not at All vs.Part Time",

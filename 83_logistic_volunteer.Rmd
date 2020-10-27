@@ -32,10 +32,10 @@ This dataset comes from John Hoffman's textbook: Regression Models for Categoric
 
 > Chapter 3: Logistic and Probit Regression Models 
 
-Dataset:  The following example uses the SPSS data set `gss.sav`. The dependent variable of interest is labelled `volrelig`. 
+Dataset:  The following example uses the SPSS data set `gss.sav`. The dependent variable of interest is labeled `volrelig`. 
 
 
-> "The variable labeled `volrelig`, which indicates whether or not a respondent volunteered for a religious organization in the previous year (coded `0` = no, `1` = yes). **A hypothesis we wish to explore is that females are more likely than males to volunteer for religious organizations.** Hence, in this data set, we code gender as `0` = male and `1` = female. In order to preclude the possibility that age and education explain the proposed association between `gender` and `volrelig`, we include these variables in the model after transforming them into z-scores. An advantage of this transformation is that it becomes a simple exercise to compute odds or probabilities for males and females at the mean of age and education, because these variables have now been transformed to have a mean of zero.
+> "The variable labeled `volrelig`, which indicates whether or not a respondent volunteered for a religious organization in the previous year  is coded `0` = no, `1` = yes. **A hypothesis we wish to explore is that females are more likely than males to volunteer for religious organizations.** Hence, in this data set, we code gender as `0` = male and `1` = female. In order to preclude the possibility that age and education explain the proposed association between `gender` and `volrelig`, we include these variables in the model after transforming them into z-scores. An advantage of this transformation is that it becomes a simple exercise to compute odds or probabilities for males and females at the mean of age and education, because these variables have now been transformed to have a mean of zero.
 
 
 ```{r}

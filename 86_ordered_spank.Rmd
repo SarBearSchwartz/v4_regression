@@ -1,0 +1,799 @@
+# Ordered Logistic Regression - Ex: Spaking
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+```{r, message=FALSE, error=FALSE}
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(furniture)    # nice table1() descriptives
+library(stargazer)    # display nice tables: summary & regression
+library(texreg)       # Convert Regression Output to LaTeX or HTML Tables
+library(psych)        # contains some useful functions, like headTail
+library(car)          # Companion to Applied Regression
+library(sjPlot)       # Quick plots and tables for models
+library(car)          # Companion to Applied Regression (a text book - includes datasets)
+library(MASS)         # Support Functions and Datasets
+library(nnet)         #  Multinomial Log-Linear Models
+library(pscl)         # Political Science Computational Laboratory (ZIP)
+```
+
+## Background
+
+This dataset comes from John Hoffman's textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) [Amazon link, 2014 edition](https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&qid=1603172859&refinements=p_27%3ADr.+John+P.+Hoffmann&s=books&sr=1-2&text=Dr.+John+P.+Hoffmann)
+
+> Chapter 4: Ordered Logistic and Probit Regression Models 
+
+Dataset:  The following example uses the SPSS data set `gss.sav`. The dependent variable of interest is labeled `spanking`. 
+
+
+> " The pertinent question (`sapnking`) asks "Do you strongly agree, agree, disagree, or strongly disagree that it is sometimes necessary to discipline a child with a good, hard spanking?" The possible answers are coded as `1` = strongly agree, `2` = agree, `3` = disagree, and `4` = strongly disagree. A common hypothesis is that support for corporal punishment of children decreases at higher levels of education."
+
+
+
+### Raw Dataset
+
+```{r}
+data_gss <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav") %>% 
+  haven::as_factor()
+
+data_gss %>% 
+  dplyr::select(spanking, female, nonwhite, educate, income) %>% 
+  dplyr::filter(!is.na(spanking)) %>%      # about 1/3 of participants are missing this
+  head()
+```
+
+### Wrangle Data
+
+```{r}
+data_gss_model <- data_gss %>% 
+  dplyr::mutate(spankingN = as.numeric(spanking)) %>%   # numeric version: 1, 2, 3, 4
+  dplyr::mutate(polviewsN = as.numeric(polviews)) %>% 
+  dplyr::filter(complete.cases(educate, spanking))      # only include complete cases
+```
+
+
+
+## Exploratory Data Analysis
+
+### Entire Sample
+
+
+```{r}
+data_gss %>% 
+  furniture::table1(spanking,
+                    na.rm = FALSE,
+                    output = "markdown",
+                    caption = "Hoffmann's Example 4.1 Summary of the Spanking Variable")
+```
+
+
+
+
+```{r}
+data_gss %>% 
+  ggplot(aes(spanking)) +
+  geom_bar() 
+```
+
+
+
+### By Education
+
+
+```{r}
+data_gss %>% 
+  dplyr::group_by(forcats::fct_explicit_na(spanking)) %>% 
+  furniture::table1("Educations, years" = educate,
+                    "Education, factor" = factor(educate),
+                    na.rm  = FALSE,
+                    digits = 2,
+                    output = "markdown")
+```
+
+### Spanking by Sex
+
+
+```{r}
+data_gss %>% 
+  dplyr::filter(complete.cases(female, spanking)) %>% 
+  dplyr::select(female, spanking) %>% 
+  table() %>% 
+  addmargins()
+```
+
+
+
+```{r}
+data_gss %>% 
+  dplyr::filter(complete.cases(female, spanking)) %>%  
+  furniture::tableX(female, spanking,
+                    type = "count")
+```
+
+
+```{r}
+data_gss %>% 
+  dplyr::filter(complete.cases(female, spanking)) %>%  
+  furniture::tableX(female, spanking,
+                    type = "row_perc")
+```
+
+```{r}
+data_gss %>% 
+  dplyr::filter(complete.cases(female, spanking)) %>%  
+  furniture::tableX(female, spanking,
+                    type = "col_perc")
+```
+
+
+```{r}
+data_gss %>% 
+  dplyr::filter(complete.cases(female, spanking)) %>%  
+  furniture::tableX(female, spanking,
+                    type = "cell_perc")
+```
+
+```{r}
+data_gss %>% 
+  dplyr::filter(complete.cases(female, spanking)) %>%   
+  dplyr::group_by(spanking) %>% 
+  furniture::table1(female)
+```
+
+
+
+
+## Linear Regression
+
+Linear regression is often ill-suited to fitting a likert rating, such as agreement.
+
+### Visualization
+
+```{r, fig.cap="Hoffmann's Figure 4.1 "}
+data_gss_model %>% 
+  ggplot(aes(x = educate,
+             y = spankingN)) +                    
+  geom_count() +                               # point size relative to over-plotting
+  geom_smooth(method = "lm") +                 # add linear regression line (OLS)
+  theme_bw() +
+  labs(x = "Years of Formal Education",
+       y = "Spanking")
+```
+
+
+### Fit the Model
+
+```{r}
+fit_lm <- lm(spankingN ~ educate,
+             data = data_gss_model)
+
+summary(fit_lm)
+```
+
+
+```{r}
+anova(fit_lm)
+```
+
+### Tabulate Parameters
+
+```{r, results='asis'}
+texreg::knitreg(fit_lm,
+                custom.model.name = "Linear Regression",
+                caption = "Hoffmann's Example 4.2",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4)
+```
+
+### Model Fit and Variance Explained
+
+```{r}
+performance::performance(fit_lm)
+```
+
+```{r}
+performance::r2(fit_lm)
+```
+
+### Residual Diagnostics
+
+```{r, fig.cap="Hoffman's Figures 4.2 adn 4.3 Residual Diagnostics for a linear model on likery dependent variable - YUCK!"}
+sjPlot::plot_model(fit_lm, type = "diag")
+```
+
+
+## Ordered Logistic Regression
+
+
+```{r}
+data_gss_model %>% 
+  dplyr::group_by(forcats::fct_explicit_na(spanking)) %>% 
+  furniture::table1("Sex" = female,
+                    caption = "Hoffmann's Example 4.3 Crosstabulate DV with Sex",
+                    na.rm  = FALSE,
+                    digits = 2,
+                    total = TRUE,
+                    output = "markdown")
+```
+
+```{r}
+data_gss_model %>% 
+  furniture::tableX(female, spanking)
+```
+
+
+
+
+## Proportional-odds (ordinal) Logistic Regression
+
+This type of logisit regression model forces the predictors to have similar relationship with the outcome (slopes), but different means (intercepts).  This is called the proportional odds assumption.
+
+### Fit Model 1: Sex
+
+Use `polr()` function in the base $R$ `MASS` package.  While outcome variable (dependent variable, "Y") may be a regular `factor`, it is preferable to specify it as an `ordered` factor.
+
+```{r}
+fit_polr_1 <- MASS::polr(spanking ~ female,
+                         data = data_gss_model)
+
+summary(fit_polr_1)
+```
+
+
+
+
+
+### Extract Parameters
+
+#### Logit Scale
+
+
+```{r}
+fit_polr_1$zeta
+```
+
+```{r}
+fit_polr_1 %>% coef()
+```
+
+
+```{r}
+fit_polr_1 %>% confint()
+```
+
+
+#### Odds-Ratio Scale
+```{r}
+fit_polr_1$zeta %>% exp()
+```
+
+
+
+
+```{r}
+fit_polr_1 %>% coef() %>% exp()
+```
+
+
+```{r}
+fit_polr_1 %>% confint() %>% exp()
+```
+
+
+#### Predicted Probabilities
+
+```{r}
+effects::allEffects(fit_polr_1)
+```
+
+### Tabulate parameters
+
+
+```{r, results='asis'}
+texreg::knitreg(fit_polr_1,
+                custom.model.name = c("b (SE)"),
+                custom.coef.map = list("femalefemale"             = "Female vs. Male",
+                                       "strongly agree|agree"     = "strongly agree|agree",
+                                       "agree|disagree"           = "agree|disagree",
+                                       "disagree|strongly disagree" = "disagree|strongly disagree"),
+                groups = list("Predictors" = 1,
+                              "Cut Values (i.e. threasholds)" = 2:4),
+                caption = "Hoffmann's Example 4.4 Ordered Logistic Regression",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4)
+```
+
+
+### Predicted Probabilities
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_1,
+                    terms = c("female"))
+```
+
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_1,
+                    terms = c("female")) %>% 
+  dplyr::filter(x == "female")
+```
+
+
+
+
+### Plot Predicted Probabilities
+
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_1,
+                    terms = c("female")) %>%    # x-axis
+  data.frame() %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             group = response.level,
+             color = response.level)) +
+  geom_errorbar(aes(ymin = conf.low,
+                    ymax = conf.high),
+                width = .25) +
+  geom_point(size = 4) +
+  geom_line(aes(linetype = response.level)) 
+
+```
+
+
+
+
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_1,
+                    terms = c("female")) %>%    # x-axis
+  data.frame() %>% 
+  dplyr::mutate(response.level = response.level %>% 
+                  forcats::fct_reorder(predicted) %>% 
+                  forcats::fct_rev()) %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             group = response.level,
+             color = response.level)) +
+  geom_errorbar(aes(ymin = conf.low,
+                    ymax = conf.high),
+                width = .25) +
+  geom_point(size = 4) +
+  geom_line(aes(linetype = response.level)) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Predicted Probability",
+       color    = "Spanking:",
+       shape    = "Spanking:",
+       linetype = "Spanking:") +
+  theme(legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotdash", "dotted")) +
+  scale_shape_manual(values = c(0, 1, 2, 8))
+```
+
+
+
+
+### Model Fit and Variance Explained
+
+```{r}
+fit_polr_0 <- MASS::polr(spanking ~ 1,
+                         data = data_gss_model)
+```
+
+
+
+```{r}
+anova(fit_polr_1, fit_polr_0)
+```
+
+
+```{r}
+performance::performance(fit_polr_1)
+```
+
+```{r}
+performance::r2(fit_polr_1)
+```
+
+### Assumptions
+
+#### Proportional Odds: Brant Test
+
+
+The `poTest` function implements tests proposed by Brant (1990) for proportional odds for logistic models fit by the `polr()` function in the MASS package.
+
+```{r}
+# Hoffmann's Examle 4.5 (continued...)
+car::poTest(fit_polr_1)
+```
+
+A significant test statistics provides evidence that the parallel regression assumption has been violated!
+
+
+
+### Fit Model 2: Sex + Covars
+
+
+```{r}
+fit_polr_2 <- MASS::polr(spanking ~ female + educate + polviewsN,
+                         data = data_gss_model)
+
+summary(fit_polr_2)
+```
+
+
+
+### Extract Parameters
+
+#### Logit Scale
+
+
+```{r}
+fit_polr_2$zeta
+```
+
+```{r}
+fit_polr_2 %>% coef()
+```
+
+
+```{r}
+fit_polr_2 %>% confint()
+```
+
+
+#### Odds-Ratio Scale
+```{r}
+fit_polr_2$zeta %>% exp()
+```
+
+
+
+
+```{r}
+fit_polr_2 %>% coef() %>% exp()
+```
+
+
+```{r}
+fit_polr_2 %>% confint() %>% exp()
+```
+
+### Tabulate parameters
+
+
+```{r, results='asis'}
+texreg::knitreg(fit_polr_2,
+                custom.model.name = c("b (SE)"),
+                custom.coef.map = list("femalefemale"             = "Female vs. Male",
+                                       "educate"                  = "Years of Education",
+                                       "polviewsN"                = "Level of Polytical Views",
+                                       "strongly agree|agree"     = "strongly agree|agree",
+                                       "agree|disagree"           = "agree|disagree",
+                                       "disagree|strongly disagree" = "disagree|strongly disagree"),
+                groups = list("Predictors" = 1:3,
+                              "Cut Values" = 4:6),
+                caption = "Hoffmann's Example 4.7 Ordered Logistic Regression",
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4)
+```
+
+### Predicted Probabilities
+
+> The `ggeffects` package computes estimated marginal means (predicted values) for the response, at the margin of specific values or levels from certain model terms, *i.e. it generates predictions by a model by holding the non-focal variables constant and varying the focal variable(s)*. 
+ 
+ * `ggpredict()` uses `predict()` for generating predictions
+     - factors: uses the reference level
+     
+ * `ggeffect()` computes marginal effects by internally calling `effects::Effect()`
+     - factors: compute a kind of "average" value, which represents the proportions of each factor's category
+     
+ * `ggemmeans()` uses `emmeans::emmeans()`
+     - factors: compute a kind of "average" value, which represents the proportions of each factor's category
+     
+
+Use `condition` to set a specific level for factors in `ggemmeans()`, so factors are not averaged over their categories, but held constant at a given level.
+
+
+> `ggeffects::ggpredict()`
+> Adjusted for:
+> *   educate = 13.51  *The grand mean value*
+> * polviewsN =  4.17  *The grand mean value*
+
+
+
+```{r}
+## Hoffmann's Example 4.8 (continues...approximated)
+ggeffects::ggpredict(model = fit_polr_2,
+                    terms = c("female")) 
+```
+
+```{r}
+ggeffects::ggpredict(model = fit_polr_2,
+                    terms = c("female")) %>% 
+  data.frame()
+```
+
+
+
+## Hoffmann's Example 4.8 (continues...approximated)
+
+
+> `ggeffects::ggpredict()`
+> Adjusted for:
+> *    female = male  *The reference category*
+> * polviewsN = 4.17  *The grand mean value*
+
+
+```{r}
+ggeffects::ggpredict(model = fit_polr_2,
+                    terms = c("educate [10, 16]",    # 1st = x
+                              "female")) %>%         # 2nd = group
+  data.frame() %>% 
+  dplyr::filter(group == "male")
+```
+
+> `ggeffects::ggeffect()`
+> Adjusted for:
+> *    female *computed a kind of "average" value, which represents the proportions of male/female*
+> * polviewsN = 4.17  *The grand mean value*
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("educate [10, 16]")) %>% 
+  data.frame()
+```
+
+```{r}
+ggeffects::ggemmeans(model = fit_polr_2,
+                     terms = c("educate [10, 16]"),
+                     condition = c(female = "female")) %>% 
+  data.frame()
+```
+
+
+
+
+Predictions for specific values:  females with 10 or 16 years education
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("female",                 # 1st var = `x`
+                              "educate [10, 16]")) %>%  # 2nd var = `group`
+  data.frame()
+```
+
+
+
+
+```{r}
+ggeffects::ggemmeans(model = fit_polr_2,
+                     terms = "female",
+                     condition = c(educate = 12,
+                                   polviewsN  = 4.5)) 
+```
+
+
+
+### Plot Predicted Probabilites
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("educate [10, 16]",   # x-axis
+                              "female")) %>%        # lines by group
+  data.frame() %>%  
+  ggplot(aes(x = x,
+             y = predicted,
+             color = group,
+             shape = group)) +
+  geom_point(size = 4) +
+  geom_line(aes(linetype = group)) +
+  facet_wrap(~ response.level)
+```
+
+
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("educate [10, 16]",   # x-axis
+                              "female")) %>%        # lines by group
+  data.frame() %>% 
+  dplyr::filter(response.level == "strongly.agree") %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             color = group)) +
+  geom_point(size = 4) +
+  geom_line(aes(linetype = group)) 
+```
+
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("educate [10, 16]",   # x-axis
+                              "female")) %>%        # lines by group
+  data.frame() %>% 
+  dplyr::filter(response.level == "strongly.agree") %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             color = group,
+             shape = group)) +
+  geom_errorbar(aes(ymin = conf.low,
+                    ymax = conf.high),
+                width = .5,
+                position = position_dodge(width =.25)) +
+  geom_point(size = 4,
+             position = position_dodge(width =.25)) +
+  geom_line(aes(linetype = group),
+            position = position_dodge(width =.25)) +
+  theme_bw() +
+  labs(x = "Education, years",
+       y = "Predicted Probability for Strongly Agree",
+       color = NULL,
+       shape = NULL,
+       linetype = NULL)
+```
+
+
+```{r, fig.cap="Hoffmann's Figure 4.4"}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("educate [10, 16]",   # x-axis
+                              "female")) %>%        # lines by group
+  data.frame() %>% 
+  dplyr::mutate(group = forcats::fct_rev(group)) %>% 
+  dplyr::filter(response.level == "strongly.agree") %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             shape = group)) +
+  geom_errorbar(aes(ymin = conf.low,
+                    ymax = conf.high),
+                width = .25,
+                position = position_dodge(.2)) +
+  geom_point(size = 4,
+                position = position_dodge(.2)) +
+  geom_line(aes(linetype = group),
+            size = 1,
+            position = position_dodge(.2)) +
+  theme_bw() + 
+  theme(legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.key.width = unit(2, "cm"),
+        legend.background = element_rect(color = "black")) +
+  scale_linetype_manual(values = c("solid", "longdash")) +
+  labs(x = "Years of Formal Education",
+       y = "Predicted Probabilit for\nResponding 'Strongly Agree'",
+       color = NULL,
+       shape = NULL,
+       linetype = NULL,
+       title = "Adjusted Predictions: Strongly Agree Spanking is Appropriate")
+```
+
+
+
+```{r}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("female")) %>%        # lines by group
+  data.frame() %>% 
+  dplyr::filter(response.level %in% c("strongly.agree",
+                                      "strongly.disagree")) %>% 
+  dplyr::mutate(resonse.level = factor(response.level)) %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             fill = resonse.level)) +
+  geom_col(position = position_dodge()) 
+
+```
+
+
+```{r, fig.cap = "Hoffmann's Figure 4.5"}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("female")) %>%        # lines by group
+  data.frame() %>% 
+  dplyr::filter(response.level %in% c("strongly.agree",
+                                      "strongly.disagree")) %>% 
+  dplyr::mutate(resonse.level = factor(response.level)) %>% 
+  ggplot(aes(x = forcats::fct_rev(x),
+             y = predicted,
+             fill = resonse.level)) +
+  geom_col(position = position_dodge()) +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  scale_fill_manual(values = c("gray30", "gray70")) +
+  labs(x = NULL,
+       y = "Predicted Probability of Response",
+       fill = NULL,
+       title = "Attitues towareds Spanking, by Sex")
+
+```
+
+
+```{r, include=FALSE}
+ggeffects::ggeffect(model = fit_polr_2,
+                    terms = c("educate",                            # 1st = x
+                              "female",                             # 2nd = group
+                              "polviewsN [2.8, 4.2, 5.5]")) %>%  # 3rd = facet
+  data.frame() %>% 
+  dplyr::mutate(response.level = response.level %>% 
+                  factor(levels = c("strongly.agree",
+                                    "agree",
+                                    "disagree",
+                                    "strongly.disagree"))) %>% 
+  dplyr::mutate(facet = facet %>% 
+                  factor() %>% 
+                  forcats::fct_recode("Low Polytical View (M - SD)"  = "2.8",
+                                      "Mean Polytical View (M)"      = "4.2",
+                                      "High Polytical View (M + SD)" = "5.5")) %>% 
+  ggplot(aes(x = x,
+             y = predicted,
+             group = response.level,
+             fill  = response.level)) +
+  geom_ribbon(aes(ymin = conf.low,
+                    ymax = conf.high),
+                alpha = .25) + 
+  geom_line(aes(linetype = response.level,
+                color = response.level),
+            size = 1) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Predicted Probability",
+       color    = "Spanking:",
+       fill    = "Spanking:",
+       linetype = "Spanking:") +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(1.5, "cm")) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotdash", "dotted")) +
+  scale_shape_manual(values = c(0, 1, 2, 8)) +
+  facet_grid(group ~ facet)
+```
+
+
+
+### Model Fit and Variance Explained
+
+```{r}
+fit_polr_1redeo <- MASS::polr(spanking ~ female,
+                         data = data_gss_model %>% 
+                           dplyr::filter(complete.cases(educate, polviewsN)))
+```
+
+
+
+```{r}
+anova(fit_polr_2, fit_polr_1redeo)
+```
+
+```{r}
+performance::compare_performance(fit_polr_2, fit_polr_1redeo, rank = TRUE)
+```
+
+
+
+
+
+### Assumptions
+
+#### Proportional Odds: Brant Test
+
+
+The `poTest` function implements tests proposed by Brant (1990) for proportional odds for logistic models fit by the `polr()` function in the MASS package.
+
+```{r}
+# Hoffmann's Example 4.8
+car::poTest(fit_polr_2)
+```
+
+A significant test statistics provides evidence that the parallel regression assumption has been violated!
+
+
