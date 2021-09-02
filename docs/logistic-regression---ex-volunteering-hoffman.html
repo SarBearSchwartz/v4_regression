@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Logistic Regression - Ex: volunteering (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <title>11 Logistic Regression - Ex: volunteering (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
   <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Logistic Regression - Ex: volunteering (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:title" content="11 Logistic Regression - Ex: volunteering (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/EQM_v4_cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="cehs-research/eBook_regression" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Logistic Regression - Ex: volunteering (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta name="twitter:title" content="11 Logistic Regression - Ex: volunteering (Hoffman) | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   
   <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
   <meta name="twitter:image" content="/EQM_v4_cover.png" />
@@ -54,6 +54,25 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
+<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
+<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -354,252 +373,258 @@ div.csl-indent {
 <li class="chapter" data-level="6.8.5" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-analysis-3"><i class="fa fa-check"></i><b>6.8.5</b> Simple Slopes Analysis</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a>
+<li class="chapter" data-level="7" data-path="interactions-example-1.html"><a href="interactions-example-1.html"><i class="fa fa-check"></i><b>7</b> Interactions Example</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>7.1</b> Background</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>7.1.1</b> Source</a></li>
-<li class="chapter" data-level="7.1.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>7.1.2</b> Reference</a></li>
-<li class="chapter" data-level="7.1.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>7.1.3</b> Variables</a></li>
+<li class="chapter" data-level="7.1" data-path="interactions-example-1.html"><a href="interactions-example-1.html#the-data"><i class="fa fa-check"></i><b>7.1</b> The Data</a></li>
+<li class="chapter" data-level="7.2" data-path="interactions-example-1.html"><a href="interactions-example-1.html#visualize"><i class="fa fa-check"></i><b>7.2</b> Visualize</a></li>
+<li class="chapter" data-level="7.3" data-path="interactions-example-1.html"><a href="interactions-example-1.html#regression"><i class="fa fa-check"></i><b>7.3</b> Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion-fit-the-model-to-the-data"><i class="fa fa-check"></i><b>7.2</b> Logistic Regresion: Fit the Model to the data</a>
+<li class="chapter" data-level="8" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>8</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#null-model-no-independent-variables"><i class="fa fa-check"></i><b>7.2.1</b> Null Model: no independent variables</a></li>
-<li class="chapter" data-level="7.2.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#main-effects-model-add-3-predictors"><i class="fa fa-check"></i><b>7.2.2</b> Main Effects Model: add 3 predictors</a></li>
+<li class="chapter" data-level="8.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>8.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>8.1.1</b> Source</a></li>
+<li class="chapter" data-level="8.1.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>8.1.2</b> Reference</a></li>
+<li class="chapter" data-level="8.1.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>8.1.3</b> Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-fit"><i class="fa fa-check"></i><b>7.3</b> Model Fit</a>
+<li class="chapter" data-level="8.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion-fit-the-model-to-the-data"><i class="fa fa-check"></i><b>8.2</b> Logistic Regresion: Fit the Model to the data</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#log-likelihood-and-deviance"><i class="fa fa-check"></i><b>7.3.1</b> Log Likelihood and Deviance</a></li>
-<li class="chapter" data-level="7.3.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#aic-and-bic"><i class="fa fa-check"></i><b>7.3.2</b> AIC and BIC</a></li>
+<li class="chapter" data-level="8.2.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#null-model-no-independent-variables"><i class="fa fa-check"></i><b>8.2.1</b> Null Model: no independent variables</a></li>
+<li class="chapter" data-level="8.2.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#main-effects-model-add-3-predictors"><i class="fa fa-check"></i><b>8.2.2</b> Main Effects Model: add 3 predictors</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#variance-explained"><i class="fa fa-check"></i><b>7.4</b> Variance Explained</a>
+<li class="chapter" data-level="8.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-fit"><i class="fa fa-check"></i><b>8.3</b> Model Fit</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#many-options"><i class="fa fa-check"></i><b>7.4.1</b> Many Options</a></li>
-<li class="chapter" data-level="7.4.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#mcfaddens-pseud-r2"><i class="fa fa-check"></i><b>7.4.2</b> McFadden’s pseud-R^2</a></li>
-<li class="chapter" data-level="7.4.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cox-snell"><i class="fa fa-check"></i><b>7.4.3</b> Cox &amp; Snell</a></li>
-<li class="chapter" data-level="7.4.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#nagelkerke-or-cragg-and-uhlers"><i class="fa fa-check"></i><b>7.4.4</b> Nagelkerke or Cragg and Uhler’s</a></li>
-<li class="chapter" data-level="7.4.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#tjurs-statistic"><i class="fa fa-check"></i><b>7.4.5</b> Tjur’s statistic</a></li>
-<li class="chapter" data-level="7.4.6" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#several-at-once"><i class="fa fa-check"></i><b>7.4.6</b> Several at Once</a></li>
+<li class="chapter" data-level="8.3.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#log-likelihood-and-deviance"><i class="fa fa-check"></i><b>8.3.1</b> Log Likelihood and Deviance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#aic-and-bic"><i class="fa fa-check"></i><b>8.3.2</b> AIC and BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-compairisons-inferential"><i class="fa fa-check"></i><b>7.5</b> Model Compairisons, Inferential</a>
+<li class="chapter" data-level="8.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#variance-explained"><i class="fa fa-check"></i><b>8.4</b> Variance Explained</a>
 <ul>
-<li class="chapter" data-level="7.5.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#likelihood-ratio-test-lrt-aka.-deviance-difference-test"><i class="fa fa-check"></i><b>7.5.1</b> Likelihood Ratio Test (LRT, aka. Deviance Difference Test)</a></li>
-<li class="chapter" data-level="7.5.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#bayes-factor-and-performance-score"><i class="fa fa-check"></i><b>7.5.2</b> Bayes Factor and Performance Score</a></li>
+<li class="chapter" data-level="8.4.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#many-options"><i class="fa fa-check"></i><b>8.4.1</b> Many Options</a></li>
+<li class="chapter" data-level="8.4.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#mcfaddens-pseud-r2"><i class="fa fa-check"></i><b>8.4.2</b> McFadden’s pseud-R^2</a></li>
+<li class="chapter" data-level="8.4.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cox-snell"><i class="fa fa-check"></i><b>8.4.3</b> Cox &amp; Snell</a></li>
+<li class="chapter" data-level="8.4.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#nagelkerke-or-cragg-and-uhlers"><i class="fa fa-check"></i><b>8.4.4</b> Nagelkerke or Cragg and Uhler’s</a></li>
+<li class="chapter" data-level="8.4.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#tjurs-statistic"><i class="fa fa-check"></i><b>8.4.5</b> Tjur’s statistic</a></li>
+<li class="chapter" data-level="8.4.6" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#several-at-once"><i class="fa fa-check"></i><b>8.4.6</b> Several at Once</a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>7.6</b> Parameter Estimates</a>
+<li class="chapter" data-level="8.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-compairisons-inferential"><i class="fa fa-check"></i><b>8.5</b> Model Compairisons, Inferential</a>
 <ul>
-<li class="chapter" data-level="7.6.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#link-logit-scale"><i class="fa fa-check"></i><b>7.6.1</b> Link: Logit Scale</a></li>
-<li class="chapter" data-level="7.6.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#exponentiate-odds-ratio-scale"><i class="fa fa-check"></i><b>7.6.2</b> Exponentiate: Odds Ratio Scale</a></li>
+<li class="chapter" data-level="8.5.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#likelihood-ratio-test-lrt-aka.-deviance-difference-test"><i class="fa fa-check"></i><b>8.5.1</b> Likelihood Ratio Test (LRT, aka. Deviance Difference Test)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#bayes-factor-and-performance-score"><i class="fa fa-check"></i><b>8.5.2</b> Bayes Factor and Performance Score</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>7.7</b> Significance of Terms</a>
+<li class="chapter" data-level="8.6" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>8.6</b> Parameter Estimates</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#walds-t-test"><i class="fa fa-check"></i><b>7.7.1</b> Wald’s <span class="math inline">\(t\)</span>-Test</a></li>
-<li class="chapter" data-level="7.7.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#single-term-deletion-chi2-lrt"><i class="fa fa-check"></i><b>7.7.2</b> Single term deletion, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
-<li class="chapter" data-level="7.7.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#sequential-addition-chi2-lrt"><i class="fa fa-check"></i><b>7.7.3</b> Sequential addition, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
+<li class="chapter" data-level="8.6.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#link-logit-scale"><i class="fa fa-check"></i><b>8.6.1</b> Link: Logit Scale</a></li>
+<li class="chapter" data-level="8.6.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#exponentiate-odds-ratio-scale"><i class="fa fa-check"></i><b>8.6.2</b> Exponentiate: Odds Ratio Scale</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimate-tables"><i class="fa fa-check"></i><b>7.8</b> Parameter Estimate Tables</a>
+<li class="chapter" data-level="8.7" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>8.7</b> Significance of Terms</a>
 <ul>
-<li class="chapter" data-level="7.8.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#logit-scale-link-default"><i class="fa fa-check"></i><b>7.8.1</b> Logit scale (Link, default)</a></li>
-<li class="chapter" data-level="7.8.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#odds-ratio-scale-exponentiate"><i class="fa fa-check"></i><b>7.8.2</b> Odds-Ratio Scale (exponentiate)</a></li>
-<li class="chapter" data-level="7.8.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#both-logit-and-odds-ratio"><i class="fa fa-check"></i><b>7.8.3</b> BOTH: Logit and Odds-Ratio</a></li>
+<li class="chapter" data-level="8.7.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#walds-t-test"><i class="fa fa-check"></i><b>8.7.1</b> Wald’s <span class="math inline">\(t\)</span>-Test</a></li>
+<li class="chapter" data-level="8.7.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#single-term-deletion-chi2-lrt"><i class="fa fa-check"></i><b>8.7.2</b> Single term deletion, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
+<li class="chapter" data-level="8.7.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#sequential-addition-chi2-lrt"><i class="fa fa-check"></i><b>8.7.3</b> Sequential addition, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
 </ul></li>
-<li class="chapter" data-level="7.9" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-or-predicted-values"><i class="fa fa-check"></i><b>7.9</b> Marginal or Predicted Values</a>
+<li class="chapter" data-level="8.8" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimate-tables"><i class="fa fa-check"></i><b>8.8</b> Parameter Estimate Tables</a>
 <ul>
-<li class="chapter" data-level="7.9.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#across-all-predictors"><i class="fa fa-check"></i><b>7.9.1</b> Across All Predictors</a></li>
-<li class="chapter" data-level="7.9.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#specify-some-predictors"><i class="fa fa-check"></i><b>7.9.2</b> Specify Some Predictors</a></li>
-<li class="chapter" data-level="7.9.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-a-constant-fixed-value-for-a-predictors"><i class="fa fa-check"></i><b>7.9.3</b> Set a constant (fixed) value for a predictor(s)</a></li>
-<li class="chapter" data-level="7.9.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-values-for-a-continuous-predictor"><i class="fa fa-check"></i><b>7.9.4</b> Set values for a continuous predictor</a></li>
-<li class="chapter" data-level="7.9.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#add-se-and-95-confidence-interval"><i class="fa fa-check"></i><b>7.9.5</b> Add SE and 95% Confidence Interval</a></li>
+<li class="chapter" data-level="8.8.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#logit-scale-link-default"><i class="fa fa-check"></i><b>8.8.1</b> Logit scale (Link, default)</a></li>
+<li class="chapter" data-level="8.8.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#odds-ratio-scale-exponentiate"><i class="fa fa-check"></i><b>8.8.2</b> Odds-Ratio Scale (exponentiate)</a></li>
+<li class="chapter" data-level="8.8.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#both-logit-and-odds-ratio"><i class="fa fa-check"></i><b>8.8.3</b> BOTH: Logit and Odds-Ratio</a></li>
 </ul></li>
-<li class="chapter" data-level="7.10" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plots"><i class="fa fa-check"></i><b>7.10</b> Marginal Model Plots</a>
+<li class="chapter" data-level="8.9" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-or-predicted-values"><i class="fa fa-check"></i><b>8.9</b> Marginal or Predicted Values</a>
 <ul>
-<li class="chapter" data-level="7.10.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#individual-marginal-plots-for-one-iv-individually"><i class="fa fa-check"></i><b>7.10.1</b> Individual Marginal Plots for one IV, individually</a></li>
-<li class="chapter" data-level="7.10.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#combination-marginal-plots-for-two-three-ivs-all-at-once"><i class="fa fa-check"></i><b>7.10.2</b> Combination Marginal Plots for two-three IVs, all at once</a></li>
-<li class="chapter" data-level="7.10.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#total-control-is-also-available"><i class="fa fa-check"></i><b>7.10.3</b> Total Control is also available</a></li>
+<li class="chapter" data-level="8.9.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#across-all-predictors"><i class="fa fa-check"></i><b>8.9.1</b> Across All Predictors</a></li>
+<li class="chapter" data-level="8.9.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#specify-some-predictors"><i class="fa fa-check"></i><b>8.9.2</b> Specify Some Predictors</a></li>
+<li class="chapter" data-level="8.9.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-a-constant-fixed-value-for-a-predictors"><i class="fa fa-check"></i><b>8.9.3</b> Set a constant (fixed) value for a predictor(s)</a></li>
+<li class="chapter" data-level="8.9.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-values-for-a-continuous-predictor"><i class="fa fa-check"></i><b>8.9.4</b> Set values for a continuous predictor</a></li>
+<li class="chapter" data-level="8.9.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#add-se-and-95-confidence-interval"><i class="fa fa-check"></i><b>8.9.5</b> Add SE and 95% Confidence Interval</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>8</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a>
+<li class="chapter" data-level="8.10" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plots"><i class="fa fa-check"></i><b>8.10</b> Marginal Model Plots</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>8.1</b> Background</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>8.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="8.1.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>8.1.2</b> Declare Factors</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>8.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="8.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-unadjusted-models"><i class="fa fa-check"></i><b>8.3</b> Logistic Regression - Simple, unadjusted models</a></li>
-<li class="chapter" data-level="8.4" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>8.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
-<li class="chapter" data-level="8.5" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>8.5</b> Logistic Regression - Multivariate, with Interactions</a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>8.5.1</b> Age and Weight</a></li>
-<li class="chapter" data-level="8.5.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>8.5.2</b> Age and Smoking</a></li>
-<li class="chapter" data-level="8.5.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>8.5.3</b> Weight and Smoking</a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>8.6</b> Logistic Regression - Multivariate, Simplify</a>
-<ul>
-<li class="chapter" data-level="8.6.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>8.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
-</ul></li>
-<li class="chapter" data-level="8.7" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>8.7</b> Logistic Regression - Multivariate, Final Model</a>
-<ul>
-<li class="chapter" data-level="8.7.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>8.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
-<li class="chapter" data-level="8.7.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>8.7.2</b> Parameter Estiamtes Table</a></li>
-<li class="chapter" data-level="8.7.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot"><i class="fa fa-check"></i><b>8.7.3</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="8.10.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#individual-marginal-plots-for-one-iv-individually"><i class="fa fa-check"></i><b>8.10.1</b> Individual Marginal Plots for one IV, individually</a></li>
+<li class="chapter" data-level="8.10.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#combination-marginal-plots-for-two-three-ivs-all-at-once"><i class="fa fa-check"></i><b>8.10.2</b> Combination Marginal Plots for two-three IVs, all at once</a></li>
+<li class="chapter" data-level="8.10.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#total-control-is-also-available"><i class="fa fa-check"></i><b>8.10.3</b> Total Control is also available</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html"><i class="fa fa-check"></i><b>9</b> Logistic Regression - Ex: Depression (Hoffman)</a>
+<li class="chapter" data-level="9" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>9</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>9.1</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="9.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>9.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#visualize"><i class="fa fa-check"></i><b>9.1.1</b> Visualize</a></li>
-<li class="chapter" data-level="9.1.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#summary-table"><i class="fa fa-check"></i><b>9.1.2</b> Summary Table</a></li>
+<li class="chapter" data-level="9.1.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>9.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="9.1.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>9.1.2</b> Declare Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#calcualte-probability-odds-and-odds-ratios"><i class="fa fa-check"></i><b>9.2</b> Calcualte: Probability, Odds, and Odds-Ratios</a>
+<li class="chapter" data-level="9.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>9.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-unadjusted-models"><i class="fa fa-check"></i><b>9.3</b> Logistic Regression - Simple, unadjusted models</a></li>
+<li class="chapter" data-level="9.4" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>9.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
+<li class="chapter" data-level="9.5" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>9.5</b> Logistic Regression - Multivariate, with Interactions</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#marginal-over-all-the-sample"><i class="fa fa-check"></i><b>9.2.1</b> Marginal, over all the sample</a></li>
-<li class="chapter" data-level="9.2.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#comparing-by-sex"><i class="fa fa-check"></i><b>9.2.2</b> Comparing by Sex</a></li>
+<li class="chapter" data-level="9.5.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>9.5.1</b> Age and Weight</a></li>
+<li class="chapter" data-level="9.5.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>9.5.2</b> Age and Smoking</a></li>
+<li class="chapter" data-level="9.5.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>9.5.3</b> Weight and Smoking</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#logisitc-regression-model-1-one-iv"><i class="fa fa-check"></i><b>9.3</b> Logisitc Regression Model 1: one IV</a>
+<li class="chapter" data-level="9.6" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>9.6</b> Logistic Regression - Multivariate, Simplify</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#fit-the-unadjusted-model"><i class="fa fa-check"></i><b>9.3.1</b> Fit the Unadjusted Model</a></li>
-<li class="chapter" data-level="9.3.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#tabulate-parameters"><i class="fa fa-check"></i><b>9.3.2</b> Tabulate Parameters</a></li>
-<li class="chapter" data-level="9.3.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#assess-model-fit"><i class="fa fa-check"></i><b>9.3.3</b> Assess Model Fit</a></li>
-<li class="chapter" data-level="9.3.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#plot-predicted-probabilitites"><i class="fa fa-check"></i><b>9.3.4</b> Plot Predicted Probabilitites</a></li>
-<li class="chapter" data-level="9.3.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation"><i class="fa fa-check"></i><b>9.3.5</b> Interpretation</a></li>
-<li class="chapter" data-level="9.3.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#diagnostics"><i class="fa fa-check"></i><b>9.3.6</b> Diagnostics</a></li>
+<li class="chapter" data-level="9.6.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>9.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#logisitic-regression-model-2-many-ivs"><i class="fa fa-check"></i><b>9.4</b> Logisitic Regression Model 2: many IV’s</a>
+<li class="chapter" data-level="9.7" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>9.7</b> Logistic Regression - Multivariate, Final Model</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#fit-the-model"><i class="fa fa-check"></i><b>9.4.1</b> Fit the Model</a></li>
-<li class="chapter" data-level="9.4.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#tabulate-parameters-1"><i class="fa fa-check"></i><b>9.4.2</b> Tabulate Parameters</a></li>
-<li class="chapter" data-level="9.4.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#assess-model-fit-1"><i class="fa fa-check"></i><b>9.4.3</b> Assess Model Fit</a></li>
-<li class="chapter" data-level="9.4.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#variance-explained-1"><i class="fa fa-check"></i><b>9.4.4</b> Variance Explained</a></li>
-<li class="chapter" data-level="9.4.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#diagnostics-1"><i class="fa fa-check"></i><b>9.4.5</b> Diagnostics</a></li>
-</ul></li>
-<li class="chapter" data-level="9.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#compare-models"><i class="fa fa-check"></i><b>9.5</b> Compare Models</a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>9.5.1</b> Refit to Complete Cases</a></li>
-<li class="chapter" data-level="9.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>9.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="9.7.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>9.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
+<li class="chapter" data-level="9.7.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>9.7.2</b> Parameter Estiamtes Table</a></li>
+<li class="chapter" data-level="9.7.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot"><i class="fa fa-check"></i><b>9.7.3</b> Marginal Model Plot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
+<li class="chapter" data-level="10" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression - Ex: Depression (Hoffman)</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>10.1</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="10.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>10.1</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="10.1.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#visualization"><i class="fa fa-check"></i><b>10.1.1</b> Visualization</a></li>
-<li class="chapter" data-level="10.1.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#summary-statistics-1"><i class="fa fa-check"></i><b>10.1.2</b> Summary Statistics</a></li>
+<li class="chapter" data-level="10.1.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#visualize-1"><i class="fa fa-check"></i><b>10.1.1</b> Visualize</a></li>
+<li class="chapter" data-level="10.1.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#summary-table"><i class="fa fa-check"></i><b>10.1.2</b> Summary Table</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#fit-model"><i class="fa fa-check"></i><b>10.2</b> Fit Model</a></li>
-<li class="chapter" data-level="10.3" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#interpretation-2"><i class="fa fa-check"></i><b>10.3</b> Interpretation</a>
+<li class="chapter" data-level="10.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#calcualte-probability-odds-and-odds-ratios"><i class="fa fa-check"></i><b>10.2</b> Calcualte: Probability, Odds, and Odds-Ratios</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#odds-ratio-scale"><i class="fa fa-check"></i><b>10.3.1</b> Odds-ratio Scale</a></li>
-<li class="chapter" data-level="10.3.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#response-scale-aka.-probability"><i class="fa fa-check"></i><b>10.3.2</b> Response Scale (aka. Probability)</a></li>
+<li class="chapter" data-level="10.2.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#marginal-over-all-the-sample"><i class="fa fa-check"></i><b>10.2.1</b> Marginal, over all the sample</a></li>
+<li class="chapter" data-level="10.2.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#comparing-by-sex"><i class="fa fa-check"></i><b>10.2.2</b> Comparing by Sex</a></li>
 </ul></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#logisitc-regression-model-1-one-iv"><i class="fa fa-check"></i><b>10.3</b> Logisitc Regression Model 1: one IV</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#fit-the-unadjusted-model"><i class="fa fa-check"></i><b>10.3.1</b> Fit the Unadjusted Model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#tabulate-parameters"><i class="fa fa-check"></i><b>10.3.2</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="10.3.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#assess-model-fit"><i class="fa fa-check"></i><b>10.3.3</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="10.3.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#plot-predicted-probabilitites"><i class="fa fa-check"></i><b>10.3.4</b> Plot Predicted Probabilitites</a></li>
+<li class="chapter" data-level="10.3.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation"><i class="fa fa-check"></i><b>10.3.5</b> Interpretation</a></li>
+<li class="chapter" data-level="10.3.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#diagnostics"><i class="fa fa-check"></i><b>10.3.6</b> Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>11</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a>
+<li class="chapter" data-level="10.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#logisitic-regression-model-2-many-ivs"><i class="fa fa-check"></i><b>10.4</b> Logisitic Regression Model 2: many IV’s</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#background-4"><i class="fa fa-check"></i><b>11.1</b> Background</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>11.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="11.1.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>11.1.2</b> Declare Factors</a></li>
+<li class="chapter" data-level="10.4.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#fit-the-model"><i class="fa fa-check"></i><b>10.4.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="10.4.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#tabulate-parameters-1"><i class="fa fa-check"></i><b>10.4.2</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="10.4.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#assess-model-fit-1"><i class="fa fa-check"></i><b>10.4.3</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="10.4.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#variance-explained-1"><i class="fa fa-check"></i><b>10.4.4</b> Variance Explained</a></li>
+<li class="chapter" data-level="10.4.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#diagnostics-1"><i class="fa fa-check"></i><b>10.4.5</b> Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>11.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="10.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#compare-models"><i class="fa fa-check"></i><b>10.5</b> Compare Models</a>
 <ul>
-<li class="chapter" data-level="11.2.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>11.2.1</b> Husband’s Income</a></li>
-<li class="chapter" data-level="11.2.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>11.2.2</b> Children in Home</a></li>
-<li class="chapter" data-level="11.2.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>11.2.3</b> Region of Canada</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>11.3</b> Hierarchical (nested) Logistic Regression</a>
-<ul>
-<li class="chapter" data-level="11.3.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>11.3.1</b> Role of Predictors on ANY working</a></li>
-<li class="chapter" data-level="11.3.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>11.3.2</b> Role of Predictors on TYPE of work</a></li>
-</ul></li>
-<li class="chapter" data-level="11.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Multinomial (nominal) Logistic Regression</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-model-1-main-effects-only"><i class="fa fa-check"></i><b>11.4.1</b> Fit Model 1: main effects only</a></li>
-<li class="chapter" data-level="11.4.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-model-2-only-significant-predictors"><i class="fa fa-check"></i><b>11.4.2</b> Fit Model 2: only significant predictors</a></li>
-<li class="chapter" data-level="11.4.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#compre-model-fit"><i class="fa fa-check"></i><b>11.4.3</b> Compre model fit</a></li>
-<li class="chapter" data-level="11.4.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#extract-parameters"><i class="fa fa-check"></i><b>11.4.4</b> Extract parameters</a></li>
-<li class="chapter" data-level="11.4.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#tabulate-parameters-2"><i class="fa fa-check"></i><b>11.4.5</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="11.4.6" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities"><i class="fa fa-check"></i><b>11.4.6</b> Plot Predicted Probabilities</a></li>
-<li class="chapter" data-level="11.4.7" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-3"><i class="fa fa-check"></i><b>11.4.7</b> Interpretation</a></li>
-</ul></li>
-<li class="chapter" data-level="11.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>11.5</b> Proportional-odds (ordinal) Logistic Regression</a>
-<ul>
-<li class="chapter" data-level="11.5.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-the-model-1"><i class="fa fa-check"></i><b>11.5.1</b> Fit the Model</a></li>
-<li class="chapter" data-level="11.5.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#extract-parameters-1"><i class="fa fa-check"></i><b>11.5.2</b> Extract Parameters</a></li>
-<li class="chapter" data-level="11.5.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#tabulate-parameters-3"><i class="fa fa-check"></i><b>11.5.3</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="11.5.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities-1"><i class="fa fa-check"></i><b>11.5.4</b> Plot Predicted Probabilities</a></li>
-<li class="chapter" data-level="11.5.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-4"><i class="fa fa-check"></i><b>11.5.5</b> Interpretation</a></li>
-</ul></li>
-<li class="chapter" data-level="11.6" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#compare-model-fits-multinomial-vs.-ordinal"><i class="fa fa-check"></i><b>11.6</b> Compare Model Fits: Multinomial vs. Ordinal</a>
-<ul>
-<li class="chapter" data-level="11.6.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-5"><i class="fa fa-check"></i><b>11.6.1</b> Interpretation</a></li>
+<li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
+<li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html"><i class="fa fa-check"></i><b>12</b> Ordered Logistic Regression - Ex: Spaking</a>
+<li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#background-5"><i class="fa fa-check"></i><b>12.1</b> Background</a>
+<li class="chapter" data-level="11.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>11.1</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="12.1.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#raw-dataset-2"><i class="fa fa-check"></i><b>12.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="12.1.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#wrangle-data"><i class="fa fa-check"></i><b>12.1.2</b> Wrangle Data</a></li>
+<li class="chapter" data-level="11.1.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#visualization"><i class="fa fa-check"></i><b>11.1.1</b> Visualization</a></li>
+<li class="chapter" data-level="11.1.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#summary-statistics-1"><i class="fa fa-check"></i><b>11.1.2</b> Summary Statistics</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>12.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="11.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#fit-model"><i class="fa fa-check"></i><b>11.2</b> Fit Model</a></li>
+<li class="chapter" data-level="11.3" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#interpretation-2"><i class="fa fa-check"></i><b>11.3</b> Interpretation</a>
 <ul>
-<li class="chapter" data-level="12.2.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#entire-sample"><i class="fa fa-check"></i><b>12.2.1</b> Entire Sample</a></li>
-<li class="chapter" data-level="12.2.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#by-education"><i class="fa fa-check"></i><b>12.2.2</b> By Education</a></li>
-<li class="chapter" data-level="12.2.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#spanking-by-sex"><i class="fa fa-check"></i><b>12.2.3</b> Spanking by Sex</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#linear-regression"><i class="fa fa-check"></i><b>12.3</b> Linear Regression</a>
-<ul>
-<li class="chapter" data-level="12.3.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#visualization-1"><i class="fa fa-check"></i><b>12.3.1</b> Visualization</a></li>
-<li class="chapter" data-level="12.3.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-the-model-2"><i class="fa fa-check"></i><b>12.3.2</b> Fit the Model</a></li>
-<li class="chapter" data-level="12.3.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-4"><i class="fa fa-check"></i><b>12.3.3</b> Tabulate Parameters</a></li>
-<li class="chapter" data-level="12.3.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained"><i class="fa fa-check"></i><b>12.3.4</b> Model Fit and Variance Explained</a></li>
-<li class="chapter" data-level="12.3.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#residual-diagnostics"><i class="fa fa-check"></i><b>12.3.5</b> Residual Diagnostics</a></li>
-</ul></li>
-<li class="chapter" data-level="12.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#ordered-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Ordered Logistic Regression</a></li>
-<li class="chapter" data-level="12.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#proportional-odds-ordinal-logistic-regression-1"><i class="fa fa-check"></i><b>12.5</b> Proportional-odds (ordinal) Logistic Regression</a>
-<ul>
-<li class="chapter" data-level="12.5.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-model-1-sex"><i class="fa fa-check"></i><b>12.5.1</b> Fit Model 1: Sex</a></li>
-<li class="chapter" data-level="12.5.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#extract-parameters-2"><i class="fa fa-check"></i><b>12.5.2</b> Extract Parameters</a></li>
-<li class="chapter" data-level="12.5.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-5"><i class="fa fa-check"></i><b>12.5.3</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="12.5.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#predicted-probabilities-2"><i class="fa fa-check"></i><b>12.5.4</b> Predicted Probabilities</a></li>
-<li class="chapter" data-level="12.5.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#plot-predicted-probabilities-2"><i class="fa fa-check"></i><b>12.5.5</b> Plot Predicted Probabilities</a></li>
-<li class="chapter" data-level="12.5.6" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained-1"><i class="fa fa-check"></i><b>12.5.6</b> Model Fit and Variance Explained</a></li>
-<li class="chapter" data-level="12.5.7" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#assumptions"><i class="fa fa-check"></i><b>12.5.7</b> Assumptions</a></li>
-<li class="chapter" data-level="12.5.8" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-model-2-sex-covars"><i class="fa fa-check"></i><b>12.5.8</b> Fit Model 2: Sex + Covars</a></li>
-<li class="chapter" data-level="12.5.9" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#extract-parameters-3"><i class="fa fa-check"></i><b>12.5.9</b> Extract Parameters</a></li>
-<li class="chapter" data-level="12.5.10" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-6"><i class="fa fa-check"></i><b>12.5.10</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="12.5.11" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#predicted-probabilities-3"><i class="fa fa-check"></i><b>12.5.11</b> Predicted Probabilities</a></li>
-</ul></li>
-<li class="chapter" data-level="12.6" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#hoffmanns-example-4.8-continuesapproximated"><i class="fa fa-check"></i><b>12.6</b> Hoffmann’s Example 4.8 (continues…approximated)</a>
-<ul>
-<li class="chapter" data-level="12.6.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#plot-predicted-probabilites"><i class="fa fa-check"></i><b>12.6.1</b> Plot Predicted Probabilites</a></li>
-<li class="chapter" data-level="12.6.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained-2"><i class="fa fa-check"></i><b>12.6.2</b> Model Fit and Variance Explained</a></li>
-<li class="chapter" data-level="12.6.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#assumptions-1"><i class="fa fa-check"></i><b>12.6.3</b> Assumptions</a></li>
+<li class="chapter" data-level="11.3.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#odds-ratio-scale"><i class="fa fa-check"></i><b>11.3.1</b> Odds-ratio Scale</a></li>
+<li class="chapter" data-level="11.3.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#response-scale-aka.-probability"><i class="fa fa-check"></i><b>11.3.2</b> Response Scale (aka. Probability)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html"><i class="fa fa-check"></i><b>13</b> Count Outcome Regression - Ex:</a>
+<li class="chapter" data-level="12" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>12</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#background-6"><i class="fa fa-check"></i><b>13.1</b> Background</a>
+<li class="chapter" data-level="12.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#background-4"><i class="fa fa-check"></i><b>12.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="13.1.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#raw-dataset-3"><i class="fa fa-check"></i><b>13.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="12.1.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>12.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="12.1.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>12.1.2</b> Declare Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#exploratory-data-analysis-9"><i class="fa fa-check"></i><b>13.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="12.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>12.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>13.2.1</b> Entire Sample</a></li>
-<li class="chapter" data-level="13.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>13.2.2</b> By Sex</a></li>
+<li class="chapter" data-level="12.2.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>12.2.1</b> Husband’s Income</a></li>
+<li class="chapter" data-level="12.2.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>12.2.2</b> Children in Home</a></li>
+<li class="chapter" data-level="12.2.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>12.2.3</b> Region of Canada</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>13.3</b> Poisson Reression</a>
+<li class="chapter" data-level="12.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>12.3</b> Hierarchical (nested) Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="13.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>13.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="13.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>13.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="12.3.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>12.3.1</b> Role of Predictors on ANY working</a></li>
+<li class="chapter" data-level="12.3.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>12.3.2</b> Role of Predictors on TYPE of work</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>13.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="12.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Multinomial (nominal) Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="13.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>13.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="12.4.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-model-1-main-effects-only"><i class="fa fa-check"></i><b>12.4.1</b> Fit Model 1: main effects only</a></li>
+<li class="chapter" data-level="12.4.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-model-2-only-significant-predictors"><i class="fa fa-check"></i><b>12.4.2</b> Fit Model 2: only significant predictors</a></li>
+<li class="chapter" data-level="12.4.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#compre-model-fit"><i class="fa fa-check"></i><b>12.4.3</b> Compre model fit</a></li>
+<li class="chapter" data-level="12.4.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#extract-parameters"><i class="fa fa-check"></i><b>12.4.4</b> Extract parameters</a></li>
+<li class="chapter" data-level="12.4.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#tabulate-parameters-2"><i class="fa fa-check"></i><b>12.4.5</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="12.4.6" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities"><i class="fa fa-check"></i><b>12.4.6</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.4.7" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-3"><i class="fa fa-check"></i><b>12.4.7</b> Interpretation</a></li>
 </ul></li>
-<li class="chapter" data-level="13.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>13.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="13.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>13.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="12.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>12.5</b> Proportional-odds (ordinal) Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-the-model-1"><i class="fa fa-check"></i><b>12.5.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="12.5.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#extract-parameters-1"><i class="fa fa-check"></i><b>12.5.2</b> Extract Parameters</a></li>
+<li class="chapter" data-level="12.5.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#tabulate-parameters-3"><i class="fa fa-check"></i><b>12.5.3</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="12.5.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities-1"><i class="fa fa-check"></i><b>12.5.4</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.5.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-4"><i class="fa fa-check"></i><b>12.5.5</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#compare-model-fits-multinomial-vs.-ordinal"><i class="fa fa-check"></i><b>12.6</b> Compare Model Fits: Multinomial vs. Ordinal</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-5"><i class="fa fa-check"></i><b>12.6.1</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html"><i class="fa fa-check"></i><b>13</b> Ordered Logistic Regression - Ex: Spaking</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#background-5"><i class="fa fa-check"></i><b>13.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#raw-dataset-2"><i class="fa fa-check"></i><b>13.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="13.1.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#wrangle-data"><i class="fa fa-check"></i><b>13.1.2</b> Wrangle Data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>13.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#entire-sample"><i class="fa fa-check"></i><b>13.2.1</b> Entire Sample</a></li>
+<li class="chapter" data-level="13.2.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#by-education"><i class="fa fa-check"></i><b>13.2.2</b> By Education</a></li>
+<li class="chapter" data-level="13.2.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#spanking-by-sex"><i class="fa fa-check"></i><b>13.2.3</b> Spanking by Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#linear-regression"><i class="fa fa-check"></i><b>13.3</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#visualization-1"><i class="fa fa-check"></i><b>13.3.1</b> Visualization</a></li>
+<li class="chapter" data-level="13.3.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-the-model-2"><i class="fa fa-check"></i><b>13.3.2</b> Fit the Model</a></li>
+<li class="chapter" data-level="13.3.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-4"><i class="fa fa-check"></i><b>13.3.3</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="13.3.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained"><i class="fa fa-check"></i><b>13.3.4</b> Model Fit and Variance Explained</a></li>
+<li class="chapter" data-level="13.3.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#residual-diagnostics"><i class="fa fa-check"></i><b>13.3.5</b> Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#ordered-logistic-regression"><i class="fa fa-check"></i><b>13.4</b> Ordered Logistic Regression</a></li>
+<li class="chapter" data-level="13.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#proportional-odds-ordinal-logistic-regression-1"><i class="fa fa-check"></i><b>13.5</b> Proportional-odds (ordinal) Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-model-1-sex"><i class="fa fa-check"></i><b>13.5.1</b> Fit Model 1: Sex</a></li>
+<li class="chapter" data-level="13.5.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#extract-parameters-2"><i class="fa fa-check"></i><b>13.5.2</b> Extract Parameters</a></li>
+<li class="chapter" data-level="13.5.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-5"><i class="fa fa-check"></i><b>13.5.3</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="13.5.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#predicted-probabilities-2"><i class="fa fa-check"></i><b>13.5.4</b> Predicted Probabilities</a></li>
+<li class="chapter" data-level="13.5.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#plot-predicted-probabilities-2"><i class="fa fa-check"></i><b>13.5.5</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="13.5.6" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained-1"><i class="fa fa-check"></i><b>13.5.6</b> Model Fit and Variance Explained</a></li>
+<li class="chapter" data-level="13.5.7" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#assumptions"><i class="fa fa-check"></i><b>13.5.7</b> Assumptions</a></li>
+<li class="chapter" data-level="13.5.8" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-model-2-sex-covars"><i class="fa fa-check"></i><b>13.5.8</b> Fit Model 2: Sex + Covars</a></li>
+<li class="chapter" data-level="13.5.9" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#extract-parameters-3"><i class="fa fa-check"></i><b>13.5.9</b> Extract Parameters</a></li>
+<li class="chapter" data-level="13.5.10" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-6"><i class="fa fa-check"></i><b>13.5.10</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="13.5.11" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#predicted-probabilities-3"><i class="fa fa-check"></i><b>13.5.11</b> Predicted Probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#hoffmanns-example-4.8-continuesapproximated"><i class="fa fa-check"></i><b>13.6</b> Hoffmann’s Example 4.8 (continues…approximated)</a>
+<ul>
+<li class="chapter" data-level="13.6.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#plot-predicted-probabilites"><i class="fa fa-check"></i><b>13.6.1</b> Plot Predicted Probabilites</a></li>
+<li class="chapter" data-level="13.6.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained-2"><i class="fa fa-check"></i><b>13.6.2</b> Model Fit and Variance Explained</a></li>
+<li class="chapter" data-level="13.6.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#assumptions-1"><i class="fa fa-check"></i><b>13.6.3</b> Assumptions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html"><i class="fa fa-check"></i><b>14</b> Count Outcome Regression - Ex:</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#background-6"><i class="fa fa-check"></i><b>14.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#raw-dataset-3"><i class="fa fa-check"></i><b>14.1.1</b> Raw Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#exploratory-data-analysis-9"><i class="fa fa-check"></i><b>14.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
+<li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -622,22 +647,22 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="logistic-regression---ex-volunteering-hoffman" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Logistic Regression - Ex: volunteering (Hoffman)</h1>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb547-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
-<span id="cb547-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
-<span id="cb547-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
-<span id="cb547-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
-<span id="cb547-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreghelpr)  <span class="co"># GITHUB: sarbearschartz/texreghelpr</span></span>
-<span id="cb547-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
-<span id="cb547-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
-<span id="cb547-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
-<span id="cb547-10"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
-<span id="cb547-11"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
-<span id="cb547-12"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions) <span class="co"># interaction plots</span></span>
-<span id="cb547-13"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># various plots</span></span>
-<span id="cb547-14"><a href="logistic-regression---ex-volunteering-hoffman.html#cb547-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
+<div id="logistic-regression---ex-volunteering-hoffman" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Logistic Regression - Ex: volunteering (Hoffman)</h1>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb559-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
+<span id="cb559-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
+<span id="cb559-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
+<span id="cb559-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
+<span id="cb559-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreghelpr)  <span class="co"># GITHUB: sarbearschartz/texreghelpr</span></span>
+<span id="cb559-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
+<span id="cb559-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
+<span id="cb559-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
+<span id="cb559-10"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
+<span id="cb559-11"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
+<span id="cb559-12"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions) <span class="co"># interaction plots</span></span>
+<span id="cb559-13"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># various plots</span></span>
+<span id="cb559-14"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
 <p>This dataset comes from John Hoffman’s textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) <a href="https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&amp;qid=1603172859&amp;refinements=p_27%3ADr.+John+P.+Hoffmann&amp;s=books&amp;sr=1-2&amp;text=Dr.+John+P.+Hoffmann">Amazon link, 2014 edition</a></p>
 <blockquote>
 <p>Chapter 3: Logistic and Probit Regression Models</p>
@@ -646,10 +671,10 @@ div.csl-indent {
 <blockquote>
 <p>"The variable labeled <code>volrelig</code>, which indicates whether or not a respondent volunteered for a religious organization in the previous year is coded <code>0</code> = no, <code>1</code> = yes. <strong>A hypothesis we wish to explore is that females are more likely than males to volunteer for religious organizations.</strong> Hence, in this data set, we code gender as <code>0</code> = male and <code>1</code> = female. In order to preclude the possibility that age and education explain the proposed association between <code>gender</code> and <code>volrelig</code>, we include these variables in the model after transforming them into z-scores. An advantage of this transformation is that it becomes a simple exercise to compute odds or probabilities for males and females at the mean of age and education, because these variables have now been transformed to have a mean of zero.</p>
 </blockquote>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb548-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb548-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb548-2" aria-hidden="true" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">as_factor</span>()</span>
-<span id="cb548-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb548-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb548-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb548-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_gss)</span></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb560-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-2" aria-hidden="true" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">as_factor</span>()</span>
+<span id="cb560-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb560-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_gss)</span></code></pre></div>
 <pre><code>Rows: 2,903
 Columns: 20
 $ id       &lt;dbl&gt; 402, 1473, 1909, 334, 1751, 456, 292, 2817, 2810, 2232, 2174,~
@@ -672,7 +697,7 @@ $ prayer   &lt;fct&gt; daily, several times a week, daily, several times a week,
 $ educate  &lt;dbl&gt; 12, 17, 8, 12, 12, NA, 15, 12, 11, 14, 14, 12, 20, 12, 15, 20~
 $ volrelig &lt;fct&gt; no, no, no, yes, yes, no, no, no, no, no, no, no, no, no, no,~
 $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservative,~</code></pre>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb550-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(df_gss)</span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb562-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(df_gss)</span></code></pre></div>
 <pre><code># A tibble: 9 x 20
   id    marital       divorce childs age   income polviews fund  attend spanking
   &lt;chr&gt; &lt;fct&gt;         &lt;fct&gt;   &lt;fct&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;   
@@ -688,29 +713,29 @@ $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservat
 # ... with 10 more variables: totrelig &lt;chr&gt;, sei &lt;chr&gt;, pasei &lt;chr&gt;,
 #   volteer &lt;chr&gt;, female &lt;fct&gt;, nonwhite &lt;fct&gt;, prayer &lt;fct&gt;, educate &lt;chr&gt;,
 #   volrelig &lt;fct&gt;, polview1 &lt;fct&gt;</code></pre>
-<div id="exploratory-data-analysis-6" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Exploratory Data Analysis</h2>
-<div id="visualization" class="section level3" number="10.1.1">
-<h3><span class="header-section-number">10.1.1</span> Visualization</h3>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
-<span id="cb552-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> educate,</span>
-<span id="cb552-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> volrelig)) <span class="sc">+</span></span>
-<span id="cb552-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>() <span class="sc">+</span></span>
-<span id="cb552-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb552-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education in Years&quot;</span>,</span>
-<span id="cb552-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb552-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Respondent Volunteered for a Religious Organization</span><span class="sc">\n</span><span class="st">in the Previous Year&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-365-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div id="exploratory-data-analysis-6" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Exploratory Data Analysis</h2>
+<div id="visualization" class="section level3" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Visualization</h3>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
+<span id="cb564-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> educate,</span>
+<span id="cb564-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> volrelig)) <span class="sc">+</span></span>
+<span id="cb564-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>() <span class="sc">+</span></span>
+<span id="cb564-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb564-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education in Years&quot;</span>,</span>
+<span id="cb564-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Respondent Volunteered for a Religious Organization</span><span class="sc">\n</span><span class="st">in the Previous Year&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-373-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="summary-statistics-1" class="section level3" number="10.1.2">
-<h3><span class="header-section-number">10.1.2</span> Summary Statistics</h3>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
-<span id="cb553-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(volrelig) <span class="sc">%&gt;%</span> </span>
-<span id="cb553-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-3" aria-hidden="true" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">table1</span>(female,</span>
-<span id="cb553-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-4" aria-hidden="true" tabindex="-1"></a>                    age,</span>
-<span id="cb553-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-5" aria-hidden="true" tabindex="-1"></a>                    educate,</span>
-<span id="cb553-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">total =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb553-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">test =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb553-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb553-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div id="summary-statistics-1" class="section level3" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> Summary Statistics</h3>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
+<span id="cb565-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(volrelig) <span class="sc">%&gt;%</span> </span>
+<span id="cb565-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-3" aria-hidden="true" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">table1</span>(female,</span>
+<span id="cb565-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-4" aria-hidden="true" tabindex="-1"></a>                    age,</span>
+<span id="cb565-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-5" aria-hidden="true" tabindex="-1"></a>                    educate,</span>
+<span id="cb565-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">total =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb565-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">test =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb565-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>
 -------------------------------------------------------------------
                                     volrelig 
@@ -726,16 +751,16 @@ $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservat
 -------------------------------------------------------------------</code></pre>
 </div>
 </div>
-<div id="fit-model" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Fit Model</h2>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-1" aria-hidden="true" tabindex="-1"></a>df_gss_model <span class="ot">&lt;-</span> df_gss <span class="sc">%&gt;%</span> </span>
-<span id="cb555-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">volrelig01 =</span> <span class="fu">case_when</span>(volrelig <span class="sc">==</span> <span class="st">&quot;no&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb555-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-3" aria-hidden="true" tabindex="-1"></a>                                       volrelig <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb555-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_age =</span> (age <span class="sc">-</span> <span class="fl">44.767</span>)<span class="sc">/</span><span class="fl">16.850</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb555-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_educ =</span> (educate <span class="sc">-</span> <span class="fl">13.363</span>)<span class="sc">/</span><span class="fl">2.928</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb555-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, age, z_age, educate, z_educ, female, volrelig, volrelig01)</span>
-<span id="cb555-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb555-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb555-8" aria-hidden="true" tabindex="-1"></a>df_gss_model</span></code></pre></div>
+<div id="fit-model" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Fit Model</h2>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-1" aria-hidden="true" tabindex="-1"></a>df_gss_model <span class="ot">&lt;-</span> df_gss <span class="sc">%&gt;%</span> </span>
+<span id="cb567-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">volrelig01 =</span> <span class="fu">case_when</span>(volrelig <span class="sc">==</span> <span class="st">&quot;no&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb567-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-3" aria-hidden="true" tabindex="-1"></a>                                       volrelig <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb567-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_age =</span> (age <span class="sc">-</span> <span class="fl">44.767</span>)<span class="sc">/</span><span class="fl">16.850</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb567-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_educ =</span> (educate <span class="sc">-</span> <span class="fl">13.363</span>)<span class="sc">/</span><span class="fl">2.928</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb567-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, age, z_age, educate, z_educ, female, volrelig, volrelig01)</span>
+<span id="cb567-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb567-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-8" aria-hidden="true" tabindex="-1"></a>df_gss_model</span></code></pre></div>
 <pre><code># A tibble: 2,903 x 8
       id   age  z_age educate z_educ female volrelig volrelig01
    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;
@@ -750,11 +775,11 @@ $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservat
  9  2810    18 -1.59       11 -0.807 female no                0
 10  2232    35 -0.580      14  0.218 male   no                0
 # ... with 2,893 more rows</code></pre>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb557-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(volrelig01 <span class="sc">~</span> female <span class="sc">+</span> z_age <span class="sc">+</span> z_educ,</span>
-<span id="cb557-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb557-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> df_gss_model,</span>
-<span id="cb557-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb557-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb557-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb557-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb557-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb557-5" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(volrelig01 <span class="sc">~</span> female <span class="sc">+</span> z_age <span class="sc">+</span> z_educ,</span>
+<span id="cb569-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> df_gss_model,</span>
+<span id="cb569-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb569-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb569-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-5" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() </span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = volrelig01 ~ female + z_age + z_educ, family = binomial(link = &quot;logit&quot;), 
@@ -781,21 +806,21 @@ Residual deviance: 1456.3  on 2890  degrees of freedom
 AIC: 1464.3
 
 Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb571-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
 <pre><code>               Estimate Std. Error    z value      Pr(&gt;|z|)
 (Intercept)  -2.8318640 0.12148235 -23.310908 3.436457e-120
 femalefemale  0.3542592 0.15031927   2.356712  1.843756e-02
 z_age         0.1418388 0.07390196   1.919284  5.494843e-02
 z_educ        0.3561886 0.07369657   4.833177  1.343714e-06</code></pre>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_glm_1,</span>
-<span id="cb561-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-2" aria-hidden="true" tabindex="-1"></a>                     texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1)),</span>
-<span id="cb561-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
-<span id="cb561-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
-<span id="cb561-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53&quot;</span>,</span>
-<span id="cb561-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption.above =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb561-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb561-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb561-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb561-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_glm_1,</span>
+<span id="cb573-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-2" aria-hidden="true" tabindex="-1"></a>                     texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1)),</span>
+<span id="cb573-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb573-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
+<span id="cb573-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53&quot;</span>,</span>
+<span id="cb573-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption.above =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb573-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb573-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb573-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Hoffman’s EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53
@@ -923,20 +948,20 @@ Num. obs.
 </tfoot>
 </table>
 </div>
-<div id="interpretation-2" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Interpretation</h2>
-<div id="odds-ratio-scale" class="section level3" number="10.3.1">
-<h3><span class="header-section-number">10.3.1</span> Odds-ratio Scale</h3>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb562-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
+<div id="interpretation-2" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Interpretation</h2>
+<div id="odds-ratio-scale" class="section level3" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> Odds-ratio Scale</h3>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb574-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
 <pre><code> (Intercept) femalefemale        z_age       z_educ 
   -2.8318640    0.3542592    0.1418388    0.3561886 </code></pre>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span>)</span></code></pre></div>
 <pre><code>[1] 0.05895387</code></pre>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span> <span class="sc">+</span> <span class="fl">0.354</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span> <span class="sc">+</span> <span class="fl">0.354</span>)</span></code></pre></div>
 <pre><code>[1] 0.08399483</code></pre>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb568-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.354</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.354</span>)</span></code></pre></div>
 <pre><code>[1] 1.424755</code></pre>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb582-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
 <pre><code> (Intercept) femalefemale        z_age       z_educ 
   0.05890295   1.42512448   1.15239090   1.42787675 </code></pre>
 <blockquote>
@@ -954,14 +979,14 @@ Num. obs.
 <blockquote>
 <p>What, then, is the odds ratio?</p>
 </blockquote>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb572-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.0840</span>)<span class="sc">/</span>(<span class="fl">0.0589</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.0840</span>)<span class="sc">/</span>(<span class="fl">0.0589</span>)</span></code></pre></div>
 <pre><code>[1] 1.426146</code></pre>
 </div>
-<div id="response-scale-aka.-probability" class="section level3" number="10.3.2">
-<h3><span class="header-section-number">10.3.2</span> Response Scale (aka. Probability)</h3>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb574-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb574-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb574-2" aria-hidden="true" tabindex="-1"></a>  emmeans<span class="sc">::</span><span class="fu">emmeans</span>(<span class="sc">~</span> female,</span>
-<span id="cb574-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb574-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div id="response-scale-aka.-probability" class="section level3" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> Response Scale (aka. Probability)</h3>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb586-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb586-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb586-2" aria-hidden="true" tabindex="-1"></a>  emmeans<span class="sc">::</span><span class="fu">emmeans</span>(<span class="sc">~</span> female,</span>
+<span id="cb586-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb586-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code> female   prob      SE  df asymp.LCL asymp.UCL
  male   0.0556 0.00638 Inf    0.0444    0.0695
  female 0.0774 0.00671 Inf    0.0653    0.0917
@@ -976,7 +1001,7 @@ Intervals are back-transformed from the logit scale </code></pre>
 <blockquote>
 <p>Use these probabilities to compute the odds ratio for gender.</p>
 </blockquote>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-1" aria-hidden="true" tabindex="-1"></a>(.<span class="dv">0774</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0774</span>))<span class="sc">/</span>(.<span class="dv">0556</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0556</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb588-1" aria-hidden="true" tabindex="-1"></a>(.<span class="dv">0774</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0774</span>))<span class="sc">/</span>(.<span class="dv">0556</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0556</span>))</span></code></pre></div>
 <pre><code>[1] 1.42498</code></pre>
 <p><em>Note that these <strong>odds</strong> and <strong>probabilities</strong> are similar. This often occurs when we are dealing with probabilities that are relatively close to zero; in other words, it is a common occurrence for rare events. To see this, simply compute a cross-tabulation of <code>volrelig</code> and <code>gender</code> and compare the odds and probabilities. Then try it out for any rare event you may wish to simulate</em></p>
 
