@@ -1,10 +1,13 @@
 # Interactions Example
 
-```{r}
+```{r, comment=FALSE, message=FALSE, error=FALSE, warning=FALSE}
 library(tidyverse)
 library(emmeans)
 library(furniture)
+library(stargazer)
+library(psych)
 library(texreg)
+library(interactions)
 ```
 
 
@@ -82,6 +85,8 @@ tibble::glimpse(data_raw)
 data_raw %>% 
   summary()
 ```
+
+
 ### Wrangle the data 
 
 ```{r}
@@ -109,17 +114,39 @@ summary(data_clean)
 
 ### Summary Statistics
 
+
+```{r}
+data_clean %>%  
+  psych::describe()
+```
+
+
+```{r}
+data_clean %>% 
+  stargazer::stargazer(type = "text")
+```
+
+
+```{r}
+data_clean %>%  
+  furniture::table1(gender, loss, hours, effort)
+```
+
+
 ```{r}
 data_clean %>% 
   dplyr::group_by(prog) %>% 
   furniture::table1("Gender" = gender,
                     "Weight Loss, pounds" = loss, 
-                    "Hours Spent in Program" = hours, 
+                    "Time Spent in Program, hours" = hours, 
                     "Effort in Program" = effort,
                     digits = 2,
                     output = "markdown",
-                    total = TRUE)
+                    total = TRUE,
+                    test = TRUE)
 ```
+
+### Correlations
 
 ```{r}
 data_clean %>% 
@@ -146,7 +173,30 @@ data_clean %>%
            data = .)
 ```
 
-### Visualization
+```{r}
+data_clean %>% 
+  dplyr::select_if(is.numeric) %>% 
+  cor()
+```
+
+```{r}
+data_clean %>% 
+  dplyr::select_if(is.numeric) %>% 
+  cor() %>% 
+  corrplot::corrplot()
+```
+
+
+```{r}
+data_clean %>% 
+  dplyr::select_if(is.numeric) %>% 
+  cor() %>% 
+  corrplot::corrplot.mixed()
+```
+
+
+
+### Visualization Bivariate Relationships
 
 ```{r}
 data_clean %>% 
@@ -155,6 +205,7 @@ data_clean %>%
   geom_point() +
   theme_bw()
 ```
+
 ```{r}
 data_clean %>% 
   ggplot(aes(x = hours,
@@ -173,6 +224,7 @@ data_clean %>%
   theme_bw() +
   facet_grid(~ gender)
 ```
+
 ```{r}
 data_clean %>% 
   ggplot(aes(x = hours,
@@ -182,6 +234,7 @@ data_clean %>%
   theme_bw() +
   facet_grid(~ prog)
 ```
+
 ```{r}
 data_clean %>% 
   ggplot(aes(x = hours,
@@ -193,15 +246,14 @@ data_clean %>%
 ```
 
 
-
 ## Simple Linear Regression
 
-### Fit
+### Fit a MLR Model
 
 **Question:** Does time spent on a program effect weight loss?
 
 ```{r}
-fit_lm_loss_hr <- lm(loss ~ hours,
+fit_lm_loss_hr <- lm(loss ~ hours,        # DV ~ IV's
                      data = data_clean)
 ```
 
@@ -210,14 +262,50 @@ fit_lm_loss_hr <- lm(loss ~ hours,
 summary(fit_lm_loss_hr)
 ```
 
-**Answer:** Yes.  There is evidence that an additional hour in a program is associated with slightly more weight lost, b = 2.47, t(1) = 2.61, p = .009, R^2 < .01.
+**Answer:** Yes.  There is evidence that an additional hour in a program is associated with slightly more weight lost, b = 2.47, p = .009, R^2 < .01.
 
 
-### Predict
+
+### Check Assumptions
+
+
+> Base function to plot main residual diagnostics to asses assumptions
+
+See: 
+* http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials/
+
+* http://www.contrib.andrew.cmu.edu/~achoulde/94842/homework/regression_diagnostics.html
+
+
+* https://daviddalpiaz.github.io/appliedstats/model-diagnostics.html
+
+
+```{r, fig.width=6, fig.height=6}
+par(mfrow = c(2, 2))   # sets up a 2x2 grid of plots in base R
+plot(fit_lm_loss_hr)
+par(mfrow = c(1, 1))   # make sure to return back to a single plot
+```
+
+
 
 ```{r}
 fit_lm_loss_hr %>% 
-  emmeans::emmeans(~ hours)
+  car::residualPlot(type = "rstandard")
+```
+
+
+```{r}
+car::qqPlot(residuals(fit_lm_loss_hr))
+```
+
+
+
+
+### Predict and Pariwise Tests
+
+```{r}
+fit_lm_loss_hr %>% 
+  emmeans::emmeans(~ hours)   # default for mean hours
 ```
 
 **Interpretation:** A participant that spends 2 hours on their program looses 10 pounds on average, SE = 0.47, 95% CI [9.1, 10.9].
@@ -226,35 +314,51 @@ fit_lm_loss_hr %>%
 ```{r}
 fit_lm_loss_hr %>% 
   emmeans::emmeans(~ hours,
-                   at = list(hours = 1:4))
+                   at = list(hours = 1:4))  # set hours to plug in
 ```
 
-### Overall Slope
 
-```{r}
-fit_lm_loss_hr %>% 
-  emmeans::emtrends(~ 1,
-                    var = "hours")
-```
 
 
 **Interpretation:** Overall, on average the effect of time is an additional 2.47 pounds lost per hour spent on a program.  
 
 
-### Plot
+
+### Plot Estimated Marginal Means
+
+create a sequence of numbers
+
+```{r}
+seq(from = .25, to = 4, by = .25)
+```
 
 ```{r}
 fit_lm_loss_hr %>% 
-  emmeans::emmip(~ hours,
-                 at = list(hours = seq(from = .25, to = 4, by = .25)),
-                 CIs = TRUE) +
-  labs(caption = "Note: Confidence bands display 97% CI for the mean")
+  emmeans::emmeans(~ hours,
+                   at = list(hours = seq(from = .25, to = 4, by = .25))) %>%
+  data.frame()
 ```
+
+
+```{r}
+fit_lm_loss_hr %>% 
+  emmeans::emmeans(~ hours,
+                   at = list(hours = seq(from = .25, to = 4, by = .25))) %>%
+  data.frame() %>% 
+  ggplot(aes(x = hours,
+             y = emmean)) +
+  geom_ribbon(aes(ymin = lower.CL,
+                  ymax = upper.CL),
+              alpha = .25) +
+  geom_line() + 
+  theme_bw()
+```
+
 
 
 ##  Continuous by Continuous
 
-### Fit
+### Fit MLR Model
 
 
 The same model:
@@ -262,7 +366,7 @@ The same model:
 * `loss ~ hours + effore + hours:effort`
 
 
-**Quesiton:** Is there an interaction between time spent and effort in a weight loss program?
+**Question:** Is there an interaction between time spent and effort in a weight loss program?
 
 ```{r}
 fit_lm_loss_hr_eff <- lm(loss ~ hours*effort,
@@ -274,9 +378,11 @@ fit_lm_loss_hr_eff <- lm(loss ~ hours*effort,
 summary(fit_lm_loss_hr_eff)
 ```
 
-**Answer:** Effect does moderate time spent in a program for weight loss, b = 0.39, t(1) = 2.10, p = .036.  The combined effect of time and effort account for nearly 8% of the variation in pounds lost.
+**Answer:** Effect does moderate time spent in a program for weight loss, b = 0.39, p = .036.  The combined effect of time and effort account for nearly 8% of the variation in pounds lost.
 
-### Table
+
+
+### Table of Parameter Estimates
 
 Sometimes its nice to have a table of the parameter estimates of competing models.
 
@@ -287,75 +393,21 @@ texreg::screenreg(list(fit_lm_loss_hr,
 ```
 
 
-### Predict
 
-By default, we get a prediction for the mean hours (2) and the mean effort (29.7).
+### Check Assumptions
 
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emmeans(~ hours*effort)
-```
-
-We can customize which hours and effor for which we want to get predictions for.
-
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emmeans(~ hours*effort,
-                   at = list(hours = 1:4,
-                             effort = c(20, 30, 40)))
-```
-
-By adding the word `pairwise` we also get pairwise t-tests! Tukey's HSD adjustment for multiple compairisons is done by default.
-
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emmeans(pairwise ~ hours*effort,
-                   at = list(hours = 2:3,
-                             effort = c(25, 35)))
-```
-
-By changing the astrics (`*`) to a vertical bar (`|`) we get compairisons between different hours WITHIN each effort level.
-
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emmeans(pairwise ~ hours|effort,
-                   at = list(hours = c(1, 4),
-                             effort = c(20, 30, 40)))
+```{r, fig.width=6, fig.height=6}
+par(mfrow = c(2, 2))
+plot(fit_lm_loss_hr_eff)
+par(mfrow = c(1, 1))
 ```
 
 
-### Simple Slope
-
-By default, we only get the overall slope for time spent for the mean effort (29.7).
-
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emtrends(~ effort,
-                    var = "hours")
-```
 
 
-Of course, you can customize the effort levels for which you want the slope of time spent.  These are called "simple slopes".
-
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emtrends(~ effort,
-                    var = "hours",
-                    at = list(effort = c(20, 30, 40)))
-```
-
-Again, adding the word `pairwise` will cause pairwise t-Tests to be ran.  Here I've asked NOT to do Tukey's HSD adjustment to show that is can be done.
-
-```{r}
-fit_lm_loss_hr_eff %>% 
-  emmeans::emtrends(pairwise ~ effort,
-                    var = "hours",
-                    at = list(effort = c(20, 30, 40)),
-                    adjust = "none")
-```
 
 
-### Plot
+### Plot Estimated Marginal Means
 
 The `emmeans` package can make interaction plots with the `emmip()` function, but it only can create confidene intervals, not confidence bands.
 
@@ -367,7 +419,6 @@ fit_lm_loss_hr_eff %>%
                  CIs = TRUE)
 ```
 
-The `interactions` package can create bands with the `interact_plot()` function.
 
 ```{r}
 fit_lm_loss_hr_eff %>% 
@@ -380,18 +431,15 @@ fit_lm_loss_hr_eff %>%
 
 Since these packages are built on `ggplot2` you can customise them further to make them 'better' for publication.
 
-```{r}
+```{r, fig.width=5, fig.height=4.5}
 fit_lm_loss_hr_eff %>% 
   interactions::interact_plot(pred = hours,
                               modx = effort,
                               interval = TRUE,
-                              int.type = "confidence") +
+                              int.type = "confidence",
+                              legend.main = "Effort:") +
   labs(x = "Hours Spent Exercising",
-       y = "Weight Loss, pounds",
-       color = "Effort",
-       fill = "Effort",
-       linetype = "Effort",
-       alpha = "Effort") +
+       y = "Weight Loss, pounds") +
   theme_bw() +
   theme(legend.position = c(0, 1),
         legend.justification = c(-0.1, 1.1),
@@ -399,12 +447,103 @@ fit_lm_loss_hr_eff %>%
         legend.key.width = unit(1.5, "cm"))
 ```
 
-**Interpretation:** When little time is spent on the program, participants lost just over 5 pounds, irrespect of effort.  More time spent on the programs only translated to additional weight lost if their effort was high.
+
+
+```{r, fig.width=5, fig.height=4.5}
+fit_lm_loss_hr_eff %>% 
+  interactions::interact_plot(pred = hours,
+                              modx = effort,
+                              modx.values = c(15, 24, 35, 45),
+                              interval = TRUE,
+                              int.type = "confidence",
+                              legend.main = "Effort:") +
+  labs(x = "Hours Spent Exercising",
+       y = "Weight Loss, pounds") +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm"))
+```
+
+**Interpretation:** When little time is spent on the program, participants lost just over 5 pounds, irrespective of effort.  More time spent on the programs only translated to additional weight lost if their effort was high.
+
+
+
+
+
+
+### Predict and Pairwise Tests
+
+By default, we get a prediction for the mean hours (2) and the mean effort (29.7).
+
+```{r}
+fit_lm_loss_hr_eff %>% 
+  emmeans::emmeans(~ hours*effort)
+```
+
+We can customize which hours and effort for which we want to get predictions for.
+
+```{r}
+fit_lm_loss_hr_eff %>% 
+  emmeans::emmeans(~ hours*effort,
+                   at = list(hours = 1:4,
+                             effort = c(20, 30, 40)))
+```
+
+
+
+By adding the word `pairwise` we also get pairwise t-tests! Tukey's HSD adjustment for multiple compairisons is done by default.
+
+```{r}
+fit_lm_loss_hr_eff %>% 
+  emmeans::emmeans(pairwise ~ hours*effort,
+                   at = list(hours = 2:3,
+                             effort = c(25, 35)))
+```
+
+
+
+By changing the astrics (`*`) to a vertical bar (`|`) we get compairisons between different hours WITHIN each effort level.
+
+```{r}
+fit_lm_loss_hr_eff %>% 
+  emmeans::emmeans(pairwise ~ hours|effort,
+                   at = list(hours = c(1, 4),
+                             effort = c(20, 30, 40)))
+```
+
+
+
+
+### Simple Slopes Analysis
+
+By default, we only get the overall slope for time spent for the mean effort (29.7) and plus-or-minus one standard deviation (24.51 & 34.80).
+
+```{r}
+fit_lm_loss_hr_eff %>% 
+  interactions::sim_slopes(pred = hours,
+                           modx = effort)
+```
+
+
+
+You may specify other specific values.
+
+```{r}
+fit_lm_loss_hr_eff %>% 
+  interactions::sim_slopes(pred = hours,
+                           modx = effort,
+                           modx.values = c(15, 25, 23, 45))
+```
+
+
 
 
 ## Continuous by Categorical
 
-### Fit
+### Fit MLR Model
 
 **Question:** Did weight loss depend on gender?
 
@@ -417,6 +556,7 @@ fit_lm_loss_gen <- lm(loss ~ gender,
 summary(fit_lm_loss_gen)
 ```
 **Answer:**The main effect of gender is not significant.
+
 
 
 **Question:** Does gender moderate the effect of spending addition time on the program? *(ignoring the role of effort and program type for the time being)*
@@ -433,7 +573,19 @@ summary(fit_lm_loss_hrs_gen)
 
 **Answer:** No, gender does not interact with time spent.  
 
+
+
 **Question:** Is the effect of time spend moderated by type of program?
+
+```{r}
+fit_lm_loss_prog <- lm(loss ~ prog,
+                          data = data_clean)
+```
+
+```{r}
+summary(fit_lm_loss_prog)
+```
+
 
 ```{r}
 fit_lm_loss_hrs_prog <- lm(loss ~ hours*prog,
@@ -444,6 +596,7 @@ fit_lm_loss_hrs_prog <- lm(loss ~ hours*prog,
 ```{r}
 summary(fit_lm_loss_hrs_prog)
 ```
+
 ```{r}
 anova(fit_lm_loss_hrs_prog)
 ```
@@ -452,22 +605,64 @@ anova(fit_lm_loss_hrs_prog)
 **Answer:** Yes!  The type of program does moderate the effect of time spent on weight loss, F(2, 894) = 62.91, p < .001.
 
 
-### Table
+
+
+### Table Comparing Models
 
 Sometimes its nice to have a table of the parameter estimates of competing models.
 
 ```{r}
 texreg::screenreg(list(fit_lm_loss_hr, 
                        fit_lm_loss_gen,
+                       fit_lm_loss_prog,
                        fit_lm_loss_hrs_gen,
                        fit_lm_loss_hrs_prog),
                   custom.model.names = c("Hrs",
                                          "Gender",
+                                         "Program",
                                          "Hrs + Gender",
                                          "Hrs + Program"))
 ```
 
-### Predict
+
+
+
+### Check Assumptions
+
+```{r, fig.width=6, fig.height=6}
+par(mfrow = c(2, 2))
+plot(fit_lm_loss_hrs_prog)
+par(mfrow = c(1, 1))
+```
+
+
+
+### Plot Estimated Marginal Means
+
+```{r}
+fit_lm_loss_hrs_prog %>% 
+  interactions::interact_plot(pred = hours,
+                              modx = prog,
+                              interval = TRUE,
+                              int.type = "confidence",
+                              legend.main = "Program:") +
+  theme_bw() +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.key.width = unit(2, "cm")) +
+  labs(x = "Time Spend on Program, hours",
+       y = "Weight Loss, pounds",
+       caption = "Note. Bands represent 95% confidence intervals") +
+  geom_hline(yintercept = 0)
+```
+
+
+
+
+
+
+### Predict and Pairwise Tests
 
 ```{r}
 fit_lm_loss_hrs_prog %>% 
@@ -492,35 +687,28 @@ fit_lm_loss_hrs_prog %>%
 
 
 
-### Simple Slopes
+
+
+### Simple Slopes Analysis
 
 ```{r}
 fit_lm_loss_hrs_prog %>% 
-  emmeans::emtrends(pairwise ~ prog,
-                    var = "hours")
+  interactions::sim_slopes(pred = hours,
+                           modx = prog)
 ```
 
-**Interpretation:** Participants in the jogging program (M = 7.45 lb/hr, SE = 0.81) and the swimming program (M = 6.87 lb/hr, SE = 0.78), loose about the same amount of weight for each additional hour spent exercising, p = .863, conversly, each additional reading is associated with more weight gained (M = -2.96 lb/hr, SE = 0.71). 
+**Interpretation:** Participants in the jogging program (M = 7.45 lb/hr, SE = 0.81) and the swimming program (M = 6.87 lb/hr, SE = 0.78), loose about the same amount of weight for each additional hour spent exercising, p = .863, conversely, each additional hour reading is associated with more weight gained (M = -2.96 lb/hr, SE = 0.71). 
 
-### Plot
 
-```{r}
-fit_lm_loss_hrs_prog %>% 
-  interactions::interact_plot(pred = hours,
-                              modx = prog,
-                              interval = TRUE,
-                              int.type = "confidence")
-```
 
 
 ## Categorical by Categorical
 
-### Fit
+### Fit MLR Model
 
 **Question:** Do both genders have the same success in all the programs?
 
 ```{r}
-
 fit_lm_loss_prog <- lm(loss ~ prog,
                        data = data_clean)
 
@@ -536,10 +724,13 @@ summary(fit_lm_loss_prog_gen)
 ```{r}
 anova(fit_lm_loss_prog_gen)
 ```
+
 **Answer:** At least one of the programs results in more weight lost for one of the genders. 
 
 
-### Table
+
+
+### Table of Parameter Estimates
 
 ```{r}
 texreg::screenreg(list(fit_lm_loss_gen,
@@ -551,7 +742,54 @@ texreg::screenreg(list(fit_lm_loss_gen,
 ```
 
 
-### Predict
+
+### Check Assumptions
+
+```{r, fig.width=6, fig.height=6}
+par(mfrow = c(2, 2))
+plot(fit_lm_loss_prog_gen)
+par(mfrow = c(1, 1))
+```
+
+
+
+### Plot Estimated Marginal Means
+
+```{r}
+fit_lm_loss_prog_gen %>% 
+  interactions::cat_plot(pred = prog,
+                         modx = gender)
+```
+
+```{r}
+fit_lm_loss_prog_gen %>% 
+  interactions::cat_plot(pred = prog,
+                         modx = gender,
+                         geom = "line",
+                         dodge.width = .2,
+                         errorbar.width = .25,
+                         point.shape = TRUE,
+                         # vary.lty = TRUE,
+                         colors = c("gray10", "gray50"),
+                         legend.main = "Gender:") +
+  theme_bw() +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.key.width = unit(2, "cm")) +
+  labs(x = "Program",
+       y = "Weight Loss, pounds",
+       caption = "Note. Error Bars represent 95% confidence intervals") +
+  geom_hline(yintercept = 0) +
+  scale_shape_manual("Gender:", values = c(15, 16))
+```
+
+
+
+
+
+
+### Predict and Pairwise Tests
 
 **Question:** Which gender or program looses the most and least weight?
 
@@ -563,6 +801,7 @@ fit_lm_loss_prog_gen %>%
 **Answer:** For each gender, the swimming program resultsed in the most weight lost, followed by the jogging program, where as the the reading program paticipants gained weight.
 
 
+
 ```{r}
 fit_lm_loss_prog_gen %>% 
   emmeans::emmeans(pairwise ~ gender | prog)
@@ -572,30 +811,22 @@ fit_lm_loss_prog_gen %>%
 
 
 
-### Simple Slopes
+
+
+
+
+
+### Simple Slopes Analysis
 
 > Not appropriate for categorical-only interactions
 
 
-### Plot
 
-```{r}
-fit_lm_loss_prog_gen %>% 
-  emmeans::emmip(gender ~ prog,
-                 CIs = TRUE)
-```
-```{r}
-fit_lm_loss_prog_gen %>% 
-  emmeans::emmip(prog ~ gender,
-                 CIs = TRUE)
-```
 
 
 ## Three-way Interaction
 
-### Fit
-
-
+### Fit MLR Models
 
 ```{r}
 fit_lm_loss_3way_a <- lm(loss ~ prog*gender*effort,
@@ -606,9 +837,16 @@ fit_lm_loss_3way_a <- lm(loss ~ prog*gender*effort,
 ```{r}
 summary(fit_lm_loss_3way_a)
 ```
+
+
 ```{r}
 anova(fit_lm_loss_3way_a)
 ```
+
+
+
+
+
 
 ```{r}
 fit_lm_loss_3way_b <- lm(loss ~ prog*gender*hours,
@@ -626,7 +864,10 @@ summary(fit_lm_loss_3way_b)
 anova(fit_lm_loss_3way_b)
 ```
 
-### Table
+
+
+
+### Table of Parameter Estimates
 
 We can ask the table to show confidence intervals (95% by default) instead of standard errors.
 
@@ -638,7 +879,18 @@ texreg::screenreg(list(fit_lm_loss_3way_b),
 
 
 
-### Plot
+### Check Assumptions
+
+```{r, fig.width=6, fig.height=6}
+par(mfrow = c(2, 2))
+plot(fit_lm_loss_3way_b)
+par(mfrow = c(1, 1))
+```
+
+
+
+
+### Plot Estimated Marginal Means
 
 ```{r}
 fit_lm_loss_3way_b %>% 
@@ -646,8 +898,19 @@ fit_lm_loss_3way_b %>%
                               modx = prog,             # separate lines
                               mod2 = gender,           # separate panels
                               interval = TRUE,         # add bands
-                              int.type = "confidence")
+                              int.type = "confidence",
+                              legend.main = "Program:") +
+  theme_bw() +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.key.width = unit(1.5, "cm")) +
+  labs(x = "Time Spend on Program, hours",
+       y = "Weight Loss, pounds",
+       caption = "Note. Bands represent 95% confidence intervals") +
+  geom_hline(yintercept = 0)
 ```
+
 
 
 ```{r}
@@ -656,5 +919,30 @@ fit_lm_loss_3way_b %>%
                               modx = gender,           # separate lines
                               mod2 = prog,             # separate panels
                               interval = TRUE,         # add bands
-                              int.type = "confidence")
+                              int.type = "confidence",
+                              legend.main = "Gender:") +
+  theme_bw() +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.key.width = unit(1.5, "cm")) +
+  labs(x = "Time Spend on Program, hours",
+       y = "Weight Loss, pounds",
+       caption = "Note. Bands represent 95% confidence intervals") +
+  geom_hline(yintercept = 0)
+```
+
+
+
+
+
+### Simple Slopes Analysis
+
+By default, we only get the overall slope for time spent for the mean effort (29.7) and plus-or-minus one standard deviation (24.51 & 34.80).
+
+```{r}
+fit_lm_loss_3way_b %>% 
+  interactions::sim_slopes(pred = hours,
+                           modx = prog,
+                           mod2 = gender)
 ```

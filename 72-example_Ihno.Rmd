@@ -376,7 +376,7 @@ Not surprizingly, while higher self-reported math phobia was associated with low
 There was no evidence that math phobia moderated the relationship between math and quiz performance, $p=.377$. 
 
 
-# New Playground
+## New Playground
 
 ### Variable Inflation Factors (VIF)
 

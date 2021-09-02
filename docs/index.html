@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
   <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="EQM_v4_cover.png" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
   <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
   <meta name="github-repo" content="cehs-research/eBook_regression" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
   
   <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
-  <meta name="twitter:image" content="EQM_v4_cover.png" />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
 
 <meta name="author" content="Sarah Schwartz &amp; Tyson Barrett" />
 
@@ -31,9 +31,9 @@
   
   
 
-<link rel="next" href="linear-correlation-example-cancer-experiment.html"/>
-<script src="libs/header-attrs-2.4/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="next" href="linear-correlation---example-cancer-experiment.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,7 +50,8 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -59,6 +60,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -119,6 +121,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="heading.css" type="text/css" />
 </head>
@@ -146,429 +171,435 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation - Example: Cancer Experiment</a>
+<li class="chapter" data-level="1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation - Example: Cancer Experiment</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a>
+<li class="chapter" data-level="1.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
-<li class="chapter" data-level="1.1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<li class="chapter" data-level="1.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a>
+<li class="chapter" data-level="1.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
-<li class="chapter" data-level="1.3.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
-<li class="chapter" data-level="1.3.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a>
+<li class="chapter" data-level="1.4" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
-<li class="chapter" data-level="1.4.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a>
+<li class="chapter" data-level="1.5" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a>
 <ul>
-<li class="chapter" data-level="1.5.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
-<li class="chapter" data-level="1.5.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
-<li class="chapter" data-level="1.5.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a>
+<li class="chapter" data-level="1.6" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a>
 <ul>
-<li class="chapter" data-level="1.6.1" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
-<li class="chapter" data-level="1.6.2" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
-<li class="chapter" data-level="1.6.3" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
-<li class="chapter" data-level="1.6.4" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
-<li class="chapter" data-level="1.6.5" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
-<li class="chapter" data-level="1.6.6" data-path="linear-correlation-example-cancer-experiment.html"><a href="linear-correlation-example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression - Example: Cancer Experiment</a>
+<li class="chapter" data-level="2" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression - Example: Cancer Experiment</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>2.1</b> Background</a>
+<li class="chapter" data-level="2.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>2.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>2.1.1</b> Required Packages</a></li>
-<li class="chapter" data-level="2.1.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>2.1.2</b> Example Dataset - Cancer Experiment</a></li>
+<li class="chapter" data-level="2.1.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>2.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>2.1.2</b> Example Dataset - Cancer Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<li class="chapter" data-level="2.2" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>2.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="simple-linear-regression-example-cancer-experiment.html"><a href="simple-linear-regression-example-cancer-experiment.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.1</b> Scatterplot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a>
+<li class="chapter" data-level="3" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression - Ex: Ventricular Shortening Velocity (single continuous IV)</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
-<li class="chapter" data-level="3.1.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+<li class="chapter" data-level="3.1.1" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#research-question"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#data-description"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="3.2" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
-<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Visualizations</a></li>
-<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>3.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>3.2.4</b> Bivariate Visualization</a></li>
+<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#univariate-visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>3.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#bivariate-visualization"><i class="fa fa-check"></i><b>3.2.4</b> Bivariate Visualization</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a>
+<li class="chapter" data-level="3.3" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> Regression Analysis</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>3.3.1</b> Fit A Simple Linear Model</a></li>
-<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
-<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Manually checking residual diagnostics</a></li>
+<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>3.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Manually checking residual diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a>
+<li class="chapter" data-level="3.4" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#conclusion"><i class="fa fa-check"></i><b>3.4</b> Conclusion</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>3.4.1</b> Tabulate the Final Model Summary</a></li>
-<li class="chapter" data-level="3.4.2" data-path="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression-ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>3.4.2</b> Plot the Model</a></li>
+<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>3.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="3.4.2" data-path="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html"><a href="simple-linear-regression---ex-ventricular-shortening-velocity-single-continuous-iv.html#plot-the-model"><i class="fa fa-check"></i><b>3.4.2</b> Plot the Model</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a>
+<li class="chapter" data-level="4" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression - Ex: Obesity and Blood Pressure (interaction between a continuous and categorical IVs)</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>4.1</b> Purpose</a>
+<li class="chapter" data-level="4.1" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#purpose-1"><i class="fa fa-check"></i><b>4.1</b> Purpose</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
-<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#research-question-1"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#data-description-1"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="4.2" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
-<li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>4.2.2</b> Bivariate Relationships</a></li>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#univariate-statistics-1"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#bivariate-relationships"><i class="fa fa-check"></i><b>4.2.2</b> Bivariate Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> Regression Analysis</a>
+<li class="chapter" data-level="4.3" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> Regression Analysis</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>4.3.1</b> Fit Nested Models</a></li>
-<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Nested Models</a></li>
-<li class="chapter" data-level="4.3.3" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>4.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#fit-nested-models"><i class="fa fa-check"></i><b>4.3.1</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#comparing-nested-models"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="4.3.3" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>4.3.3</b> Checking Assumptions via Residual Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression-ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>4.4</b> Conclusion</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html"><a href="multiple-linear-regression---ex-obesity-and-blood-pressure-interaction-between-a-continuous-and-categorical-ivs.html#conclusion-1"><i class="fa fa-check"></i><b>4.4</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>5</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a>
+<li class="chapter" data-level="5" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><i class="fa fa-check"></i><b>5</b> Multiple Linear Regression - Ex: Ihno’s Experiment (interaction between two continuous IVs)</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>5.1</b> Purpose</a>
+<li class="chapter" data-level="5.1" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#purpose-2"><i class="fa fa-check"></i><b>5.1</b> Purpose</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
-<li class="chapter" data-level="5.1.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
+<li class="chapter" data-level="5.1.1" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#research-question-2"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="5.1.2" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#data-description-2"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="5.2" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>5.2.1</b> Univariate Statistics</a></li>
-<li class="chapter" data-level="5.2.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>5.2.2</b> Bivariate Relationships</a></li>
+<li class="chapter" data-level="5.2.1" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#univariate-statistics-2"><i class="fa fa-check"></i><b>5.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#bivariate-relationships-1"><i class="fa fa-check"></i><b>5.2.2</b> Bivariate Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.3</b> Regression Analysis</a>
+<li class="chapter" data-level="5.3" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.3</b> Regression Analysis</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>5.3.1</b> Subset the Sample</a></li>
-<li class="chapter" data-level="5.3.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>5.3.2</b> Fit Nested Models</a></li>
-<li class="chapter" data-level="5.3.3" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>5.3.3</b> Comparing Nested Models</a></li>
-<li class="chapter" data-level="5.3.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>5.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="5.3.1" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#subset-the-sample"><i class="fa fa-check"></i><b>5.3.1</b> Subset the Sample</a></li>
+<li class="chapter" data-level="5.3.2" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#fit-nested-models-1"><i class="fa fa-check"></i><b>5.3.2</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#comparing-nested-models-1"><i class="fa fa-check"></i><b>5.3.3</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="5.3.4" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#checking-assumptions-via-residual-diagnostics-2"><i class="fa fa-check"></i><b>5.3.4</b> Checking Assumptions via Residual Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>5.4</b> Conclusion</a>
+<li class="chapter" data-level="5.4" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#conclusion-2"><i class="fa fa-check"></i><b>5.4</b> Conclusion</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>5.4.1</b> Tabulate the Final Model Summary</a></li>
-<li class="chapter" data-level="5.4.2" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>5.4.2</b> Plot the Model</a></li>
+<li class="chapter" data-level="5.4.1" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>5.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="5.4.2" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#plot-the-model-1"><i class="fa fa-check"></i><b>5.4.2</b> Plot the Model</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression-ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>5.5</b> Write-up</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="new-playground.html"><a href="new-playground.html"><i class="fa fa-check"></i><b>6</b> New Playground</a>
+<li class="chapter" data-level="5.5" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#write-up"><i class="fa fa-check"></i><b>5.5</b> Write-up</a></li>
+<li class="chapter" data-level="5.6" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#new-playground"><i class="fa fa-check"></i><b>5.6</b> New Playground</a>
 <ul>
-<li class="chapter" data-level="6.0.1" data-path="new-playground.html"><a href="new-playground.html#variable-inflation-factors-vif"><i class="fa fa-check"></i><b>6.0.1</b> Variable Inflation Factors (VIF)</a></li>
+<li class="chapter" data-level="5.6.1" data-path="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html"><a href="multiple-linear-regression---ex-ihnos-experiment-interaction-between-two-continuous-ivs.html#variable-inflation-factors-vif"><i class="fa fa-check"></i><b>5.6.1</b> Variable Inflation Factors (VIF)</a></li>
+</ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="interactions-example.html"><a href="interactions-example.html"><i class="fa fa-check"></i><b>7</b> Interactions Example</a>
+<li class="chapter" data-level="6" data-path="interactions-example.html"><a href="interactions-example.html"><i class="fa fa-check"></i><b>6</b> Interactions Example</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="interactions-example.html"><a href="interactions-example.html#motivation"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
-<li class="chapter" data-level="7.2" data-path="interactions-example.html"><a href="interactions-example.html#the-weight-loss-study"><i class="fa fa-check"></i><b>7.2</b> The Weight Loss Study</a>
+<li class="chapter" data-level="6.1" data-path="interactions-example.html"><a href="interactions-example.html#motivation"><i class="fa fa-check"></i><b>6.1</b> Motivation</a></li>
+<li class="chapter" data-level="6.2" data-path="interactions-example.html"><a href="interactions-example.html#the-weight-loss-study"><i class="fa fa-check"></i><b>6.2</b> The Weight Loss Study</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="interactions-example.html"><a href="interactions-example.html#import-data"><i class="fa fa-check"></i><b>7.2.1</b> Import Data</a></li>
-<li class="chapter" data-level="7.2.2" data-path="interactions-example.html"><a href="interactions-example.html#wrangle-the-data"><i class="fa fa-check"></i><b>7.2.2</b> Wrangle the data</a></li>
+<li class="chapter" data-level="6.2.1" data-path="interactions-example.html"><a href="interactions-example.html#import-data"><i class="fa fa-check"></i><b>6.2.1</b> Import Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="interactions-example.html"><a href="interactions-example.html#wrangle-the-data"><i class="fa fa-check"></i><b>6.2.2</b> Wrangle the data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="interactions-example.html"><a href="interactions-example.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>7.3</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="6.3" data-path="interactions-example.html"><a href="interactions-example.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>6.3</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="interactions-example.html"><a href="interactions-example.html#summary-statistics"><i class="fa fa-check"></i><b>7.3.1</b> Summary Statistics</a></li>
-<li class="chapter" data-level="7.3.2" data-path="interactions-example.html"><a href="interactions-example.html#visualization"><i class="fa fa-check"></i><b>7.3.2</b> Visualization</a></li>
+<li class="chapter" data-level="6.3.1" data-path="interactions-example.html"><a href="interactions-example.html#summary-statistics"><i class="fa fa-check"></i><b>6.3.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="6.3.2" data-path="interactions-example.html"><a href="interactions-example.html#correlations"><i class="fa fa-check"></i><b>6.3.2</b> Correlations</a></li>
+<li class="chapter" data-level="6.3.3" data-path="interactions-example.html"><a href="interactions-example.html#visualization-bivariate-relationships"><i class="fa fa-check"></i><b>6.3.3</b> Visualization Bivariate Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.4</b> Simple Linear Regression</a>
+<li class="chapter" data-level="6.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-linear-regression"><i class="fa fa-check"></i><b>6.4</b> Simple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="interactions-example.html"><a href="interactions-example.html#fit"><i class="fa fa-check"></i><b>7.4.1</b> Fit</a></li>
-<li class="chapter" data-level="7.4.2" data-path="interactions-example.html"><a href="interactions-example.html#predict"><i class="fa fa-check"></i><b>7.4.2</b> Predict</a></li>
-<li class="chapter" data-level="7.4.3" data-path="interactions-example.html"><a href="interactions-example.html#overall-slope"><i class="fa fa-check"></i><b>7.4.3</b> Overall Slope</a></li>
-<li class="chapter" data-level="7.4.4" data-path="interactions-example.html"><a href="interactions-example.html#plot"><i class="fa fa-check"></i><b>7.4.4</b> Plot</a></li>
+<li class="chapter" data-level="6.4.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-a-mlr-model"><i class="fa fa-check"></i><b>6.4.1</b> Fit a MLR Model</a></li>
+<li class="chapter" data-level="6.4.2" data-path="interactions-example.html"><a href="interactions-example.html#check-assumptions"><i class="fa fa-check"></i><b>6.4.2</b> Check Assumptions</a></li>
+<li class="chapter" data-level="6.4.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-and-pariwise-tests"><i class="fa fa-check"></i><b>6.4.3</b> Predict and Pariwise Tests</a></li>
+<li class="chapter" data-level="6.4.4" data-path="interactions-example.html"><a href="interactions-example.html#plot-estimated-marginal-means"><i class="fa fa-check"></i><b>6.4.4</b> Plot Estimated Marginal Means</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="interactions-example.html"><a href="interactions-example.html#continuous-by-continuous"><i class="fa fa-check"></i><b>7.5</b> Continuous by Continuous</a>
+<li class="chapter" data-level="6.5" data-path="interactions-example.html"><a href="interactions-example.html#continuous-by-continuous"><i class="fa fa-check"></i><b>6.5</b> Continuous by Continuous</a>
 <ul>
-<li class="chapter" data-level="7.5.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-1"><i class="fa fa-check"></i><b>7.5.1</b> Fit</a></li>
-<li class="chapter" data-level="7.5.2" data-path="interactions-example.html"><a href="interactions-example.html#table"><i class="fa fa-check"></i><b>7.5.2</b> Table</a></li>
-<li class="chapter" data-level="7.5.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-1"><i class="fa fa-check"></i><b>7.5.3</b> Predict</a></li>
-<li class="chapter" data-level="7.5.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-slope"><i class="fa fa-check"></i><b>7.5.4</b> Simple Slope</a></li>
-<li class="chapter" data-level="7.5.5" data-path="interactions-example.html"><a href="interactions-example.html#plot-1"><i class="fa fa-check"></i><b>7.5.5</b> Plot</a></li>
+<li class="chapter" data-level="6.5.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-mlr-model"><i class="fa fa-check"></i><b>6.5.1</b> Fit MLR Model</a></li>
+<li class="chapter" data-level="6.5.2" data-path="interactions-example.html"><a href="interactions-example.html#table-of-parameter-estimates"><i class="fa fa-check"></i><b>6.5.2</b> Table of Parameter Estimates</a></li>
+<li class="chapter" data-level="6.5.3" data-path="interactions-example.html"><a href="interactions-example.html#check-assumptions-1"><i class="fa fa-check"></i><b>6.5.3</b> Check Assumptions</a></li>
+<li class="chapter" data-level="6.5.4" data-path="interactions-example.html"><a href="interactions-example.html#plot-estimated-marginal-means-1"><i class="fa fa-check"></i><b>6.5.4</b> Plot Estimated Marginal Means</a></li>
+<li class="chapter" data-level="6.5.5" data-path="interactions-example.html"><a href="interactions-example.html#predict-and-pairwise-tests"><i class="fa fa-check"></i><b>6.5.5</b> Predict and Pairwise Tests</a></li>
+<li class="chapter" data-level="6.5.6" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-analysis"><i class="fa fa-check"></i><b>6.5.6</b> Simple Slopes Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="interactions-example.html"><a href="interactions-example.html#continuous-by-categorical"><i class="fa fa-check"></i><b>7.6</b> Continuous by Categorical</a>
+<li class="chapter" data-level="6.6" data-path="interactions-example.html"><a href="interactions-example.html#continuous-by-categorical"><i class="fa fa-check"></i><b>6.6</b> Continuous by Categorical</a>
 <ul>
-<li class="chapter" data-level="7.6.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-2"><i class="fa fa-check"></i><b>7.6.1</b> Fit</a></li>
-<li class="chapter" data-level="7.6.2" data-path="interactions-example.html"><a href="interactions-example.html#table-1"><i class="fa fa-check"></i><b>7.6.2</b> Table</a></li>
-<li class="chapter" data-level="7.6.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-2"><i class="fa fa-check"></i><b>7.6.3</b> Predict</a></li>
-<li class="chapter" data-level="7.6.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes"><i class="fa fa-check"></i><b>7.6.4</b> Simple Slopes</a></li>
-<li class="chapter" data-level="7.6.5" data-path="interactions-example.html"><a href="interactions-example.html#plot-2"><i class="fa fa-check"></i><b>7.6.5</b> Plot</a></li>
+<li class="chapter" data-level="6.6.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-mlr-model-1"><i class="fa fa-check"></i><b>6.6.1</b> Fit MLR Model</a></li>
+<li class="chapter" data-level="6.6.2" data-path="interactions-example.html"><a href="interactions-example.html#table-comparing-models"><i class="fa fa-check"></i><b>6.6.2</b> Table Comparing Models</a></li>
+<li class="chapter" data-level="6.6.3" data-path="interactions-example.html"><a href="interactions-example.html#check-assumptions-2"><i class="fa fa-check"></i><b>6.6.3</b> Check Assumptions</a></li>
+<li class="chapter" data-level="6.6.4" data-path="interactions-example.html"><a href="interactions-example.html#plot-estimated-marginal-means-2"><i class="fa fa-check"></i><b>6.6.4</b> Plot Estimated Marginal Means</a></li>
+<li class="chapter" data-level="6.6.5" data-path="interactions-example.html"><a href="interactions-example.html#predict-and-pairwise-tests-1"><i class="fa fa-check"></i><b>6.6.5</b> Predict and Pairwise Tests</a></li>
+<li class="chapter" data-level="6.6.6" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-analysis-1"><i class="fa fa-check"></i><b>6.6.6</b> Simple Slopes Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="interactions-example.html"><a href="interactions-example.html#categorical-by-categorical"><i class="fa fa-check"></i><b>7.7</b> Categorical by Categorical</a>
+<li class="chapter" data-level="6.7" data-path="interactions-example.html"><a href="interactions-example.html#categorical-by-categorical"><i class="fa fa-check"></i><b>6.7</b> Categorical by Categorical</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-3"><i class="fa fa-check"></i><b>7.7.1</b> Fit</a></li>
-<li class="chapter" data-level="7.7.2" data-path="interactions-example.html"><a href="interactions-example.html#table-2"><i class="fa fa-check"></i><b>7.7.2</b> Table</a></li>
-<li class="chapter" data-level="7.7.3" data-path="interactions-example.html"><a href="interactions-example.html#predict-3"><i class="fa fa-check"></i><b>7.7.3</b> Predict</a></li>
-<li class="chapter" data-level="7.7.4" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-1"><i class="fa fa-check"></i><b>7.7.4</b> Simple Slopes</a></li>
-<li class="chapter" data-level="7.7.5" data-path="interactions-example.html"><a href="interactions-example.html#plot-3"><i class="fa fa-check"></i><b>7.7.5</b> Plot</a></li>
+<li class="chapter" data-level="6.7.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-mlr-model-2"><i class="fa fa-check"></i><b>6.7.1</b> Fit MLR Model</a></li>
+<li class="chapter" data-level="6.7.2" data-path="interactions-example.html"><a href="interactions-example.html#table-of-parameter-estimates-1"><i class="fa fa-check"></i><b>6.7.2</b> Table of Parameter Estimates</a></li>
+<li class="chapter" data-level="6.7.3" data-path="interactions-example.html"><a href="interactions-example.html#check-assumptions-3"><i class="fa fa-check"></i><b>6.7.3</b> Check Assumptions</a></li>
+<li class="chapter" data-level="6.7.4" data-path="interactions-example.html"><a href="interactions-example.html#plot-estimated-marginal-means-3"><i class="fa fa-check"></i><b>6.7.4</b> Plot Estimated Marginal Means</a></li>
+<li class="chapter" data-level="6.7.5" data-path="interactions-example.html"><a href="interactions-example.html#predict-and-pairwise-tests-2"><i class="fa fa-check"></i><b>6.7.5</b> Predict and Pairwise Tests</a></li>
+<li class="chapter" data-level="6.7.6" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-analysis-2"><i class="fa fa-check"></i><b>6.7.6</b> Simple Slopes Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="interactions-example.html"><a href="interactions-example.html#three-way-interaction"><i class="fa fa-check"></i><b>7.8</b> Three-way Interaction</a>
+<li class="chapter" data-level="6.8" data-path="interactions-example.html"><a href="interactions-example.html#three-way-interaction"><i class="fa fa-check"></i><b>6.8</b> Three-way Interaction</a>
 <ul>
-<li class="chapter" data-level="7.8.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-4"><i class="fa fa-check"></i><b>7.8.1</b> Fit</a></li>
-<li class="chapter" data-level="7.8.2" data-path="interactions-example.html"><a href="interactions-example.html#table-3"><i class="fa fa-check"></i><b>7.8.2</b> Table</a></li>
-<li class="chapter" data-level="7.8.3" data-path="interactions-example.html"><a href="interactions-example.html#plot-4"><i class="fa fa-check"></i><b>7.8.3</b> Plot</a></li>
+<li class="chapter" data-level="6.8.1" data-path="interactions-example.html"><a href="interactions-example.html#fit-mlr-models"><i class="fa fa-check"></i><b>6.8.1</b> Fit MLR Models</a></li>
+<li class="chapter" data-level="6.8.2" data-path="interactions-example.html"><a href="interactions-example.html#table-of-parameter-estimates-2"><i class="fa fa-check"></i><b>6.8.2</b> Table of Parameter Estimates</a></li>
+<li class="chapter" data-level="6.8.3" data-path="interactions-example.html"><a href="interactions-example.html#check-assumptions-4"><i class="fa fa-check"></i><b>6.8.3</b> Check Assumptions</a></li>
+<li class="chapter" data-level="6.8.4" data-path="interactions-example.html"><a href="interactions-example.html#plot-estimated-marginal-means-4"><i class="fa fa-check"></i><b>6.8.4</b> Plot Estimated Marginal Means</a></li>
+<li class="chapter" data-level="6.8.5" data-path="interactions-example.html"><a href="interactions-example.html#simple-slopes-analysis-3"><i class="fa fa-check"></i><b>6.8.5</b> Simple Slopes Analysis</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>8</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a>
+<li class="chapter" data-level="7" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression - Ex: Bronchopulmonary Dysplasia in Premature Infants</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>8.1</b> Background</a>
+<li class="chapter" data-level="7.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#background-2"><i class="fa fa-check"></i><b>7.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>8.1.1</b> Source</a></li>
-<li class="chapter" data-level="8.1.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>8.1.2</b> Reference</a></li>
-<li class="chapter" data-level="8.1.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>8.1.3</b> Variables</a></li>
+<li class="chapter" data-level="7.1.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#source"><i class="fa fa-check"></i><b>7.1.1</b> Source</a></li>
+<li class="chapter" data-level="7.1.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#reference"><i class="fa fa-check"></i><b>7.1.2</b> Reference</a></li>
+<li class="chapter" data-level="7.1.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#variables"><i class="fa fa-check"></i><b>7.1.3</b> Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion-fit-the-model-to-the-data"><i class="fa fa-check"></i><b>8.2</b> Logistic Regresion: Fit the Model to the data</a>
+<li class="chapter" data-level="7.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#logistic-regresion-fit-the-model-to-the-data"><i class="fa fa-check"></i><b>7.2</b> Logistic Regresion: Fit the Model to the data</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#null-model-no-independent-variables"><i class="fa fa-check"></i><b>8.2.1</b> Null Model: no independent variables</a></li>
-<li class="chapter" data-level="8.2.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#main-effects-model-add-3-predictors"><i class="fa fa-check"></i><b>8.2.2</b> Main Effects Model: add 3 predictors</a></li>
+<li class="chapter" data-level="7.2.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#null-model-no-independent-variables"><i class="fa fa-check"></i><b>7.2.1</b> Null Model: no independent variables</a></li>
+<li class="chapter" data-level="7.2.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#main-effects-model-add-3-predictors"><i class="fa fa-check"></i><b>7.2.2</b> Main Effects Model: add 3 predictors</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-fit"><i class="fa fa-check"></i><b>8.3</b> Model Fit</a>
+<li class="chapter" data-level="7.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-fit"><i class="fa fa-check"></i><b>7.3</b> Model Fit</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#log-likelihood-and-deviance"><i class="fa fa-check"></i><b>8.3.1</b> Log Likelihood and Deviance</a></li>
-<li class="chapter" data-level="8.3.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#aic-and-bic"><i class="fa fa-check"></i><b>8.3.2</b> AIC and BIC</a></li>
+<li class="chapter" data-level="7.3.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#log-likelihood-and-deviance"><i class="fa fa-check"></i><b>7.3.1</b> Log Likelihood and Deviance</a></li>
+<li class="chapter" data-level="7.3.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#aic-and-bic"><i class="fa fa-check"></i><b>7.3.2</b> AIC and BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#variance-explained"><i class="fa fa-check"></i><b>8.4</b> Variance Explained</a>
+<li class="chapter" data-level="7.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#variance-explained"><i class="fa fa-check"></i><b>7.4</b> Variance Explained</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#many-options"><i class="fa fa-check"></i><b>8.4.1</b> Many Options</a></li>
-<li class="chapter" data-level="8.4.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#mcfaddens-pseud-r2"><i class="fa fa-check"></i><b>8.4.2</b> McFadden’s pseud-R^2</a></li>
-<li class="chapter" data-level="8.4.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#cox-snell"><i class="fa fa-check"></i><b>8.4.3</b> Cox &amp; Snell</a></li>
-<li class="chapter" data-level="8.4.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#nagelkerke-or-cragg-and-uhlers"><i class="fa fa-check"></i><b>8.4.4</b> Nagelkerke or Cragg and Uhler’s</a></li>
-<li class="chapter" data-level="8.4.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#tjurs-statistic"><i class="fa fa-check"></i><b>8.4.5</b> Tjur’s statistic</a></li>
-<li class="chapter" data-level="8.4.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#several-at-once"><i class="fa fa-check"></i><b>8.4.6</b> Several at Once</a></li>
+<li class="chapter" data-level="7.4.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#many-options"><i class="fa fa-check"></i><b>7.4.1</b> Many Options</a></li>
+<li class="chapter" data-level="7.4.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#mcfaddens-pseud-r2"><i class="fa fa-check"></i><b>7.4.2</b> McFadden’s pseud-R^2</a></li>
+<li class="chapter" data-level="7.4.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cox-snell"><i class="fa fa-check"></i><b>7.4.3</b> Cox &amp; Snell</a></li>
+<li class="chapter" data-level="7.4.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#nagelkerke-or-cragg-and-uhlers"><i class="fa fa-check"></i><b>7.4.4</b> Nagelkerke or Cragg and Uhler’s</a></li>
+<li class="chapter" data-level="7.4.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#tjurs-statistic"><i class="fa fa-check"></i><b>7.4.5</b> Tjur’s statistic</a></li>
+<li class="chapter" data-level="7.4.6" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#several-at-once"><i class="fa fa-check"></i><b>7.4.6</b> Several at Once</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-compairisons-inferential"><i class="fa fa-check"></i><b>8.5</b> Model Compairisons, Inferential</a>
+<li class="chapter" data-level="7.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#model-compairisons-inferential"><i class="fa fa-check"></i><b>7.5</b> Model Compairisons, Inferential</a>
 <ul>
-<li class="chapter" data-level="8.5.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#likelihood-ratio-test-lrt-aka.-deviance-difference-test"><i class="fa fa-check"></i><b>8.5.1</b> Likelihood Ratio Test (LRT, aka. Deviance Difference Test)</a></li>
-<li class="chapter" data-level="8.5.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#bayes-factor-and-performance-score"><i class="fa fa-check"></i><b>8.5.2</b> Bayes Factor and Performance Score</a></li>
+<li class="chapter" data-level="7.5.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#likelihood-ratio-test-lrt-aka.-deviance-difference-test"><i class="fa fa-check"></i><b>7.5.1</b> Likelihood Ratio Test (LRT, aka. Deviance Difference Test)</a></li>
+<li class="chapter" data-level="7.5.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#bayes-factor-and-performance-score"><i class="fa fa-check"></i><b>7.5.2</b> Bayes Factor and Performance Score</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>8.6</b> Parameter Estimates</a>
+<li class="chapter" data-level="7.6" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimates"><i class="fa fa-check"></i><b>7.6</b> Parameter Estimates</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#link-logit-scale"><i class="fa fa-check"></i><b>8.6.1</b> Link: Logit Scale</a></li>
-<li class="chapter" data-level="8.6.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#exponentiate-odds-ratio-scale"><i class="fa fa-check"></i><b>8.6.2</b> Exponentiate: Odds Ratio Scale</a></li>
+<li class="chapter" data-level="7.6.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#link-logit-scale"><i class="fa fa-check"></i><b>7.6.1</b> Link: Logit Scale</a></li>
+<li class="chapter" data-level="7.6.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#exponentiate-odds-ratio-scale"><i class="fa fa-check"></i><b>7.6.2</b> Exponentiate: Odds Ratio Scale</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>8.7</b> Significance of Terms</a>
+<li class="chapter" data-level="7.7" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#significance-of-terms"><i class="fa fa-check"></i><b>7.7</b> Significance of Terms</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#walds-t-test"><i class="fa fa-check"></i><b>8.7.1</b> Wald’s <span class="math inline">\(t\)</span>-Test</a></li>
-<li class="chapter" data-level="8.7.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#single-term-deletion-chi2-lrt"><i class="fa fa-check"></i><b>8.7.2</b> Single term deletion, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
-<li class="chapter" data-level="8.7.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#sequential-addition-chi2-lrt"><i class="fa fa-check"></i><b>8.7.3</b> Sequential addition, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
+<li class="chapter" data-level="7.7.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#walds-t-test"><i class="fa fa-check"></i><b>7.7.1</b> Wald’s <span class="math inline">\(t\)</span>-Test</a></li>
+<li class="chapter" data-level="7.7.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#single-term-deletion-chi2-lrt"><i class="fa fa-check"></i><b>7.7.2</b> Single term deletion, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
+<li class="chapter" data-level="7.7.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#sequential-addition-chi2-lrt"><i class="fa fa-check"></i><b>7.7.3</b> Sequential addition, <span class="math inline">\(\chi^2\)</span> LRT</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimate-tables"><i class="fa fa-check"></i><b>8.8</b> Parameter Estimate Tables</a>
+<li class="chapter" data-level="7.8" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#parameter-estimate-tables"><i class="fa fa-check"></i><b>7.8</b> Parameter Estimate Tables</a>
 <ul>
-<li class="chapter" data-level="8.8.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#logit-scale-link-default"><i class="fa fa-check"></i><b>8.8.1</b> Logit scale (Link, default)</a></li>
-<li class="chapter" data-level="8.8.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#odds-ratio-scale-exponentiate"><i class="fa fa-check"></i><b>8.8.2</b> Odds-Ratio Scale (exponentiate)</a></li>
-<li class="chapter" data-level="8.8.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#both-logit-and-odds-ratio"><i class="fa fa-check"></i><b>8.8.3</b> BOTH: Logit and Odds-Ratio</a></li>
+<li class="chapter" data-level="7.8.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#logit-scale-link-default"><i class="fa fa-check"></i><b>7.8.1</b> Logit scale (Link, default)</a></li>
+<li class="chapter" data-level="7.8.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#odds-ratio-scale-exponentiate"><i class="fa fa-check"></i><b>7.8.2</b> Odds-Ratio Scale (exponentiate)</a></li>
+<li class="chapter" data-level="7.8.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#both-logit-and-odds-ratio"><i class="fa fa-check"></i><b>7.8.3</b> BOTH: Logit and Odds-Ratio</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-or-predicted-values"><i class="fa fa-check"></i><b>8.9</b> Marginal or Predicted Values</a>
+<li class="chapter" data-level="7.9" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-or-predicted-values"><i class="fa fa-check"></i><b>7.9</b> Marginal or Predicted Values</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#across-all-predictors"><i class="fa fa-check"></i><b>8.9.1</b> Across All Predictors</a></li>
-<li class="chapter" data-level="8.9.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#specify-some-predictors"><i class="fa fa-check"></i><b>8.9.2</b> Specify Some Predictors</a></li>
-<li class="chapter" data-level="8.9.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-a-constant-fixed-value-for-a-predictors"><i class="fa fa-check"></i><b>8.9.3</b> Set a constant (fixed) value for a predictor(s)</a></li>
-<li class="chapter" data-level="8.9.4" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-values-for-a-continuous-predictor"><i class="fa fa-check"></i><b>8.9.4</b> Set values for a continuous predictor</a></li>
-<li class="chapter" data-level="8.9.5" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#add-se-and-95-confidence-interval"><i class="fa fa-check"></i><b>8.9.5</b> Add SE and 95% Confidence Interval</a></li>
+<li class="chapter" data-level="7.9.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#across-all-predictors"><i class="fa fa-check"></i><b>7.9.1</b> Across All Predictors</a></li>
+<li class="chapter" data-level="7.9.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#specify-some-predictors"><i class="fa fa-check"></i><b>7.9.2</b> Specify Some Predictors</a></li>
+<li class="chapter" data-level="7.9.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-a-constant-fixed-value-for-a-predictors"><i class="fa fa-check"></i><b>7.9.3</b> Set a constant (fixed) value for a predictor(s)</a></li>
+<li class="chapter" data-level="7.9.4" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#set-values-for-a-continuous-predictor"><i class="fa fa-check"></i><b>7.9.4</b> Set values for a continuous predictor</a></li>
+<li class="chapter" data-level="7.9.5" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#add-se-and-95-confidence-interval"><i class="fa fa-check"></i><b>7.9.5</b> Add SE and 95% Confidence Interval</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plots"><i class="fa fa-check"></i><b>8.10</b> Marginal Model Plots</a>
+<li class="chapter" data-level="7.10" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#marginal-model-plots"><i class="fa fa-check"></i><b>7.10</b> Marginal Model Plots</a>
 <ul>
-<li class="chapter" data-level="8.10.1" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#individual-marginal-plots-for-one-iv-individually"><i class="fa fa-check"></i><b>8.10.1</b> Individual Marginal Plots for one IV, individually</a></li>
-<li class="chapter" data-level="8.10.2" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#combination-marginal-plots-for-two-three-ivs-all-at-once"><i class="fa fa-check"></i><b>8.10.2</b> Combination Marginal Plots for two-three IVs, all at once</a></li>
-<li class="chapter" data-level="8.10.3" data-path="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression-ex-bronchopulmonary-dysplasia-in-premature-infants.html#total-control-is-also-available"><i class="fa fa-check"></i><b>8.10.3</b> Total Control is also available</a></li>
+<li class="chapter" data-level="7.10.1" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#individual-marginal-plots-for-one-iv-individually"><i class="fa fa-check"></i><b>7.10.1</b> Individual Marginal Plots for one IV, individually</a></li>
+<li class="chapter" data-level="7.10.2" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#combination-marginal-plots-for-two-three-ivs-all-at-once"><i class="fa fa-check"></i><b>7.10.2</b> Combination Marginal Plots for two-three IVs, all at once</a></li>
+<li class="chapter" data-level="7.10.3" data-path="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#total-control-is-also-available"><i class="fa fa-check"></i><b>7.10.3</b> Total Control is also available</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>9</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a>
+<li class="chapter" data-level="8" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><i class="fa fa-check"></i><b>8</b> Logistic Regression - Ex: Maternal Risk Factor for Low Birth Weight Delivery</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>9.1</b> Background</a>
+<li class="chapter" data-level="8.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#background-3"><i class="fa fa-check"></i><b>8.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>9.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="9.1.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>9.1.2</b> Declare Factors</a></li>
+<li class="chapter" data-level="8.1.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#raw-dataset"><i class="fa fa-check"></i><b>8.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="8.1.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#declare-factors"><i class="fa fa-check"></i><b>8.1.2</b> Declare Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>9.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="9.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-unadjusted-models"><i class="fa fa-check"></i><b>9.3</b> Logistic Regression - Simple, unadjusted models</a></li>
-<li class="chapter" data-level="9.4" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>9.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
-<li class="chapter" data-level="9.5" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>9.5</b> Logistic Regression - Multivariate, with Interactions</a>
+<li class="chapter" data-level="8.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>8.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="8.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---simple-unadjusted-models"><i class="fa fa-check"></i><b>8.3</b> Logistic Regression - Simple, unadjusted models</a></li>
+<li class="chapter" data-level="8.4" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-main-effects-only"><i class="fa fa-check"></i><b>8.4</b> Logistic Regression - Multivariate, with Main Effects Only</a></li>
+<li class="chapter" data-level="8.5" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-with-interactions"><i class="fa fa-check"></i><b>8.5</b> Logistic Regression - Multivariate, with Interactions</a>
 <ul>
-<li class="chapter" data-level="9.5.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>9.5.1</b> Age and Weight</a></li>
-<li class="chapter" data-level="9.5.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>9.5.2</b> Age and Smoking</a></li>
-<li class="chapter" data-level="9.5.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>9.5.3</b> Weight and Smoking</a></li>
+<li class="chapter" data-level="8.5.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-weight"><i class="fa fa-check"></i><b>8.5.1</b> Age and Weight</a></li>
+<li class="chapter" data-level="8.5.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#age-and-smoking"><i class="fa fa-check"></i><b>8.5.2</b> Age and Smoking</a></li>
+<li class="chapter" data-level="8.5.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#weight-and-smoking"><i class="fa fa-check"></i><b>8.5.3</b> Weight and Smoking</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>9.6</b> Logistic Regression - Multivariate, Simplify</a>
+<li class="chapter" data-level="8.6" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-simplify"><i class="fa fa-check"></i><b>8.6</b> Logistic Regression - Multivariate, Simplify</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>9.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
+<li class="chapter" data-level="8.6.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#remove-the-least-significant-perdictor-ui"><i class="fa fa-check"></i><b>8.6.1</b> Remove the least significant perdictor: <code>ui</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>9.7</b> Logistic Regression - Multivariate, Final Model</a>
+<li class="chapter" data-level="8.7" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#logistic-regression---multivariate-final-model"><i class="fa fa-check"></i><b>8.7</b> Logistic Regression - Multivariate, Final Model</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>9.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
-<li class="chapter" data-level="9.7.2" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>9.7.2</b> Parameter Estiamtes Table</a></li>
-<li class="chapter" data-level="9.7.3" data-path="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression-ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot"><i class="fa fa-check"></i><b>9.7.3</b> Marginal Model Plot</a></li>
+<li class="chapter" data-level="8.7.1" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#several-r2-measures-with-the-psclpr2-function"><i class="fa fa-check"></i><b>8.7.1</b> Several <span class="math inline">\(R^2\)</span> measures with the <code>pscl::pR2()</code> function</a></li>
+<li class="chapter" data-level="8.7.2" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#parameter-estiamtes-table"><i class="fa fa-check"></i><b>8.7.2</b> Parameter Estiamtes Table</a></li>
+<li class="chapter" data-level="8.7.3" data-path="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html"><a href="logistic-regression---ex-maternal-risk-factor-for-low-birth-weight-delivery.html#marginal-model-plot"><i class="fa fa-check"></i><b>8.7.3</b> Marginal Model Plot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression - Ex: Depression (Hoffman)</a>
+<li class="chapter" data-level="9" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html"><i class="fa fa-check"></i><b>9</b> Logistic Regression - Ex: Depression (Hoffman)</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>10.1</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="9.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>9.1</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="10.1.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#visualize"><i class="fa fa-check"></i><b>10.1.1</b> Visualize</a></li>
-<li class="chapter" data-level="10.1.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#summary-table"><i class="fa fa-check"></i><b>10.1.2</b> Summary Table</a></li>
+<li class="chapter" data-level="9.1.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#visualize"><i class="fa fa-check"></i><b>9.1.1</b> Visualize</a></li>
+<li class="chapter" data-level="9.1.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#summary-table"><i class="fa fa-check"></i><b>9.1.2</b> Summary Table</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#calcualte-probability-odds-and-odds-ratios"><i class="fa fa-check"></i><b>10.2</b> Calcualte: Probability, Odds, and Odds-Ratios</a>
+<li class="chapter" data-level="9.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#calcualte-probability-odds-and-odds-ratios"><i class="fa fa-check"></i><b>9.2</b> Calcualte: Probability, Odds, and Odds-Ratios</a>
 <ul>
-<li class="chapter" data-level="10.2.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#marginal-over-all-the-sample"><i class="fa fa-check"></i><b>10.2.1</b> Marginal, over all the sample</a></li>
-<li class="chapter" data-level="10.2.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#comparing-by-sex"><i class="fa fa-check"></i><b>10.2.2</b> Comparing by Sex</a></li>
+<li class="chapter" data-level="9.2.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#marginal-over-all-the-sample"><i class="fa fa-check"></i><b>9.2.1</b> Marginal, over all the sample</a></li>
+<li class="chapter" data-level="9.2.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#comparing-by-sex"><i class="fa fa-check"></i><b>9.2.2</b> Comparing by Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#logisitc-regression-model-1-one-iv"><i class="fa fa-check"></i><b>10.3</b> Logisitc Regression Model 1: one IV</a>
+<li class="chapter" data-level="9.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#logisitc-regression-model-1-one-iv"><i class="fa fa-check"></i><b>9.3</b> Logisitc Regression Model 1: one IV</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#fit-the-unadjusted-model"><i class="fa fa-check"></i><b>10.3.1</b> Fit the Unadjusted Model</a></li>
-<li class="chapter" data-level="10.3.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#tabulate-parameters"><i class="fa fa-check"></i><b>10.3.2</b> Tabulate Parameters</a></li>
-<li class="chapter" data-level="10.3.3" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#assess-model-fit"><i class="fa fa-check"></i><b>10.3.3</b> Assess Model Fit</a></li>
-<li class="chapter" data-level="10.3.4" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#plot-predicted-probabilitites"><i class="fa fa-check"></i><b>10.3.4</b> Plot Predicted Probabilitites</a></li>
-<li class="chapter" data-level="10.3.5" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#interpretation"><i class="fa fa-check"></i><b>10.3.5</b> Interpretation</a></li>
-<li class="chapter" data-level="10.3.6" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#diagnostics"><i class="fa fa-check"></i><b>10.3.6</b> Diagnostics</a></li>
+<li class="chapter" data-level="9.3.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#fit-the-unadjusted-model"><i class="fa fa-check"></i><b>9.3.1</b> Fit the Unadjusted Model</a></li>
+<li class="chapter" data-level="9.3.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#tabulate-parameters"><i class="fa fa-check"></i><b>9.3.2</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="9.3.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#assess-model-fit"><i class="fa fa-check"></i><b>9.3.3</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="9.3.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#plot-predicted-probabilitites"><i class="fa fa-check"></i><b>9.3.4</b> Plot Predicted Probabilitites</a></li>
+<li class="chapter" data-level="9.3.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation"><i class="fa fa-check"></i><b>9.3.5</b> Interpretation</a></li>
+<li class="chapter" data-level="9.3.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#diagnostics"><i class="fa fa-check"></i><b>9.3.6</b> Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#logisitic-regression-model-2-many-ivs"><i class="fa fa-check"></i><b>10.4</b> Logisitic Regression Model 2: many IV’s</a>
+<li class="chapter" data-level="9.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#logisitic-regression-model-2-many-ivs"><i class="fa fa-check"></i><b>9.4</b> Logisitic Regression Model 2: many IV’s</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#fit-the-model"><i class="fa fa-check"></i><b>10.4.1</b> Fit the Model</a></li>
-<li class="chapter" data-level="10.4.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#tabulate-parameters-1"><i class="fa fa-check"></i><b>10.4.2</b> Tabulate Parameters</a></li>
-<li class="chapter" data-level="10.4.3" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#assess-model-fit-1"><i class="fa fa-check"></i><b>10.4.3</b> Assess Model Fit</a></li>
-<li class="chapter" data-level="10.4.4" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#variance-explained-1"><i class="fa fa-check"></i><b>10.4.4</b> Variance Explained</a></li>
-<li class="chapter" data-level="10.4.5" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#diagnostics-1"><i class="fa fa-check"></i><b>10.4.5</b> Diagnostics</a></li>
+<li class="chapter" data-level="9.4.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#fit-the-model"><i class="fa fa-check"></i><b>9.4.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="9.4.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#tabulate-parameters-1"><i class="fa fa-check"></i><b>9.4.2</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="9.4.3" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#assess-model-fit-1"><i class="fa fa-check"></i><b>9.4.3</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="9.4.4" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#variance-explained-1"><i class="fa fa-check"></i><b>9.4.4</b> Variance Explained</a></li>
+<li class="chapter" data-level="9.4.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#diagnostics-1"><i class="fa fa-check"></i><b>9.4.5</b> Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#compare-models"><i class="fa fa-check"></i><b>10.5</b> Compare Models</a>
+<li class="chapter" data-level="9.5" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#compare-models"><i class="fa fa-check"></i><b>9.5</b> Compare Models</a>
 <ul>
-<li class="chapter" data-level="10.5.1" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
-<li class="chapter" data-level="10.5.2" data-path="logistic-regression-ex-depression-hoffman.html"><a href="logistic-regression-ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
+<li class="chapter" data-level="9.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>9.5.1</b> Refit to Complete Cases</a></li>
+<li class="chapter" data-level="9.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>9.5.2</b> Interpretation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
+<li class="chapter" data-level="10" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>11.1</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="10.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>10.1</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#visualization-1"><i class="fa fa-check"></i><b>11.1.1</b> Visualization</a></li>
-<li class="chapter" data-level="11.1.2" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#summary-statistics-1"><i class="fa fa-check"></i><b>11.1.2</b> Summary Statistics</a></li>
+<li class="chapter" data-level="10.1.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#visualization"><i class="fa fa-check"></i><b>10.1.1</b> Visualization</a></li>
+<li class="chapter" data-level="10.1.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#summary-statistics-1"><i class="fa fa-check"></i><b>10.1.2</b> Summary Statistics</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#fit-model"><i class="fa fa-check"></i><b>11.2</b> Fit Model</a></li>
-<li class="chapter" data-level="11.3" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#interpretation-2"><i class="fa fa-check"></i><b>11.3</b> Interpretation</a>
+<li class="chapter" data-level="10.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#fit-model"><i class="fa fa-check"></i><b>10.2</b> Fit Model</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#interpretation-2"><i class="fa fa-check"></i><b>10.3</b> Interpretation</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#odds-ratio-scale"><i class="fa fa-check"></i><b>11.3.1</b> Odds-ratio Scale</a></li>
-<li class="chapter" data-level="11.3.2" data-path="logistic-regression-ex-volunteering-hoffman.html"><a href="logistic-regression-ex-volunteering-hoffman.html#response-scale-aka.-probability"><i class="fa fa-check"></i><b>11.3.2</b> Response Scale (aka. Probability)</a></li>
+<li class="chapter" data-level="10.3.1" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#odds-ratio-scale"><i class="fa fa-check"></i><b>10.3.1</b> Odds-ratio Scale</a></li>
+<li class="chapter" data-level="10.3.2" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html#response-scale-aka.-probability"><i class="fa fa-check"></i><b>10.3.2</b> Response Scale (aka. Probability)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>12</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a>
+<li class="chapter" data-level="11" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><i class="fa fa-check"></i><b>11</b> Extensions of Logistic Regression - Ex: Canadian Women’s Labour-Force Participation</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#background-4"><i class="fa fa-check"></i><b>12.1</b> Background</a>
+<li class="chapter" data-level="11.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#background-4"><i class="fa fa-check"></i><b>11.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="12.1.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>12.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="12.1.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>12.1.2</b> Declare Factors</a></li>
+<li class="chapter" data-level="11.1.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#raw-dataset-1"><i class="fa fa-check"></i><b>11.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="11.1.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#declare-factors-1"><i class="fa fa-check"></i><b>11.1.2</b> Declare Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>12.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="11.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>11.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="12.2.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>12.2.1</b> Husband’s Income</a></li>
-<li class="chapter" data-level="12.2.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>12.2.2</b> Children in Home</a></li>
-<li class="chapter" data-level="12.2.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>12.2.3</b> Region of Canada</a></li>
+<li class="chapter" data-level="11.2.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#husbands-income"><i class="fa fa-check"></i><b>11.2.1</b> Husband’s Income</a></li>
+<li class="chapter" data-level="11.2.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#children-in-home"><i class="fa fa-check"></i><b>11.2.2</b> Children in Home</a></li>
+<li class="chapter" data-level="11.2.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#region-of-canada"><i class="fa fa-check"></i><b>11.2.3</b> Region of Canada</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>12.3</b> Hierarchical (nested) Logistic Regression</a>
+<li class="chapter" data-level="11.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#hierarchical-nested-logistic-regression"><i class="fa fa-check"></i><b>11.3</b> Hierarchical (nested) Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="12.3.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>12.3.1</b> Role of Predictors on ANY working</a></li>
-<li class="chapter" data-level="12.3.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>12.3.2</b> Role of Predictors on TYPE of work</a></li>
+<li class="chapter" data-level="11.3.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-any-working"><i class="fa fa-check"></i><b>11.3.1</b> Role of Predictors on ANY working</a></li>
+<li class="chapter" data-level="11.3.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#role-of-predictors-on-type-of-work"><i class="fa fa-check"></i><b>11.3.2</b> Role of Predictors on TYPE of work</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Multinomial (nominal) Logistic Regression</a>
+<li class="chapter" data-level="11.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#multinomial-nominal-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Multinomial (nominal) Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="12.4.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#fit-model-1-main-effects-only"><i class="fa fa-check"></i><b>12.4.1</b> Fit Model 1: main effects only</a></li>
-<li class="chapter" data-level="12.4.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#fit-model-2-only-significant-predictors"><i class="fa fa-check"></i><b>12.4.2</b> Fit Model 2: only significant predictors</a></li>
-<li class="chapter" data-level="12.4.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#compre-model-fit"><i class="fa fa-check"></i><b>12.4.3</b> Compre model fit</a></li>
-<li class="chapter" data-level="12.4.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#extract-parameters"><i class="fa fa-check"></i><b>12.4.4</b> Extract parameters</a></li>
-<li class="chapter" data-level="12.4.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#tabulate-parameters-2"><i class="fa fa-check"></i><b>12.4.5</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="12.4.6" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities"><i class="fa fa-check"></i><b>12.4.6</b> Plot Predicted Probabilities</a></li>
-<li class="chapter" data-level="12.4.7" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#interpretation-3"><i class="fa fa-check"></i><b>12.4.7</b> Interpretation</a></li>
+<li class="chapter" data-level="11.4.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-model-1-main-effects-only"><i class="fa fa-check"></i><b>11.4.1</b> Fit Model 1: main effects only</a></li>
+<li class="chapter" data-level="11.4.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-model-2-only-significant-predictors"><i class="fa fa-check"></i><b>11.4.2</b> Fit Model 2: only significant predictors</a></li>
+<li class="chapter" data-level="11.4.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#compre-model-fit"><i class="fa fa-check"></i><b>11.4.3</b> Compre model fit</a></li>
+<li class="chapter" data-level="11.4.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#extract-parameters"><i class="fa fa-check"></i><b>11.4.4</b> Extract parameters</a></li>
+<li class="chapter" data-level="11.4.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#tabulate-parameters-2"><i class="fa fa-check"></i><b>11.4.5</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="11.4.6" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities"><i class="fa fa-check"></i><b>11.4.6</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="11.4.7" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-3"><i class="fa fa-check"></i><b>11.4.7</b> Interpretation</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>12.5</b> Proportional-odds (ordinal) Logistic Regression</a>
+<li class="chapter" data-level="11.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#proportional-odds-ordinal-logistic-regression"><i class="fa fa-check"></i><b>11.5</b> Proportional-odds (ordinal) Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="12.5.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#fit-the-model-1"><i class="fa fa-check"></i><b>12.5.1</b> Fit the Model</a></li>
-<li class="chapter" data-level="12.5.2" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#extract-parameters-1"><i class="fa fa-check"></i><b>12.5.2</b> Extract Parameters</a></li>
-<li class="chapter" data-level="12.5.3" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#tabulate-parameters-3"><i class="fa fa-check"></i><b>12.5.3</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="12.5.4" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities-1"><i class="fa fa-check"></i><b>12.5.4</b> Plot Predicted Probabilities</a></li>
-<li class="chapter" data-level="12.5.5" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#interpretation-4"><i class="fa fa-check"></i><b>12.5.5</b> Interpretation</a></li>
+<li class="chapter" data-level="11.5.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#fit-the-model-1"><i class="fa fa-check"></i><b>11.5.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="11.5.2" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#extract-parameters-1"><i class="fa fa-check"></i><b>11.5.2</b> Extract Parameters</a></li>
+<li class="chapter" data-level="11.5.3" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#tabulate-parameters-3"><i class="fa fa-check"></i><b>11.5.3</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="11.5.4" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#plot-predicted-probabilities-1"><i class="fa fa-check"></i><b>11.5.4</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="11.5.5" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-4"><i class="fa fa-check"></i><b>11.5.5</b> Interpretation</a></li>
 </ul></li>
-<li class="chapter" data-level="12.6" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#compare-model-fits-multinomial-vs.-ordinal"><i class="fa fa-check"></i><b>12.6</b> Compare Model Fits: Multinomial vs. Ordinal</a>
+<li class="chapter" data-level="11.6" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#compare-model-fits-multinomial-vs.-ordinal"><i class="fa fa-check"></i><b>11.6</b> Compare Model Fits: Multinomial vs. Ordinal</a>
 <ul>
-<li class="chapter" data-level="12.6.1" data-path="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression-ex-canadian-womens-labour-force-participation.html#interpretation-5"><i class="fa fa-check"></i><b>12.6.1</b> Interpretation</a></li>
+<li class="chapter" data-level="11.6.1" data-path="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html"><a href="extensions-of-logistic-regression---ex-canadian-womens-labour-force-participation.html#interpretation-5"><i class="fa fa-check"></i><b>11.6.1</b> Interpretation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html"><i class="fa fa-check"></i><b>13</b> Ordered Logistic Regression - Ex: Spaking</a>
+<li class="chapter" data-level="12" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html"><i class="fa fa-check"></i><b>12</b> Ordered Logistic Regression - Ex: Spaking</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#background-5"><i class="fa fa-check"></i><b>13.1</b> Background</a>
+<li class="chapter" data-level="12.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#background-5"><i class="fa fa-check"></i><b>12.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="13.1.1" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#raw-dataset-2"><i class="fa fa-check"></i><b>13.1.1</b> Raw Dataset</a></li>
-<li class="chapter" data-level="13.1.2" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#wrangle-data"><i class="fa fa-check"></i><b>13.1.2</b> Wrangle Data</a></li>
+<li class="chapter" data-level="12.1.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#raw-dataset-2"><i class="fa fa-check"></i><b>12.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="12.1.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#wrangle-data"><i class="fa fa-check"></i><b>12.1.2</b> Wrangle Data</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>13.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="12.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>12.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#entire-sample"><i class="fa fa-check"></i><b>13.2.1</b> Entire Sample</a></li>
-<li class="chapter" data-level="13.2.2" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#by-education"><i class="fa fa-check"></i><b>13.2.2</b> By Education</a></li>
-<li class="chapter" data-level="13.2.3" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#spanking-by-sex"><i class="fa fa-check"></i><b>13.2.3</b> Spanking by Sex</a></li>
+<li class="chapter" data-level="12.2.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#entire-sample"><i class="fa fa-check"></i><b>12.2.1</b> Entire Sample</a></li>
+<li class="chapter" data-level="12.2.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#by-education"><i class="fa fa-check"></i><b>12.2.2</b> By Education</a></li>
+<li class="chapter" data-level="12.2.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#spanking-by-sex"><i class="fa fa-check"></i><b>12.2.3</b> Spanking by Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#linear-regression"><i class="fa fa-check"></i><b>13.3</b> Linear Regression</a>
+<li class="chapter" data-level="12.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#linear-regression"><i class="fa fa-check"></i><b>12.3</b> Linear Regression</a>
 <ul>
-<li class="chapter" data-level="13.3.1" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#visualization-2"><i class="fa fa-check"></i><b>13.3.1</b> Visualization</a></li>
-<li class="chapter" data-level="13.3.2" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#fit-the-model-2"><i class="fa fa-check"></i><b>13.3.2</b> Fit the Model</a></li>
-<li class="chapter" data-level="13.3.3" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#tabulate-parameters-4"><i class="fa fa-check"></i><b>13.3.3</b> Tabulate Parameters</a></li>
-<li class="chapter" data-level="13.3.4" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#model-fit-and-variance-explained"><i class="fa fa-check"></i><b>13.3.4</b> Model Fit and Variance Explained</a></li>
-<li class="chapter" data-level="13.3.5" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#residual-diagnostics"><i class="fa fa-check"></i><b>13.3.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="12.3.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#visualization-1"><i class="fa fa-check"></i><b>12.3.1</b> Visualization</a></li>
+<li class="chapter" data-level="12.3.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-the-model-2"><i class="fa fa-check"></i><b>12.3.2</b> Fit the Model</a></li>
+<li class="chapter" data-level="12.3.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-4"><i class="fa fa-check"></i><b>12.3.3</b> Tabulate Parameters</a></li>
+<li class="chapter" data-level="12.3.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained"><i class="fa fa-check"></i><b>12.3.4</b> Model Fit and Variance Explained</a></li>
+<li class="chapter" data-level="12.3.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#residual-diagnostics"><i class="fa fa-check"></i><b>12.3.5</b> Residual Diagnostics</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#ordered-logistic-regression"><i class="fa fa-check"></i><b>13.4</b> Ordered Logistic Regression</a></li>
-<li class="chapter" data-level="13.5" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#proportional-odds-ordinal-logistic-regression-1"><i class="fa fa-check"></i><b>13.5</b> Proportional-odds (ordinal) Logistic Regression</a>
+<li class="chapter" data-level="12.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#ordered-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Ordered Logistic Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#proportional-odds-ordinal-logistic-regression-1"><i class="fa fa-check"></i><b>12.5</b> Proportional-odds (ordinal) Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="13.5.1" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#fit-model-1-sex"><i class="fa fa-check"></i><b>13.5.1</b> Fit Model 1: Sex</a></li>
-<li class="chapter" data-level="13.5.2" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#extract-parameters-2"><i class="fa fa-check"></i><b>13.5.2</b> Extract Parameters</a></li>
-<li class="chapter" data-level="13.5.3" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#tabulate-parameters-5"><i class="fa fa-check"></i><b>13.5.3</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="13.5.4" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#predicted-probabilities-2"><i class="fa fa-check"></i><b>13.5.4</b> Predicted Probabilities</a></li>
-<li class="chapter" data-level="13.5.5" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#plot-predicted-probabilities-2"><i class="fa fa-check"></i><b>13.5.5</b> Plot Predicted Probabilities</a></li>
-<li class="chapter" data-level="13.5.6" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#model-fit-and-variance-explained-1"><i class="fa fa-check"></i><b>13.5.6</b> Model Fit and Variance Explained</a></li>
-<li class="chapter" data-level="13.5.7" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#assumptions"><i class="fa fa-check"></i><b>13.5.7</b> Assumptions</a></li>
-<li class="chapter" data-level="13.5.8" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#fit-model-2-sex-covars"><i class="fa fa-check"></i><b>13.5.8</b> Fit Model 2: Sex + Covars</a></li>
-<li class="chapter" data-level="13.5.9" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#extract-parameters-3"><i class="fa fa-check"></i><b>13.5.9</b> Extract Parameters</a></li>
-<li class="chapter" data-level="13.5.10" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#tabulate-parameters-6"><i class="fa fa-check"></i><b>13.5.10</b> Tabulate parameters</a></li>
-<li class="chapter" data-level="13.5.11" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#predicted-probabilities-3"><i class="fa fa-check"></i><b>13.5.11</b> Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.5.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-model-1-sex"><i class="fa fa-check"></i><b>12.5.1</b> Fit Model 1: Sex</a></li>
+<li class="chapter" data-level="12.5.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#extract-parameters-2"><i class="fa fa-check"></i><b>12.5.2</b> Extract Parameters</a></li>
+<li class="chapter" data-level="12.5.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-5"><i class="fa fa-check"></i><b>12.5.3</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="12.5.4" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#predicted-probabilities-2"><i class="fa fa-check"></i><b>12.5.4</b> Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.5.5" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#plot-predicted-probabilities-2"><i class="fa fa-check"></i><b>12.5.5</b> Plot Predicted Probabilities</a></li>
+<li class="chapter" data-level="12.5.6" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained-1"><i class="fa fa-check"></i><b>12.5.6</b> Model Fit and Variance Explained</a></li>
+<li class="chapter" data-level="12.5.7" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#assumptions"><i class="fa fa-check"></i><b>12.5.7</b> Assumptions</a></li>
+<li class="chapter" data-level="12.5.8" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#fit-model-2-sex-covars"><i class="fa fa-check"></i><b>12.5.8</b> Fit Model 2: Sex + Covars</a></li>
+<li class="chapter" data-level="12.5.9" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#extract-parameters-3"><i class="fa fa-check"></i><b>12.5.9</b> Extract Parameters</a></li>
+<li class="chapter" data-level="12.5.10" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#tabulate-parameters-6"><i class="fa fa-check"></i><b>12.5.10</b> Tabulate parameters</a></li>
+<li class="chapter" data-level="12.5.11" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#predicted-probabilities-3"><i class="fa fa-check"></i><b>12.5.11</b> Predicted Probabilities</a></li>
 </ul></li>
-<li class="chapter" data-level="13.6" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#hoffmanns-example-4.8-continuesapproximated"><i class="fa fa-check"></i><b>13.6</b> Hoffmann’s Example 4.8 (continues…approximated)</a>
+<li class="chapter" data-level="12.6" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#hoffmanns-example-4.8-continuesapproximated"><i class="fa fa-check"></i><b>12.6</b> Hoffmann’s Example 4.8 (continues…approximated)</a>
 <ul>
-<li class="chapter" data-level="13.6.1" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#plot-predicted-probabilites"><i class="fa fa-check"></i><b>13.6.1</b> Plot Predicted Probabilites</a></li>
-<li class="chapter" data-level="13.6.2" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#model-fit-and-variance-explained-2"><i class="fa fa-check"></i><b>13.6.2</b> Model Fit and Variance Explained</a></li>
-<li class="chapter" data-level="13.6.3" data-path="ordered-logistic-regression-ex-spaking.html"><a href="ordered-logistic-regression-ex-spaking.html#assumptions-1"><i class="fa fa-check"></i><b>13.6.3</b> Assumptions</a></li>
+<li class="chapter" data-level="12.6.1" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#plot-predicted-probabilites"><i class="fa fa-check"></i><b>12.6.1</b> Plot Predicted Probabilites</a></li>
+<li class="chapter" data-level="12.6.2" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#model-fit-and-variance-explained-2"><i class="fa fa-check"></i><b>12.6.2</b> Model Fit and Variance Explained</a></li>
+<li class="chapter" data-level="12.6.3" data-path="ordered-logistic-regression---ex-spaking.html"><a href="ordered-logistic-regression---ex-spaking.html#assumptions-1"><i class="fa fa-check"></i><b>12.6.3</b> Assumptions</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html"><i class="fa fa-check"></i><b>14</b> Count Outcome Regression - Ex:</a>
+<li class="chapter" data-level="13" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html"><i class="fa fa-check"></i><b>13</b> Count Outcome Regression - Ex:</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#background-6"><i class="fa fa-check"></i><b>14.1</b> Background</a>
+<li class="chapter" data-level="13.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#background-6"><i class="fa fa-check"></i><b>13.1</b> Background</a>
 <ul>
-<li class="chapter" data-level="14.1.1" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#raw-dataset-3"><i class="fa fa-check"></i><b>14.1.1</b> Raw Dataset</a></li>
+<li class="chapter" data-level="13.1.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#raw-dataset-3"><i class="fa fa-check"></i><b>13.1.1</b> Raw Dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#exploratory-data-analysis-9"><i class="fa fa-check"></i><b>14.2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="13.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#exploratory-data-analysis-9"><i class="fa fa-check"></i><b>13.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="14.2.1" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
-<li class="chapter" data-level="14.2.2" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
+<li class="chapter" data-level="13.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>13.2.1</b> Entire Sample</a></li>
+<li class="chapter" data-level="13.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>13.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="13.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>13.3</b> Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="13.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>13.3.1</b> Single Predictor: Sex</a></li>
+<li class="chapter" data-level="13.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>13.3.2</b> Multiple Predictors</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="13.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>13.4</b> Negative Binomial Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="13.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>13.4.1</b> Multiple Predictors</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression-ex.html"><a href="count-outcome-regression-ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="13.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>13.5</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="13.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>13.6</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -594,13 +625,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</h1>
 <p class="author"><em>Sarah Schwartz &amp; Tyson Barrett</em></p>
-<p class="date"><em>Last updated: 2020-10-27</em></p>
+<p class="date"><em>Last updated: 2021-09-02</em></p>
 </div>
-<div id="welcome" class="section level1 unnumbered" number="">
+<div id="welcome" class="section level1 unnumbered">
 <h1>Welcome</h1>
 <p>Backgroup and links to other volumes of this encyclopedia may be found at the <a href="https://cehs-research.github.io/eBooks/">Encyclopedia’s Home Website</a>.</p>
 <p><img src="images/common/EQM_v4_header.png" /></p>
-<div id="blocked-notes" class="section level2 unnumbered" number="">
+<div id="blocked-notes" class="section level2 unnumbered">
 <h2>Blocked Notes</h2>
 <p>Thoughout all the eBooks in this encyclopedia, several small secitons will be blocked out in the following ways:</p>
 <div class="rmdconstruct">
@@ -629,14 +660,14 @@ These blocks denote <strong>LINKS</strong> to other websites. This may include i
 </p>
 </div>
 </div>
-<div id="code-and-output" class="section level2 unnumbered" number="">
+<div id="code-and-output" class="section level2 unnumbered">
 <h2>Code and Output</h2>
 <p>This is how <span class="math inline">\(R\)</span> code is shown:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
 <p>This is what the output of the <span class="math inline">\(R\)</span> code above will look:</p>
 <pre><code>## [1] 2</code></pre>
 </div>
-<div id="the-authors" class="section level2 unnumbered" number="">
+<div id="the-authors" class="section level2 unnumbered">
 <h2>The Authors</h2>
 <table>
 <thead>
@@ -692,7 +723,7 @@ Dr. Tyson Barrett
 </tr>
 </tbody>
 </table>
-<div id="why-choose-r" class="section level3 unnumbered" number="">
+<div id="why-choose-r" class="section level3 unnumbered">
 <h3>Why choose R ?</h3>
 <div class="rmdlink">
 <p>
@@ -700,7 +731,7 @@ Dr. Tyson Barrett
 </p>
 </div>
 </div>
-<div id="fyi" class="section level3 unnumbered" number="">
+<div id="fyi" class="section level3 unnumbered">
 <h3>FYI</h3>
 <p>This entire encyclopedia is written in <span class="math inline">\(R Markdown\)</span>, using <span class="math inline">\(R Studio\)</span> as the text editor and the <code>bookdown</code> package to turn a collection of markdown documents into a coherent whole. The book’s source code is hosted on GitHub. If you notice typos or other issues, feel free to email either of the authors.</p>
 <p>This work is licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode">Attribution-NonCommercial-NoDerivatives 4.0 International</a> License.</p>
@@ -715,7 +746,7 @@ Dr. Tyson Barrett
         </div>
       </div>
 
-<a href="linear-correlation-example-cancer-experiment.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-correlation---example-cancer-experiment.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -738,6 +769,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -758,6 +790,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
 "toc": {
 "collapse": "section",
 "toc_depth": 3
