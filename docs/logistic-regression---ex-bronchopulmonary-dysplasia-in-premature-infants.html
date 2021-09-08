@@ -54,25 +54,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
-<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -504,6 +485,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
 <li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#changing-the-reference-category"><i class="fa fa-check"></i><b>10.6</b> Changing the reference category</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
@@ -614,17 +596,27 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
 <li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#simple-poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Simple Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-3"><i class="fa fa-check"></i><b>14.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-1"><i class="fa fa-check"></i><b>14.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.3.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions"><i class="fa fa-check"></i><b>14.3.3</b> Predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-poisson-regression"><i class="fa fa-check"></i><b>14.4</b> Multiple Poisson Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-4"><i class="fa fa-check"></i><b>14.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.4.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-2"><i class="fa fa-check"></i><b>14.4.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.4.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions-1"><i class="fa fa-check"></i><b>14.4.3</b> Predictions</a></li>
+<li class="chapter" data-level="14.4.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#assess-model-fit-2"><i class="fa fa-check"></i><b>14.4.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="14.4.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>14.4.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="14.4.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#marginal-plot"><i class="fa fa-check"></i><b>14.4.6</b> Marginal Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.5</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.5.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.7" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.7</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -658,19 +650,19 @@ div.csl-indent {
 <p><code>finafit</code></p>
 <p><a href="https://www.r-bloggers.com/elegant-regression-results-tables-and-plots-in-r-the-finalfit-package/" class="uri">https://www.r-bloggers.com/elegant-regression-results-tables-and-plots-in-r-the-finalfit-package/</a></p>
 <p>Install a package Dr. Schwartz wrote:</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb337-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;sarbearschwartz/texreghelpr&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb338-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
-<span id="cb338-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
-<span id="cb338-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
-<span id="cb338-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML tables</span></span>
-<span id="cb338-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreghelpr)  <span class="co"># Dr. Schwartz&#39;s helper funtcions for texreg tables</span></span>
-<span id="cb338-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
-<span id="cb338-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
-<span id="cb338-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
-<span id="cb338-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions) <span class="co"># interaction plots</span></span>
-<span id="cb338-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># various plots</span></span>
-<span id="cb338-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb338-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb342-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;sarbearschwartz/texreghelpr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb343-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
+<span id="cb343-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
+<span id="cb343-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
+<span id="cb343-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML tables</span></span>
+<span id="cb343-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreghelpr)  <span class="co"># Dr. Schwartz&#39;s helper funtcions for texreg tables</span></span>
+<span id="cb343-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
+<span id="cb343-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
+<span id="cb343-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
+<span id="cb343-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions) <span class="co"># interaction plots</span></span>
+<span id="cb343-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># various plots</span></span>
+<span id="cb343-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb343-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
 <div id="background-2" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Background</h2>
 <p>Simple example demonstrating basic modeling approach: Data on <strong>Bronchopulmonary Dysplasia</strong> (BPD) from 223 low birth weight infants (weighing less than 1750 grams).</p>
@@ -694,20 +686,20 @@ div.csl-indent {
 </li>
 <li><code>toxemia</code> in mother, 0 = no, 1 = yes</li>
 </ul>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb339-1" aria-hidden="true" tabindex="-1"></a>bpd_raw <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Regression/VanMarter_%20BPD.txt&quot;</span>, </span>
-<span id="cb339-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb339-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">header      =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb339-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb339-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb340-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(bpd_raw)</span>
-<span id="cb340-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb340-2" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb344-1" aria-hidden="true" tabindex="-1"></a>bpd_raw <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Regression/VanMarter_%20BPD.txt&quot;</span>, </span>
+<span id="cb344-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb344-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">header      =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb344-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb344-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb345-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(bpd_raw)</span>
+<span id="cb345-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb345-2" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>[1] 223</code></pre>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb342-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(bpd_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb347-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(bpd_raw)</span></code></pre></div>
 <pre><code>Rows: 223
 Columns: 4
 $ bpd      &lt;int&gt; 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0~
 $ brthwght &lt;int&gt; 850, 1500, 1360, 960, 1560, 1120, 810, 1620, 1000, 700, 1330,~
 $ gestage  &lt;int&gt; 27, 33, 32, 35, 33, 29, 28, 32, 30, 26, 31, 31, 31, 29, 33, 3~
 $ toxemia  &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bpd_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bpd_raw)</span></code></pre></div>
 <pre><code># A tibble: 6 x 4
     bpd brthwght gestage toxemia
   &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
@@ -720,11 +712,11 @@ $ toxemia  &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 <blockquote>
 <p>Note: For logistic regression, you need to leave the outcome (dependent variable) coded as zeros <code>0</code> and ones <code>1</code> and NOT apply lables. You do want to apply labels to factors that function as predictors (independent varaibles).</p>
 </blockquote>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb346-1" aria-hidden="true" tabindex="-1"></a>bpd_clean <span class="ot">&lt;-</span> bpd_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb346-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb346-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">toxemia =</span> <span class="fu">factor</span>(toxemia,</span>
-<span id="cb346-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb346-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb346-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb346-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)))</span></code></pre></div>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bpd_clean)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-1" aria-hidden="true" tabindex="-1"></a>bpd_clean <span class="ot">&lt;-</span> bpd_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb351-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">toxemia =</span> <span class="fu">factor</span>(toxemia,</span>
+<span id="cb351-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb351-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bpd_clean)</span></code></pre></div>
 <pre><code>      bpd            brthwght       gestage      toxemia  
  Min.   :0.0000   Min.   : 450   Min.   :25.00   No :194  
  1st Qu.:0.0000   1st Qu.: 895   1st Qu.:28.00   Yes: 29  
@@ -739,11 +731,11 @@ $ toxemia  &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 <p>Instead of using the <code>lm()</code> function from base R, you use <code>glm()</code>. You also need to add an option to specify which generalization you want to use. To do logistic regression for a binary outcome, use <code>family = binomial(link = "logit")</code>.</p>
 <div id="null-model-no-independent-variables" class="section level3" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> Null Model: no independent variables</h3>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb349-1" aria-hidden="true" tabindex="-1"></a>fit_glm_0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(bpd <span class="sc">~</span> <span class="dv">1</span>, </span>
-<span id="cb349-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb349-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> bpd_clean, </span>
-<span id="cb349-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb349-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb349-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb349-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb349-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm_0)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb354-1" aria-hidden="true" tabindex="-1"></a>fit_glm_0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(bpd <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb354-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb354-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> bpd_clean, </span>
+<span id="cb354-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb354-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb354-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb354-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb354-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb354-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm_0)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = bpd ~ 1, family = binomial(link = &quot;logit&quot;), data = bpd_clean)
@@ -771,11 +763,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <blockquote>
 <p>Note: Since the unites of weight are so small, the estimated parameter will be super small. To offset the small units, we can re-scale the weights by dividing the grams by 100 to create “hectograms.”</p>
 </blockquote>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(bpd <span class="sc">~</span> <span class="fu">I</span>(brthwght<span class="sc">/</span><span class="dv">100</span>) <span class="sc">+</span> gestage <span class="sc">+</span> toxemia, </span>
-<span id="cb351-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> bpd_clean, </span>
-<span id="cb351-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>)) </span>
-<span id="cb351-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb351-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb351-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb356-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(bpd <span class="sc">~</span> <span class="fu">I</span>(brthwght<span class="sc">/</span><span class="dv">100</span>) <span class="sc">+</span> gestage <span class="sc">+</span> toxemia, </span>
+<span id="cb356-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb356-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> bpd_clean, </span>
+<span id="cb356-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb356-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>)) </span>
+<span id="cb356-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb356-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb356-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm_1)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = bpd ~ I(brthwght/100) + gestage + toxemia, family = binomial(link = &quot;logit&quot;), 
@@ -807,27 +799,27 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <h2><span class="header-section-number">8.3</span> Model Fit</h2>
 <div id="log-likelihood-and-deviance" class="section level3" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Log Likelihood and Deviance</h3>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit_glm_0) <span class="co"># Null Model</span></span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit_glm_0) <span class="co"># Null Model</span></span></code></pre></div>
 <pre><code>&#39;log Lik.&#39; -143.07 (df=1)</code></pre>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit_glm_1) <span class="co"># Full Model</span></span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit_glm_1) <span class="co"># Full Model</span></span></code></pre></div>
 <pre><code>&#39;log Lik.&#39; -101.8538 (df=4)</code></pre>
 <blockquote>
 <p>Note: Deviance = -2 times the Log Likelihood</p>
 </blockquote>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(fit_glm_0) <span class="co"># Null Model</span></span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(fit_glm_0) <span class="co"># Null Model</span></span></code></pre></div>
 <pre><code>[1] 286.14</code></pre>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(fit_glm_1) <span class="co"># Full Model</span></span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(fit_glm_1) <span class="co"># Full Model</span></span></code></pre></div>
 <pre><code>[1] 203.7075</code></pre>
 </div>
 <div id="aic-and-bic" class="section level3" number="8.3.2">
 <h3><span class="header-section-number">8.3.2</span> AIC and BIC</h3>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(fit_glm_0, fit_glm_1)  <span class="co"># Full Model</span></span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(fit_glm_0, fit_glm_1)  <span class="co"># Full Model</span></span></code></pre></div>
 <pre><code># A tibble: 2 x 2
      df   AIC
   &lt;dbl&gt; &lt;dbl&gt;
 1     1  288.
 2     4  212.</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(fit_glm_0, fit_glm_1)  <span class="co"># Full Model</span></span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(fit_glm_0, fit_glm_1)  <span class="co"># Full Model</span></span></code></pre></div>
 <pre><code># A tibble: 2 x 2
      df   BIC
   &lt;dbl&gt; &lt;dbl&gt;
@@ -904,10 +896,10 @@ Focus on McFadden’s pseudo-R squared, in R.
 <p><span class="math display">\[
 R^2_{McF} = 1 - \frac{L_1}{L_0}
 \]</span></p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb365-1" aria-hidden="true" tabindex="-1"></a>MFR2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit_glm_1)<span class="sc">/</span><span class="fu">logLik</span>(fit_glm_0))</span>
-<span id="cb365-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb365-2" aria-hidden="true" tabindex="-1"></a>MFR2</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb370-1" aria-hidden="true" tabindex="-1"></a>MFR2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit_glm_1)<span class="sc">/</span><span class="fu">logLik</span>(fit_glm_0))</span>
+<span id="cb370-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb370-2" aria-hidden="true" tabindex="-1"></a>MFR2</span></code></pre></div>
 <pre><code>&#39;log Lik.&#39; 0.2880843 (df=4)</code></pre>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb367-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2_mcfadden</span>(fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb372-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2_mcfadden</span>(fit_glm_1)</span></code></pre></div>
 <pre><code># R2 for Generalized Linear Regression
        R2: -0.996
   adj. R2: -1.003</code></pre>
@@ -919,10 +911,10 @@ R^2_{McF} = 1 - \frac{L_1}{L_0}
 R^2_{CS} = 1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n} \\
 n = \text{sample size}
 \]</span></p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb369-1" aria-hidden="true" tabindex="-1"></a>CSR2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="fu">exp</span>(<span class="fu">logLik</span>(fit_glm_0))<span class="sc">/</span><span class="fu">exp</span>(<span class="fu">logLik</span>(fit_glm_1)))<span class="sc">^</span>(<span class="dv">2</span><span class="sc">/</span>n)</span>
-<span id="cb369-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb369-2" aria-hidden="true" tabindex="-1"></a>CSR2</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb374-1" aria-hidden="true" tabindex="-1"></a>CSR2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="fu">exp</span>(<span class="fu">logLik</span>(fit_glm_0))<span class="sc">/</span><span class="fu">exp</span>(<span class="fu">logLik</span>(fit_glm_1)))<span class="sc">^</span>(<span class="dv">2</span><span class="sc">/</span>n)</span>
+<span id="cb374-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb374-2" aria-hidden="true" tabindex="-1"></a>CSR2</span></code></pre></div>
 <pre><code>&#39;log Lik.&#39; 0.3090253 (df=1)</code></pre>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb371-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2_coxsnell</span>(fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb376-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2_coxsnell</span>(fit_glm_1)</span></code></pre></div>
 <pre><code>Cox &amp; Snell&#39;s R2 
        0.3090253 </code></pre>
 </div>
@@ -932,16 +924,16 @@ n = \text{sample size}
 R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
                  {1 - \Big( l_0 \Big) ^{2 \backslash n}}
 \]</span></p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb373-1" aria-hidden="true" tabindex="-1"></a>NR2 <span class="ot">&lt;-</span> CSR2 <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="fu">logLik</span>(fit_glm_0))<span class="sc">^</span>(<span class="dv">2</span><span class="sc">/</span>n))</span>
-<span id="cb373-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb373-2" aria-hidden="true" tabindex="-1"></a>NR2 </span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb378-1" aria-hidden="true" tabindex="-1"></a>NR2 <span class="ot">&lt;-</span> CSR2 <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="fu">logLik</span>(fit_glm_0))<span class="sc">^</span>(<span class="dv">2</span><span class="sc">/</span>n))</span>
+<span id="cb378-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb378-2" aria-hidden="true" tabindex="-1"></a>NR2 </span></code></pre></div>
 <pre><code>&#39;log Lik.&#39; 0.4275191 (df=1)</code></pre>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb375-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2_nagelkerke</span>(fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb380-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2_nagelkerke</span>(fit_glm_1)</span></code></pre></div>
 <pre><code>Nagelkerke&#39;s R2 
       0.4275191 </code></pre>
 </div>
 <div id="tjurs-statistic" class="section level3" number="8.4.5">
 <h3><span class="header-section-number">8.4.5</span> Tjur’s statistic</h3>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb377-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2</span>(fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb382-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2</span>(fit_glm_1)</span></code></pre></div>
 <pre><code># R2 for Logistic Regression
   Tjur&#39;s R2: 0.346</code></pre>
 </div>
@@ -959,7 +951,7 @@ R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
 <li><code>r2ML</code> Maximum likelihood pseudo r-squared</li>
 <li><code>r2CU</code> Cragg and Uhler’s pseudo r-squared</li>
 </ul>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb379-1" aria-hidden="true" tabindex="-1"></a>pscl<span class="sc">::</span><span class="fu">pR2</span>(fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb384-1" aria-hidden="true" tabindex="-1"></a>pscl<span class="sc">::</span><span class="fu">pR2</span>(fit_glm_1)</span></code></pre></div>
 <pre><code>fitting null model for pseudo-r2</code></pre>
 <pre><code>         llh      llhNull           G2     McFadden         r2ML         r2CU 
 -101.8537711 -143.0699809   82.4324196    0.2880843    0.3090253    0.4275191 </code></pre>
@@ -969,7 +961,7 @@ R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
 <h2><span class="header-section-number">8.5</span> Model Compairisons, Inferential</h2>
 <div id="likelihood-ratio-test-lrt-aka.-deviance-difference-test" class="section level3" number="8.5.1">
 <h3><span class="header-section-number">8.5.1</span> Likelihood Ratio Test (LRT, aka. Deviance Difference Test)</h3>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_glm_0, fit_glm_1, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_glm_0, fit_glm_1, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 2 x 5
   `Resid. Df` `Resid. Dev`    Df Deviance `Pr(&gt;Chi)`
         &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -978,7 +970,7 @@ R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
 </div>
 <div id="bayes-factor-and-performance-score" class="section level3" number="8.5.2">
 <h3><span class="header-section-number">8.5.2</span> Bayes Factor and Performance Score</h3>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb384-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">compare_performance</span>(fit_glm_0, fit_glm_1, <span class="at">rank =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb389-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">compare_performance</span>(fit_glm_0, fit_glm_1, <span class="at">rank =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code># A tibble: 2 x 12
   Name      Model   AIC   BIC R2_Tjur  RMSE Sigma Log_loss Score_log Score_spherical
   &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
@@ -991,10 +983,10 @@ R^2_{Nag} = \frac{1 - \Bigg( \frac{l_0}{l_1} \Bigg) ^{2 \backslash n}}
 <h2><span class="header-section-number">8.6</span> Parameter Estimates</h2>
 <div id="link-logit-scale" class="section level3" number="8.6.1">
 <h3><span class="header-section-number">8.6.1</span> Link: Logit Scale</h3>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb386-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb391-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
 <pre><code>    (Intercept) I(brthwght/100)         gestage      toxemiaYes 
      13.9360826      -0.2643578      -0.3885357      -1.3437865 </code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb388-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">confint</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb393-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">confint</span>()</span></code></pre></div>
 <pre><code>                     2.5 %     97.5 %
 (Intercept)      8.3899004 20.1418979
 I(brthwght/100) -0.4289642 -0.1089495
@@ -1003,10 +995,10 @@ toxemiaYes      -2.6152602 -0.2133274</code></pre>
 </div>
 <div id="exponentiate-odds-ratio-scale" class="section level3" number="8.6.2">
 <h3><span class="header-section-number">8.6.2</span> Exponentiate: Odds Ratio Scale</h3>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb390-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb395-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
 <pre><code>    (Intercept) I(brthwght/100)         gestage      toxemiaYes 
    1.128142e+06    7.676988e-01    6.780490e-01    2.608561e-01 </code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb392-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">confint</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb397-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">confint</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
 <pre><code>                       2.5 %       97.5 %
 (Intercept)     4.402379e+03 5.591330e+08
 I(brthwght/100) 6.511832e-01 8.967757e-01
@@ -1018,7 +1010,7 @@ toxemiaYes      7.314875e-02 8.078916e-01</code></pre>
 <h2><span class="header-section-number">8.7</span> Significance of Terms</h2>
 <div id="walds-t-test" class="section level3" number="8.7.1">
 <h3><span class="header-section-number">8.7.1</span> Wald’s <span class="math inline">\(t\)</span>-Test</h3>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb394-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb399-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
 <pre><code>                  Estimate Std. Error   z value     Pr(&gt;|z|)
 (Intercept)     13.9360826 2.98255085  4.672538 2.975003e-06
 I(brthwght/100) -0.2643578 0.08123149 -3.254376 1.136419e-03
@@ -1030,7 +1022,7 @@ toxemiaYes      -1.3437865 0.60750335 -2.211982 2.696791e-02</code></pre>
 <blockquote>
 <p>Note: Significance of each variable is assessed by comparing it to the model that drops just that one term (<code>type = 3</code>); order doesn’t matter.</p>
 </blockquote>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(fit_glm_1, <span class="at">type =</span> <span class="dv">3</span>, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(fit_glm_1, <span class="at">type =</span> <span class="dv">3</span>, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 4 x 5
      Df Deviance   AIC   LRT `Pr(&gt;Chi)`
   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
@@ -1044,7 +1036,7 @@ toxemiaYes      -1.3437865 0.60750335 -2.211982 2.696791e-02</code></pre>
 <blockquote>
 <p>Note: Signifcance of each additional variable at a time; ordered first to last</p>
 </blockquote>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_glm_1, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_glm_1, <span class="at">test =</span> <span class="st">&quot;LRT&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 4 x 5
      Df Deviance `Resid. Df` `Resid. Dev` `Pr(&gt;Chi)`
   &lt;int&gt;    &lt;dbl&gt;       &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -1058,8 +1050,8 @@ toxemiaYes      -1.3437865 0.60750335 -2.211982 2.696791e-02</code></pre>
 <h2><span class="header-section-number">8.8</span> Parameter Estimate Tables</h2>
 <div id="logit-scale-link-default" class="section level3" number="8.8.1">
 <h3><span class="header-section-number">8.8.1</span> Logit scale (Link, default)</h3>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb400-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(fit_glm_1,</span>
-<span id="cb400-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb400-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb405-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(fit_glm_1,</span>
+<span id="cb405-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb405-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1159,11 +1151,11 @@ Num. obs.
 <blockquote>
 <p>Note: You may request: Confidence Intervals on Logit scale with the options: <code>ci.force = TRUE, ci.test = 1</code></p>
 </blockquote>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb401-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(fit_glm_1,</span>
-<span id="cb401-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb401-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb401-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb401-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.force =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb401-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb401-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>,</span>
-<span id="cb401-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb401-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(fit_glm_1,</span>
+<span id="cb406-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb406-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.force =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb406-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>,</span>
+<span id="cb406-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">6</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1263,8 +1255,8 @@ Num. obs.
 </div>
 <div id="odds-ratio-scale-exponentiate" class="section level3" number="8.8.2">
 <h3><span class="header-section-number">8.8.2</span> Odds-Ratio Scale (exponentiate)</h3>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb402-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1),</span>
-<span id="cb402-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb402-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb407-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1),</span>
+<span id="cb407-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb407-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1324,17 +1316,17 @@ toxemiaYes
 </div>
 <div id="both-logit-and-odds-ratio" class="section level3" number="8.8.3">
 <h3><span class="header-section-number">8.8.3</span> BOTH: Logit and Odds-Ratio</h3>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_glm_1,</span>
-<span id="cb403-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-2" aria-hidden="true" tabindex="-1"></a>                     texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1,</span>
-<span id="cb403-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-3" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.aic =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb403-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-4" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.bic =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb403-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-5" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.loglik =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb403-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-6" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.deviance =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb403-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-7" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.nobs =</span> <span class="cn">FALSE</span>)),</span>
-<span id="cb403-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
-<span id="cb403-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-9" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">&quot;OR [95% CI]&quot;</span>),</span>
-<span id="cb403-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb403-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb403-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_glm_1,</span>
+<span id="cb408-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-2" aria-hidden="true" tabindex="-1"></a>                     texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1,</span>
+<span id="cb408-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-3" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.aic =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb408-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-4" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.bic =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb408-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-5" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.loglik =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb408-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-6" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.deviance =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb408-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-7" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">include.nobs =</span> <span class="cn">FALSE</span>)),</span>
+<span id="cb408-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb408-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-9" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">&quot;OR [95% CI]&quot;</span>),</span>
+<span id="cb408-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb408-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1470,8 +1462,8 @@ Num. obs.
 <blockquote>
 <p>Note: By default it will select 5-6 “nice” values for each continuous variable. All levels of categorical factors will be included.</p>
 </blockquote>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb404-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>, <span class="st">&quot;toxemia&quot;</span>),</span>
-<span id="cb404-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb404-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb409-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>, <span class="st">&quot;toxemia&quot;</span>),</span>
+<span id="cb409-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb409-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
 <pre><code>
  brthwght*gestage*toxemia effect
 , , toxemia = No
@@ -1499,8 +1491,8 @@ brthwght        25         28         31          34          37
 <blockquote>
 <p>Note: if a predictor is left off the<code>focal.predictors</code>, the predictions are AVERAGED over that variable.</p>
 </blockquote>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
-<span id="cb406-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb406-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb411-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
+<span id="cb411-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb411-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
 <pre><code>
  brthwght*gestage effect
         gestage
@@ -1510,8 +1502,8 @@ brthwght        25        28         31         34          37
     1100 0.7576801 0.4935992 0.23304229 0.08652530 0.028680839
     1400 0.5858727 0.3060443 0.12086278 0.04109553 0.013183745
     1700 0.3902779 0.1663456 0.05856001 0.01902178 0.006008386</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;toxemia&quot;</span>),</span>
-<span id="cb408-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb408-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb413-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;toxemia&quot;</span>),</span>
+<span id="cb413-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb413-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
 <pre><code>
  brthwght*toxemia effect
         toxemia
@@ -1524,10 +1516,10 @@ brthwght         No        Yes
 </div>
 <div id="set-a-constant-fixed-value-for-a-predictors" class="section level3" number="8.9.3">
 <h3><span class="header-section-number">8.9.3</span> Set a constant (fixed) value for a predictor(s)</h3>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb410-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>),</span>
-<span id="cb410-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb410-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">fixed.predictors =</span> <span class="fu">list</span>(<span class="at">gestage =</span> <span class="dv">34</span>, </span>
-<span id="cb410-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb410-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">toxemia =</span> <span class="st">&quot;no&quot;</span>),</span>
-<span id="cb410-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb410-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb415-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>),</span>
+<span id="cb415-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb415-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">fixed.predictors =</span> <span class="fu">list</span>(<span class="at">gestage =</span> <span class="dv">34</span>, </span>
+<span id="cb415-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb415-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">toxemia =</span> <span class="st">&quot;no&quot;</span>),</span>
+<span id="cb415-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb415-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
 <pre><code>
  brthwght effect
 brthwght
@@ -1536,10 +1528,10 @@ brthwght
 </div>
 <div id="set-values-for-a-continuous-predictor" class="section level3" number="8.9.4">
 <h3><span class="header-section-number">8.9.4</span> Set values for a continuous predictor</h3>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb412-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
-<span id="cb412-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb412-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">fixed.predictors =</span> <span class="fu">list</span>(<span class="at">toxemia =</span> <span class="st">&quot;no&quot;</span>),</span>
-<span id="cb412-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb412-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">36</span>)),</span>
-<span id="cb412-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb412-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb417-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
+<span id="cb417-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb417-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">fixed.predictors =</span> <span class="fu">list</span>(<span class="at">toxemia =</span> <span class="st">&quot;no&quot;</span>),</span>
+<span id="cb417-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb417-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">36</span>)),</span>
+<span id="cb417-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb417-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1)</span></code></pre></div>
 <pre><code>
  brthwght*gestage effect
         gestage
@@ -1552,11 +1544,11 @@ brthwght        24         32          36
 </div>
 <div id="add-se-and-95-confidence-interval" class="section level3" number="8.9.5">
 <h3><span class="header-section-number">8.9.5</span> Add SE and 95% Confidence Interval</h3>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb414-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>, <span class="st">&quot;toxemia&quot;</span>),</span>
-<span id="cb414-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb414-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">brthwght =</span> <span class="fu">c</span>(<span class="dv">500</span>, <span class="dv">1000</span>, <span class="dv">1500</span>),</span>
-<span id="cb414-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb414-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">36</span>)),</span>
-<span id="cb414-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb414-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1) <span class="sc">%&gt;%</span> </span>
-<span id="cb414-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb414-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb419-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;gestage&quot;</span>, <span class="st">&quot;toxemia&quot;</span>),</span>
+<span id="cb419-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb419-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">brthwght =</span> <span class="fu">c</span>(<span class="dv">500</span>, <span class="dv">1000</span>, <span class="dv">1500</span>),</span>
+<span id="cb419-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb419-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">36</span>)),</span>
+<span id="cb419-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb419-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb419-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb419-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
 <pre><code># A tibble: 12 x 7
    brthwght gestage toxemia     fit      se    lower  upper
       &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
@@ -1581,16 +1573,16 @@ brthwght        24         32          36
 <blockquote>
 <p>The <code>sjPlot::plot_model()</code> function automatically transforms the predictions to the probability score when you include the <code>type = "pred"</code> option.</p>
 </blockquote>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb416-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit_glm_1,</span>
-<span id="cb416-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb416-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit_glm_1,</span>
+<span id="cb421-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>)</span></code></pre></div>
 <pre><code>$brthwght</code></pre>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-283-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-288-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <pre><code>
 $gestage</code></pre>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-283-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-288-2.png" width="75%" style="display: block; margin: auto;" /></p>
 <pre><code>
 $toxemia</code></pre>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-283-3.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-288-3.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="combination-marginal-plots-for-two-three-ivs-all-at-once" class="section level3" number="8.10.2">
 <h3><span class="header-section-number">8.10.2</span> Combination Marginal Plots for two-three IVs, all at once</h3>
@@ -1598,78 +1590,78 @@ $toxemia</code></pre>
 <blockquote>
 <p>The <code>outcome.scale = "link"</code> option plots the LOGIT scale on the y-axis.</p>
 </blockquote>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb420-1" aria-hidden="true" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_glm_1,</span>
-<span id="cb420-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb420-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pred =</span> brthwght,</span>
-<span id="cb420-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb420-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx =</span> gestage,</span>
-<span id="cb420-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb420-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2 =</span> toxemia,</span>
-<span id="cb420-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb420-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">outcome.scale =</span> <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-284-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb425-1" aria-hidden="true" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_glm_1,</span>
+<span id="cb425-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb425-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pred =</span> brthwght,</span>
+<span id="cb425-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb425-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx =</span> gestage,</span>
+<span id="cb425-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb425-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2 =</span> toxemia,</span>
+<span id="cb425-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb425-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">outcome.scale =</span> <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-289-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Alternatively, you may use the <code>modx.labels</code> option to set specific values at which to plot the moderator.</p>
 <blockquote>
 <p>The <code>outcome.scale = "response"</code> option plots the PROBABILITY scale on the y-axis.</p>
 </blockquote>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-1" aria-hidden="true" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_glm_1,</span>
-<span id="cb421-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pred =</span> brthwght,</span>
-<span id="cb421-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx =</span> gestage,</span>
-<span id="cb421-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx.labels =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">36</span>),</span>
-<span id="cb421-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2 =</span> toxemia,</span>
-<span id="cb421-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb421-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">outcome.scale =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-285-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb426-1" aria-hidden="true" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_glm_1,</span>
+<span id="cb426-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb426-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pred =</span> brthwght,</span>
+<span id="cb426-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb426-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx =</span> gestage,</span>
+<span id="cb426-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb426-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx.labels =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">36</span>),</span>
+<span id="cb426-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb426-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2 =</span> toxemia,</span>
+<span id="cb426-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb426-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">outcome.scale =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-290-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>You can always do more work to get to a PUBLISH-ABLE version</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-1" aria-hidden="true" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_glm_1,</span>
-<span id="cb422-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pred =</span> brthwght,</span>
-<span id="cb422-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx =</span> gestage,</span>
-<span id="cb422-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx.labels =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">30</span>, <span class="dv">32</span>),</span>
-<span id="cb422-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2 =</span> toxemia,</span>
-<span id="cb422-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">outcome.scale =</span> <span class="st">&quot;response&quot;</span>,</span>
-<span id="cb422-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">x.label =</span> <span class="st">&quot;Birthweight, grams&quot;</span>,</span>
-<span id="cb422-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">y.label =</span> <span class="st">&quot;Probability of Bronchopulmonary Dysplasia&quot;</span>,</span>
-<span id="cb422-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">legend.main =</span> <span class="st">&quot;Gestational Age, weeks&quot;</span>,</span>
-<span id="cb422-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2.label =</span> <span class="fu">c</span>(<span class="st">&quot;Mother does NOT have Toxemia&quot;</span>,</span>
-<span id="cb422-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">&quot;Mother DOES have Toxemia&quot;</span>),</span>
-<span id="cb422-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">colors =</span> <span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb422-13"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">5</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb422-14"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb422-15"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb422-16"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
-<span id="cb422-17"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
-<span id="cb422-18"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb422-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-286-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-1" aria-hidden="true" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_glm_1,</span>
+<span id="cb427-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pred =</span> brthwght,</span>
+<span id="cb427-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx =</span> gestage,</span>
+<span id="cb427-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">modx.labels =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">30</span>, <span class="dv">32</span>),</span>
+<span id="cb427-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2 =</span> toxemia,</span>
+<span id="cb427-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">outcome.scale =</span> <span class="st">&quot;response&quot;</span>,</span>
+<span id="cb427-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">x.label =</span> <span class="st">&quot;Birthweight, grams&quot;</span>,</span>
+<span id="cb427-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">y.label =</span> <span class="st">&quot;Probability of Bronchopulmonary Dysplasia&quot;</span>,</span>
+<span id="cb427-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">legend.main =</span> <span class="st">&quot;Gestational Age, weeks&quot;</span>,</span>
+<span id="cb427-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mod2.label =</span> <span class="fu">c</span>(<span class="st">&quot;Mother does NOT have Toxemia&quot;</span>,</span>
+<span id="cb427-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">&quot;Mother DOES have Toxemia&quot;</span>),</span>
+<span id="cb427-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">colors =</span> <span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb427-13"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">5</span>, <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb427-14"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb427-15"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb427-16"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb427-17"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb427-18"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb427-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-291-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="total-control-is-also-available" class="section level3" number="8.10.3">
 <h3><span class="header-section-number">8.10.3</span> Total Control is also available</h3>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;toxemia&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
-<span id="cb423-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1,</span>
-<span id="cb423-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">brthwght =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">450</span>, <span class="at">to =</span> <span class="dv">1730</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb423-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">36</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb423-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb423-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">gestage =</span> <span class="fu">factor</span>(gestage)) <span class="sc">%&gt;%</span> </span>
-<span id="cb423-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> brthwght,</span>
-<span id="cb423-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit)) <span class="sc">+</span></span>
-<span id="cb423-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,</span>
-<span id="cb423-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> upper,</span>
-<span id="cb423-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> toxemia),</span>
-<span id="cb423-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb423-13"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> toxemia,</span>
-<span id="cb423-14"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> toxemia),</span>
-<span id="cb423-15"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb423-16"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> gestage, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
-<span id="cb423-17"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb423-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-287-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;toxemia&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
-<span id="cb424-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1,</span>
-<span id="cb424-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">brthwght =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">450</span>, <span class="at">to =</span> <span class="dv">1730</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb424-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">36</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb424-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb424-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">gestage =</span> <span class="fu">factor</span>(gestage)) <span class="sc">%&gt;%</span> </span>
-<span id="cb424-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> brthwght,</span>
-<span id="cb424-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit)) <span class="sc">+</span></span>
-<span id="cb424-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> toxemia,</span>
-<span id="cb424-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> toxemia),</span>
-<span id="cb424-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb424-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> gestage, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
-<span id="cb424-13"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb424-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-288-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;toxemia&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
+<span id="cb428-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1,</span>
+<span id="cb428-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">brthwght =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">450</span>, <span class="at">to =</span> <span class="dv">1730</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb428-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">36</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb428-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb428-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">gestage =</span> <span class="fu">factor</span>(gestage)) <span class="sc">%&gt;%</span> </span>
+<span id="cb428-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> brthwght,</span>
+<span id="cb428-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit)) <span class="sc">+</span></span>
+<span id="cb428-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,</span>
+<span id="cb428-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> upper,</span>
+<span id="cb428-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> toxemia),</span>
+<span id="cb428-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb428-13"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> toxemia,</span>
+<span id="cb428-14"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> toxemia),</span>
+<span id="cb428-15"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb428-16"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> gestage, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb428-17"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb428-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-292-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;brthwght&quot;</span>, <span class="st">&quot;toxemia&quot;</span>, <span class="st">&quot;gestage&quot;</span>),</span>
+<span id="cb429-2"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_glm_1,</span>
+<span id="cb429-3"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">brthwght =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">450</span>, <span class="at">to =</span> <span class="dv">1730</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb429-4"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">gestage =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">36</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb429-5"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb429-6"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">gestage =</span> <span class="fu">factor</span>(gestage)) <span class="sc">%&gt;%</span> </span>
+<span id="cb429-7"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> brthwght,</span>
+<span id="cb429-8"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit)) <span class="sc">+</span></span>
+<span id="cb429-9"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> toxemia,</span>
+<span id="cb429-10"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> toxemia),</span>
+<span id="cb429-11"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb429-12"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> gestage, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb429-13"><a href="logistic-regression---ex-bronchopulmonary-dysplasia-in-premature-infants.html#cb429-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-293-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

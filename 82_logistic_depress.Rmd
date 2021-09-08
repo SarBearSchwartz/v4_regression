@@ -488,10 +488,12 @@ Refit Model 1 with only participant complete on all the predictors.
 
 ```{r}
 fit_glm_1_redo <- glm(satlife ~ sex,
-                      data = df_depress_model)
+                      data = df_depress_model,
+                      family = binomial(link = "logit"))
 
 fit_glm_2_redo <- glm(satlife ~ sex + iq + age + weight,
-                      data = df_depress_model)
+                      data = df_depress_model,
+                      family = binomial(link = "logit"))
 ```
 
 
@@ -524,3 +526,41 @@ performance::compare_performance(fit_glm_1_redo,
 ### Interpretation
 
 * Only sex is predictive of depression.  There is no evidence IQ, age, or weight are associated with depression, all p's > .16.
+
+
+
+
+## Changing the reference category
+
+```{r}
+df_depress$sex
+```
+
+
+```{r}
+df_depress_ref <- df_depress %>% 
+  dplyr::mutate(male = sex %>% forcats::fct_relevel("female", after = 0))
+
+df_depress_ref$male
+```
+
+
+```{r}
+fit_glm_2_male <- glm(satlife ~ male + iq + age + weight,
+                      data = df_depress,
+                      family = binomial(link = "logit"))
+```
+
+
+```{r, results='asis'}
+texreg::knitreg(list(texreghelpr::extract_glm_exp(fit_glm_2),
+                     texreghelpr::extract_glm_exp(fit_glm_2_male)),
+                custom.model.names = c("original model",
+                                       "recoded model"),
+
+                caption.above = TRUE,
+                single.row = TRUE,
+                digits = 4,
+                ci.test = 1)
+```
+

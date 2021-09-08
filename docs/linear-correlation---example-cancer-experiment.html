@@ -54,25 +54,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
-<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -504,6 +485,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
 <li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#changing-the-reference-category"><i class="fa fa-check"></i><b>10.6</b> Changing the reference category</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
@@ -614,17 +596,27 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
 <li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#simple-poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Simple Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-3"><i class="fa fa-check"></i><b>14.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-1"><i class="fa fa-check"></i><b>14.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.3.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions"><i class="fa fa-check"></i><b>14.3.3</b> Predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-poisson-regression"><i class="fa fa-check"></i><b>14.4</b> Multiple Poisson Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-4"><i class="fa fa-check"></i><b>14.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.4.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-2"><i class="fa fa-check"></i><b>14.4.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.4.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions-1"><i class="fa fa-check"></i><b>14.4.3</b> Predictions</a></li>
+<li class="chapter" data-level="14.4.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#assess-model-fit-2"><i class="fa fa-check"></i><b>14.4.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="14.4.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>14.4.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="14.4.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#marginal-plot"><i class="fa fa-check"></i><b>14.4.6</b> Marginal Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.5</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.5.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.7" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.7</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -656,7 +648,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="linear-correlation---example-cancer-experiment.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># Loads several very helpful &#39;tidy&#39; packages</span></span>
 <span id="cb3-2"><a href="linear-correlation---example-cancer-experiment.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># Read in SPSS datasets</span></span>
 <span id="cb3-3"><a href="linear-correlation---example-cancer-experiment.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># Lots of nice tid-bits</span></span>
-<span id="cb3-4"><a href="linear-correlation---example-cancer-experiment.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)       <span class="co"># Extension to &#39;ggplot2&#39; (ggpairs)</span></span></code></pre></div>
+<span id="cb3-4"><a href="linear-correlation---example-cancer-experiment.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)       <span class="co"># Extension to &#39;ggplot2&#39; (ggpairs)</span></span>
+<span id="cb3-5"><a href="linear-correlation---example-cancer-experiment.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables)</span></code></pre></div>
 </div>
 <div id="example-dataset---cancer-experiment" class="section level3" number="1.1.2">
 <h3><span class="header-section-number">1.1.2</span> Example Dataset - Cancer Experiment</h3>
@@ -664,17 +657,17 @@ div.csl-indent {
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-correlation---example-cancer-experiment.html#cb4-1" aria-hidden="true" tabindex="-1"></a>cancer_raw <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/eBook_ANOVA/master/data/Cancer.sav&quot;</span>)</span>
 <span id="cb4-2"><a href="linear-correlation---example-cancer-experiment.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="linear-correlation---example-cancer-experiment.html#cb4-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(cancer_raw)</span></code></pre></div>
-<pre><code>Observations: 25
-Variables: 9
-$ ID       &lt;dbl&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12...
-$ TRT      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,...
-$ AGE      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 4...
-$ WEIGHIN  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158....
-$ STAGE    &lt;dbl&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1,...
-$ TOTALCIN &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6,...
-$ TOTALCW2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 1...
-$ TOTALCW4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8...
-$ TOTALCW6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...</code></pre>
+<pre><code>Rows: 25
+Columns: 9
+$ ID       &lt;dbl&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12, 14, 16~
+$ TRT      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1~
+$ AGE      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 46, 56, 4~
+$ WEIGHIN  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158.0, 212.8~
+$ STAGE    &lt;dbl&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1, 4, 2, 1~
+$ TOTALCIN &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6, 12, 5, ~
+$ TOTALCW2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 11, 7, 11~
+$ TOTALCW4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8, 11, 6,~
+$ TOTALCW6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, 7, 14, 6~</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="linear-correlation---example-cancer-experiment.html#cb6-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="ot">&lt;-</span> cancer_raw <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="linear-correlation---example-cancer-experiment.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename_all</span>(tolower) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-3"><a href="linear-correlation---example-cancer-experiment.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">factor</span>(id)) <span class="sc">%&gt;%</span> </span>
@@ -684,17 +677,17 @@ $ TOTALCW6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...<
 <span id="cb6-7"><a href="linear-correlation---example-cancer-experiment.html#cb6-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage))</span>
 <span id="cb6-8"><a href="linear-correlation---example-cancer-experiment.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-9"><a href="linear-correlation---example-cancer-experiment.html#cb6-9" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(cancer_clean)</span></code></pre></div>
-<pre><code>Observations: 25
-Variables: 9
-$ id       &lt;fct&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12...
-$ trt      &lt;fct&gt; Placebo, Placebo, Placebo, Placebo, Placebo, Placebo,...
-$ age      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 4...
-$ weighin  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158....
-$ stage    &lt;fct&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1,...
-$ totalcin &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6,...
-$ totalcw2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 1...
-$ totalcw4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8...
-$ totalcw6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...</code></pre>
+<pre><code>Rows: 25
+Columns: 9
+$ id       &lt;fct&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12, 14, 16~
+$ trt      &lt;fct&gt; Placebo, Placebo, Placebo, Placebo, Placebo, Placebo, Placebo~
+$ age      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 46, 56, 4~
+$ weighin  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158.0, 212.8~
+$ stage    &lt;fct&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1, 4, 2, 1~
+$ totalcin &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6, 12, 5, ~
+$ totalcw2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 11, 7, 11~
+$ totalcw4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8, 11, 6,~
+$ totalcw6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, 7, 14, 6~</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="linear-correlation---example-cancer-experiment.html#cb8-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(cancer_clean)</span></code></pre></div>
 <pre><code># A tibble: 9 x 9
   id    trt        age   weighin stage totalcin totalcw2 totalcw4 totalcw6
@@ -872,6 +865,18 @@ sample estimates:
  [3]totalcw4 0.206 (0.346) 0.314 (0.145) 1.00               
  [4]totalcw6 0.098 (0.657) 0.378 (0.075) 0.763 (&lt;.001) 1.00 
 -------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-correlation---example-cancer-experiment.html#cb27-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="linear-correlation---example-cancer-experiment.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">tableC</span>(totalcin, totalcw2, totalcw4, totalcw6,</span>
+<span id="cb27-3"><a href="linear-correlation---example-cancer-experiment.html#cb27-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-4"><a href="linear-correlation---example-cancer-experiment.html#cb27-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">rounding =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>
+--------------------------------------------------------
+             [1]         [2]         [3]          [4]  
+ [1]totalcin 1.00                                      
+ [2]totalcw2 0.28 (0.19) 1.00                          
+ [3]totalcw4 0.21 (0.35) 0.31 (0.15) 1.00              
+ [4]totalcw6 0.1 (0.66)  0.38 (0.08) 0.76 (&lt;.001) 1.00 
+--------------------------------------------------------</code></pre>
 </div>
 </div>
 <div id="pairs-plots" class="section level2" number="1.5">
@@ -881,111 +886,104 @@ sample estimates:
 </ul>
 <div id="using-base-r" class="section level3" number="1.5.1">
 <h3><span class="header-section-number">1.5.1</span> Using Base R</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-correlation---example-cancer-experiment.html#cb27-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="linear-correlation---example-cancer-experiment.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
-<span id="cb27-3"><a href="linear-correlation---example-cancer-experiment.html#cb27-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-4"><a href="linear-correlation---example-cancer-experiment.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-26-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="linear-correlation---example-cancer-experiment.html#cb29-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="linear-correlation---example-cancer-experiment.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
+<span id="cb29-3"><a href="linear-correlation---example-cancer-experiment.html#cb29-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="linear-correlation---example-cancer-experiment.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-27-1.png" width="75%" /></p>
 </div>
 <div id="using-the-psych-package" class="section level3" number="1.5.2">
 <h3><span class="header-section-number">1.5.2</span> Using the <code>psych</code> package</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="linear-correlation---example-cancer-experiment.html#cb28-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a href="linear-correlation---example-cancer-experiment.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin,</span>
-<span id="cb28-3"><a href="linear-correlation---example-cancer-experiment.html#cb28-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-4"><a href="linear-correlation---example-cancer-experiment.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">pairs.panels</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-27-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="linear-correlation---example-cancer-experiment.html#cb30-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="linear-correlation---example-cancer-experiment.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin,</span>
+<span id="cb30-3"><a href="linear-correlation---example-cancer-experiment.html#cb30-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-4"><a href="linear-correlation---example-cancer-experiment.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">pairs.panels</span>()</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-28-1.png" width="75%" /></p>
 </div>
 <div id="using-the-ggplot2-and-ggally-packages" class="section level3" number="1.5.3">
 <h3><span class="header-section-number">1.5.3</span> Using the <code>ggplot2</code> and <code>GGally</code> packages</h3>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="linear-correlation---example-cancer-experiment.html#cb29-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="linear-correlation---example-cancer-experiment.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin,</span>
-<span id="cb29-3"><a href="linear-correlation---example-cancer-experiment.html#cb29-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-4"><a href="linear-correlation---example-cancer-experiment.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
-<span id="cb29-5"><a href="linear-correlation---example-cancer-experiment.html#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatmat</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-28-1.png" width="75%" /></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="linear-correlation---example-cancer-experiment.html#cb30-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="linear-correlation---example-cancer-experiment.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
-<span id="cb30-3"><a href="linear-correlation---example-cancer-experiment.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatmat</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;weighin&quot;</span>,</span>
-<span id="cb30-4"><a href="linear-correlation---example-cancer-experiment.html#cb30-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;totalcin&quot;</span>, <span class="st">&quot;totalcw2&quot;</span>, <span class="st">&quot;totalcw4&quot;</span>, <span class="st">&quot;totalcw6&quot;</span>),</span>
-<span id="cb30-5"><a href="linear-correlation---example-cancer-experiment.html#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;trt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="linear-correlation---example-cancer-experiment.html#cb31-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="linear-correlation---example-cancer-experiment.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin,</span>
+<span id="cb31-3"><a href="linear-correlation---example-cancer-experiment.html#cb31-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="linear-correlation---example-cancer-experiment.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="linear-correlation---example-cancer-experiment.html#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatmat</span>()</span></code></pre></div>
 <p><img src="eBook_regression_files/figure-html/unnamed-chunk-29-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="linear-correlation---example-cancer-experiment.html#cb32-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="linear-correlation---example-cancer-experiment.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="linear-correlation---example-cancer-experiment.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatmat</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;weighin&quot;</span>,</span>
+<span id="cb32-4"><a href="linear-correlation---example-cancer-experiment.html#cb32-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;totalcin&quot;</span>, <span class="st">&quot;totalcw2&quot;</span>, <span class="st">&quot;totalcw4&quot;</span>, <span class="st">&quot;totalcw6&quot;</span>),</span>
+<span id="cb32-5"><a href="linear-correlation---example-cancer-experiment.html#cb32-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;trt&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-30-1.png" width="75%" /></p>
 </div>
 </div>
 <div id="correlation-plots-corrolagrams" class="section level2" number="1.6">
 <h2><span class="header-section-number">1.6</span> Correlation Plots: Corrolagrams</h2>
 <div id="simple-correlation-matrix-base-r" class="section level3" number="1.6.1">
 <h3><span class="header-section-number">1.6.1</span> Simple Correlation Matrix (Base R)</h3>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="linear-correlation---example-cancer-experiment.html#cb31-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="linear-correlation---example-cancer-experiment.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
-<span id="cb31-3"><a href="linear-correlation---example-cancer-experiment.html#cb31-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-4"><a href="linear-correlation---example-cancer-experiment.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
-<span id="cb31-5"><a href="linear-correlation---example-cancer-experiment.html#cb31-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
-<pre><code>                 age     weighin   totalcin   totalcw2    totalcw4
-age       1.00000000 -0.29909121 0.22386540 -0.1613892  0.09918029
-weighin  -0.29909121  1.00000000 0.16403694  0.2763478 -0.08013506
-totalcin  0.22386540  0.16403694 1.00000000  0.2819648  0.20604650
-totalcw2 -0.16138924  0.27634783 0.28196479  1.0000000  0.31354250
-totalcw4  0.09918029 -0.08013506 0.20604650  0.3135425  1.00000000
-totalcw6  0.03015273 -0.07750304 0.09786664  0.3780949  0.76299899
-            totalcw6
-age       0.03015273
-weighin  -0.07750304
-totalcin  0.09786664
-totalcw2  0.37809488
-totalcw4  0.76299899
-totalcw6  1.00000000</code></pre>
-</div>
-<div id="using-the-default-settings-1" class="section level3" number="1.6.2">
-<h3><span class="header-section-number">1.6.2</span> Using the Default Settings</h3>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="linear-correlation---example-cancer-experiment.html#cb33-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb33-2"><a href="linear-correlation---example-cancer-experiment.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
 <span id="cb33-3"><a href="linear-correlation---example-cancer-experiment.html#cb33-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
 <span id="cb33-4"><a href="linear-correlation---example-cancer-experiment.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
-<span id="cb33-5"><a href="linear-correlation---example-cancer-experiment.html#cb33-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-6"><a href="linear-correlation---example-cancer-experiment.html#cb33-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-31-1.png" width="75%" /></p>
+<span id="cb33-5"><a href="linear-correlation---example-cancer-experiment.html#cb33-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
+<pre><code>                 age     weighin   totalcin   totalcw2    totalcw4    totalcw6
+age       1.00000000 -0.29909121 0.22386540 -0.1613892  0.09918029  0.03015273
+weighin  -0.29909121  1.00000000 0.16403694  0.2763478 -0.08013506 -0.07750304
+totalcin  0.22386540  0.16403694 1.00000000  0.2819648  0.20604650  0.09786664
+totalcw2 -0.16138924  0.27634783 0.28196479  1.0000000  0.31354250  0.37809488
+totalcw4  0.09918029 -0.08013506 0.20604650  0.3135425  1.00000000  0.76299899
+totalcw6  0.03015273 -0.07750304 0.09786664  0.3780949  0.76299899  1.00000000</code></pre>
 </div>
-<div id="changing-the-shape" class="section level3" number="1.6.3">
-<h3><span class="header-section-number">1.6.3</span> Changing the shape</h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="linear-correlation---example-cancer-experiment.html#cb34-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="linear-correlation---example-cancer-experiment.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
-<span id="cb34-3"><a href="linear-correlation---example-cancer-experiment.html#cb34-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-4"><a href="linear-correlation---example-cancer-experiment.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
-<span id="cb34-5"><a href="linear-correlation---example-cancer-experiment.html#cb34-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-6"><a href="linear-correlation---example-cancer-experiment.html#cb34-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">&quot;square&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-32-1.png" width="75%" /></p>
-</div>
-<div id="only-displaying-half" class="section level3" number="1.6.4">
-<h3><span class="header-section-number">1.6.4</span> Only Displaying Half</h3>
+<div id="using-the-default-settings-1" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Using the Default Settings</h3>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="linear-correlation---example-cancer-experiment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb35-2"><a href="linear-correlation---example-cancer-experiment.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
 <span id="cb35-3"><a href="linear-correlation---example-cancer-experiment.html#cb35-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
 <span id="cb35-4"><a href="linear-correlation---example-cancer-experiment.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
 <span id="cb35-5"><a href="linear-correlation---example-cancer-experiment.html#cb35-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-6"><a href="linear-correlation---example-cancer-experiment.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">&quot;ellipse&quot;</span>,</span>
-<span id="cb35-7"><a href="linear-correlation---example-cancer-experiment.html#cb35-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-33-1.png" width="75%" /></p>
+<span id="cb35-6"><a href="linear-correlation---example-cancer-experiment.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>()</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-32-1.png" width="75%" /></p>
 </div>
-<div id="mixing-it-up" class="section level3" number="1.6.5">
-<h3><span class="header-section-number">1.6.5</span> Mixing it up</h3>
+<div id="changing-the-shape" class="section level3" number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> Changing the shape</h3>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="linear-correlation---example-cancer-experiment.html#cb36-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb36-2"><a href="linear-correlation---example-cancer-experiment.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
 <span id="cb36-3"><a href="linear-correlation---example-cancer-experiment.html#cb36-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
 <span id="cb36-4"><a href="linear-correlation---example-cancer-experiment.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
 <span id="cb36-5"><a href="linear-correlation---example-cancer-experiment.html#cb36-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-6"><a href="linear-correlation---example-cancer-experiment.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot.mixed</span>()</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-34-1.png" width="75%" /></p>
+<span id="cb36-6"><a href="linear-correlation---example-cancer-experiment.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">&quot;square&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-33-1.png" width="75%" /></p>
 </div>
-<div id="getting-fancy" class="section level3" number="1.6.6">
-<h3><span class="header-section-number">1.6.6</span> Getting Fancy</h3>
+<div id="only-displaying-half" class="section level3" number="1.6.4">
+<h3><span class="header-section-number">1.6.4</span> Only Displaying Half</h3>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="linear-correlation---example-cancer-experiment.html#cb37-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb37-2"><a href="linear-correlation---example-cancer-experiment.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
 <span id="cb37-3"><a href="linear-correlation---example-cancer-experiment.html#cb37-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
 <span id="cb37-4"><a href="linear-correlation---example-cancer-experiment.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
 <span id="cb37-5"><a href="linear-correlation---example-cancer-experiment.html#cb37-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-6"><a href="linear-correlation---example-cancer-experiment.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot.mixed</span>(<span class="at">upper =</span> <span class="st">&quot;number&quot;</span>,</span>
-<span id="cb37-7"><a href="linear-correlation---example-cancer-experiment.html#cb37-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">lower =</span> <span class="st">&quot;ellipse&quot;</span>)</span></code></pre></div>
+<span id="cb37-6"><a href="linear-correlation---example-cancer-experiment.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">&quot;ellipse&quot;</span>,</span>
+<span id="cb37-7"><a href="linear-correlation---example-cancer-experiment.html#cb37-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-34-1.png" width="75%" /></p>
+</div>
+<div id="mixing-it-up" class="section level3" number="1.6.5">
+<h3><span class="header-section-number">1.6.5</span> Mixing it up</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="linear-correlation---example-cancer-experiment.html#cb38-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="linear-correlation---example-cancer-experiment.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
+<span id="cb38-3"><a href="linear-correlation---example-cancer-experiment.html#cb38-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-4"><a href="linear-correlation---example-cancer-experiment.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
+<span id="cb38-5"><a href="linear-correlation---example-cancer-experiment.html#cb38-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-6"><a href="linear-correlation---example-cancer-experiment.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot.mixed</span>()</span></code></pre></div>
 <p><img src="eBook_regression_files/figure-html/unnamed-chunk-35-1.png" width="75%" /></p>
+</div>
+<div id="getting-fancy" class="section level3" number="1.6.6">
+<h3><span class="header-section-number">1.6.6</span> Getting Fancy</h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="linear-correlation---example-cancer-experiment.html#cb39-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="linear-correlation---example-cancer-experiment.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(age, weighin, </span>
+<span id="cb39-3"><a href="linear-correlation---example-cancer-experiment.html#cb39-3" aria-hidden="true" tabindex="-1"></a>                totalcin, totalcw2, totalcw4, totalcw6) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="linear-correlation---example-cancer-experiment.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>,</span>
+<span id="cb39-5"><a href="linear-correlation---example-cancer-experiment.html#cb39-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-6"><a href="linear-correlation---example-cancer-experiment.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot.mixed</span>(<span class="at">upper =</span> <span class="st">&quot;number&quot;</span>,</span>
+<span id="cb39-7"><a href="linear-correlation---example-cancer-experiment.html#cb39-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">lower =</span> <span class="st">&quot;ellipse&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-36-1.png" width="75%" /></p>
 
 </div>
 </div>

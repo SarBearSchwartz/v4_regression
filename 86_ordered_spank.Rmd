@@ -35,7 +35,7 @@ This dataset comes from John Hoffman's textbook: Regression Models for Categoric
 Dataset:  The following example uses the SPSS data set `gss.sav`. The dependent variable of interest is labeled `spanking`. 
 
 
-> " The pertinent question (`sapnking`) asks "Do you strongly agree, agree, disagree, or strongly disagree that it is sometimes necessary to discipline a child with a good, hard spanking?" The possible answers are coded as `1` = strongly agree, `2` = agree, `3` = disagree, and `4` = strongly disagree. A common hypothesis is that support for corporal punishment of children decreases at higher levels of education."
+> " The pertinent question (`spanking`) asks "Do you strongly agree, agree, disagree, or strongly disagree that it is sometimes necessary to discipline a child with a good, hard spanking?" The possible answers are coded as `1` = strongly agree, `2` = agree, `3` = disagree, and `4` = strongly disagree. A common hypothesis is that support for corporal punishment of children decreases at higher levels of education."
 
 
 

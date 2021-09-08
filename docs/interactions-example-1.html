@@ -54,25 +54,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
-<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -504,6 +485,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
 <li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#changing-the-reference-category"><i class="fa fa-check"></i><b>10.6</b> Changing the reference category</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
@@ -614,17 +596,27 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
 <li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#simple-poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Simple Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-3"><i class="fa fa-check"></i><b>14.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-1"><i class="fa fa-check"></i><b>14.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.3.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions"><i class="fa fa-check"></i><b>14.3.3</b> Predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-poisson-regression"><i class="fa fa-check"></i><b>14.4</b> Multiple Poisson Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-4"><i class="fa fa-check"></i><b>14.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.4.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-2"><i class="fa fa-check"></i><b>14.4.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.4.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions-1"><i class="fa fa-check"></i><b>14.4.3</b> Predictions</a></li>
+<li class="chapter" data-level="14.4.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#assess-model-fit-2"><i class="fa fa-check"></i><b>14.4.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="14.4.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>14.4.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="14.4.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#marginal-plot"><i class="fa fa-check"></i><b>14.4.6</b> Marginal Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.5</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.5.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.7" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.7</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -649,68 +641,69 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="interactions-example-1" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Interactions Example</h1>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="interactions-example-1.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb325-2"><a href="interactions-example-1.html#cb325-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb325-3"><a href="interactions-example-1.html#cb325-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)</span>
-<span id="cb325-4"><a href="interactions-example-1.html#cb325-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb325-5"><a href="interactions-example-1.html#cb325-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb325-6"><a href="interactions-example-1.html#cb325-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
-<span id="cb325-7"><a href="interactions-example-1.html#cb325-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions)</span>
-<span id="cb325-8"><a href="interactions-example-1.html#cb325-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="interactions-example-1.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb327-2"><a href="interactions-example-1.html#cb327-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb327-3"><a href="interactions-example-1.html#cb327-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)</span>
+<span id="cb327-4"><a href="interactions-example-1.html#cb327-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb327-5"><a href="interactions-example-1.html#cb327-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb327-6"><a href="interactions-example-1.html#cb327-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb327-7"><a href="interactions-example-1.html#cb327-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions)</span>
+<span id="cb327-8"><a href="interactions-example-1.html#cb327-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span></code></pre></div>
 <p>Regression Analysis and Linear Models: concepts, applicaitons, and implementation
 - By Richard B. Darlington &amp; Andrew F. Hayes</p>
 <p>Chapter 3: Partial Relationships and the Multiple Linear Regressio Model</p>
 <div id="the-data" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> The Data</h2>
 <p>Data from Table 3.1</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="interactions-example-1.html#cb326-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb326-2"><a href="interactions-example-1.html#cb326-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">exercise =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">4</span>, <span class="dv">4</span>),</span>
-<span id="cb326-3"><a href="interactions-example-1.html#cb326-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">food     =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>,  <span class="dv">4</span>,  <span class="dv">6</span>, <span class="dv">8</span>),</span>
-<span id="cb326-4"><a href="interactions-example-1.html#cb326-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">loss     =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">9</span>))</span>
-<span id="cb326-5"><a href="interactions-example-1.html#cb326-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb326-6"><a href="interactions-example-1.html#cb326-6" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code># A tibble: 10 x 4
-      id exercise  food  loss
-   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1     1        0     2     6
- 2     2        0     4     2
- 3     3        0     6     4
- 4     4        2     2     8
- 5     5        2     4     9
- 6     6        2     6     8
- 7     7        2     8     5
- 8     8        4     4    11
- 9     9        4     6    13
-10    10        4     8     9</code></pre>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="interactions-example-1.html#cb328-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb328-2"><a href="interactions-example-1.html#cb328-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">exercise =</span> <span class="fu">c</span>( <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">4</span>,  <span class="dv">4</span>),</span>
+<span id="cb328-3"><a href="interactions-example-1.html#cb328-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">food     =</span> <span class="fu">c</span>( <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">6</span>,  <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">6</span>,  <span class="dv">8</span>,  <span class="dv">4</span>,  <span class="dv">6</span>,  <span class="dv">8</span>),</span>
+<span id="cb328-4"><a href="interactions-example-1.html#cb328-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">metabo   =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>, <span class="dv">15</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">26</span>),</span>
+<span id="cb328-5"><a href="interactions-example-1.html#cb328-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">loss     =</span> <span class="fu">c</span>( <span class="dv">6</span>,  <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">8</span>,  <span class="dv">9</span>,  <span class="dv">8</span>,  <span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">13</span>,  <span class="dv">9</span>))</span>
+<span id="cb328-6"><a href="interactions-example-1.html#cb328-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-7"><a href="interactions-example-1.html#cb328-7" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code># A tibble: 10 x 5
+      id exercise  food metabo  loss
+   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1     1        0     2     15     6
+ 2     2        0     4     14     2
+ 3     3        0     6     19     4
+ 4     4        2     2     15     8
+ 5     5        2     4     21     9
+ 6     6        2     6     23     8
+ 7     7        2     8     21     5
+ 8     8        4     4     22    11
+ 9     9        4     6     24    13
+10    10        4     8     26     9</code></pre>
 </div>
 <div id="visualize" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Visualize</h2>
 <p>Figure 3.1</p>
 <p>An example with a positive simple association and negative partial association.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="interactions-example-1.html#cb328-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb328-2"><a href="interactions-example-1.html#cb328-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">exercise =</span> <span class="fu">factor</span>(exercise)) <span class="sc">%&gt;%</span> </span>
-<span id="cb328-3"><a href="interactions-example-1.html#cb328-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food,</span>
-<span id="cb328-4"><a href="interactions-example-1.html#cb328-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> loss,</span>
-<span id="cb328-5"><a href="interactions-example-1.html#cb328-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> exercise,</span>
-<span id="cb328-6"><a href="interactions-example-1.html#cb328-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> exercise)) <span class="sc">+</span></span>
-<span id="cb328-7"><a href="interactions-example-1.html#cb328-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb328-8"><a href="interactions-example-1.html#cb328-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb328-9"><a href="interactions-example-1.html#cb328-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Food Intake, 100s of calories above recommended&quot;</span>,</span>
-<span id="cb328-10"><a href="interactions-example-1.html#cb328-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Weight Loss, 100s of grams&quot;</span>,</span>
-<span id="cb328-11"><a href="interactions-example-1.html#cb328-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>,</span>
-<span id="cb328-12"><a href="interactions-example-1.html#cb328-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>) <span class="sc">+</span></span>
-<span id="cb328-13"><a href="interactions-example-1.html#cb328-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb328-14"><a href="interactions-example-1.html#cb328-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb328-15"><a href="interactions-example-1.html#cb328-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">17</span>))  <span class="sc">+</span></span>
-<span id="cb328-16"><a href="interactions-example-1.html#cb328-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>),</span>
-<span id="cb328-17"><a href="interactions-example-1.html#cb328-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb328-18"><a href="interactions-example-1.html#cb328-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb328-19"><a href="interactions-example-1.html#cb328-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb328-20"><a href="interactions-example-1.html#cb328-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> exercise),</span>
-<span id="cb328-21"><a href="interactions-example-1.html#cb328-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb328-22"><a href="interactions-example-1.html#cb328-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb328-23"><a href="interactions-example-1.html#cb328-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-231-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="interactions-example-1.html#cb330-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb330-2"><a href="interactions-example-1.html#cb330-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">exercise =</span> <span class="fu">factor</span>(exercise)) <span class="sc">%&gt;%</span> </span>
+<span id="cb330-3"><a href="interactions-example-1.html#cb330-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food,</span>
+<span id="cb330-4"><a href="interactions-example-1.html#cb330-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> loss,</span>
+<span id="cb330-5"><a href="interactions-example-1.html#cb330-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> exercise,</span>
+<span id="cb330-6"><a href="interactions-example-1.html#cb330-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> exercise)) <span class="sc">+</span></span>
+<span id="cb330-7"><a href="interactions-example-1.html#cb330-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb330-8"><a href="interactions-example-1.html#cb330-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb330-9"><a href="interactions-example-1.html#cb330-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Food Intake, 100s of calories above recommended&quot;</span>,</span>
+<span id="cb330-10"><a href="interactions-example-1.html#cb330-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Weight Loss, 100s of grams&quot;</span>,</span>
+<span id="cb330-11"><a href="interactions-example-1.html#cb330-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>,</span>
+<span id="cb330-12"><a href="interactions-example-1.html#cb330-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>) <span class="sc">+</span></span>
+<span id="cb330-13"><a href="interactions-example-1.html#cb330-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb330-14"><a href="interactions-example-1.html#cb330-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb330-15"><a href="interactions-example-1.html#cb330-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">17</span>))  <span class="sc">+</span></span>
+<span id="cb330-16"><a href="interactions-example-1.html#cb330-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>),</span>
+<span id="cb330-17"><a href="interactions-example-1.html#cb330-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb330-18"><a href="interactions-example-1.html#cb330-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb330-19"><a href="interactions-example-1.html#cb330-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb330-20"><a href="interactions-example-1.html#cb330-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> exercise),</span>
+<span id="cb330-21"><a href="interactions-example-1.html#cb330-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb330-22"><a href="interactions-example-1.html#cb330-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb330-23"><a href="interactions-example-1.html#cb330-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-232-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regression" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Regression</h2>
@@ -721,10 +714,10 @@ Y_i = b_0 + b_1X_{1i} + b_2X_{2i}+ e_i
 <p><span class="math display">\[
 \hat{Y} = b_0 + b_1X_1 + b_2X_2
 \]</span></p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="interactions-example-1.html#cb329-1" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(loss <span class="sc">~</span> exercise <span class="sc">+</span> food,</span>
-<span id="cb329-2"><a href="interactions-example-1.html#cb329-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df)</span>
-<span id="cb329-3"><a href="interactions-example-1.html#cb329-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb329-4"><a href="interactions-example-1.html#cb329-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="interactions-example-1.html#cb331-1" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(loss <span class="sc">~</span> exercise <span class="sc">+</span> food,</span>
+<span id="cb331-2"><a href="interactions-example-1.html#cb331-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df)</span>
+<span id="cb331-3"><a href="interactions-example-1.html#cb331-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb331-4"><a href="interactions-example-1.html#cb331-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_lm)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = loss ~ exercise + food, data = df)
@@ -747,71 +740,369 @@ F-statistic: 18.05 on 2 and 7 DF,  p-value: 0.001727</code></pre>
 <p><span class="math display">\[
 \hat{Y} = 6 + 2X_{exercise} -0.5X_{food}
 \]</span></p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="interactions-example-1.html#cb331-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;food&quot;</span>),</span>
-<span id="cb331-2"><a href="interactions-example-1.html#cb331-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_lm) <span class="sc">%&gt;%</span> </span>
-<span id="cb331-3"><a href="interactions-example-1.html#cb331-3" aria-hidden="true" tabindex="-1"></a>  data.frame</span></code></pre></div>
-<pre><code># A tibble: 25 x 6
-   exercise  food   fit    se lower upper
-      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1        0     2     5 0.929  2.80  7.20
- 2        1     2     7 0.849  4.99  9.01
- 3        2     2     9 0.894  6.89 11.1 
- 4        3     2    11 1.05   8.52 13.5 
- 5        4     2    13 1.27   9.99 16.0 
- 6        0     4     4 0.781  2.15  5.85
- 7        1     4     6 0.583  4.62  7.38
- 8        2     4     8 0.540  6.72  9.28
- 9        3     4    10 0.683  8.38 11.6 
-10        4     4    12 0.929  9.80 14.2 
-# ... with 15 more rows</code></pre>
-<p>Figure 3.2</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="interactions-example-1.html#cb333-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;food&quot;</span>),</span>
+<p>Figure 3.5, page 54</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="interactions-example-1.html#cb333-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;food&quot;</span>),</span>
 <span id="cb333-2"><a href="interactions-example-1.html#cb333-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_lm,</span>
 <span id="cb333-3"><a href="interactions-example-1.html#cb333-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">exercise =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb333-4"><a href="interactions-example-1.html#cb333-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span>
-<span id="cb333-5"><a href="interactions-example-1.html#cb333-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb333-6"><a href="interactions-example-1.html#cb333-6" aria-hidden="true" tabindex="-1"></a>pred</span></code></pre></div>
-<pre><code># A tibble: 15 x 6
-   exercise  food   fit    se  lower upper
-      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1        0     2   5   0.929  2.80   7.20
- 2        2     2   9   0.894  6.89  11.1 
- 3        4     2  13   1.27   9.99  16.0 
- 4        0     4   4   0.781  2.15   5.85
- 5        2     4   8   0.540  6.72   9.28
- 6        4     4  12   0.929  9.80  14.2 
- 7        0     5   3.5 0.820  1.56   5.44
- 8        2     5   7.5 0.478  6.37   8.63
- 9        4     5  11.5 0.820  9.56  13.4 
-10        0     6   3   0.929  0.803  5.20
-11        2     6   7   0.540  5.72   8.28
-12        4     6  11   0.781  9.15  12.8 
-13        0     8   2   1.27  -1.01   5.01
-14        2     8   6   0.894  3.89   8.11
-15        4     8  10   0.929  7.80  12.2 </code></pre>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="interactions-example-1.html#cb335-1" aria-hidden="true" tabindex="-1"></a>rgl<span class="sc">::</span><span class="fu">plot3d</span>(fit_lm)</span></code></pre></div>
-<div id="rgl80964" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
-<script type="application/json" data-for="rgl80964">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false},"rootSubscene":7,"objects":{"13":{"id":13,"type":"points","material":{"lit":false},"vertices":[[0,2,6],[0,4,2],[0,6,4],[2,2,8],[2,4,9],[2,6,8],[2,8,5],[4,4,11],[4,6,13],[4,8,9]],"colors":[[0,0,0,1]],"centers":[[0,2,6],[0,4,2],[0,6,4],[2,2,8],[2,4,9],[2,6,8],[2,8,5],[4,4,11],[4,6,13],[4,8,9]],"ignoreExtent":false,"flags":34816},"15":{"id":15,"type":"text","material":{"lit":false,"margin":0,"floating":true,"edge":[0,1,1]},"vertices":[["NaN",4,1]],"colors":[[0,0,0,1]],"texts":[["exercise"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[["NaN",4,1]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false,"margin":1,"floating":true,"edge":[1,1,1]},"vertices":[["NaN",4,1]],"colors":[[0,0,0,1]],"texts":[["food"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[["NaN",4,1]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false,"margin":2,"floating":true,"edge":[1,1,1]},"vertices":[["NaN",4,1]],"colors":[[0,0,0,1]],"texts":[["loss"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[["NaN",4,1]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"18":{"id":18,"type":"planes","material":{"alpha":0.498039215803146,"isTransparent":true,"polygon_offset":[1,1]},"vertices":[[0,2,5],[0,8,2],[4,8,10]],"colors":[[0.745098054409027,0.745098054409027,0.745098054409027,0.498039215803146]],"offsets":[[6]],"centers":[[1.33333337306976,6,5.66666698455811],[2.66666674613953,4,9.33333396911621],["NaN","NaN","NaN"],["NaN","NaN","NaN"]],"normals":[[2,-0.5,-1]],"ignoreExtent":true,"flags":32803},"19":{"id":19,"type":"linestrip","material":{"lit":false},"vertices":[[0,2,5],[0,8,2],[0,"NaN","NaN"],[1,2,7],[1,8,4],[1,"NaN","NaN"],[2,2,9],[2,8,6],[2,"NaN","NaN"],[3,2,11],[3,8,8],[3,"NaN","NaN"],[4,2,13],[4,8,10],[4,"NaN","NaN"],[0,2,5],[4,2,13],["NaN",2,"NaN"],[0,3,4.5],[4,3,12.5],["NaN",3,"NaN"],[0,4,4],[4,4,12],["NaN",4,"NaN"],[0,5,3.5],[4,5,11.5],["NaN",5,"NaN"],[0,6,3],[4,6,11],["NaN",6,"NaN"],[0,7,2.5],[4,7,10.5],["NaN",7,"NaN"],[0,8,2],[4,8,10],["NaN",8,"NaN"]],"colors":[[0,0,0,1]],"centers":[[0,2,5],[0,8,2],[0,"NaN","NaN"],[1,2,7],[1,8,4],[1,"NaN","NaN"],[2,2,9],[2,8,6],[2,"NaN","NaN"],[3,2,11],[3,8,8],[3,"NaN","NaN"],[4,2,13],[4,8,10],[4,"NaN","NaN"],[0,2,5],[4,2,13],["NaN",2,"NaN"],[0,3,4.5],[4,3,12.5],["NaN",3,"NaN"],[0,4,4],[4,4,12],["NaN",4,"NaN"],[0,5,3.5],[4,5,11.5],["NaN",5,"NaN"],[0,6,3],[4,6,11],["NaN",6,"NaN"],[0,7,2.5],[4,7,10.5],["NaN",7,"NaN"],[0,8,2],[4,8,10],["NaN",8,"NaN"]],"ignoreExtent":false,"flags":32832},"11":{"id":11,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"10":{"id":10,"type":"background","material":{},"colors":[[0.298039227724075,0.298039227724075,0.298039227724075,1]],"centers":[[0,0,0]],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"12":{"id":12,"type":"background","material":{"lit":false,"back":"lines"},"colors":[[1,1,1,1]],"centers":[[0,0,0]],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":[[0,"NA","NA"],[1,"NA","NA"],[2,"NA","NA"],[3,"NA","NA"],[4,"NA","NA"],["NA",2,"NA"],["NA",3,"NA"],["NA",4,"NA"],["NA",5,"NA"],["NA",6,"NA"],["NA",7,"NA"],["NA",8,"NA"],["NA","NA",2],["NA","NA",4],["NA","NA",6],["NA","NA",8],["NA","NA",10],["NA","NA",12]],"colors":[[0,0,0,1]],"axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,2],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.02999997138977,1.02999997138977,1.02999997138977]},"draw_front":true},"7":{"id":7,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":7,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,32.185417175293],"modelMatrix":[[1.89846432209015,0,0,-3.7969286441803],[0,0.432875365018845,0.648717403411865,-7.02975702285767],[0,-1.18931531906128,0.236113831400871,-28.009693145752],[0,0,0,1]],"projMatrix":[[3.73205065727234,0,0,0],[0,3.73205065727234,0,0],[0,0,-3.86370277404785,-116.024681091309],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1.89846432209015,1.26564288139343,0.690350651741028],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,4,2,8,2,13],"windowRect":[112,135,368,391],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"TT Arial","maxClipPlanes":8,"glVersion":4.6,"activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[12,14,13,15,16,17,18,19,11],"subscenes":[],"flags":36211}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":480,"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="interactions-example-1.html#cb336-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;food&quot;</span>),</span>
-<span id="cb336-2"><a href="interactions-example-1.html#cb336-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_lm,</span>
-<span id="cb336-3"><a href="interactions-example-1.html#cb336-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">exercise =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb336-4"><a href="interactions-example-1.html#cb336-4" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
-<span id="cb336-5"><a href="interactions-example-1.html#cb336-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">exercise =</span> <span class="fu">factor</span>(exercise)) <span class="sc">%&gt;%</span></span>
-<span id="cb336-6"><a href="interactions-example-1.html#cb336-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food,</span>
-<span id="cb336-7"><a href="interactions-example-1.html#cb336-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit,</span>
-<span id="cb336-8"><a href="interactions-example-1.html#cb336-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> exercise)) <span class="sc">+</span></span>
-<span id="cb336-9"><a href="interactions-example-1.html#cb336-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> fit <span class="sc">-</span> se,</span>
-<span id="cb336-10"><a href="interactions-example-1.html#cb336-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> fit <span class="sc">+</span> se),</span>
-<span id="cb336-11"><a href="interactions-example-1.html#cb336-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb336-12"><a href="interactions-example-1.html#cb336-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> exercise)) <span class="sc">+</span></span>
-<span id="cb336-13"><a href="interactions-example-1.html#cb336-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb336-14"><a href="interactions-example-1.html#cb336-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Food Intake, 100s of calories above recommended&quot;</span>,</span>
-<span id="cb336-15"><a href="interactions-example-1.html#cb336-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Weight Loss, 100s of grams&quot;</span>,</span>
-<span id="cb336-16"><a href="interactions-example-1.html#cb336-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill  =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>,</span>
-<span id="cb336-17"><a href="interactions-example-1.html#cb336-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>) <span class="sc">+</span></span>
-<span id="cb336-18"><a href="interactions-example-1.html#cb336-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb336-19"><a href="interactions-example-1.html#cb336-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) </span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-235-1.png" width="75%" /></p>
+<span id="cb333-4"><a href="interactions-example-1.html#cb333-4" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb333-5"><a href="interactions-example-1.html#cb333-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">exercise =</span> <span class="fu">factor</span>(exercise)) <span class="sc">%&gt;%</span></span>
+<span id="cb333-6"><a href="interactions-example-1.html#cb333-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food,</span>
+<span id="cb333-7"><a href="interactions-example-1.html#cb333-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit,</span>
+<span id="cb333-8"><a href="interactions-example-1.html#cb333-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> exercise)) <span class="sc">+</span></span>
+<span id="cb333-9"><a href="interactions-example-1.html#cb333-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> fit <span class="sc">-</span> se,</span>
+<span id="cb333-10"><a href="interactions-example-1.html#cb333-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> fit <span class="sc">+</span> se),</span>
+<span id="cb333-11"><a href="interactions-example-1.html#cb333-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb333-12"><a href="interactions-example-1.html#cb333-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> exercise)) <span class="sc">+</span></span>
+<span id="cb333-13"><a href="interactions-example-1.html#cb333-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb333-14"><a href="interactions-example-1.html#cb333-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Food Intake, 100s of calories above recommended&quot;</span>,</span>
+<span id="cb333-15"><a href="interactions-example-1.html#cb333-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Weight Loss, 100s of grams&quot;</span>,</span>
+<span id="cb333-16"><a href="interactions-example-1.html#cb333-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill  =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>,</span>
+<span id="cb333-17"><a href="interactions-example-1.html#cb333-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency, average weekly hours: &quot;</span>) <span class="sc">+</span></span>
+<span id="cb333-18"><a href="interactions-example-1.html#cb333-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb333-19"><a href="interactions-example-1.html#cb333-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) </span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-234-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Figrue 3.6, page 54</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="interactions-example-1.html#cb334-1" aria-hidden="true" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;food&quot;</span>),</span>
+<span id="cb334-2"><a href="interactions-example-1.html#cb334-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mod =</span> fit_lm,</span>
+<span id="cb334-3"><a href="interactions-example-1.html#cb334-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">food =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">4</span>,  <span class="dv">8</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb334-4"><a href="interactions-example-1.html#cb334-4" aria-hidden="true" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb334-5"><a href="interactions-example-1.html#cb334-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">food =</span> <span class="fu">factor</span>(food)) <span class="sc">%&gt;%</span></span>
+<span id="cb334-6"><a href="interactions-example-1.html#cb334-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> exercise,</span>
+<span id="cb334-7"><a href="interactions-example-1.html#cb334-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> fit,</span>
+<span id="cb334-8"><a href="interactions-example-1.html#cb334-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> food)) <span class="sc">+</span></span>
+<span id="cb334-9"><a href="interactions-example-1.html#cb334-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> fit <span class="sc">-</span> se,</span>
+<span id="cb334-10"><a href="interactions-example-1.html#cb334-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> fit <span class="sc">+</span> se),</span>
+<span id="cb334-11"><a href="interactions-example-1.html#cb334-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb334-12"><a href="interactions-example-1.html#cb334-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> food)) <span class="sc">+</span></span>
+<span id="cb334-13"><a href="interactions-example-1.html#cb334-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb334-14"><a href="interactions-example-1.html#cb334-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Food Intake, 100s of calories above recommended&quot;</span>,</span>
+<span id="cb334-15"><a href="interactions-example-1.html#cb334-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Exercise Frequency, average weekly hours&quot;</span>,</span>
+<span id="cb334-16"><a href="interactions-example-1.html#cb334-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill  =</span> <span class="st">&quot;Weight Loss, 100s of grams: &quot;</span>,</span>
+<span id="cb334-17"><a href="interactions-example-1.html#cb334-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Weight Loss, 100s of grams: &quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-18"><a href="interactions-example-1.html#cb334-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb334-19"><a href="interactions-example-1.html#cb334-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)) </span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-235-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="interactions-example-1.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_lm)</span></code></pre></div>
+<pre><code># A tibble: 3 x 5
+     Df `Sum Sq` `Mean Sq` `F value`  `Pr(&gt;F)`
+  &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1     1     73.5     73.5      32.2   0.000758
+2     1      9        9         3.94  0.0876  
+3     7     16        2.29     NA    NA       </code></pre>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="interactions-example-1.html#cb337-1" aria-hidden="true" tabindex="-1"></a>jtools<span class="sc">::</span><span class="fu">summ</span>(fit_lm, </span>
+<span id="cb337-2"><a href="interactions-example-1.html#cb337-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">conf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb337-3"><a href="interactions-example-1.html#cb337-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">part.corr =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Observations
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Dependent variable
+</td>
+<td style="text-align:right;">
+loss
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Type
+</td>
+<td style="text-align:right;">
+OLS linear regression
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+F(2,7)
+</td>
+<td style="text-align:right;">
+18.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+R²
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Adj. R²
+</td>
+<td style="text-align:right;">
+0.79
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Est.
+</th>
+<th style="text-align:right;">
+2.5%
+</th>
+<th style="text-align:right;">
+97.5%
+</th>
+<th style="text-align:right;">
+t val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+partial.r
+</th>
+<th style="text-align:right;">
+part.r
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+6.00
+</td>
+<td style="text-align:right;">
+2.99
+</td>
+<td style="text-align:right;">
+9.01
+</td>
+<td style="text-align:right;">
+4.71
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+exercise
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+2.79
+</td>
+<td style="text-align:right;">
+6.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+food
+</td>
+<td style="text-align:right;">
+-0.50
+</td>
+<td style="text-align:right;">
+-1.10
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+-1.98
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+-0.60
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS
+</td>
+</tr>
+</tfoot>
+</table>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="interactions-example-1.html#cb338-1" aria-hidden="true" tabindex="-1"></a>fit_lm_Z <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">scale</span>(loss) <span class="sc">~</span> <span class="fu">scale</span>(exercise) <span class="sc">+</span> <span class="fu">scale</span>(food),</span>
+<span id="cb338-2"><a href="interactions-example-1.html#cb338-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="interactions-example-1.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_lm_Z)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = scale(loss) ~ scale(exercise) + scale(food), data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.6046 -0.3023  0.0000  0.3023  0.6046 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      8.240e-17  1.445e-01   0.000 1.000000    
+scale(exercise)  9.872e-01  1.645e-01   6.000 0.000542 ***
+scale(food)     -3.265e-01  1.645e-01  -1.984 0.087623 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.457 on 7 degrees of freedom
+Multiple R-squared:  0.8376,    Adjusted R-squared:  0.7912 
+F-statistic: 18.05 on 2 and 7 DF,  p-value: 0.001727</code></pre>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="interactions-example-1.html#cb341-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_lm, fit_lm_Z),</span>
+<span id="cb341-2"><a href="interactions-example-1.html#cb341-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+6.00 (1.27)<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00 (0.14)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+exercise
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.00 (0.33)<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+food
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.50 (0.25)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+scale(exercise)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.99 (0.16)<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+scale(food)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.33 (0.16)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.84
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.84
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.79
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.79
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+10
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="3">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
 
 </div>
 </div>

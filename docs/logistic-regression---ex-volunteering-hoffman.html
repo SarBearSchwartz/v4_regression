@@ -54,25 +54,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
-<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -504,6 +485,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
 <li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#changing-the-reference-category"><i class="fa fa-check"></i><b>10.6</b> Changing the reference category</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
@@ -614,17 +596,27 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
 <li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#simple-poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Simple Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-3"><i class="fa fa-check"></i><b>14.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-1"><i class="fa fa-check"></i><b>14.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.3.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions"><i class="fa fa-check"></i><b>14.3.3</b> Predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-poisson-regression"><i class="fa fa-check"></i><b>14.4</b> Multiple Poisson Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-4"><i class="fa fa-check"></i><b>14.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.4.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-2"><i class="fa fa-check"></i><b>14.4.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.4.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions-1"><i class="fa fa-check"></i><b>14.4.3</b> Predictions</a></li>
+<li class="chapter" data-level="14.4.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#assess-model-fit-2"><i class="fa fa-check"></i><b>14.4.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="14.4.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>14.4.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="14.4.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#marginal-plot"><i class="fa fa-check"></i><b>14.4.6</b> Marginal Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.5</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.5.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.7" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.7</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -649,20 +641,20 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="logistic-regression---ex-volunteering-hoffman" class="section level1" number="11">
 <h1><span class="header-section-number">11</span> Logistic Regression - Ex: volunteering (Hoffman)</h1>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb559-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
-<span id="cb559-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
-<span id="cb559-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
-<span id="cb559-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
-<span id="cb559-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreghelpr)  <span class="co"># GITHUB: sarbearschartz/texreghelpr</span></span>
-<span id="cb559-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
-<span id="cb559-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
-<span id="cb559-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
-<span id="cb559-10"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
-<span id="cb559-11"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
-<span id="cb559-12"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions) <span class="co"># interaction plots</span></span>
-<span id="cb559-13"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># various plots</span></span>
-<span id="cb559-14"><a href="logistic-regression---ex-volunteering-hoffman.html#cb559-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb570-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># read in SPSS dataset</span></span>
+<span id="cb570-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furniture)    <span class="co"># nice table1() descriptives</span></span>
+<span id="cb570-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)    <span class="co"># display nice tables: summary &amp; regression</span></span>
+<span id="cb570-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)       <span class="co"># Convert Regression Output to LaTeX or HTML Tables</span></span>
+<span id="cb570-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreghelpr)  <span class="co"># GITHUB: sarbearschartz/texreghelpr</span></span>
+<span id="cb570-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># contains some useful functions, like headTail</span></span>
+<span id="cb570-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)          <span class="co"># Companion to Applied Regression</span></span>
+<span id="cb570-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># Quick plots and tables for models</span></span>
+<span id="cb570-10"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)         <span class="co"># psudo R-squared function</span></span>
+<span id="cb570-11"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)         <span class="co"># Interpreted String Literals </span></span>
+<span id="cb570-12"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions) <span class="co"># interaction plots</span></span>
+<span id="cb570-13"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)       <span class="co"># various plots</span></span>
+<span id="cb570-14"><a href="logistic-regression---ex-volunteering-hoffman.html#cb570-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># r-squared values</span></span></code></pre></div>
 <p>This dataset comes from John Hoffman’s textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) <a href="https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&amp;qid=1603172859&amp;refinements=p_27%3ADr.+John+P.+Hoffmann&amp;s=books&amp;sr=1-2&amp;text=Dr.+John+P.+Hoffmann">Amazon link, 2014 edition</a></p>
 <blockquote>
 <p>Chapter 3: Logistic and Probit Regression Models</p>
@@ -671,10 +663,10 @@ div.csl-indent {
 <blockquote>
 <p>"The variable labeled <code>volrelig</code>, which indicates whether or not a respondent volunteered for a religious organization in the previous year is coded <code>0</code> = no, <code>1</code> = yes. <strong>A hypothesis we wish to explore is that females are more likely than males to volunteer for religious organizations.</strong> Hence, in this data set, we code gender as <code>0</code> = male and <code>1</code> = female. In order to preclude the possibility that age and education explain the proposed association between <code>gender</code> and <code>volrelig</code>, we include these variables in the model after transforming them into z-scores. An advantage of this transformation is that it becomes a simple exercise to compute odds or probabilities for males and females at the mean of age and education, because these variables have now been transformed to have a mean of zero.</p>
 </blockquote>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb560-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-2" aria-hidden="true" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">as_factor</span>()</span>
-<span id="cb560-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb560-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb560-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_gss)</span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb571-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb571-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb571-2" aria-hidden="true" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">as_factor</span>()</span>
+<span id="cb571-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb571-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb571-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb571-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_gss)</span></code></pre></div>
 <pre><code>Rows: 2,903
 Columns: 20
 $ id       &lt;dbl&gt; 402, 1473, 1909, 334, 1751, 456, 292, 2817, 2810, 2232, 2174,~
@@ -697,7 +689,7 @@ $ prayer   &lt;fct&gt; daily, several times a week, daily, several times a week,
 $ educate  &lt;dbl&gt; 12, 17, 8, 12, 12, NA, 15, 12, 11, 14, 14, 12, 20, 12, 15, 20~
 $ volrelig &lt;fct&gt; no, no, no, yes, yes, no, no, no, no, no, no, no, no, no, no,~
 $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservative,~</code></pre>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb562-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(df_gss)</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(df_gss)</span></code></pre></div>
 <pre><code># A tibble: 9 x 20
   id    marital       divorce childs age   income polviews fund  attend spanking
   &lt;chr&gt; &lt;fct&gt;         &lt;fct&gt;   &lt;fct&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;   
@@ -717,25 +709,25 @@ $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservat
 <h2><span class="header-section-number">11.1</span> Exploratory Data Analysis</h2>
 <div id="visualization" class="section level3" number="11.1.1">
 <h3><span class="header-section-number">11.1.1</span> Visualization</h3>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
-<span id="cb564-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> educate,</span>
-<span id="cb564-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> volrelig)) <span class="sc">+</span></span>
-<span id="cb564-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>() <span class="sc">+</span></span>
-<span id="cb564-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb564-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education in Years&quot;</span>,</span>
-<span id="cb564-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb564-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Respondent Volunteered for a Religious Organization</span><span class="sc">\n</span><span class="st">in the Previous Year&quot;</span>)</span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-373-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
+<span id="cb575-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> educate,</span>
+<span id="cb575-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> volrelig)) <span class="sc">+</span></span>
+<span id="cb575-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>() <span class="sc">+</span></span>
+<span id="cb575-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb575-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education in Years&quot;</span>,</span>
+<span id="cb575-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb575-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Respondent Volunteered for a Religious Organization</span><span class="sc">\n</span><span class="st">in the Previous Year&quot;</span>)</span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-382-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="summary-statistics-1" class="section level3" number="11.1.2">
 <h3><span class="header-section-number">11.1.2</span> Summary Statistics</h3>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
-<span id="cb565-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(volrelig) <span class="sc">%&gt;%</span> </span>
-<span id="cb565-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-3" aria-hidden="true" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">table1</span>(female,</span>
-<span id="cb565-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-4" aria-hidden="true" tabindex="-1"></a>                    age,</span>
-<span id="cb565-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-5" aria-hidden="true" tabindex="-1"></a>                    educate,</span>
-<span id="cb565-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">total =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb565-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">test =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb565-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb565-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-1" aria-hidden="true" tabindex="-1"></a>df_gss <span class="sc">%&gt;%</span> </span>
+<span id="cb576-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(volrelig) <span class="sc">%&gt;%</span> </span>
+<span id="cb576-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-3" aria-hidden="true" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">table1</span>(female,</span>
+<span id="cb576-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-4" aria-hidden="true" tabindex="-1"></a>                    age,</span>
+<span id="cb576-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-5" aria-hidden="true" tabindex="-1"></a>                    educate,</span>
+<span id="cb576-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">total =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb576-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">test =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb576-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>
 -------------------------------------------------------------------
                                     volrelig 
@@ -753,14 +745,14 @@ $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservat
 </div>
 <div id="fit-model" class="section level2" number="11.2">
 <h2><span class="header-section-number">11.2</span> Fit Model</h2>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-1" aria-hidden="true" tabindex="-1"></a>df_gss_model <span class="ot">&lt;-</span> df_gss <span class="sc">%&gt;%</span> </span>
-<span id="cb567-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">volrelig01 =</span> <span class="fu">case_when</span>(volrelig <span class="sc">==</span> <span class="st">&quot;no&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb567-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-3" aria-hidden="true" tabindex="-1"></a>                                       volrelig <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb567-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_age =</span> (age <span class="sc">-</span> <span class="fl">44.767</span>)<span class="sc">/</span><span class="fl">16.850</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb567-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_educ =</span> (educate <span class="sc">-</span> <span class="fl">13.363</span>)<span class="sc">/</span><span class="fl">2.928</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb567-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, age, z_age, educate, z_educ, female, volrelig, volrelig01)</span>
-<span id="cb567-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb567-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb567-8" aria-hidden="true" tabindex="-1"></a>df_gss_model</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-1" aria-hidden="true" tabindex="-1"></a>df_gss_model <span class="ot">&lt;-</span> df_gss <span class="sc">%&gt;%</span> </span>
+<span id="cb578-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">volrelig01 =</span> <span class="fu">case_when</span>(volrelig <span class="sc">==</span> <span class="st">&quot;no&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb578-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-3" aria-hidden="true" tabindex="-1"></a>                                       volrelig <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb578-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_age =</span> (age <span class="sc">-</span> <span class="fl">44.767</span>)<span class="sc">/</span><span class="fl">16.850</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb578-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">z_educ =</span> (educate <span class="sc">-</span> <span class="fl">13.363</span>)<span class="sc">/</span><span class="fl">2.928</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb578-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, age, z_age, educate, z_educ, female, volrelig, volrelig01)</span>
+<span id="cb578-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb578-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-8" aria-hidden="true" tabindex="-1"></a>df_gss_model</span></code></pre></div>
 <pre><code># A tibble: 2,903 x 8
       id   age  z_age educate z_educ female volrelig volrelig01
    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;
@@ -775,11 +767,11 @@ $ polview1 &lt;fct&gt; moderate, conservative, conservative, moderate, conservat
  9  2810    18 -1.59       11 -0.807 female no                0
 10  2232    35 -0.580      14  0.218 male   no                0
 # ... with 2,893 more rows</code></pre>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(volrelig01 <span class="sc">~</span> female <span class="sc">+</span> z_age <span class="sc">+</span> z_educ,</span>
-<span id="cb569-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> df_gss_model,</span>
-<span id="cb569-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb569-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb569-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb569-5" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(volrelig01 <span class="sc">~</span> female <span class="sc">+</span> z_age <span class="sc">+</span> z_educ,</span>
+<span id="cb580-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> df_gss_model,</span>
+<span id="cb580-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb580-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb580-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-5" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() </span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = volrelig01 ~ female + z_age + z_educ, family = binomial(link = &quot;logit&quot;), 
@@ -806,21 +798,21 @@ Residual deviance: 1456.3  on 2890  degrees of freedom
 AIC: 1464.3
 
 Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb571-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb582-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">summary</span>() <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
 <pre><code>               Estimate Std. Error    z value      Pr(&gt;|z|)
 (Intercept)  -2.8318640 0.12148235 -23.310908 3.436457e-120
 femalefemale  0.3542592 0.15031927   2.356712  1.843756e-02
 z_age         0.1418388 0.07390196   1.919284  5.494843e-02
 z_educ        0.3561886 0.07369657   4.833177  1.343714e-06</code></pre>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_glm_1,</span>
-<span id="cb573-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-2" aria-hidden="true" tabindex="-1"></a>                     texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1)),</span>
-<span id="cb573-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
-<span id="cb573-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
-<span id="cb573-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53&quot;</span>,</span>
-<span id="cb573-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption.above =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb573-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb573-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb573-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb573-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-1" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(fit_glm_1,</span>
+<span id="cb584-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-2" aria-hidden="true" tabindex="-1"></a>                     texreghelpr<span class="sc">::</span><span class="fu">extract_glm_exp</span>(fit_glm_1)),</span>
+<span id="cb584-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;b (SE)&quot;</span>,</span>
+<span id="cb584-4"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">&quot;OR [95 CI]&quot;</span>),</span>
+<span id="cb584-5"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Hoffman&#39;s EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53&quot;</span>,</span>
+<span id="cb584-6"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption.above =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb584-7"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">single.row =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb584-8"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb584-9"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">ci.test =</span> <span class="dv">1</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Hoffman’s EXAMPLE 3.4 A Logistic Regression Model of Volunteer Work, bottom of page 53
@@ -952,16 +944,16 @@ Num. obs.
 <h2><span class="header-section-number">11.3</span> Interpretation</h2>
 <div id="odds-ratio-scale" class="section level3" number="11.3.1">
 <h3><span class="header-section-number">11.3.1</span> Odds-ratio Scale</h3>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb574-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb585-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>()</span></code></pre></div>
 <pre><code> (Intercept) femalefemale        z_age       z_educ 
   -2.8318640    0.3542592    0.1418388    0.3561886 </code></pre>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb576-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb587-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span>)</span></code></pre></div>
 <pre><code>[1] 0.05895387</code></pre>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb578-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span> <span class="sc">+</span> <span class="fl">0.354</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb589-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.831</span> <span class="sc">+</span> <span class="fl">0.354</span>)</span></code></pre></div>
 <pre><code>[1] 0.08399483</code></pre>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.354</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb591-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.354</span>)</span></code></pre></div>
 <pre><code>[1] 1.424755</code></pre>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb582-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb593-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> <span class="fu">coef</span>() <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span></code></pre></div>
 <pre><code> (Intercept) femalefemale        z_age       z_educ 
   0.05890295   1.42512448   1.15239090   1.42787675 </code></pre>
 <blockquote>
@@ -979,14 +971,14 @@ Num. obs.
 <blockquote>
 <p>What, then, is the odds ratio?</p>
 </blockquote>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb584-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.0840</span>)<span class="sc">/</span>(<span class="fl">0.0589</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb595-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.0840</span>)<span class="sc">/</span>(<span class="fl">0.0589</span>)</span></code></pre></div>
 <pre><code>[1] 1.426146</code></pre>
 </div>
 <div id="response-scale-aka.-probability" class="section level3" number="11.3.2">
 <h3><span class="header-section-number">11.3.2</span> Response Scale (aka. Probability)</h3>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb586-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb586-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb586-2" aria-hidden="true" tabindex="-1"></a>  emmeans<span class="sc">::</span><span class="fu">emmeans</span>(<span class="sc">~</span> female,</span>
-<span id="cb586-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb586-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb597-1" aria-hidden="true" tabindex="-1"></a>fit_glm_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb597-2"><a href="logistic-regression---ex-volunteering-hoffman.html#cb597-2" aria-hidden="true" tabindex="-1"></a>  emmeans<span class="sc">::</span><span class="fu">emmeans</span>(<span class="sc">~</span> female,</span>
+<span id="cb597-3"><a href="logistic-regression---ex-volunteering-hoffman.html#cb597-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code> female   prob      SE  df asymp.LCL asymp.UCL
  male   0.0556 0.00638 Inf    0.0444    0.0695
  female 0.0774 0.00671 Inf    0.0653    0.0917
@@ -1001,7 +993,7 @@ Intervals are back-transformed from the logit scale </code></pre>
 <blockquote>
 <p>Use these probabilities to compute the odds ratio for gender.</p>
 </blockquote>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb588-1" aria-hidden="true" tabindex="-1"></a>(.<span class="dv">0774</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0774</span>))<span class="sc">/</span>(.<span class="dv">0556</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0556</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="logistic-regression---ex-volunteering-hoffman.html#cb599-1" aria-hidden="true" tabindex="-1"></a>(.<span class="dv">0774</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0774</span>))<span class="sc">/</span>(.<span class="dv">0556</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">0556</span>))</span></code></pre></div>
 <pre><code>[1] 1.42498</code></pre>
 <p><em>Note that these <strong>odds</strong> and <strong>probabilities</strong> are similar. This often occurs when we are dealing with probabilities that are relatively close to zero; in other words, it is a common occurrence for rare events. To see this, simply compute a cross-tabulation of <code>volrelig</code> and <code>gender</code> and compare the odds and probabilities. Then try it out for any rare event you may wish to simulate</em></p>
 

@@ -54,25 +54,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
-<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -504,6 +485,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
 <li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#changing-the-reference-category"><i class="fa fa-check"></i><b>10.6</b> Changing the reference category</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
@@ -614,17 +596,27 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
 <li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#simple-poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Simple Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-3"><i class="fa fa-check"></i><b>14.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-1"><i class="fa fa-check"></i><b>14.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.3.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions"><i class="fa fa-check"></i><b>14.3.3</b> Predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-poisson-regression"><i class="fa fa-check"></i><b>14.4</b> Multiple Poisson Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-4"><i class="fa fa-check"></i><b>14.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.4.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-2"><i class="fa fa-check"></i><b>14.4.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.4.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions-1"><i class="fa fa-check"></i><b>14.4.3</b> Predictions</a></li>
+<li class="chapter" data-level="14.4.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#assess-model-fit-2"><i class="fa fa-check"></i><b>14.4.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="14.4.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>14.4.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="14.4.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#marginal-plot"><i class="fa fa-check"></i><b>14.4.6</b> Marginal Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.5</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.5.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.7" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.7</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -650,7 +642,7 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</h1>
 <p class="author"><em>Sarah Schwartz &amp; Tyson Barrett</em></p>
-<p class="date"><em>Last updated: 2021-09-02</em></p>
+<p class="date"><em>Last updated: 2021-09-08</em></p>
 </div>
 <div id="welcome" class="section level1 unnumbered">
 <h1>Welcome</h1>

@@ -23,6 +23,7 @@ library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(haven)        # Read in SPSS datasets
 library(psych)        # Lots of nice tid-bits
 library(GGally)       # Extension to 'ggplot2' (ggpairs)
+library(apaTables)
 ```
 
 
@@ -209,6 +210,13 @@ cancer_clean %>%
 ```
 
 
+
+```{r}
+cancer_clean %>% 
+  furniture::tableC(totalcin, totalcw2, totalcw4, totalcw6,
+                    na.rm = TRUE,
+                    rounding = 2)
+```
 
 
 ## Pairs Plots

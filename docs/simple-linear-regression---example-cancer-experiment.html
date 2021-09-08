@@ -54,25 +54,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
-<script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
-<script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -504,6 +485,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.5.1" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>10.5.1</b> Refit to Complete Cases</a></li>
 <li class="chapter" data-level="10.5.2" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#interpretation-1"><i class="fa fa-check"></i><b>10.5.2</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression---ex-depression-hoffman.html"><a href="logistic-regression---ex-depression-hoffman.html#changing-the-reference-category"><i class="fa fa-check"></i><b>10.6</b> Changing the reference category</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression---ex-volunteering-hoffman.html"><a href="logistic-regression---ex-volunteering-hoffman.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression - Ex: volunteering (Hoffman)</a>
 <ul>
@@ -614,17 +596,27 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#entire-sample-1"><i class="fa fa-check"></i><b>14.2.1</b> Entire Sample</a></li>
 <li class="chapter" data-level="14.2.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#by-sex"><i class="fa fa-check"></i><b>14.2.2</b> By Sex</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Poisson Reression</a>
+<li class="chapter" data-level="14.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#simple-poisson-reression"><i class="fa fa-check"></i><b>14.3</b> Simple Poisson Reression</a>
 <ul>
-<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#single-predictor-sex"><i class="fa fa-check"></i><b>14.3.1</b> Single Predictor: Sex</a></li>
-<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.3.2</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.3.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-3"><i class="fa fa-check"></i><b>14.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.3.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-1"><i class="fa fa-check"></i><b>14.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.3.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions"><i class="fa fa-check"></i><b>14.3.3</b> Predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.4</b> Negative Binomial Regression</a>
+<li class="chapter" data-level="14.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-poisson-regression"><i class="fa fa-check"></i><b>14.4</b> Multiple Poisson Regression</a>
 <ul>
-<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors-1"><i class="fa fa-check"></i><b>14.4.1</b> Multiple Predictors</a></li>
+<li class="chapter" data-level="14.4.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#fit-the-model-4"><i class="fa fa-check"></i><b>14.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="14.4.2" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#parameter-estimates-2"><i class="fa fa-check"></i><b>14.4.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="14.4.3" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#predictions-1"><i class="fa fa-check"></i><b>14.4.3</b> Predictions</a></li>
+<li class="chapter" data-level="14.4.4" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#assess-model-fit-2"><i class="fa fa-check"></i><b>14.4.4</b> Assess Model Fit</a></li>
+<li class="chapter" data-level="14.4.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>14.4.5</b> Residual Diagnostics</a></li>
+<li class="chapter" data-level="14.4.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#marginal-plot"><i class="fa fa-check"></i><b>14.4.6</b> Marginal Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.5</b> Zero Inflated Poisson</a></li>
-<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Negative Binomial</a></li>
+<li class="chapter" data-level="14.5" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#negative-binomial-regression"><i class="fa fa-check"></i><b>14.5</b> Negative Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#multiple-predictors"><i class="fa fa-check"></i><b>14.5.1</b> Multiple Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-poisson"><i class="fa fa-check"></i><b>14.6</b> Zero Inflated Poisson</a></li>
+<li class="chapter" data-level="14.7" data-path="count-outcome-regression---ex.html"><a href="count-outcome-regression---ex.html#zero-inflated-negative-binomial"><i class="fa fa-check"></i><b>14.7</b> Zero Inflated Negative Binomial</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -653,49 +645,49 @@ div.csl-indent {
 <h2><span class="header-section-number">2.1</span> Background</h2>
 <div id="required-packages-1" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Required Packages</h3>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># Loads several very helpful &#39;tidy&#39; packages</span></span>
-<span id="cb38-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># Read in SPSS datasets</span></span>
-<span id="cb38-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># Lots of nice tid-bits</span></span>
-<span id="cb38-4"><a href="simple-linear-regression---example-cancer-experiment.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)       <span class="co"># Extension to &#39;ggplot2&#39; (ggpairs)</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># Loads several very helpful &#39;tidy&#39; packages</span></span>
+<span id="cb40-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)        <span class="co"># Read in SPSS datasets</span></span>
+<span id="cb40-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)        <span class="co"># Lots of nice tid-bits</span></span>
+<span id="cb40-4"><a href="simple-linear-regression---example-cancer-experiment.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)       <span class="co"># Extension to &#39;ggplot2&#39; (ggpairs)</span></span></code></pre></div>
 </div>
 <div id="example-dataset---cancer-experiment-1" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Example Dataset - Cancer Experiment</h3>
 <p>The <code>Cancer</code> dataset:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb39-1" aria-hidden="true" tabindex="-1"></a>cancer_raw <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/eBook_ANOVA/master/data/Cancer.sav&quot;</span>)</span>
-<span id="cb39-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb39-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(cancer_raw)</span></code></pre></div>
-<pre><code>Observations: 25
-Variables: 9
-$ ID       &lt;dbl&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12...
-$ TRT      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,...
-$ AGE      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 4...
-$ WEIGHIN  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158....
-$ STAGE    &lt;dbl&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1,...
-$ TOTALCIN &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6,...
-$ TOTALCW2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 1...
-$ TOTALCW4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8...
-$ TOTALCW6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="ot">&lt;-</span> cancer_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename_all</span>(tolower) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">factor</span>(id)) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-4"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">trt =</span> <span class="fu">factor</span>(trt,</span>
-<span id="cb41-5"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, </span>
-<span id="cb41-6"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;Aloe Juice&quot;</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-7"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage))</span>
-<span id="cb41-8"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-9"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-9" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(cancer_clean)</span></code></pre></div>
-<pre><code>Observations: 25
-Variables: 9
-$ id       &lt;fct&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12...
-$ trt      &lt;fct&gt; Placebo, Placebo, Placebo, Placebo, Placebo, Placebo,...
-$ age      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 4...
-$ weighin  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158....
-$ stage    &lt;fct&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1,...
-$ totalcin &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6,...
-$ totalcw2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 1...
-$ totalcw4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8...
-$ totalcw6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(cancer_clean)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-1" aria-hidden="true" tabindex="-1"></a>cancer_raw <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(<span class="st">&quot;https://raw.githubusercontent.com/CEHS-research/eBook_ANOVA/master/data/Cancer.sav&quot;</span>)</span>
+<span id="cb41-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb41-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(cancer_raw)</span></code></pre></div>
+<pre><code>Rows: 25
+Columns: 9
+$ ID       &lt;dbl&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12, 14, 16~
+$ TRT      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1~
+$ AGE      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 46, 56, 4~
+$ WEIGHIN  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158.0, 212.8~
+$ STAGE    &lt;dbl&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1, 4, 2, 1~
+$ TOTALCIN &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6, 12, 5, ~
+$ TOTALCW2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 11, 7, 11~
+$ TOTALCW4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8, 11, 6,~
+$ TOTALCW6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, 7, 14, 6~</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="ot">&lt;-</span> cancer_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename_all</span>(tolower) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">factor</span>(id)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-4"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">trt =</span> <span class="fu">factor</span>(trt,</span>
+<span id="cb43-5"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, </span>
+<span id="cb43-6"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;Aloe Juice&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-7"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage))</span>
+<span id="cb43-8"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="simple-linear-regression---example-cancer-experiment.html#cb43-9" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(cancer_clean)</span></code></pre></div>
+<pre><code>Rows: 25
+Columns: 9
+$ id       &lt;fct&gt; 1, 5, 6, 9, 11, 15, 21, 26, 31, 35, 39, 41, 45, 2, 12, 14, 16~
+$ trt      &lt;fct&gt; Placebo, Placebo, Placebo, Placebo, Placebo, Placebo, Placebo~
+$ age      &lt;dbl&gt; 52, 77, 60, 61, 59, 69, 67, 56, 61, 51, 46, 65, 67, 46, 56, 4~
+$ weighin  &lt;dbl&gt; 124.0, 160.0, 136.5, 179.6, 175.8, 167.6, 186.0, 158.0, 212.8~
+$ stage    &lt;fct&gt; 2, 1, 4, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 2, 4, 1, 2, 1, 4, 2, 1~
+$ totalcin &lt;dbl&gt; 6, 9, 7, 6, 6, 6, 6, 6, 6, 6, 7, 6, 8, 7, 6, 4, 6, 6, 12, 5, ~
+$ totalcw2 &lt;dbl&gt; 6, 6, 9, 7, 7, 6, 11, 11, 9, 4, 8, 6, 8, 16, 10, 6, 11, 7, 11~
+$ totalcw4 &lt;dbl&gt; 6, 10, 17, 9, 16, 6, 11, 15, 6, 8, 11, 9, 9, 9, 11, 8, 11, 6,~
+$ totalcw6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, 7, 14, 6~</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(cancer_clean)</span></code></pre></div>
 <pre><code># A tibble: 9 x 9
   id    trt        age   weighin stage totalcin totalcw2 totalcw4 totalcw6
   &lt;fct&gt; &lt;fct&gt;      &lt;chr&gt; &lt;chr&gt;   &lt;fct&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   
@@ -715,13 +707,13 @@ $ totalcw6 &lt;dbl&gt; 7, 9, 19, 3, 13, 11, 10, 15, 8, 7, 11, 6, 10, 10, 9, ...<
 <div id="scatterplot-1" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Scatterplot</h3>
 <p>Always plot your data first!</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb45-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age,</span>
-<span id="cb45-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> weighin)) <span class="sc">+</span></span>
-<span id="cb45-4"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb45-5"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,    <span class="at">se =</span> <span class="cn">TRUE</span>,  <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># straight line (linear model)</span></span>
-<span id="cb45-6"><a href="simple-linear-regression---example-cancer-experiment.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)     <span class="co"># loess line (moving window)</span></span></code></pre></div>
-<p><img src="eBook_regression_files/figure-html/unnamed-chunk-41-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="simple-linear-regression---example-cancer-experiment.html#cb47-1" aria-hidden="true" tabindex="-1"></a>cancer_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="simple-linear-regression---example-cancer-experiment.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age,</span>
+<span id="cb47-3"><a href="simple-linear-regression---example-cancer-experiment.html#cb47-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> weighin)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="simple-linear-regression---example-cancer-experiment.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb47-5"><a href="simple-linear-regression---example-cancer-experiment.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,    <span class="at">se =</span> <span class="cn">TRUE</span>,  <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># straight line (linear model)</span></span>
+<span id="cb47-6"><a href="simple-linear-regression---example-cancer-experiment.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)     <span class="co"># loess line (moving window)</span></span></code></pre></div>
+<p><img src="eBook_regression_files/figure-html/unnamed-chunk-42-1.png" width="75%" /></p>
 
 </div>
 </div>
