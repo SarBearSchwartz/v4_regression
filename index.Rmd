@@ -1,12 +1,12 @@
 --- 
 title: "Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression"
-author: "Sarah Schwartz & Tyson Barrett"
+author: "Sarah Schwartz"
 date: "Last updated: `r Sys.Date()`"
 documentclass: book
 description: "Correlation, Model Fit, Generalize, and Plot."
 knit: "bookdown::render_book"
 cover-image: "EQM_v4_cover.png"
-github-repo: cehs-research/eBook_regression
+github-repo: sarbearschwartz/v4_regression
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
@@ -84,32 +84,19 @@ This is what the output of the $R$ code above will look:
 ```
 
 
-## The Authors {-}
+## The Author {-}
 
 
-```{r, echo=FALSE}
-tribble( ~Sarah, ~Tyson,
-      "![](images/common/Sarah_headshot.jpg){width=300px}",
-      "![](images/common/Tyson_headshot.jpg){width=300px}",
-      "[www.SarahSchwartzStats.com](http://www.sarahschwartzstats.com/) ",
-      "[www.TysonBarrett.com](http://tysonbarrett.com/)",
-      "Sarah.Schwartz@usu.edu",
-      "Tyson.Barrett@usu.edu",
-      "[Statistical Consulting Studio](https://cehs.usu.edu/research/statstudio/index)",
-      "[Data Science and Discover Unit](https://cehs.usu.edu/research/dsdu/index)",
-      "![](images/common/StatStudioLogo_dark_small.png){width=300px}",
-      "![](images/common/dsdu_logo.PNG){width=300px}") %>% 
-  data.frame() %>%
-  kableExtra::kable(col.names = c("Dr. Sarah Schwartz", 
-                                  "Dr. Tyson Barrett"),
-                    align = "c") %>% 
-  kableExtra::row_spec(row = 0,
-                       font_size = 20)
-```
+Website: [www.SarahSchwartzStats.com](http://www.sarahschwartzstats.com/)  
+
+eMail: Sarah.Schwartz@usu.edu
+
+![](images/common/ORS_Sarah_headshot.jpg){width=500px}
 
 
 
-### Why choose R ?  {-}
+
+## Why choose R ?  {-}
 
 
 ```{block type='rmdlink', echo=TRUE}
@@ -118,7 +105,7 @@ tribble( ~Sarah, ~Tyson,
 
 
 
-### FYI  {-}
+## FYI  {-}
 
 This entire encyclopedia is written in $R Markdown$, using $R Studio$ as the text editor and the `bookdown` package to turn a collection of markdown documents into a coherent whole. The book's source code is hosted on GitHub. If you notice typos or other issues, feel free to email either of the authors.
 

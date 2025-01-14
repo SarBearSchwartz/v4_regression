@@ -23,7 +23,9 @@ library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(haven)        # Read in SPSS datasets
 library(psych)        # Lots of nice tid-bits
 library(GGally)       # Extension to 'ggplot2' (ggpairs)
-library(apaTables)
+library(corrplot)     # Correlation Matrix plots
+library(furniture)    # tables
+library(apaSupp)      # APA 7th ed tables
 ```
 
 
@@ -53,7 +55,9 @@ tibble::glimpse(cancer_clean)
 ```
 
 ```{r}
-psych::headTail(cancer_clean)
+psych::headTail(cancer_clean) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Sample of Cancer Dataset")
 ```
 
 
@@ -70,7 +74,8 @@ cancer_clean %>%
   ggplot(aes(x = age,
              y = weighin)) +
   geom_count() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  theme_bw()
 ```
 
 
@@ -133,7 +138,8 @@ cancer_clean %>%
   ggplot(aes(x = totalcin,
              y = totalcw4)) +
   geom_count() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  theme_bw()
 ```
 
 ```{r}
@@ -155,7 +161,8 @@ cancer_clean %>%
   ggplot(aes(x = totalcw4,
              y = totalcw6)) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  theme_bw()
 ```
 
 
@@ -219,6 +226,19 @@ cancer_clean %>%
 ```
 
 
+### APA Style
+
+```{r}
+cancer_clean %>% 
+  dplyr::select("Baseline" = totalcin, 
+                "Week 2" = totalcw2, 
+                "Week 4" = totalcw4, 
+                "Week 6" = totalcw6) %>% 
+  apaSupp::tab_cor(caption = "Correlations Between Repeated Measures of Total Oral Condition")
+```
+
+
+
 ## Pairs Plots
 
 * [Helpful Website](http://jamesmarquezportfolio.com/correlation_matrices_in_r.html)
@@ -258,7 +278,8 @@ cancer_clean %>%
   dplyr::select(age, weighin,
                 totalcin, totalcw2, totalcw4, totalcw6) %>% 
   data.frame %>% 
-  ggscatmat()
+  ggscatmat() +
+  theme_bw()
 ```
 
 
@@ -267,7 +288,8 @@ cancer_clean %>%
   data.frame %>% 
   ggscatmat(columns = c("age", "weighin",
                         "totalcin", "totalcw2", "totalcw4", "totalcw6"),
-            color = "trt")
+            color = "trt") +
+  theme_bw()
 ```
 
 

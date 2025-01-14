@@ -1,5 +1,5 @@
-book_filename: eBook_regression
-repo: http://github.com/cehs-research/eBook_regression/
+book_filename: v4_regression
+repo: http://github.com/sarbearschwartz/v4_regression/
 output_dir: "docs"
 new_session: no
 delete_merged_file: true
