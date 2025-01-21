@@ -24,3 +24,9 @@ car
 sjPlot
 MASS
 nnet
+flextable
+ggpubr
+ggResidpanel
+broom
+jtools
+olsrr
