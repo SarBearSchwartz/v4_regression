@@ -1,0 +1,445 @@
+# Ex: Ginzberg Depression 
+
+
+```{block type='rmdlink', echo=TRUE}
+> References:  
+> http://www.philender.com/courses/intro/notes/cor1.html
+> https://lytarhan.rbind.io/post/variancepartitioning/
+> https://stats.stackexchange.com/questions/552451/which-r-functions-are-correct-for-estimating-partial-eta-squared-for-effects-in
+```
+
+
+```{r}
+#library(remotes)
+#remotes::install_github("sarbearschwartz/apaSupp")
+
+library(carData)
+library(tidyverse)
+library(broom)
+library(flextable)
+library(apaSupp)
+library(modelsummary)
+library(ppcor)
+library(jtools)
+library(olsrr)
+library(DescTools)
+library(effectsize)
+library(ggpubr)
+library(ggResidpanel)
+```
+
+## PURPOSE
+
+### Research Question
+
+> Is there a relationship between depression and beliefs (simplicity and fatalism)?
+
+
+### Data Description
+
+The data for psychiatric patients (*n* = 84) hospitalized for depression is provided by the `carData` package.
+
+> Source: Personal communication from Georges Monette, Department of Mathematics and Statistics, York University, with the permission of the original investigator.
+> 
+> References: Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+
+**Variables**
+
+
+* `simplicity` Measures subject's need to see the world in black and white
+* `fatalism` Fatalism scale
+* `depression` Beck self-report depression scale
+
+
+
+```{r}
+data("Ginzberg", package = "carData")  
+
+df_ginz <- Ginzberg
+```
+
+
+
+```{r}
+tibble::glimpse(df_ginz)
+```
+
+
+
+\clearpage
+
+## EXPLORATORY DATA ANALYSIS
+
+```{block type='rmdimportant', echo=TRUE}
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+```
+
+
+
+
+
+### Univariate Statistics
+
+Center: mean and median
+Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  apaSupp::tab_desc(caption = "Description of Psychiatric Patients Hospitalized for Depression")
+```
+
+
+
+### Univariate Visualizations
+
+
+```{block type='rmdimportant', echo=TRUE}
+Always plot your data first!
+```
+
+```{r}
+df_ginz %>% 
+  apaSupp::spicy_histos(var = simplicity)
+```
+
+```{r}
+df_ginz %>% 
+  apaSupp::spicy_histos(var = fatalism)
+```
+
+
+
+```{r}
+df_ginz %>% 
+  apaSupp::spicy_histos(var = depression)
+```
+
+
+
+
+
+
+
+### Bivariate Statistics
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  apaSupp::tab_cor(caption = "Correlations")
+```
+
+
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  cor(method = "pearson") %>% 
+  corrplot::corrplot.mixed()
+```
+
+
+
+### Bivariate Visualization
+
+
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>%
+  data.frame %>% 
+  GGally::ggscatmat() +
+  theme_bw()
+```
+
+
+
+
+```{r, fig.caption = "Scatterplot for Depression Regressed on Simplicity"}
+df_ginz %>% 
+  ggplot(aes(x = simplicity,
+              y = depression)) +
+  geom_point() +
+  theme_bw() +
+  geom_smooth(method = "lm",
+              formula = y ~ x) +
+  ggpubr::stat_regline_equation(label.x = 0.25,
+                                label.y = 2.45,
+                                size = 6) +
+  labs(x = "Simplicity\n(need to see the world in black and white)",
+       y = "Observed Depression\n(Beck self-report)")
+```
+
+
+
+
+```{r, fig.caption = "Scatterplot for Depression regresssed on Fatalism"}
+df_ginz %>% 
+  ggplot(aes(x = fatalism,
+              y = depression)) +
+  geom_point() +
+  theme_bw() +
+  geom_smooth(method = "lm",
+              formula = y ~ x) +
+  ggpubr::stat_regline_equation(label.x = 0,
+                                label.y = 2.45,
+                                size = 6) +
+  labs(x = "Fatalism\n(belief that all events are predetermined and therefore inevitable)",
+       y = "Observed Depression\n(Beck self-report)")
+```
+
+
+## REGRESSION ANALYSIS
+
+> The dependent variable (DV) is depression score.
+> The independent variables (IVs) are 2 beliefs, simplicity and fatalism.
+
+### Model with only Simplicity
+
+
+```{r}
+fit_lm_sim <- lm(depression ~ simplicity,
+               data = df_ginz)
+```
+
+```{r}
+summary(fit_lm_sim)
+```
+
+### Model with only Fatalism
+
+
+```{r}
+fit_lm_fat <- lm(depression ~ fatalism,
+               data = df_ginz)
+```
+
+```{r}
+summary(fit_lm_fat)
+```
+
+
+### Model with only Both Predictors
+
+
+```{r}
+fit_lm_both <- lm(depression ~ simplicity + fatalism,
+               data = df_ginz)
+```
+
+```{r}
+summary(fit_lm_both)
+```
+
+
+
+
+```{r}
+list("Just\nSimplicity" = fit_lm_sim,
+     "Just\nFatalism" = fit_lm_fat,
+     "Simplicity\nand Fatalism" = fit_lm_both) %>% 
+  modelsummary::modelsummary(output = "flextable",
+                             fmt = 2,
+                             estimate = "{estimate}",
+                             statistic = NULL,
+                             gof_map = NA,
+                             coef_rename = c("simplicity" = "Simplicity",
+                                             "fatalism" = "Fatalism")) %>% 
+  apaSupp::theme_apa(caption = "Parameter Estimates for Depression Regressed on Simplicity Belief and Fatalism Belief- BASIC")
+```
+
+```{r}
+list("Just\nSimplicity" = fit_lm_sim,
+     "Just\nFatalism" = fit_lm_fat,
+     "Simplicity\nand Fatalism" = fit_lm_both) %>% 
+  modelsummary::modelsummary(output = "flextable",
+                             fmt = 2,
+                             estimate = "{estimate} ({std.error})",
+                             statistic = "{p.value}{stars}",
+                             stars = c('*' = .05, '**' = .01, '***' = .001),
+                             gof_map = c("r.squared", 
+                                         #"adj.r.squared",
+                                         "rmse"),
+                             coef_rename = c("simplicity" = "Simplicity",
+                                             "fatalism" = "Fatalism")) %>% 
+  apaSupp::theme_apa(caption = "Parameter Estimates for Depression Regressed on Simplicity Belief and Fatalism Belief - BETTER",
+                     p_note = "apa",
+                     general_note = "Dependent variable is depression self-reported on the Beck Depression Scale. ") %>% 
+  flextable::hline(i = 6) 
+```
+
+
+### Residual Diagnostics
+
+
+```{r}
+performance::check_residuals(fit_lm_both)
+```
+
+```{r}
+ggResidpanel::resid_panel(fit_lm_both)
+```
+
+
+## EFFECT SIZES
+
+**Variance Explained** = variance in the DV "explained by" or "attributed to" the IV(s) 
+
+### Variance Partitioning
+
+Variance in the DV - Total
+
+```{r}
+var(df_ginz$depression)
+```
+
+Variance in the SV - Not attributed to Simplicity
+
+```{r}
+var(fit_lm_sim$residuals)
+```
+
+
+Variance in the SV - Not attributed to Fatalism
+
+```{r}
+var(fit_lm_fat$residuals)
+```
+
+
+Variance in the SV - Not attributed to the combination of Simplicity and Fatalism
+
+```{r}
+var(fit_lm_both$residuals)
+```
+
+
+
+### Model with only Simplicity
+
+```{r}
+summary(fit_lm_sim)$r.squared
+```
+
+
+```{r}
+1 - (var(fit_lm_sim$residuals)/var(df_ginz$depression))
+```
+
+
+```{r, echo=FALSE, out.width = "75%"}
+knitr::include_graphics("images/VENN_DIAGRAM_sim.png")
+```
+
+
+
+
+
+### Model with only Fatalism
+
+```{r}
+summary(fit_lm_fat)$r.squared
+```
+
+
+```{r}
+1 - (var(fit_lm_fat$residuals)/var(df_ginz$depression))
+```
+
+```{r, echo=FALSE, out.width = "75%"}
+knitr::include_graphics("images/VENN_DIAGRAM_fat.png")
+```
+
+
+### Model with Both Predictors
+
+```{r}
+summary(fit_lm_both)$r.squared
+```
+
+
+```{r}
+1 - (var(fit_lm_both$residuals)/var(df_ginz$depression))
+```
+
+```{r, echo=FALSE, out.width = "75%"}
+knitr::include_graphics("images/VENN_DIAGRAM_both.png")
+```
+
+
+### Semipartial Correlation
+
+Therefor...
+
+* Unique from Simplicity = .519 - .432 = .087
+* Unique from Fatalism = .519 - .414 = .105
+* Sharded from Both =  .432 + .414 - .519 = .327
+
+
+```{r}
+effectsize::r2_semipartial(fit_lm_both)
+```
+
+
+
+```{r}
+DescTools::EtaSq(fit_lm_both, type = 3)
+```
+
+
+### Eta-squared
+
+```{block type='rmdlightbulb', echo=TRUE}
+* Type I is sequential and terms are "added" to the model in order, first the main effects, then the interactions; the type I sum of squares are SS(A), SS(B|A)
+
+* Type II adjust the contribution of a predictor for other main effects (but not its interactions, if any): SS(A|B), SS(B|A)
+
+* Type III attributes to each term (main effect or interaction) its unique contribution. So the sum of squares due to A excludes the effect of the interaction between A and B: SS(A|B,A:B), SS(B|A,A:B), SS(A:B|A,B).
+```
+
+
+```{r}
+effectsize::eta_squared(fit_lm_both, partial = FALSE)
+```
+
+
+```{r}
+rstatix::eta_squared(fit_lm_both)
+```
+
+
+
+```{r}
+DescTools::EtaSq(fit_lm_both, type = 1)
+```
+
+
+
+
+### Partial Eta-Squared
+
+
+```{r}
+effectsize::eta_squared(fit_lm_both, partial = TRUE)
+```
+
+```{r}
+rstatix::partial_eta_squared(fit_lm_both)
+```
+
+
+
+```{r}
+DescTools::EtaSq(fit_lm_both, type = 1)
+```
+
+
+
