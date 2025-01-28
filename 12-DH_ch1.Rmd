@@ -1,5 +1,5 @@
 
-# Intro to Regression
+# Simple Regression: "Golf"
 
 
 Darlington & Hayes, Chapter 1
@@ -584,11 +584,11 @@ So for our golf example:
 ### Important Note
 
 > D&H Textbook: starting in the middle of page 27!
-
+```{block type='rmdlightbulb', echo=TRUE}
 There are two *slightly different variations* to the covariance and variance formulas.  The one for covariance above (EQ 2.2) showns dividing by `N`and is specific to a POPULATION ($\sigma_{XY}$).  
 
 When the data used is a SAMPLE, and you are ESTIAMTING the POPULATION PARAMETER, you divide by `n - 1` rather than `N`.  
-
+```
 
 ```{r}
 34/23         # divide by N
@@ -689,7 +689,10 @@ var(df_golf$Y)
 
 ### Standard Deviation
 
+```{block type='rmdlightbulb', echo=TRUE}
 Instead of interpreting variance, we usually refer to **STANDARD DEVIATION**.
+```
+
 
 $$
 SD_X = \sqrt{Var(X)}

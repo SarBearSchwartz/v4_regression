@@ -30,3 +30,9 @@ ggResidpanel
 broom
 jtools
 olsrr
+modelsummary
+ppcor
+DescTools
+effectsize
+magrittr
+ISwR

@@ -1,4 +1,4 @@
-# Simple Linear Regression - Example: Cancer Experiment 
+# Ex: Cancer Experiment 
 
 
 ```{r, include=FALSE}
@@ -14,9 +14,6 @@ knitr::opts_chunk$set(comment     = NA,
 
 
 
-## Background
-
-### Required Packages 
 
 ```{r, comment=FALSE, message=FALSE}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
@@ -34,10 +31,16 @@ emmeans::emm_options(opt.digits = FALSE)  # revert to optimal digits
 ```
 
 
+## Purpose
 
-### Example Dataset - Cancer Experiment 
+### Research Question
 
-The `Cancer` dataset:
+> For this example page: Does weight vary with age?
+
+
+### Data Description
+
+The `Cancer` data set contains 4 repeated measure of oral condition for 25 cancer patients to see if an aloe treatment helps with oral condition (ulcers).
 
 
 ```{r}
@@ -73,7 +76,9 @@ psych::headTail(cancer_clean) %>%
 
 ### Scatterplot
 
+```{block type='rmdimportant', echo=TRUE}
 Always plot your data first!
+```
 
 ```{r}
 cancer_clean %>% 

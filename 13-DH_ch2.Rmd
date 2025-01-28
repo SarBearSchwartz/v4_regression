@@ -1,9 +1,10 @@
 
-# Partial Relationship & Multiple Regression
+# Multiple Regression: "Weight"
 
 
 Darlington & Hayes, Chapter 2
 
+```{block type='rmdlink', echo=TRUE}
 Outside resource
 * https://www.harshaash.com/R/part-and-partial-corr/
 * https://dstanley4.github.io/psyc4780bookdown/multiple-regression.html
@@ -11,18 +12,17 @@ Outside resource
 Reference:
 
 * Knapp, T. R. (1996). [Semi-Partial Correlations: I Don't Need Them; You Can Have Them.](https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1631&context=mwer) Mid-Western Educational Researcher, 9(4), 4.
+```
+
 
 ## PREPARATION
 
 ### Load Packages
 
-```{r, eval=FALSE}
-library(remotes)
-remotes::install_github("sarbearschwartz/apaSupp")
-```
-
-
 ```{r}
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")
+
 library(tidyverse)
 library(broom)
 library(flextable)
@@ -38,8 +38,10 @@ library(ggResidpanel)
 
 ### Load Data
 
-Manually enter the data set provided on page 44 in Table 3.1
 
+```{block type='rmdlightbulb', echo=TRUE}
+Manually enter the data set provided on page 44 in Table 3.1
+```
 
 
 ```{r}

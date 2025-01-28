@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Ex: Ventricular Shortening Velocity | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Ex: Ventricular Shortening Velocity | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="sarbearschwartz/v4_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Ex: Ventricular Shortening Velocity | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ex-ginzberg-depression.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation: “Cancer”</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#purpose"><i class="fa fa-check"></i><b>1.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#research-question"><i class="fa fa-check"></i><b>1.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#data-description"><i class="fa fa-check"></i><b>1.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#apa-style"><i class="fa fa-check"></i><b>1.4.3</b> APA Style</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html"><i class="fa fa-check"></i><b>2</b> Simple Regression: “Golf”</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#preparation"><i class="fa fa-check"></i><b>2.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#load-packages"><i class="fa fa-check"></i><b>2.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#load-data"><i class="fa fa-check"></i><b>2.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#display-data"><i class="fa fa-check"></i><b>2.2</b> DISPLAY DATA</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#full-table"><i class="fa fa-check"></i><b>2.2.1</b> Full Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.2</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#conditional-means"><i class="fa fa-check"></i><b>2.2.3</b> Conditional Means</a></li>
+<li class="chapter" data-level="2.2.4" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#y-intercept"><i class="fa fa-check"></i><b>2.2.4</b> Y-intercept</a></li>
+<li class="chapter" data-level="2.2.5" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#slope"><i class="fa fa-check"></i><b>2.2.5</b> Slope</a></li>
+<li class="chapter" data-level="2.2.6" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#format"><i class="fa fa-check"></i><b>2.2.6</b> Format</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#hand-calculations"><i class="fa fa-check"></i><b>2.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#estimates"><i class="fa fa-check"></i><b>2.3.1</b> Estimates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#residuals"><i class="fa fa-check"></i><b>2.3.2</b> Residuals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#errors-of-estimate"><i class="fa fa-check"></i><b>2.3.3</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#deviation-scores"><i class="fa fa-check"></i><b>2.3.4</b> Deviation Scores</a></li>
+<li class="chapter" data-level="2.3.5" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#cross-products-squares"><i class="fa fa-check"></i><b>2.3.5</b> Cross-Products &amp; Squares</a></li>
+<li class="chapter" data-level="2.3.6" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#covariance"><i class="fa fa-check"></i><b>2.3.6</b> Covariance</a></li>
+<li class="chapter" data-level="2.3.7" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#important-note"><i class="fa fa-check"></i><b>2.3.7</b> Important Note</a></li>
+<li class="chapter" data-level="2.3.8" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#covar-to-var"><i class="fa fa-check"></i><b>2.3.8</b> Covar to Var</a></li>
+<li class="chapter" data-level="2.3.9" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#variance"><i class="fa fa-check"></i><b>2.3.9</b> Variance</a></li>
+<li class="chapter" data-level="2.3.10" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#standard-deviation"><i class="fa fa-check"></i><b>2.3.10</b> Standard Deviation</a></li>
+<li class="chapter" data-level="2.3.11" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#correlation"><i class="fa fa-check"></i><b>2.3.11</b> Correlation</a></li>
+<li class="chapter" data-level="2.3.12" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#coefficient-or-slope"><i class="fa fa-check"></i><b>2.3.12</b> Coefficient or Slope</a></li>
+<li class="chapter" data-level="2.3.13" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#constant-or-y-intercept"><i class="fa fa-check"></i><b>2.3.13</b> Constant or Y-intercept</a></li>
+<li class="chapter" data-level="2.3.14" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#regression-equation"><i class="fa fa-check"></i><b>2.3.14</b> Regression Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#using-software"><i class="fa fa-check"></i><b>2.4</b> USING SOFTWARE</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#linear-model"><i class="fa fa-check"></i><b>2.4.1</b> Linear Model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#coefficients---raw"><i class="fa fa-check"></i><b>2.4.2</b> Coefficients - Raw</a></li>
+<li class="chapter" data-level="2.4.3" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#coefficients---standardized"><i class="fa fa-check"></i><b>2.4.3</b> Coefficients - Standardized</a></li>
+<li class="chapter" data-level="2.4.4" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#residuals-1"><i class="fa fa-check"></i><b>2.4.4</b> Residuals</a></li>
+<li class="chapter" data-level="2.4.5" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#errors-of-estimate-1"><i class="fa fa-check"></i><b>2.4.5</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.4.6" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#visualize"><i class="fa fa-check"></i><b>2.4.6</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#residuals-2"><i class="fa fa-check"></i><b>2.5</b> RESIDUALS</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#properties"><i class="fa fa-check"></i><b>2.5.1</b> Properties</a></li>
+<li class="chapter" data-level="2.5.2" data-path="simple-regression-golf.html"><a href="simple-regression-golf.html#residual-analysis"><i class="fa fa-check"></i><b>2.5.2</b> Residual Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html"><i class="fa fa-check"></i><b>3</b> Multiple Regression: “Weight”</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#preparation-1"><i class="fa fa-check"></i><b>3.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#load-packages-1"><i class="fa fa-check"></i><b>3.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="3.1.2" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#load-data-1"><i class="fa fa-check"></i><b>3.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#exploratory"><i class="fa fa-check"></i><b>3.2</b> EXPLORATORY</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#summary-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Visualizations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#regression"><i class="fa fa-check"></i><b>3.3</b> REGRESSION</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#fit-the-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit the models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#output"><i class="fa fa-check"></i><b>3.3.2</b> Output</a></li>
+<li class="chapter" data-level="3.3.3" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#equations"><i class="fa fa-check"></i><b>3.3.3</b> Equations</a></li>
+<li class="chapter" data-level="3.3.4" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#tables"><i class="fa fa-check"></i><b>3.3.4</b> Tables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#semipartial-correlation"><i class="fa fa-check"></i><b>3.3.5</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="3.3.6" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#partial-correlation"><i class="fa fa-check"></i><b>3.3.6</b> Partial Correlation</a></li>
+<li class="chapter" data-level="3.3.7" data-path="multiple-regression-weight.html"><a href="multiple-regression-weight.html#standardized-regression-coefficients"><i class="fa fa-check"></i><b>3.3.7</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html"><i class="fa fa-check"></i><b>4</b> Ex: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#purpose-1"><i class="fa fa-check"></i><b>4.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#research-question-1"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#data-description-1"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#scatterplot-2"><i class="fa fa-check"></i><b>4.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#regression-model"><i class="fa fa-check"></i><b>4.3</b> Regression Model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#fit-the-model"><i class="fa fa-check"></i><b>4.3.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#parameter-estimates"><i class="fa fa-check"></i><b>4.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#prediction-equation"><i class="fa fa-check"></i><b>4.3.3</b> Prediction Equation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#estimated-marginal-means"><i class="fa fa-check"></i><b>4.3.4</b> Estimated Marginal Means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html"><i class="fa fa-check"></i><b>5</b> Ex: Ginzberg Depression</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#purpose-2"><i class="fa fa-check"></i><b>5.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#research-question-2"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="5.1.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#data-description-2"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#explore-the-data"><i class="fa fa-check"></i><b>5.2</b> Explore the data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#correlations"><i class="fa fa-check"></i><b>5.2.2</b> Correlations</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#plots"><i class="fa fa-check"></i><b>5.2.3</b> Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#linear-regression-for-depression"><i class="fa fa-check"></i><b>5.3</b> Linear Regression for Depression</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-simplicity"><i class="fa fa-check"></i><b>5.3.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-fatalism"><i class="fa fa-check"></i><b>5.3.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="5.3.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-both-predictors"><i class="fa fa-check"></i><b>5.3.3</b> Model with only Both Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#residual-diagnostics"><i class="fa fa-check"></i><b>5.4</b> Residual Diagnostics</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-simplicity-1"><i class="fa fa-check"></i><b>5.4.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="5.4.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-fatalism-1"><i class="fa fa-check"></i><b>5.4.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="5.4.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-both-predictors"><i class="fa fa-check"></i><b>5.4.3</b> Model with Both Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#effect-size-variance-explained"><i class="fa fa-check"></i><b>5.5</b> Effect Size, variance explained</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#variance-partitioning"><i class="fa fa-check"></i><b>5.5.1</b> Variance Partitioning</a></li>
+<li class="chapter" data-level="5.5.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#semipartial-correlation-1"><i class="fa fa-check"></i><b>5.5.2</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="5.5.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#eta-squared"><i class="fa fa-check"></i><b>5.5.3</b> Eta-squared</a></li>
+<li class="chapter" data-level="5.5.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#partial-eta-squared"><i class="fa fa-check"></i><b>5.5.4</b> Partial Eta-Squared</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html"><i class="fa fa-check"></i><b>6</b> Ex: Ventricular Shortening Velocity</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#purpose-3"><i class="fa fa-check"></i><b>6.1</b> Purpose</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#research-question-3"><i class="fa fa-check"></i><b>6.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="6.1.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#data-description-3"><i class="fa fa-check"></i><b>6.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>6.2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#univariate-statistics"><i class="fa fa-check"></i><b>6.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="6.2.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#univariate-visualizations"><i class="fa fa-check"></i><b>6.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="6.2.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#bivariate-statistics-unadjusted-pearsons-correlation"><i class="fa fa-check"></i><b>6.2.3</b> Bivariate Statistics (Unadjusted Pearson’s correlation)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#bivariate-visualization"><i class="fa fa-check"></i><b>6.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#regression-analysis"><i class="fa fa-check"></i><b>6.3</b> Regression Analysis</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>6.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="6.3.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>6.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+<li class="chapter" data-level="6.3.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#manually-checking-residual-diagnostics"><i class="fa fa-check"></i><b>6.3.3</b> Manually checking residual diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#conclusion"><i class="fa fa-check"></i><b>6.4</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>6.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="6.4.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#plot-the-model"><i class="fa fa-check"></i><b>6.4.2</b> Plot the Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ex-ventricular-shortening-velocity" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Ex: Ventricular Shortening Velocity<a href="ex-ventricular-shortening-velocity.html#ex-ventricular-shortening-velocity" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="images/common/ISwR_thuesen.PNG" /></p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="ex-ventricular-shortening-velocity.html#cb278-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># super helpful everything!</span></span>
+<span id="cb278-2"><a href="ex-ventricular-shortening-velocity.html#cb278-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)        <span class="co"># includes other versions of the pipe </span></span>
+<span id="cb278-3"><a href="ex-ventricular-shortening-velocity.html#cb278-3" tabindex="-1"></a><span class="fu">library</span>(haven)           <span class="co"># inporting SPSS data files</span></span>
+<span id="cb278-4"><a href="ex-ventricular-shortening-velocity.html#cb278-4" tabindex="-1"></a><span class="fu">library</span>(furniture)       <span class="co"># nice tables of descriptives</span></span>
+<span id="cb278-5"><a href="ex-ventricular-shortening-velocity.html#cb278-5" tabindex="-1"></a><span class="fu">library</span>(texreg)          <span class="co"># nice regression summary tables</span></span>
+<span id="cb278-6"><a href="ex-ventricular-shortening-velocity.html#cb278-6" tabindex="-1"></a><span class="fu">library</span>(stargazer)       <span class="co"># nice tables of descrip and regression</span></span>
+<span id="cb278-7"><a href="ex-ventricular-shortening-velocity.html#cb278-7" tabindex="-1"></a><span class="fu">library</span>(corrplot)        <span class="co"># visualize correlations</span></span>
+<span id="cb278-8"><a href="ex-ventricular-shortening-velocity.html#cb278-8" tabindex="-1"></a><span class="fu">library</span>(car)             <span class="co"># companion for applied regression</span></span>
+<span id="cb278-9"><a href="ex-ventricular-shortening-velocity.html#cb278-9" tabindex="-1"></a><span class="fu">library</span>(effects)         <span class="co"># effect displays for models</span></span>
+<span id="cb278-10"><a href="ex-ventricular-shortening-velocity.html#cb278-10" tabindex="-1"></a><span class="fu">library</span>(psych)           <span class="co"># lots of handy tools</span></span>
+<span id="cb278-11"><a href="ex-ventricular-shortening-velocity.html#cb278-11" tabindex="-1"></a><span class="fu">library</span>(ISwR)            <span class="co"># Introduction to Statistics with R (datasets)</span></span></code></pre></div>
+<div id="purpose-3" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Purpose<a href="ex-ventricular-shortening-velocity.html#purpose-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="research-question-3" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Research Question<a href="ex-ventricular-shortening-velocity.html#research-question-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>Is there a relationship between fasting blood flucose and shortening of ventricular velocity among type 1 diabetic patiences? If so, what is the nature of the association?</p>
+</blockquote>
+</div>
+<div id="data-description-3" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Data Description<a href="ex-ventricular-shortening-velocity.html#data-description-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This dataset is included in the <code>ISwR</code> package <span class="citation">(<a href="references.html#ref-R-ISwR">Dalgaard 2020</a>)</span>, which was a companion to the texbook “Introductory Statistics with R, 2nd ed.” <span class="citation">(<a href="references.html#ref-dalgaard2008">Dalgaard 2008</a>)</span>, although it was first published by <span class="citation">Altman (<a href="references.html#ref-altman1991">1991</a>)</span> in table 11.6.</p>
+<blockquote>
+<p>The <code>thuesen</code> data frame has 24 rows and 2 columns. It contains ventricular shortening velocity and blood glucose for type 1 diabetic patients.</p>
+</blockquote>
+<ul>
+<li><code>blood.glucose</code> a numeric vector, fasting blood glucose (mmol/l).</li>
+<li><code>short.velocity</code> a numeric vector, mean circumferential shortening velocity (%/s).</li>
+</ul>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="ex-ventricular-shortening-velocity.html#cb279-1" tabindex="-1"></a><span class="fu">data</span>(thuesen, <span class="at">package =</span> <span class="st">&quot;ISwR&quot;</span>)</span>
+<span id="cb279-2"><a href="ex-ventricular-shortening-velocity.html#cb279-2" tabindex="-1"></a></span>
+<span id="cb279-3"><a href="ex-ventricular-shortening-velocity.html#cb279-3" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(thuesen)  <span class="co"># view the class and 1st few values of each variable</span></span></code></pre></div>
+<pre><code>Rows: 24
+Columns: 2
+$ blood.glucose  &lt;dbl&gt; 15.3, 10.8, 8.1, 19.5, 7.2, 5.3, 9.3, 11.1, 7.5, 12.2, …
+$ short.velocity &lt;dbl&gt; 1.76, 1.34, 1.27, 1.47, 1.27, 1.49, 1.31, 1.09, 1.18, 1…</code></pre>
+</div>
+</div>
+<div id="exploratory-data-analysis-1" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Exploratory Data Analysis<a href="ex-ventricular-shortening-velocity.html#exploratory-data-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="rmdimportant">
+<p>
+Before embarking on any inferencial anlaysis or modeling, always get
+familiar with your variables one at a time <em>(univariate)</em>, as
+well as pairwise <em>(bivariate)</em>.
+</p>
+</div>
+<div id="univariate-statistics" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Univariate Statistics<a href="ex-ventricular-shortening-velocity.html#univariate-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Summary Statistics for all three variables of interest</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="ex-ventricular-shortening-velocity.html#cb281-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb281-2"><a href="ex-ventricular-shortening-velocity.html#cb281-2" tabindex="-1"></a>  stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Mean
+</td>
+<td>
+St. Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+blood.glucose
+</td>
+<td>
+24
+</td>
+<td>
+10.300
+</td>
+<td>
+4.338
+</td>
+<td>
+4.200
+</td>
+<td>
+19.500
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+short.velocity
+</td>
+<td>
+23
+</td>
+<td>
+1.326
+</td>
+<td>
+0.233
+</td>
+<td>
+1.030
+</td>
+<td>
+1.950
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<p>The <code>stargazer()</code> function has many handy options, should you wish to change the default settings.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="ex-ventricular-shortening-velocity.html#cb282-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb282-2"><a href="ex-ventricular-shortening-velocity.html#cb282-2" tabindex="-1"></a>  stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="at">type   =</span> <span class="st">&quot;html&quot;</span>, </span>
+<span id="cb282-3"><a href="ex-ventricular-shortening-velocity.html#cb282-3" tabindex="-1"></a>                       <span class="at">digits =</span> <span class="dv">4</span>, </span>
+<span id="cb282-4"><a href="ex-ventricular-shortening-velocity.html#cb282-4" tabindex="-1"></a>                       <span class="at">flip   =</span> <span class="cn">TRUE</span>,                    </span>
+<span id="cb282-5"><a href="ex-ventricular-shortening-velocity.html#cb282-5" tabindex="-1"></a>                       <span class="at">summary.stat   =</span> <span class="fu">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>, <span class="st">&quot;min&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;max&quot;</span>),</span>
+<span id="cb282-6"><a href="ex-ventricular-shortening-velocity.html#cb282-6" tabindex="-1"></a>                       <span class="at">title  =</span> <span class="st">&quot;Descriptives&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Descriptives</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+blood.glucose
+</td>
+<td>
+short.velocity
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+N
+</td>
+<td>
+24
+</td>
+<td>
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Mean
+</td>
+<td>
+10.3000
+</td>
+<td>
+1.3257
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+St. Dev.
+</td>
+<td>
+4.3375
+</td>
+<td>
+0.2329
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Min
+</td>
+<td>
+4.2000
+</td>
+<td>
+1.0300
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Median
+</td>
+<td>
+9.4000
+</td>
+<td>
+1.2700
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Max
+</td>
+<td>
+19.5000
+</td>
+<td>
+1.9500
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<p>Although the <code>table1()</code> function from the <code>furniture</code> package creates a nice summary table, it ‘hides’ the nubmer of missing values for each continuous variable <span class="citation">(<a href="references.html#ref-R-furniture">Barrett, Brignone, and Laxman 2023</a>)</span>.</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="ex-ventricular-shortening-velocity.html#cb283-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb283-2"><a href="ex-ventricular-shortening-velocity.html#cb283-2" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">table1</span>(<span class="st">&quot;Fasting Blood Glucose&quot;</span> <span class="ot">=</span> blood.glucose, </span>
+<span id="cb283-3"><a href="ex-ventricular-shortening-velocity.html#cb283-3" tabindex="-1"></a>                    <span class="st">&quot;Circumferential Shortening Velocity&quot;</span> <span class="ot">=</span> short.velocity,  <span class="co"># defaults to excluding any row missing any variable</span></span>
+<span id="cb283-4"><a href="ex-ventricular-shortening-velocity.html#cb283-4" tabindex="-1"></a>                    <span class="at">output =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Mean/Count (SD/%)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+</td>
+<td>
+n = 23
+</td>
+</tr>
+<tr>
+<td>
+Fasting Blood Glucose
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+10.4 (4.4)
+</td>
+</tr>
+<tr>
+<td>
+Circumferential Shortening Velocity
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+1.3 (0.2)
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="ex-ventricular-shortening-velocity.html#cb284-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb284-2"><a href="ex-ventricular-shortening-velocity.html#cb284-2" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">table1</span>(<span class="st">&quot;Fasting Blood Glucose&quot;</span> <span class="ot">=</span> blood.glucose, </span>
+<span id="cb284-3"><a href="ex-ventricular-shortening-velocity.html#cb284-3" tabindex="-1"></a>                    <span class="st">&quot;Circumferential Shortening Velocity&quot;</span> <span class="ot">=</span> short.velocity,</span>
+<span id="cb284-4"><a href="ex-ventricular-shortening-velocity.html#cb284-4" tabindex="-1"></a>                    <span class="at">na.rm =</span> <span class="cn">FALSE</span>,     <span class="co"># retains even partial cases</span></span>
+<span id="cb284-5"><a href="ex-ventricular-shortening-velocity.html#cb284-5" tabindex="-1"></a>                    <span class="at">output =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Mean/Count (SD/%)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+</td>
+<td>
+n = 24
+</td>
+</tr>
+<tr>
+<td>
+Fasting Blood Glucose
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+10.3 (4.3)
+</td>
+</tr>
+<tr>
+<td>
+Circumferential Shortening Velocity
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+1.3 (0.2)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="univariate-visualizations" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Univariate Visualizations<a href="ex-ventricular-shortening-velocity.html#univariate-visualizations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="ex-ventricular-shortening-velocity.html#cb285-1" tabindex="-1"></a><span class="fu">ggplot</span>(thuesen,</span>
+<span id="cb285-2"><a href="ex-ventricular-shortening-velocity.html#cb285-2" tabindex="-1"></a>       <span class="fu">aes</span>(blood.glucose)) <span class="sc">+</span>        <span class="co"># variable of interest (just one)</span></span>
+<span id="cb285-3"><a href="ex-ventricular-shortening-velocity.html#cb285-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)      <span class="co"># specify the width of the bars</span></span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-208-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="ex-ventricular-shortening-velocity.html#cb286-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb286-2"><a href="ex-ventricular-shortening-velocity.html#cb286-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb286-3"><a href="ex-ventricular-shortening-velocity.html#cb286-3" tabindex="-1"></a>  <span class="fu">aes</span>(short.velocity) <span class="sc">+</span>              <span class="co"># variable of interest (just one)</span></span>
+<span id="cb286-4"><a href="ex-ventricular-shortening-velocity.html#cb286-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)          <span class="co"># specify the number of bars</span></span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-209-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bivariate-statistics-unadjusted-pearsons-correlation" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Bivariate Statistics (Unadjusted Pearson’s correlation)<a href="ex-ventricular-shortening-velocity.html#bivariate-statistics-unadjusted-pearsons-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>cor()</code> fucntion in base <span class="math inline">\(R\)</span> doesn’t like <code>NA</code> or missing values</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="ex-ventricular-shortening-velocity.html#cb287-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> <span class="fu">cor</span>()           </span></code></pre></div>
+<pre><code>               blood.glucose short.velocity
+blood.glucose              1             NA
+short.velocity            NA              1</code></pre>
+<div class="rmdlightbulb">
+<p>
+You may specify how to handle cases that are missing on at least one
+of the variables of interest:
+</p>
+<ul>
+<li>
+<code>use = “everything”</code> <code>NA</code>s will propagate
+conceptually, i.e., a resulting value will be <code>NA</code> whenever
+one of its contributing observations is <code>NA</code> <strong>&lt;–
+DEFAULT</strong>
+</li>
+<li>
+<code>use = “all.obs”</code> the presence of missing observations
+will produce an error
+</li>
+<li>
+<code>use = “complete.obs”</code> missing values are handled by
+casewise deletion (and if there are no complete cases, that gives an
+error).
+</li>
+<li>
+<code>use = “na.or.complete”</code> is the same as above unless
+there are no complete cases, that gives <code>NA</code>
+</li>
+<li>
+<code>use = “pairwise.complete.obs”</code> the correlation between
+each pair of variables is computed using all complete pairs of
+observations on those variables. This can result in covariance matrices
+which are not positive semi-definite, as well as <code>NA</code> entries
+if there are no complete pairs for that pair of variables.
+</li>
+</ul>
+</div>
+<p>Commonly, we want <strong>listwise deletion</strong>:</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="ex-ventricular-shortening-velocity.html#cb289-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)   <span class="co"># list-wise deletion</span></span></code></pre></div>
+<pre><code>               blood.glucose short.velocity
+blood.glucose      1.0000000      0.4167546
+short.velocity     0.4167546      1.0000000</code></pre>
+<p>It is also handy to specify the number of decimal places desired, but adding a rounding step:</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="ex-ventricular-shortening-velocity.html#cb291-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb291-2"><a href="ex-ventricular-shortening-velocity.html#cb291-2" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb291-3"><a href="ex-ventricular-shortening-velocity.html#cb291-3" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)                       <span class="co"># number od decimal places</span></span></code></pre></div>
+<pre><code>               blood.glucose short.velocity
+blood.glucose           1.00           0.42
+short.velocity          0.42           1.00</code></pre>
+<p>If you desire a correlation single value of a single PAIR of variables, instead of a matrix, then you must use a <strong><code>magrittr</code> exposition pipe (<code>%$%</code>)</strong></p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="ex-ventricular-shortening-velocity.html#cb293-1" tabindex="-1"></a>thuesen <span class="sc">%$%</span>                            <span class="co"># notice the special kind of pipe</span></span>
+<span id="cb293-2"><a href="ex-ventricular-shortening-velocity.html#cb293-2" tabindex="-1"></a>  <span class="fu">cor</span>(blood.glucose, short.velocity,   <span class="co"># specify exactly TWO variables            </span></span>
+<span id="cb293-3"><a href="ex-ventricular-shortening-velocity.html#cb293-3" tabindex="-1"></a>      <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>[1] 0.4167546</code></pre>
+<p>In addition to the <code>cor()</code> funciton, the base <span class="math inline">\(R\)</span> <code>stats</code> package also includes the <code>cor.test()</code> function to test if the correlation is zero (<span class="math inline">\(H_0: R = 0\)</span>)</p>
+<p>This TESTS if the cor == 0</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="ex-ventricular-shortening-velocity.html#cb295-1" tabindex="-1"></a>thuesen <span class="sc">%$%</span>                                 <span class="co"># notice the special kind of pipe</span></span>
+<span id="cb295-2"><a href="ex-ventricular-shortening-velocity.html#cb295-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(blood.glucose, short.velocity,   <span class="co"># specify exactly TWO variables            </span></span>
+<span id="cb295-3"><a href="ex-ventricular-shortening-velocity.html#cb295-3" tabindex="-1"></a>           <span class="at">use=</span><span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  blood.glucose and short.velocity
+t = 2.101, df = 21, p-value = 0.0479
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.005496682 0.707429479
+sample estimates:
+      cor 
+0.4167546 </code></pre>
+<p>The default correltaion type for <code>cor()</code>is <strong>Pearson’s <span class="math inline">\(R\)</span></strong>, which assesses linear relationships. <strong>Spearman’s correlation</strong> assesses monotonic relationships.</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="ex-ventricular-shortening-velocity.html#cb297-1" tabindex="-1"></a>thuesen <span class="sc">%$%</span>                            <span class="co"># notice the special kind of pipe</span></span>
+<span id="cb297-2"><a href="ex-ventricular-shortening-velocity.html#cb297-2" tabindex="-1"></a>  <span class="fu">cor</span>(blood.glucose, short.velocity,   <span class="co"># specify exactly TWO variables  </span></span>
+<span id="cb297-3"><a href="ex-ventricular-shortening-velocity.html#cb297-3" tabindex="-1"></a>      <span class="at">use    =</span> <span class="st">&#39;complete&#39;</span>,</span>
+<span id="cb297-4"><a href="ex-ventricular-shortening-velocity.html#cb297-4" tabindex="-1"></a>      <span class="at">method =</span> <span class="st">&#39;spearman&#39;</span>)       <span class="co"># spearman&#39;s (rho) </span></span></code></pre></div>
+<pre><code>[1] 0.318002</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="ex-ventricular-shortening-velocity.html#cb299-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb299-2"><a href="ex-ventricular-shortening-velocity.html#cb299-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(blood.glucose, short.velocity) <span class="sc">%&gt;%</span> </span>
+<span id="cb299-3"><a href="ex-ventricular-shortening-velocity.html#cb299-3" tabindex="-1"></a>  furniture<span class="sc">::</span><span class="fu">tableC</span>(<span class="at">cor_type =</span> <span class="st">&quot;pearson&quot;</span>,</span>
+<span id="cb299-4"><a href="ex-ventricular-shortening-velocity.html#cb299-4" tabindex="-1"></a>                    <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb299-5"><a href="ex-ventricular-shortening-velocity.html#cb299-5" tabindex="-1"></a>                    <span class="at">rounding =</span> <span class="dv">3</span>,</span>
+<span id="cb299-6"><a href="ex-ventricular-shortening-velocity.html#cb299-6" tabindex="-1"></a>                    <span class="at">output =</span> <span class="st">&quot;markdown&quot;</span>,</span>
+<span id="cb299-7"><a href="ex-ventricular-shortening-velocity.html#cb299-7" tabindex="-1"></a>                    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb299-8"><a href="ex-ventricular-shortening-velocity.html#cb299-8" tabindex="-1"></a>                    <span class="at">caption =</span> <span class="st">&quot;Correlation Table&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-217">Table 6.1: </span>Correlation Table</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>[1]</th>
+<th>[2]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[1]blood.glucose</td>
+<td>1.00</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>[2]short.velocity</td>
+<td>0.417 (0.048)</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="bivariate-visualization" class="section level3 hasAnchor" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Bivariate Visualization<a href="ex-ventricular-shortening-velocity.html#bivariate-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Scatterplots show the relationship between two continuous measures (one on the <span class="math inline">\(x-axis\)</span> and the other on the <span class="math inline">\(y-axis\)</span>), with one point for each observation.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="ex-ventricular-shortening-velocity.html#cb300-1" tabindex="-1"></a><span class="fu">ggplot</span>(thuesen, </span>
+<span id="cb300-2"><a href="ex-ventricular-shortening-velocity.html#cb300-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,        <span class="co"># x-axis variable</span></span>
+<span id="cb300-3"><a href="ex-ventricular-shortening-velocity.html#cb300-3" tabindex="-1"></a>           <span class="at">y =</span> short.velocity)) <span class="sc">+</span>    <span class="co"># y-axis variable</span></span>
+<span id="cb300-4"><a href="ex-ventricular-shortening-velocity.html#cb300-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>                     <span class="co"># place a point for each observation</span></span>
+<span id="cb300-5"><a href="ex-ventricular-shortening-velocity.html#cb300-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()                         <span class="co"># black-and-white theme </span></span></code></pre></div>
+<p>Both the code chunk above and below produce the same plot.</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="ex-ventricular-shortening-velocity.html#cb301-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb301-2"><a href="ex-ventricular-shortening-velocity.html#cb301-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb301-3"><a href="ex-ventricular-shortening-velocity.html#cb301-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,         <span class="co"># x-axis variable</span></span>
+<span id="cb301-4"><a href="ex-ventricular-shortening-velocity.html#cb301-4" tabindex="-1"></a>      <span class="at">y =</span> short.velocity) <span class="sc">+</span>     <span class="co"># y-axis variable</span></span>
+<span id="cb301-5"><a href="ex-ventricular-shortening-velocity.html#cb301-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>                 <span class="co"># place a point for each observation</span></span>
+<span id="cb301-6"><a href="ex-ventricular-shortening-velocity.html#cb301-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()                     <span class="co"># black-and-white theme </span></span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-219-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="regression-analysis" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Regression Analysis<a href="ex-ventricular-shortening-velocity.html#regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fit-a-simple-linear-model" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Fit A Simple Linear Model<a href="ex-ventricular-shortening-velocity.html#fit-a-simple-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 \times X
+\]</span></p>
+<div class="rmdlightbulb">
+<p>
+The <code>lm()</code> function must be supplied with at least two
+options:
+</p>
+<ul>
+<li>
+a formula: <code>Y ~ X</code>
+</li>
+<li>
+a dataset: <code>data = XXXXXXX</code>
+</li>
+</ul>
+<p>
+When a model is fit and directly saved as a named object via the
+assignment opperator (<code>&lt;-</code>), no output is produced.
+</p>
+</div>
+<ul>
+<li><code>short.velocity</code> dependent variable or outcome (<span class="math inline">\(Y\)</span>)</li>
+<li><code>blood.glucose</code> independent variable or predictor (<span class="math inline">\(X\)</span>)</li>
+</ul>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="ex-ventricular-shortening-velocity.html#cb302-1" tabindex="-1"></a>fit_vel_glu <span class="ot">&lt;-</span> <span class="fu">lm</span>(short.velocity <span class="sc">~</span> blood.glucose, </span>
+<span id="cb302-2"><a href="ex-ventricular-shortening-velocity.html#cb302-2" tabindex="-1"></a>                  <span class="at">data =</span> thuesen)</span></code></pre></div>
+<p>Running the name of the fit object yields very little output:</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="ex-ventricular-shortening-velocity.html#cb303-1" tabindex="-1"></a>fit_vel_glu</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = short.velocity ~ blood.glucose, data = thuesen)
+
+Coefficients:
+  (Intercept)  blood.glucose  
+      1.09781        0.02196  </code></pre>
+<p>Appling the <code>summary()</code> function produced a good deal more output:</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="ex-ventricular-shortening-velocity.html#cb305-1" tabindex="-1"></a><span class="fu">summary</span>(fit_vel_glu)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = short.velocity ~ blood.glucose, data = thuesen)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.40141 -0.14760 -0.02202  0.03001  0.43490 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    1.09781    0.11748   9.345 6.26e-09 ***
+blood.glucose  0.02196    0.01045   2.101   0.0479 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.2167 on 21 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1737,    Adjusted R-squared:  0.1343 
+F-statistic: 4.414 on 1 and 21 DF,  p-value: 0.0479</code></pre>
+<p>You may request specific pieces of the output:</p>
+<ul>
+<li>Coefficients or beta estimates:</li>
+</ul>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="ex-ventricular-shortening-velocity.html#cb307-1" tabindex="-1"></a><span class="fu">coef</span>(fit_vel_glu)</span></code></pre></div>
+<pre><code>  (Intercept) blood.glucose 
+   1.09781488    0.02196252 </code></pre>
+<ul>
+<li>95% confidence intervals for the coefficients or beta estimates:</li>
+</ul>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="ex-ventricular-shortening-velocity.html#cb309-1" tabindex="-1"></a><span class="fu">confint</span>(fit_vel_glu)</span></code></pre></div>
+<pre><code>                     2.5 %     97.5 %
+(Intercept)   0.8534993816 1.34213037
+blood.glucose 0.0002231077 0.04370194</code></pre>
+<ul>
+<li>The F-test for overall modle fit vs. a <span class="math inline">\(null\)</span> or empty model having only an intercept and no predictors.</li>
+</ul>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="ex-ventricular-shortening-velocity.html#cb311-1" tabindex="-1"></a><span class="fu">anova</span>(fit_vel_glu)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+     Df `Sum Sq` `Mean Sq` `F value` `Pr(&gt;F)`
+  &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1     1    0.207    0.207       4.41   0.0479
+2    21    0.986    0.0470     NA     NA     </code></pre>
+<ul>
+<li>Various other model fit indicies:</li>
+</ul>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="ex-ventricular-shortening-velocity.html#cb313-1" tabindex="-1"></a><span class="fu">logLik</span>(fit_vel_glu)     </span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; 3.583612 (df=3)</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="ex-ventricular-shortening-velocity.html#cb315-1" tabindex="-1"></a><span class="fu">AIC</span>(fit_vel_glu)</span></code></pre></div>
+<pre><code>[1] -1.167223</code></pre>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="ex-ventricular-shortening-velocity.html#cb317-1" tabindex="-1"></a><span class="fu">BIC</span>(fit_vel_glu)</span></code></pre></div>
+<pre><code>[1] 2.239259</code></pre>
+</div>
+<div id="checking-assumptions-via-residual-diagnostics" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Checking Assumptions via Residual Diagnostics<a href="ex-ventricular-shortening-velocity.html#checking-assumptions-via-residual-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="rmdimportant">
+<p>
+Before reporting a model, ALWAYS make sure to check the residules to
+ensure that the model assumptions are not violated.
+</p>
+</div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="ex-ventricular-shortening-velocity.html#cb319-1" tabindex="-1"></a><span class="fu">plot</span>(fit_vel_glu, <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-229-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="ex-ventricular-shortening-velocity.html#cb320-1" tabindex="-1"></a><span class="fu">plot</span>(fit_vel_glu, <span class="at">which =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-230-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="ex-ventricular-shortening-velocity.html#cb321-1" tabindex="-1"></a><span class="fu">plot</span>(fit_vel_glu, <span class="at">which =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-231-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="ex-ventricular-shortening-velocity.html#cb322-1" tabindex="-1"></a><span class="fu">plot</span>(fit_vel_glu, <span class="at">which =</span> <span class="dv">6</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-232-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Viewing potentially influential or outlier points based on plots above:</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="ex-ventricular-shortening-velocity.html#cb323-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb323-2"><a href="ex-ventricular-shortening-velocity.html#cb323-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb323-3"><a href="ex-ventricular-shortening-velocity.html#cb323-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(id <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">20</span>, <span class="dv">24</span>))</span></code></pre></div>
+<pre><code># A tibble: 3 × 3
+  blood.glucose short.velocity    id
+          &lt;dbl&gt;          &lt;dbl&gt; &lt;int&gt;
+1          19             1.95    13
+2          16.1           1.05    20
+3           9.5           1.7     24</code></pre>
+<p>The <code>car</code> package has a handy function called <code>residualPlots()</code> for displaying residual plots quickly <span class="citation">(<a href="references.html#ref-R-car">Fox, Weisberg, and Price 2023</a>)</span>.</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="ex-ventricular-shortening-velocity.html#cb325-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">residualPlots</span>(fit_vel_glu)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-234-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>              Test stat Pr(&gt;|Test stat|)
+blood.glucose    0.9289           0.3640
+Tukey test       0.9289           0.3529</code></pre>
+<p>Here is a fancy way to visulaize ‘potential problem cases’ with <code>ggplot2</code>:</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="ex-ventricular-shortening-velocity.html#cb327-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb327-2"><a href="ex-ventricular-shortening-velocity.html#cb327-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span>                <span class="co"># keep only complete cases</span></span>
+<span id="cb327-3"><a href="ex-ventricular-shortening-velocity.html#cb327-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span>                                          <span class="co"># name the FULL dataset </span></span>
+<span id="cb327-4"><a href="ex-ventricular-shortening-velocity.html#cb327-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,                              <span class="co"># x-axis variable name</span></span>
+<span id="cb327-5"><a href="ex-ventricular-shortening-velocity.html#cb327-5" tabindex="-1"></a>      <span class="at">y =</span> short.velocity) <span class="sc">+</span>                           <span class="co"># y-axis variable name</span></span>
+<span id="cb327-6"><a href="ex-ventricular-shortening-velocity.html#cb327-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>                                      <span class="co"># do a scatterplot</span></span>
+<span id="cb327-7"><a href="ex-ventricular-shortening-velocity.html#cb327-7" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span>                        <span class="co"># smooth: linear model</span></span>
+<span id="cb327-8"><a href="ex-ventricular-shortening-velocity.html#cb327-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>()  <span class="sc">+</span>                                       <span class="co"># black-and-while theme</span></span>
+<span id="cb327-9"><a href="ex-ventricular-shortening-velocity.html#cb327-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> thuesen <span class="sc">%&gt;%</span>                       <span class="co"># override the dataset from above</span></span>
+<span id="cb327-10"><a href="ex-ventricular-shortening-velocity.html#cb327-10" tabindex="-1"></a>               <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">20</span>, <span class="dv">24</span>)), <span class="co"># with a reduced subset of cases</span></span>
+<span id="cb327-11"><a href="ex-ventricular-shortening-velocity.html#cb327-11" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">4</span>,                                <span class="co"># make the points bigger in size </span></span>
+<span id="cb327-12"><a href="ex-ventricular-shortening-velocity.html#cb327-12" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)                           <span class="co"># give the points a different color</span></span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-235-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="manually-checking-residual-diagnostics" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Manually checking residual diagnostics<a href="ex-ventricular-shortening-velocity.html#manually-checking-residual-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You may extract values from the model in dataset form and then you can maually plot the residuals.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="ex-ventricular-shortening-velocity.html#cb328-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb328-2"><a href="ex-ventricular-shortening-velocity.html#cb328-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span>            <span class="co"># keep only complete cases</span></span>
+<span id="cb328-3"><a href="ex-ventricular-shortening-velocity.html#cb328-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">fitted</span>(fit_vel_glu)) <span class="sc">%&gt;%</span>   <span class="co"># fitted/prediction values</span></span>
+<span id="cb328-4"><a href="ex-ventricular-shortening-velocity.html#cb328-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">resid =</span> <span class="fu">residuals</span>(fit_vel_glu))   <span class="co"># residual values</span></span></code></pre></div>
+<pre><code># A tibble: 23 × 4
+   blood.glucose short.velocity  pred    resid
+           &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1          15.3           1.76  1.43  0.326  
+ 2          10.8           1.34  1.34  0.00499
+ 3           8.1           1.27  1.28 -0.00571
+ 4          19.5           1.47  1.53 -0.0561 
+ 5           7.2           1.27  1.26  0.0141 
+ 6           5.3           1.49  1.21  0.276  
+ 7           9.3           1.31  1.30  0.00793
+ 8          11.1           1.09  1.34 -0.252  
+ 9           7.5           1.18  1.26 -0.0825 
+10          12.2           1.22  1.37 -0.146  
+# ℹ 13 more rows</code></pre>
+<p>Check for equal spread of points along the <span class="math inline">\(y=0\)</span> horizontal line:</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="ex-ventricular-shortening-velocity.html#cb330-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb330-2"><a href="ex-ventricular-shortening-velocity.html#cb330-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb330-3"><a href="ex-ventricular-shortening-velocity.html#cb330-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span>                <span class="co"># keep only complete cases</span></span>
+<span id="cb330-4"><a href="ex-ventricular-shortening-velocity.html#cb330-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">fitted</span>(fit_vel_glu)) <span class="sc">%&gt;%</span>       <span class="co"># fitted/prediction values</span></span>
+<span id="cb330-5"><a href="ex-ventricular-shortening-velocity.html#cb330-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">resid =</span> <span class="fu">residuals</span>(fit_vel_glu)) <span class="sc">%&gt;%</span>   <span class="co"># residual values</span></span>
+<span id="cb330-6"><a href="ex-ventricular-shortening-velocity.html#cb330-6" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb330-7"><a href="ex-ventricular-shortening-velocity.html#cb330-7" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> id,</span>
+<span id="cb330-8"><a href="ex-ventricular-shortening-velocity.html#cb330-8" tabindex="-1"></a>      <span class="at">y =</span> resid) <span class="sc">+</span></span>
+<span id="cb330-9"><a href="ex-ventricular-shortening-velocity.html#cb330-9" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb330-10"><a href="ex-ventricular-shortening-velocity.html#cb330-10" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>,</span>
+<span id="cb330-11"><a href="ex-ventricular-shortening-velocity.html#cb330-11" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb330-12"><a href="ex-ventricular-shortening-velocity.html#cb330-12" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb330-13"><a href="ex-ventricular-shortening-velocity.html#cb330-13" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb330-14"><a href="ex-ventricular-shortening-velocity.html#cb330-14" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb330-15"><a href="ex-ventricular-shortening-velocity.html#cb330-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Looking for homogeneity of residuals&quot;</span>,</span>
+<span id="cb330-16"><a href="ex-ventricular-shortening-velocity.html#cb330-16" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;want to see equal spread all across&quot;</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-237-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Check for normality:</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="ex-ventricular-shortening-velocity.html#cb331-1" tabindex="-1"></a>thuesen <span class="sc">%&gt;%</span> </span>
+<span id="cb331-2"><a href="ex-ventricular-shortening-velocity.html#cb331-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span>                <span class="co"># keep only complete cases</span></span>
+<span id="cb331-3"><a href="ex-ventricular-shortening-velocity.html#cb331-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">fitted</span>(fit_vel_glu)) <span class="sc">%&gt;%</span>       <span class="co"># fitted/prediction values</span></span>
+<span id="cb331-4"><a href="ex-ventricular-shortening-velocity.html#cb331-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">resid =</span> <span class="fu">residuals</span>(fit_vel_glu)) <span class="sc">%&gt;%</span>   <span class="co"># residual values</span></span>
+<span id="cb331-5"><a href="ex-ventricular-shortening-velocity.html#cb331-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb331-6"><a href="ex-ventricular-shortening-velocity.html#cb331-6" tabindex="-1"></a>  <span class="fu">aes</span>(resid) <span class="sc">+</span></span>
+<span id="cb331-7"><a href="ex-ventricular-shortening-velocity.html#cb331-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>,</span>
+<span id="cb331-8"><a href="ex-ventricular-shortening-velocity.html#cb331-8" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb331-9"><a href="ex-ventricular-shortening-velocity.html#cb331-9" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb331-10"><a href="ex-ventricular-shortening-velocity.html#cb331-10" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb331-11"><a href="ex-ventricular-shortening-velocity.html#cb331-11" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>,</span>
+<span id="cb331-12"><a href="ex-ventricular-shortening-velocity.html#cb331-12" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb331-13"><a href="ex-ventricular-shortening-velocity.html#cb331-13" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb331-14"><a href="ex-ventricular-shortening-velocity.html#cb331-14" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb331-15"><a href="ex-ventricular-shortening-velocity.html#cb331-15" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb331-16"><a href="ex-ventricular-shortening-velocity.html#cb331-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Looking for normality of residuals&quot;</span>,</span>
+<span id="cb331-17"><a href="ex-ventricular-shortening-velocity.html#cb331-17" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;want to see roughly a bell curve&quot;</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-238-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="conclusion" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Conclusion<a href="ex-ventricular-shortening-velocity.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tabulate-the-final-model-summary" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Tabulate the Final Model Summary<a href="ex-ventricular-shortening-velocity.html#tabulate-the-final-model-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You may also present the output in a table using two different packages:</p>
+<ul>
+<li>The <code>stargazer</code> package has <code>stargazer()</code> function:</li>
+</ul>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="ex-ventricular-shortening-velocity.html#cb332-1" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(fit_vel_glu, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+short.velocity
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+blood.glucose
+</td>
+<td>
+0.022<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+1.098<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.117)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.174
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.134
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.217 (df = 21)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+4.414<sup>**</sup> (df = 1; 21)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="rmdlightbulb">
+<p>
+The <code>stargazer</code> package can produce the regression table
+in various output types:
+</p>
+<ul>
+<li>
+<code>type = “latex</code> <strong>Default</strong> Use when
+knitting your .Rmd file to a .pdf via LaTeX
+</li>
+<li>
+<code>type = “text</code> <strong>Default</strong> Use when working
+on a project and viewing tables on your computer screen
+</li>
+<li>
+<code>type = “html</code> <strong>Default</strong> Use when knitting
+your .Rmd file to a .html document
+</li>
+</ul>
+</div>
+<ul>
+<li>The <code>texreg</code> package has the <code>texreg()</code> fucntion:</li>
+</ul>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="ex-ventricular-shortening-velocity.html#cb333-1" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">htmlreg</span>(fit_vel_glu)</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.10<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+blood.glucose
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+23
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="2">
+<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+<div class="rmdlightbulb">
+<p>
+The <code>texreg</code> package contains three version of the
+regression table function.
+</p>
+<ul>
+<li>
+<code>screenreg()</code> Use when working on a project and viewing
+tables on your computer screen
+</li>
+<li>
+<code>htmlreg()</code> Use when knitting your .Rmd file to a .html
+document
+</li>
+<li>
+<code>texreg()</code> Use when knitting your .Rmd file to a .pdf via
+LaTeX
+</li>
+</ul>
+</div>
+</div>
+<div id="plot-the-model" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Plot the Model<a href="ex-ventricular-shortening-velocity.html#plot-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="rmdimportant">
+<p>
+When a model only contains main effects, a plot is not important for
+interpretation, but can help understand the relationship between
+multiple predictors.
+</p>
+</div>
+<div class="rmdlightbulb">
+<p>
+The <code>Effect()</code> function from the <code>effects</code>
+package chooses ‘5 or 6 nice values’ for your continuous independent
+variable (<span class="math inline"><span class="math inline">\(X\)</span></span>) based on the range of
+values found in the dataset on which the model was fit and plugs them
+into the regression equation <span class="math inline"><span class="math inline">\(Y = \beta_0 +
+\beta_1 \times X\)</span></span> to compute the predicted <em>mean</em> value
+of the outcome (<span class="math inline"><span class="math inline">\(Y\)</span></span>) <span class="citation"><span class="citation">(<a href="references.html#ref-R-effects">Fox et al. 2022</a>)</span></span>.
+</p>
+</div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="ex-ventricular-shortening-velocity.html#cb334-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),  <span class="co"># IV variable name</span></span>
+<span id="cb334-2"><a href="ex-ventricular-shortening-velocity.html#cb334-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu)                      <span class="co"># fitted model name</span></span></code></pre></div>
+<pre><code>
+ blood.glucose effect
+blood.glucose
+     4.2        8       12       16       20 
+1.190057 1.273515 1.361365 1.449215 1.537065 </code></pre>
+<p>You may override the ‘nice values’ using the <code>xlevels = list(var_name = c(#, #, ...#)</code> option.</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="ex-ventricular-shortening-velocity.html#cb336-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb336-2"><a href="ex-ventricular-shortening-velocity.html#cb336-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu,</span>
+<span id="cb336-3"><a href="ex-ventricular-shortening-velocity.html#cb336-3" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">blood.glucose =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>))) </span></code></pre></div>
+<pre><code>
+ blood.glucose effect
+blood.glucose
+       5       10       15       20 
+1.207627 1.317440 1.427253 1.537065 </code></pre>
+<p>Adding a piped data frame step (<code>%&gt;% data.frame()</code>) will arrange the predicted <span class="math inline">\(Y\)</span> values into a column called <code>fit</code>. This tidy data format is ready for plotting.</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="ex-ventricular-shortening-velocity.html#cb338-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb338-2"><a href="ex-ventricular-shortening-velocity.html#cb338-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu) <span class="sc">%&gt;%</span> </span>
+<span id="cb338-3"><a href="ex-ventricular-shortening-velocity.html#cb338-3" tabindex="-1"></a>  <span class="fu">data.frame</span>() </span></code></pre></div>
+<pre><code># A tibble: 5 × 5
+  blood.glucose   fit     se lower upper
+          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1           4.2  1.19 0.0788  1.03  1.35
+2           8    1.27 0.0516  1.17  1.38
+3          12    1.36 0.0483  1.26  1.46
+4          16    1.45 0.0742  1.29  1.60
+5          20    1.54 0.110   1.31  1.77</code></pre>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="ex-ventricular-shortening-velocity.html#cb340-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb340-2"><a href="ex-ventricular-shortening-velocity.html#cb340-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu,</span>
+<span id="cb340-3"><a href="ex-ventricular-shortening-velocity.html#cb340-3" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">blood.glucose =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">20</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb340-4"><a href="ex-ventricular-shortening-velocity.html#cb340-4" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb340-5"><a href="ex-ventricular-shortening-velocity.html#cb340-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb340-6"><a href="ex-ventricular-shortening-velocity.html#cb340-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,           <span class="co"># x-axis variable</span></span>
+<span id="cb340-7"><a href="ex-ventricular-shortening-velocity.html#cb340-7" tabindex="-1"></a>      <span class="at">y =</span> fit) <span class="sc">+</span>                   <span class="co"># y-axis variable</span></span>
+<span id="cb340-8"><a href="ex-ventricular-shortening-velocity.html#cb340-8" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,    <span class="co"># bottom edge of the ribbon</span></span>
+<span id="cb340-9"><a href="ex-ventricular-shortening-velocity.html#cb340-9" tabindex="-1"></a>                  <span class="at">ymax =</span> upper),   <span class="co"># top edge of the ribbon</span></span>
+<span id="cb340-10"><a href="ex-ventricular-shortening-velocity.html#cb340-10" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span>        <span class="co"># ribbon transparency level</span></span>
+<span id="cb340-11"><a href="ex-ventricular-shortening-velocity.html#cb340-11" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb340-12"><a href="ex-ventricular-shortening-velocity.html#cb340-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-248-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Notice that although the regression line is smooth, the ribbon is choppy. This is because we are basing it on only THREE values of <span class="math inline">\(X\)</span>.</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="ex-ventricular-shortening-velocity.html#cb341-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">20</span>)</span></code></pre></div>
+<pre><code>[1]  5 12 20</code></pre>
+<p>Use the <code>seq()</code> function in base <span class="math inline">\(R\)</span> to request many values of <span class="math inline">\(X\)</span></p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="ex-ventricular-shortening-velocity.html#cb343-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>[1]  5 10 15 20</code></pre>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="ex-ventricular-shortening-velocity.html#cb345-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>[1]  5  7  9 11 13 15 17 19</code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="ex-ventricular-shortening-velocity.html#cb347-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code> [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="ex-ventricular-shortening-velocity.html#cb349-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code> [1]  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0 10.5 11.0 11.5 12.0
+[16] 12.5 13.0 13.5 14.0 14.5 15.0 15.5 16.0 16.5 17.0 17.5 18.0 18.5 19.0 19.5
+[31] 20.0</code></pre>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="ex-ventricular-shortening-velocity.html#cb351-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb351-2"><a href="ex-ventricular-shortening-velocity.html#cb351-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu,</span>
+<span id="cb351-3"><a href="ex-ventricular-shortening-velocity.html#cb351-3" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">blood.glucose =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> .<span class="dv">5</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb351-4"><a href="ex-ventricular-shortening-velocity.html#cb351-4" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb351-5"><a href="ex-ventricular-shortening-velocity.html#cb351-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb351-6"><a href="ex-ventricular-shortening-velocity.html#cb351-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,           <span class="co"># x-axis variable</span></span>
+<span id="cb351-7"><a href="ex-ventricular-shortening-velocity.html#cb351-7" tabindex="-1"></a>      <span class="at">y =</span> fit) <span class="sc">+</span>                   <span class="co"># y-axis variable</span></span>
+<span id="cb351-8"><a href="ex-ventricular-shortening-velocity.html#cb351-8" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,    <span class="co"># bottom edge of the ribbon</span></span>
+<span id="cb351-9"><a href="ex-ventricular-shortening-velocity.html#cb351-9" tabindex="-1"></a>                  <span class="at">ymax =</span> upper),   <span class="co"># top edge of the ribbon</span></span>
+<span id="cb351-10"><a href="ex-ventricular-shortening-velocity.html#cb351-10" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span>        <span class="co"># ribbon transparency level</span></span>
+<span id="cb351-11"><a href="ex-ventricular-shortening-velocity.html#cb351-11" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb351-12"><a href="ex-ventricular-shortening-velocity.html#cb351-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-254-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Now that we are basing our ribbon on MANY more points of <span class="math inline">\(X\)</span>, the ribbon is much smoother.</p>
+<p>For publication, you would of course want to clean up the plot a bit more:</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="ex-ventricular-shortening-velocity.html#cb352-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb352-2"><a href="ex-ventricular-shortening-velocity.html#cb352-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu,</span>
+<span id="cb352-3"><a href="ex-ventricular-shortening-velocity.html#cb352-3" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">blood.glucose =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> .<span class="dv">5</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb352-4"><a href="ex-ventricular-shortening-velocity.html#cb352-4" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb352-5"><a href="ex-ventricular-shortening-velocity.html#cb352-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb352-6"><a href="ex-ventricular-shortening-velocity.html#cb352-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,           <span class="co"># x-axis variable</span></span>
+<span id="cb352-7"><a href="ex-ventricular-shortening-velocity.html#cb352-7" tabindex="-1"></a>      <span class="at">y =</span> fit) <span class="sc">+</span>                   <span class="co"># y-axis variable</span></span>
+<span id="cb352-8"><a href="ex-ventricular-shortening-velocity.html#cb352-8" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,    <span class="co"># bottom edge of the ribbon</span></span>
+<span id="cb352-9"><a href="ex-ventricular-shortening-velocity.html#cb352-9" tabindex="-1"></a>                  <span class="at">ymax =</span> upper),   <span class="co"># top edge of the ribbon</span></span>
+<span id="cb352-10"><a href="ex-ventricular-shortening-velocity.html#cb352-10" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span>        <span class="co"># ribbon transparency level</span></span>
+<span id="cb352-11"><a href="ex-ventricular-shortening-velocity.html#cb352-11" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb352-12"><a href="ex-ventricular-shortening-velocity.html#cb352-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb352-13"><a href="ex-ventricular-shortening-velocity.html#cb352-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Fasting Blood Glucose (mmol/l)&quot;</span>,</span>
+<span id="cb352-14"><a href="ex-ventricular-shortening-velocity.html#cb352-14" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Circumferential Shortening Velocity (%/s)&quot;</span>)   <span class="co"># axis labels</span></span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-255-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>The above plot has a ribbon that represents a 95% confidence interval (<code>lower</code> to<code>upper</code>) for the MEAN (<code>fit</code>) outcome. Sometimes we would rather display a ribbon for only the MEAN (<code>fit</code>) plus-or-minus ONE STANDARD ERROR (<code>se</code>) for the mean. You would do that by changing the variables that define the min and max edges of the ribbon (notice the range of the y-axis has changed):</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="ex-ventricular-shortening-velocity.html#cb353-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb353-2"><a href="ex-ventricular-shortening-velocity.html#cb353-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu,</span>
+<span id="cb353-3"><a href="ex-ventricular-shortening-velocity.html#cb353-3" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">blood.glucose =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> .<span class="dv">5</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb353-4"><a href="ex-ventricular-shortening-velocity.html#cb353-4" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb353-5"><a href="ex-ventricular-shortening-velocity.html#cb353-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb353-6"><a href="ex-ventricular-shortening-velocity.html#cb353-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,           </span>
+<span id="cb353-7"><a href="ex-ventricular-shortening-velocity.html#cb353-7" tabindex="-1"></a>      <span class="at">y =</span> fit) <span class="sc">+</span>                   </span>
+<span id="cb353-8"><a href="ex-ventricular-shortening-velocity.html#cb353-8" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> fit <span class="sc">-</span> se,    <span class="co"># bottom edge of the ribbon</span></span>
+<span id="cb353-9"><a href="ex-ventricular-shortening-velocity.html#cb353-9" tabindex="-1"></a>                  <span class="at">ymax =</span> fit <span class="sc">+</span> se),   <span class="co"># top edge of the ribbon</span></span>
+<span id="cb353-10"><a href="ex-ventricular-shortening-velocity.html#cb353-10" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span>        </span>
+<span id="cb353-11"><a href="ex-ventricular-shortening-velocity.html#cb353-11" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb353-12"><a href="ex-ventricular-shortening-velocity.html#cb353-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb353-13"><a href="ex-ventricular-shortening-velocity.html#cb353-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Fasting Blood Glucose (mmol/l)&quot;</span>,</span>
+<span id="cb353-14"><a href="ex-ventricular-shortening-velocity.html#cb353-14" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Circumferential Shortening Velocity (%/s)&quot;</span>)   </span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-256-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Of course, you could do both ribbons together:</p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="ex-ventricular-shortening-velocity.html#cb354-1" tabindex="-1"></a>effects<span class="sc">::</span><span class="fu">Effect</span>(<span class="at">focal.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;blood.glucose&quot;</span>),</span>
+<span id="cb354-2"><a href="ex-ventricular-shortening-velocity.html#cb354-2" tabindex="-1"></a>                <span class="at">mod =</span> fit_vel_glu,</span>
+<span id="cb354-3"><a href="ex-ventricular-shortening-velocity.html#cb354-3" tabindex="-1"></a>                <span class="at">xlevels =</span> <span class="fu">list</span>(<span class="at">blood.glucose =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> .<span class="dv">5</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb354-4"><a href="ex-ventricular-shortening-velocity.html#cb354-4" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb354-5"><a href="ex-ventricular-shortening-velocity.html#cb354-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb354-6"><a href="ex-ventricular-shortening-velocity.html#cb354-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> blood.glucose,           </span>
+<span id="cb354-7"><a href="ex-ventricular-shortening-velocity.html#cb354-7" tabindex="-1"></a>      <span class="at">y =</span> fit) <span class="sc">+</span>                  </span>
+<span id="cb354-8"><a href="ex-ventricular-shortening-velocity.html#cb354-8" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,    <span class="co"># bottom edge of the ribbon = lower of the 95% CI</span></span>
+<span id="cb354-9"><a href="ex-ventricular-shortening-velocity.html#cb354-9" tabindex="-1"></a>                  <span class="at">ymax =</span> upper),   <span class="co"># top edge of the ribbon = upper of the 95% CI</span></span>
+<span id="cb354-10"><a href="ex-ventricular-shortening-velocity.html#cb354-10" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span>        </span>
+<span id="cb354-11"><a href="ex-ventricular-shortening-velocity.html#cb354-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> fit <span class="sc">-</span> se,    <span class="co"># bottom edge of the ribbon = mean - SE</span></span>
+<span id="cb354-12"><a href="ex-ventricular-shortening-velocity.html#cb354-12" tabindex="-1"></a>                  <span class="at">ymax =</span> fit <span class="sc">+</span> se),   <span class="co"># top edge of the ribbon = Mean + SE</span></span>
+<span id="cb354-13"><a href="ex-ventricular-shortening-velocity.html#cb354-13" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span>        </span>
+<span id="cb354-14"><a href="ex-ventricular-shortening-velocity.html#cb354-14" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb354-15"><a href="ex-ventricular-shortening-velocity.html#cb354-15" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb354-16"><a href="ex-ventricular-shortening-velocity.html#cb354-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Fasting Blood Glucose (mmol/l)&quot;</span>,</span>
+<span id="cb354-17"><a href="ex-ventricular-shortening-velocity.html#cb354-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Circumferential Shortening Velocity (%/s)&quot;</span>)   <span class="co"># axis labels</span></span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-257-1.png" width="75%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ex-ginzberg-depression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Simple Regression | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Simple Regression | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="sarbearschwartz/v4_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Simple Regression | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simple-linear-regression---example-cancer-experiment.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation - Example: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#apa-style"><i class="fa fa-check"></i><b>1.4.3</b> APA Style</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html"><i class="fa fa-check"></i><b>2</b> Intro to Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#preparation"><i class="fa fa-check"></i><b>2.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#load-packages"><i class="fa fa-check"></i><b>2.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#load-data"><i class="fa fa-check"></i><b>2.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#display-data"><i class="fa fa-check"></i><b>2.2</b> DISPLAY DATA</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#full-table"><i class="fa fa-check"></i><b>2.2.1</b> Full Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.2</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#conditional-means"><i class="fa fa-check"></i><b>2.2.3</b> Conditional Means</a></li>
+<li class="chapter" data-level="2.2.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#y-intercept"><i class="fa fa-check"></i><b>2.2.4</b> Y-intercept</a></li>
+<li class="chapter" data-level="2.2.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#slope"><i class="fa fa-check"></i><b>2.2.5</b> Slope</a></li>
+<li class="chapter" data-level="2.2.6" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#format"><i class="fa fa-check"></i><b>2.2.6</b> Format</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#hand-calculations"><i class="fa fa-check"></i><b>2.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#estimates"><i class="fa fa-check"></i><b>2.3.1</b> Estimates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residuals"><i class="fa fa-check"></i><b>2.3.2</b> Residuals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#errors-of-estimate"><i class="fa fa-check"></i><b>2.3.3</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#deviation-scores"><i class="fa fa-check"></i><b>2.3.4</b> Deviation Scores</a></li>
+<li class="chapter" data-level="2.3.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#cross-products-squares"><i class="fa fa-check"></i><b>2.3.5</b> Cross-Products &amp; Squares</a></li>
+<li class="chapter" data-level="2.3.6" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#covariance"><i class="fa fa-check"></i><b>2.3.6</b> Covariance</a></li>
+<li class="chapter" data-level="2.3.7" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#important-note"><i class="fa fa-check"></i><b>2.3.7</b> Important Note</a></li>
+<li class="chapter" data-level="2.3.8" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#covar-to-var"><i class="fa fa-check"></i><b>2.3.8</b> Covar to Var</a></li>
+<li class="chapter" data-level="2.3.9" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#variance"><i class="fa fa-check"></i><b>2.3.9</b> Variance</a></li>
+<li class="chapter" data-level="2.3.10" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#standard-deviation"><i class="fa fa-check"></i><b>2.3.10</b> Standard Deviation</a></li>
+<li class="chapter" data-level="2.3.11" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#correlation"><i class="fa fa-check"></i><b>2.3.11</b> Correlation</a></li>
+<li class="chapter" data-level="2.3.12" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#coefficient-or-slope"><i class="fa fa-check"></i><b>2.3.12</b> Coefficient or Slope</a></li>
+<li class="chapter" data-level="2.3.13" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#constant-or-y-intercept"><i class="fa fa-check"></i><b>2.3.13</b> Constant or Y-intercept</a></li>
+<li class="chapter" data-level="2.3.14" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#regression-equation"><i class="fa fa-check"></i><b>2.3.14</b> Regression Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#using-software"><i class="fa fa-check"></i><b>2.4</b> USING SOFTWARE</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#linear-model"><i class="fa fa-check"></i><b>2.4.1</b> Linear Model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#coefficients---raw"><i class="fa fa-check"></i><b>2.4.2</b> Coefficients - Raw</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#coefficients---standardized"><i class="fa fa-check"></i><b>2.4.3</b> Coefficients - Standardized</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residuals-1"><i class="fa fa-check"></i><b>2.4.4</b> Residuals</a></li>
+<li class="chapter" data-level="2.4.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#errors-of-estimate-1"><i class="fa fa-check"></i><b>2.4.5</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.4.6" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#visualize"><i class="fa fa-check"></i><b>2.4.6</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residuals-2"><i class="fa fa-check"></i><b>2.5</b> RESIDUALS</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#properties"><i class="fa fa-check"></i><b>2.5.1</b> Properties</a></li>
+<li class="chapter" data-level="2.5.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>2.5.2</b> Residual Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html"><i class="fa fa-check"></i><b>3</b> Partial Relationship &amp; Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#preparation-1"><i class="fa fa-check"></i><b>3.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#load-packages-1"><i class="fa fa-check"></i><b>3.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="3.1.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#load-data-1"><i class="fa fa-check"></i><b>3.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#exploratory"><i class="fa fa-check"></i><b>3.2</b> EXPLORATORY</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#summary-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Visualizations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#regression"><i class="fa fa-check"></i><b>3.3</b> REGRESSION</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#fit-the-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit the models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#output"><i class="fa fa-check"></i><b>3.3.2</b> Output</a></li>
+<li class="chapter" data-level="3.3.3" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#equations"><i class="fa fa-check"></i><b>3.3.3</b> Equations</a></li>
+<li class="chapter" data-level="3.3.4" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#tables"><i class="fa fa-check"></i><b>3.3.4</b> Tables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#semipartial-correlation"><i class="fa fa-check"></i><b>3.3.5</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="3.3.6" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#partial-correlation"><i class="fa fa-check"></i><b>3.3.6</b> Partial Correlation</a></li>
+<li class="chapter" data-level="3.3.7" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#standardized-regression-coefficients"><i class="fa fa-check"></i><b>3.3.7</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html"><i class="fa fa-check"></i><b>4</b> Simple Linear Regression - Example: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>4.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>4.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="4.1.2" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>4.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#scatterplot-2"><i class="fa fa-check"></i><b>4.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#regression-model"><i class="fa fa-check"></i><b>4.3</b> Regression Model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#fit-the-model"><i class="fa fa-check"></i><b>4.3.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#parameter-estimates"><i class="fa fa-check"></i><b>4.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="4.3.3" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#prediction-equation"><i class="fa fa-check"></i><b>4.3.3</b> Prediction Equation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="simple-linear-regression---example-cancer-experiment.html"><a href="simple-linear-regression---example-cancer-experiment.html#estimated-marginal-means"><i class="fa fa-check"></i><b>4.3.4</b> Estimated Marginal Means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simple-regression.html"><a href="simple-regression.html"><i class="fa fa-check"></i><b>5</b> Simple Regression</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simple-regression.html"><a href="simple-regression.html#preparation-2"><i class="fa fa-check"></i><b>5.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simple-regression.html"><a href="simple-regression.html#load-packages-2"><i class="fa fa-check"></i><b>5.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simple-regression.html"><a href="simple-regression.html#load-data-2"><i class="fa fa-check"></i><b>5.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="simple-regression.html"><a href="simple-regression.html#explore-the-data"><i class="fa fa-check"></i><b>5.2</b> Explore the data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="simple-regression.html"><a href="simple-regression.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simple-regression.html"><a href="simple-regression.html#correlations"><i class="fa fa-check"></i><b>5.2.2</b> Correlations</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simple-regression.html"><a href="simple-regression.html#plots"><i class="fa fa-check"></i><b>5.2.3</b> Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simple-regression.html"><a href="simple-regression.html#linear-regression-for-depression"><i class="fa fa-check"></i><b>5.3</b> Linear Regression for Depression</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simple-regression.html"><a href="simple-regression.html#model-with-only-simplicity"><i class="fa fa-check"></i><b>5.3.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simple-regression.html"><a href="simple-regression.html#model-with-only-fatalism"><i class="fa fa-check"></i><b>5.3.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="5.3.3" data-path="simple-regression.html"><a href="simple-regression.html#model-with-only-both-predictors"><i class="fa fa-check"></i><b>5.3.3</b> Model with only Both Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simple-regression.html"><a href="simple-regression.html#residual-diagnostics"><i class="fa fa-check"></i><b>5.4</b> Residual Diagnostics</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simple-regression.html"><a href="simple-regression.html#model-with-only-simplicity-1"><i class="fa fa-check"></i><b>5.4.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simple-regression.html"><a href="simple-regression.html#model-with-only-fatalism-1"><i class="fa fa-check"></i><b>5.4.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simple-regression.html"><a href="simple-regression.html#model-with-both-predictors"><i class="fa fa-check"></i><b>5.4.3</b> Model with Both Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simple-regression.html"><a href="simple-regression.html#effect-size-variance-explained"><i class="fa fa-check"></i><b>5.5</b> Effect Size, variance explained</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="simple-regression.html"><a href="simple-regression.html#variance-partitioning"><i class="fa fa-check"></i><b>5.5.1</b> Variance Partitioning</a></li>
+<li class="chapter" data-level="5.5.2" data-path="simple-regression.html"><a href="simple-regression.html#semipartial-correlation-1"><i class="fa fa-check"></i><b>5.5.2</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="5.5.3" data-path="simple-regression.html"><a href="simple-regression.html#eta-squared"><i class="fa fa-check"></i><b>5.5.3</b> Eta-squared</a></li>
+<li class="chapter" data-level="5.5.4" data-path="simple-regression.html"><a href="simple-regression.html#partial-eta-squared"><i class="fa fa-check"></i><b>5.5.4</b> Partial Eta-Squared</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simple-regression" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Simple Regression<a href="simple-regression.html#simple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<p>References:<br />
+<a href="http://www.philender.com/courses/intro/notes/cor1.html" class="uri">http://www.philender.com/courses/intro/notes/cor1.html</a>
+<a href="https://lytarhan.rbind.io/post/variancepartitioning/" class="uri">https://lytarhan.rbind.io/post/variancepartitioning/</a>
+<a href="https://stats.stackexchange.com/questions/552451/which-r-functions-are-correct-for-estimating-partial-eta-squared-for-effects-in" class="uri">https://stats.stackexchange.com/questions/552451/which-r-functions-are-correct-for-estimating-partial-eta-squared-for-effects-in</a></p>
+</blockquote>
+<div id="preparation-2" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> PREPARATION<a href="simple-regression.html#preparation-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="load-packages-2" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Load Packages<a href="simple-regression.html#load-packages-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="simple-regression.html#cb210-1" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
+<span id="cb210-2"><a href="simple-regression.html#cb210-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;sarbearschwartz/apaSupp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="simple-regression.html#cb211-1" tabindex="-1"></a><span class="fu">library</span>(carData)</span>
+<span id="cb211-2"><a href="simple-regression.html#cb211-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb211-3"><a href="simple-regression.html#cb211-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb211-4"><a href="simple-regression.html#cb211-4" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb211-5"><a href="simple-regression.html#cb211-5" tabindex="-1"></a><span class="fu">library</span>(apaSupp)</span>
+<span id="cb211-6"><a href="simple-regression.html#cb211-6" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb211-7"><a href="simple-regression.html#cb211-7" tabindex="-1"></a><span class="fu">library</span>(ppcor)</span>
+<span id="cb211-8"><a href="simple-regression.html#cb211-8" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb211-9"><a href="simple-regression.html#cb211-9" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
+<span id="cb211-10"><a href="simple-regression.html#cb211-10" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb211-11"><a href="simple-regression.html#cb211-11" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb211-12"><a href="simple-regression.html#cb211-12" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb211-13"><a href="simple-regression.html#cb211-13" tabindex="-1"></a><span class="fu">library</span>(ggResidpanel)</span></code></pre></div>
+</div>
+<div id="load-data-2" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Load Data<a href="simple-regression.html#load-data-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data are for psychiatric patients hospitalized for depression.</p>
+<blockquote>
+<p>Source: Personal communication from Georges Monette, Department of Mathematics and Statistics, York University, with the permission of the original investigator.</p>
+<p>References: Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.</p>
+</blockquote>
+<ul>
+<li><code>simplicity</code> Measures subject’s need to see the world in black and white</li>
+<li><code>fatalism</code> Fatalism scale</li>
+<li><code>depression</code> Beck self-report depression scale</li>
+<li><code>adjsimp</code> Adjusted Simplicity: Simplicity adjusted (by regression) for other variables thought to influence depression</li>
+<li><code>adjfatal</code> Adjusted Fatalism</li>
+<li><code>adjdep</code> Adjusted Depression</li>
+</ul>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="simple-regression.html#cb212-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Ginzberg&quot;</span>, <span class="at">package =</span> <span class="st">&quot;carData&quot;</span>)  </span>
+<span id="cb212-2"><a href="simple-regression.html#cb212-2" tabindex="-1"></a></span>
+<span id="cb212-3"><a href="simple-regression.html#cb212-3" tabindex="-1"></a>df_ginz <span class="ot">&lt;-</span> Ginzberg</span></code></pre></div>
+</div>
+</div>
+<div id="explore-the-data" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Explore the data<a href="simple-regression.html#explore-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="simple-regression.html#cb213-1" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_ginz)</span></code></pre></div>
+<pre><code>Rows: 82
+Columns: 6
+$ simplicity &lt;dbl&gt; 0.92983, 0.91097, 0.53366, 0.74118, 0.53366, 0.62799, 0.778…
+$ fatalism   &lt;dbl&gt; 0.35589, 1.18439, -0.05837, 0.35589, 0.77014, 1.39152, 0.35…
+$ depression &lt;dbl&gt; 0.59870, 0.72787, 0.53411, 0.56641, 0.50182, 0.56641, 0.469…
+$ adjsimp    &lt;dbl&gt; 0.75934, 0.72717, 0.62176, 0.83522, 0.47697, 0.40664, 0.845…
+$ adjfatal   &lt;dbl&gt; 0.10673, 0.99915, 0.03811, 0.42218, 0.81423, 1.23261, 0.297…
+$ adjdep     &lt;dbl&gt; 0.41865, 0.51688, 0.70699, 0.65639, 0.53518, 0.34042, 0.421…</code></pre>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="simple-regression.html#cb215-1" tabindex="-1"></a>df_ginz</span></code></pre></div>
+<pre><code># A tibble: 82 × 6
+   simplicity fatalism depression adjsimp adjfatal adjdep
+        &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+ 1      0.930   0.356       0.599   0.759   0.107   0.419
+ 2      0.911   1.18        0.728   0.727   0.999   0.517
+ 3      0.534  -0.0584      0.534   0.622   0.0381  0.707
+ 4      0.741   0.356       0.566   0.835   0.422   0.656
+ 5      0.534   0.770       0.502   0.477   0.814   0.535
+ 6      0.628   1.39        0.566   0.407   1.23    0.340
+ 7      0.779   0.356       0.470   0.846   0.298   0.422
+ 8      0.836   0.563       0.534   1.50    1.20    1.08 
+ 9      0.515   0.770       0.470   0.311   0.657   0.363
+10      0.873   0.356       0.470   1.41    0.854   0.917
+# ℹ 72 more rows</code></pre>
+<div id="descriptive-statistics" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Descriptive Statistics<a href="simple-regression.html#descriptive-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="simple-regression.html#cb217-1" tabindex="-1"></a>df_ginz <span class="sc">%&gt;%</span> </span>
+<span id="cb217-2"><a href="simple-regression.html#cb217-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Simplicity&quot;</span> <span class="ot">=</span> simplicity,</span>
+<span id="cb217-3"><a href="simple-regression.html#cb217-3" tabindex="-1"></a>                <span class="st">&quot;Fatalism&quot;</span> <span class="ot">=</span> fatalism,</span>
+<span id="cb217-4"><a href="simple-regression.html#cb217-4" tabindex="-1"></a>                <span class="st">&quot;Depression&quot;</span> <span class="ot">=</span> depression) <span class="sc">%&gt;%</span> </span>
+<span id="cb217-5"><a href="simple-regression.html#cb217-5" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">tab_desc</span>(<span class="at">caption =</span> <span class="st">&quot;Description of Psychiatric Patients Hospitalized for Depression&quot;</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-20730406{}.cl-20682946{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-20682950{font-family:'Arial';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2068295a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2068295b{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2068295c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-206c214a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-206c2154{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-206c215e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-206c215f{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-206c2168{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-206c2169{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-206c46ca{width:0.888in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46cb{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46d4{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46d5{width:0.502in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46de{width:0.888in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46df{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46e8{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46e9{width:0.502in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46ea{width:0.888in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46f2{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46f3{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46f4{width:0.502in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46f5{width:0.888in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46fc{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46fd{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46fe{width:0.502in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c46ff{width:0.888in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c4706{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c4707{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-206c4710{width:0.502in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-20730406'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-148)<span>Description of Psychiatric Patients Hospitalized for Depression</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-206c46ca"><p class="cl-206c214a"><span class="cl-20682946">Measure</span></p></th><th class="cl-206c46cb"><p class="cl-206c2154"><span class="cl-20682946">NA</span></p></th><th class="cl-206c46d4"><p class="cl-206c2154"><span class="cl-20682950">M</span></p></th><th class="cl-206c46d4"><p class="cl-206c2154"><span class="cl-20682950">SD</span></p></th><th class="cl-206c46d5"><p class="cl-206c2154"><span class="cl-20682946">min</span></p></th><th class="cl-206c46d4"><p class="cl-206c2154"><span class="cl-20682946">Q1</span></p></th><th class="cl-206c46d4"><p class="cl-206c2154"><span class="cl-20682950">Mdn</span></p></th><th class="cl-206c46d4"><p class="cl-206c2154"><span class="cl-20682946">Q3</span></p></th><th class="cl-206c46d4"><p class="cl-206c2154"><span class="cl-20682946">max</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-206c46de"><p class="cl-206c215e"><span class="cl-20682946">Simplicity</span></p></td><td class="cl-206c46df"><p class="cl-206c215f"><span class="cl-20682946">0</span></p></td><td class="cl-206c46e8"><p class="cl-206c215f"><span class="cl-20682950">1.00</span></p></td><td class="cl-206c46e8"><p class="cl-206c215f"><span class="cl-20682950">0.50</span></p></td><td class="cl-206c46e9"><p class="cl-206c215f"><span class="cl-20682946">0.25</span></p></td><td class="cl-206c46e8"><p class="cl-206c215f"><span class="cl-20682946">0.66</span></p></td><td class="cl-206c46e8"><p class="cl-206c215f"><span class="cl-20682950">0.88</span></p></td><td class="cl-206c46e8"><p class="cl-206c215f"><span class="cl-20682946">1.27</span></p></td><td class="cl-206c46e8"><p class="cl-206c215f"><span class="cl-20682946">2.85</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-206c46ea"><p class="cl-206c215e"><span class="cl-20682946">Fatalism</span></p></td><td class="cl-206c46f2"><p class="cl-206c215f"><span class="cl-20682946">0</span></p></td><td class="cl-206c46f3"><p class="cl-206c215f"><span class="cl-20682950">1.00</span></p></td><td class="cl-206c46f3"><p class="cl-206c215f"><span class="cl-20682950">0.50</span></p></td><td class="cl-206c46f4"><p class="cl-206c215f"><span class="cl-20682946">-0.06</span></p></td><td class="cl-206c46f3"><p class="cl-206c215f"><span class="cl-20682946">0.56</span></p></td><td class="cl-206c46f3"><p class="cl-206c215f"><span class="cl-20682950">0.98</span></p></td><td class="cl-206c46f3"><p class="cl-206c215f"><span class="cl-20682946">1.39</span></p></td><td class="cl-206c46f3"><p class="cl-206c215f"><span class="cl-20682946">2.22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-206c46f5"><p class="cl-206c215e"><span class="cl-20682946">Depression</span></p></td><td class="cl-206c46fc"><p class="cl-206c215f"><span class="cl-20682946">0</span></p></td><td class="cl-206c46fd"><p class="cl-206c215f"><span class="cl-20682950">1.00</span></p></td><td class="cl-206c46fd"><p class="cl-206c215f"><span class="cl-20682950">0.50</span></p></td><td class="cl-206c46fe"><p class="cl-206c215f"><span class="cl-20682946">0.47</span></p></td><td class="cl-206c46fd"><p class="cl-206c215f"><span class="cl-20682946">0.57</span></p></td><td class="cl-206c46fd"><p class="cl-206c215f"><span class="cl-20682950">0.82</span></p></td><td class="cl-206c46fd"><p class="cl-206c215f"><span class="cl-20682946">1.37</span></p></td><td class="cl-206c46fd"><p class="cl-206c215f"><span class="cl-20682946">2.25</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="9"class="cl-206c46ff"><p class="cl-206c2168"><span class="cl-2068295a">Note. </span><span class="cl-2068295b">NA = not available or missing. Mdn = median. Q1 = 25th percentile, Q3 = 75th percentile. N = 82.</span></p></td></tr></tfoot></table></div>
+</div>
+<div id="correlations" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Correlations<a href="simple-regression.html#correlations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="simple-regression.html#cb218-1" tabindex="-1"></a>df_ginz <span class="sc">%&gt;%</span> </span>
+<span id="cb218-2"><a href="simple-regression.html#cb218-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Simplicity&quot;</span> <span class="ot">=</span> simplicity,</span>
+<span id="cb218-3"><a href="simple-regression.html#cb218-3" tabindex="-1"></a>                <span class="st">&quot;Fatalism&quot;</span> <span class="ot">=</span> fatalism,</span>
+<span id="cb218-4"><a href="simple-regression.html#cb218-4" tabindex="-1"></a>                <span class="st">&quot;Depression&quot;</span> <span class="ot">=</span> depression) <span class="sc">%&gt;%</span> </span>
+<span id="cb218-5"><a href="simple-regression.html#cb218-5" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">tab_cor</span>(<span class="at">caption =</span> <span class="st">&quot;Correlations&quot;</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-20cdd9bc{}.cl-20c3777e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-20c37788{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-20c75bb4{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-20c75bbe{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:0;line-height: 1.5;background-color:transparent;}.cl-20c75bc8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:0;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-20c75bc9{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-20c75bd2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-20c75bd3{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:0;line-height: 0.5;background-color:transparent;}.cl-20c75bdc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:0;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-20c75bdd{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-20c75be6{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-20c75be7{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:0;line-height: 1;background-color:transparent;}.cl-20c75bf0{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:0;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-20c77ebe{width:0.93in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ec8{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ec9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ed2{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ed3{width:0.93in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77edc{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77edd{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ede{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ee6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ef0{width:0.93in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ef1{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77ef2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77efa{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77efb{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77f04{width:0.93in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77f05{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77f06{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-20c77f0e{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-20cdd9bc'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-149)<span>Correlations</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th  colspan="2"class="cl-20c77ebe"><p class="cl-20c75bb4"><span class="cl-20c3777e">Variables</span></p></th><th class="cl-20c77ec9"><p class="cl-20c75bb4"><span class="cl-20c3777e">r</span></p></th><th  colspan="2"class="cl-20c77ed2"><p class="cl-20c75bbe"><span class="cl-20c3777e">p</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-20c77ed3"><p class="cl-20c75bc9"><span class="cl-20c3777e">Simplicity</span></p></td><td class="cl-20c77edc"><p class="cl-20c75bc9"><span class="cl-20c3777e">Fatalism</span></p></td><td class="cl-20c77edd"><p class="cl-20c75bd2"><span class="cl-20c3777e">0.630</span></p></td><td class="cl-20c77ede"><p class="cl-20c75bd3"><span class="cl-20c3777e">&lt; .001 </span></p></td><td class="cl-20c77ee6"><p class="cl-20c75bdc"><span class="cl-20c3777e">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-20c77ed3"><p class="cl-20c75bc9"><span class="cl-20c3777e">Simplicity</span></p></td><td class="cl-20c77edc"><p class="cl-20c75bc9"><span class="cl-20c3777e">Depression</span></p></td><td class="cl-20c77edd"><p class="cl-20c75bd2"><span class="cl-20c3777e">0.640</span></p></td><td class="cl-20c77ede"><p class="cl-20c75bd3"><span class="cl-20c3777e">&lt; .001 </span></p></td><td class="cl-20c77ee6"><p class="cl-20c75bdc"><span class="cl-20c3777e">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-20c77ef0"><p class="cl-20c75bc9"><span class="cl-20c3777e">Fatalism</span></p></td><td class="cl-20c77ef1"><p class="cl-20c75bc9"><span class="cl-20c3777e">Depression</span></p></td><td class="cl-20c77ef2"><p class="cl-20c75bd2"><span class="cl-20c3777e">0.660</span></p></td><td class="cl-20c77efa"><p class="cl-20c75bd3"><span class="cl-20c3777e">&lt; .001 </span></p></td><td class="cl-20c77efb"><p class="cl-20c75bdc"><span class="cl-20c3777e">***</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="5"class="cl-20c77f04"><p class="cl-20c75bdd"><span class="cl-20c37788">Note. </span><span class="cl-20c3777e">r = Pearson's Product-Moment correlation coefficient. N = 82.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="5"class="cl-20c77f04"><p class="cl-20c75bdd"><span class="cl-20c3777e">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="5"class="cl-20c77f04"><p class="cl-20c75bdd"><span class="cl-20c3777e"></span></p></td></tr></tfoot></table></div>
+</div>
+<div id="plots" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Plots<a href="simple-regression.html#plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="simplicity" class="section level4 hasAnchor" number="5.2.3.1">
+<h4><span class="header-section-number">5.2.3.1</span> Simplicity<a href="simple-regression.html#simplicity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="simple-regression.html#cb219-1" tabindex="-1"></a>df_ginz <span class="sc">%&gt;%</span> </span>
+<span id="cb219-2"><a href="simple-regression.html#cb219-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> simplicity,</span>
+<span id="cb219-3"><a href="simple-regression.html#cb219-3" tabindex="-1"></a>              <span class="at">y =</span> depression)) <span class="sc">+</span></span>
+<span id="cb219-4"><a href="simple-regression.html#cb219-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb219-5"><a href="simple-regression.html#cb219-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb219-6"><a href="simple-regression.html#cb219-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb219-7"><a href="simple-regression.html#cb219-7" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
+<span id="cb219-8"><a href="simple-regression.html#cb219-8" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_regline_equation</span>(<span class="at">label.x =</span> <span class="fl">0.25</span>,</span>
+<span id="cb219-9"><a href="simple-regression.html#cb219-9" tabindex="-1"></a>                                <span class="at">label.y =</span> <span class="fl">2.45</span>,</span>
+<span id="cb219-10"><a href="simple-regression.html#cb219-10" tabindex="-1"></a>                                <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb219-11"><a href="simple-regression.html#cb219-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Simplicity</span><span class="sc">\n</span><span class="st">(need to see the world in black and white)&quot;</span>,</span>
+<span id="cb219-12"><a href="simple-regression.html#cb219-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Observed Depression</span><span class="sc">\n</span><span class="st">(Beck self-report)&quot;</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-150-1.png" width="75%" /></p>
+</div>
+<div id="fatalism" class="section level4 hasAnchor" number="5.2.3.2">
+<h4><span class="header-section-number">5.2.3.2</span> Fatalism<a href="simple-regression.html#fatalism" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="simple-regression.html#cb220-1" tabindex="-1"></a>df_ginz <span class="sc">%&gt;%</span> </span>
+<span id="cb220-2"><a href="simple-regression.html#cb220-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> fatalism,</span>
+<span id="cb220-3"><a href="simple-regression.html#cb220-3" tabindex="-1"></a>              <span class="at">y =</span> depression)) <span class="sc">+</span></span>
+<span id="cb220-4"><a href="simple-regression.html#cb220-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb220-5"><a href="simple-regression.html#cb220-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb220-6"><a href="simple-regression.html#cb220-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb220-7"><a href="simple-regression.html#cb220-7" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
+<span id="cb220-8"><a href="simple-regression.html#cb220-8" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_regline_equation</span>(<span class="at">label.x =</span> <span class="dv">0</span>,</span>
+<span id="cb220-9"><a href="simple-regression.html#cb220-9" tabindex="-1"></a>                                <span class="at">label.y =</span> <span class="fl">2.45</span>,</span>
+<span id="cb220-10"><a href="simple-regression.html#cb220-10" tabindex="-1"></a>                                <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb220-11"><a href="simple-regression.html#cb220-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Fatalism</span><span class="sc">\n</span><span class="st">(belief that all events are predetermined and therefore inevitable)&quot;</span>,</span>
+<span id="cb220-12"><a href="simple-regression.html#cb220-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Observed Depression</span><span class="sc">\n</span><span class="st">(Beck self-report)&quot;</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-151-1.png" width="75%" /></p>
+</div>
+</div>
+</div>
+<div id="linear-regression-for-depression" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Linear Regression for Depression<a href="simple-regression.html#linear-regression-for-depression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="model-with-only-simplicity" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Model with only Simplicity<a href="simple-regression.html#model-with-only-simplicity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="simple-regression.html#cb221-1" tabindex="-1"></a>fit_lm_sim <span class="ot">&lt;-</span> <span class="fu">lm</span>(depression <span class="sc">~</span> simplicity,</span>
+<span id="cb221-2"><a href="simple-regression.html#cb221-2" tabindex="-1"></a>               <span class="at">data =</span> df_ginz)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="simple-regression.html#cb222-1" tabindex="-1"></a>olsrr<span class="sc">::</span><span class="fu">ols_regress</span>(fit_lm_sim)</span></code></pre></div>
+<pre><code>                        Model Summary                          
+--------------------------------------------------------------
+R                       0.643       RMSE                0.380 
+R-Squared               0.414       MSE                 0.145 
+Adj. R-Squared          0.406       Coef. Var          38.521 
+Pred R-Squared          0.381       AIC                80.229 
+MAE                     0.303       SBC                87.449 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                               ANOVA                                
+-------------------------------------------------------------------
+               Sum of                                              
+              Squares        DF    Mean Square      F         Sig. 
+-------------------------------------------------------------------
+Regression      8.379         1          8.379     56.47    0.0000 
+Residual       11.871        80          0.148                     
+Total          20.250        81                                    
+-------------------------------------------------------------------
+
+                                Parameter Estimates                                  
+------------------------------------------------------------------------------------
+      model     Beta    Std. Error    Std. Beta      t       Sig     lower    upper 
+------------------------------------------------------------------------------------
+(Intercept)    0.357         0.096                 3.732    0.000    0.167    0.547 
+ simplicity    0.643         0.086        0.643    7.515    0.000    0.473    0.814 
+------------------------------------------------------------------------------------</code></pre>
+</div>
+<div id="model-with-only-fatalism" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Model with only Fatalism<a href="simple-regression.html#model-with-only-fatalism" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="simple-regression.html#cb224-1" tabindex="-1"></a>fit_lm_fat <span class="ot">&lt;-</span> <span class="fu">lm</span>(depression <span class="sc">~</span> fatalism,</span>
+<span id="cb224-2"><a href="simple-regression.html#cb224-2" tabindex="-1"></a>               <span class="at">data =</span> df_ginz)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="simple-regression.html#cb225-1" tabindex="-1"></a>olsrr<span class="sc">::</span><span class="fu">ols_regress</span>(fit_lm_fat)</span></code></pre></div>
+<pre><code>                        Model Summary                          
+--------------------------------------------------------------
+R                       0.657       RMSE                0.374 
+R-Squared               0.432       MSE                 0.140 
+Adj. R-Squared          0.425       Coef. Var          37.913 
+Pred R-Squared          0.408       AIC                77.623 
+MAE                     0.293       SBC                84.843 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                               ANOVA                                
+-------------------------------------------------------------------
+               Sum of                                              
+              Squares        DF    Mean Square      F         Sig. 
+-------------------------------------------------------------------
+Regression      8.751         1          8.751    60.878    0.0000 
+Residual       11.499        80          0.144                     
+Total          20.250        81                                    
+-------------------------------------------------------------------
+
+                                Parameter Estimates                                  
+------------------------------------------------------------------------------------
+      model     Beta    Std. Error    Std. Beta      t       Sig     lower    upper 
+------------------------------------------------------------------------------------
+(Intercept)    0.343         0.094                 3.642    0.000    0.155    0.530 
+   fatalism    0.657         0.084        0.657    7.802    0.000    0.490    0.825 
+------------------------------------------------------------------------------------</code></pre>
+</div>
+<div id="model-with-only-both-predictors" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Model with only Both Predictors<a href="simple-regression.html#model-with-only-both-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="simple-regression.html#cb227-1" tabindex="-1"></a>fit_lm_both <span class="ot">&lt;-</span> <span class="fu">lm</span>(depression <span class="sc">~</span> simplicity <span class="sc">+</span> fatalism,</span>
+<span id="cb227-2"><a href="simple-regression.html#cb227-2" tabindex="-1"></a>               <span class="at">data =</span> df_ginz)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="simple-regression.html#cb228-1" tabindex="-1"></a>olsrr<span class="sc">::</span><span class="fu">ols_regress</span>(fit_lm_both)</span></code></pre></div>
+<pre><code>                        Model Summary                          
+--------------------------------------------------------------
+R                       0.720       RMSE                0.345 
+R-Squared               0.519       MSE                 0.119 
+Adj. R-Squared          0.507       Coef. Var          35.122 
+Pred R-Squared          0.468       AIC                66.048 
+MAE                     0.269       SBC                75.674 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                               ANOVA                                
+-------------------------------------------------------------------
+               Sum of                                              
+              Squares        DF    Mean Square      F         Sig. 
+-------------------------------------------------------------------
+Regression     10.505         2          5.253    42.582    0.0000 
+Residual        9.745        79          0.123                     
+Total          20.250        81                                    
+-------------------------------------------------------------------
+
+                                Parameter Estimates                                  
+------------------------------------------------------------------------------------
+      model     Beta    Std. Error    Std. Beta      t       Sig     lower    upper 
+------------------------------------------------------------------------------------
+(Intercept)    0.203         0.095                 2.140    0.035    0.014    0.391 
+ simplicity    0.380         0.101        0.380    3.771    0.000    0.179    0.580 
+   fatalism    0.418         0.101        0.418    4.151    0.000    0.217    0.618 
+------------------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+<div id="residual-diagnostics" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Residual Diagnostics<a href="simple-regression.html#residual-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="model-with-only-simplicity-1" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Model with only Simplicity<a href="simple-regression.html#model-with-only-simplicity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="simple-regression.html#cb230-1" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_residuals</span>(fit_lm_sim)</span></code></pre></div>
+<pre><code>OK: Simulated residuals appear as uniformly distributed (p = 0.094).</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="simple-regression.html#cb232-1" tabindex="-1"></a>ggResidpanel<span class="sc">::</span><span class="fu">resid_panel</span>(fit_lm_sim)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-159-1.png" width="75%" /></p>
+</div>
+<div id="model-with-only-fatalism-1" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Model with only Fatalism<a href="simple-regression.html#model-with-only-fatalism-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="simple-regression.html#cb233-1" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_residuals</span>(fit_lm_fat)</span></code></pre></div>
+<pre><code>OK: Simulated residuals appear as uniformly distributed (p = 0.721).</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="simple-regression.html#cb235-1" tabindex="-1"></a>ggResidpanel<span class="sc">::</span><span class="fu">resid_panel</span>(fit_lm_fat)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-161-1.png" width="75%" /></p>
+</div>
+<div id="model-with-both-predictors" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Model with Both Predictors<a href="simple-regression.html#model-with-both-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="simple-regression.html#cb236-1" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_residuals</span>(fit_lm_both)</span></code></pre></div>
+<pre><code>OK: Simulated residuals appear as uniformly distributed (p = 0.447).</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="simple-regression.html#cb238-1" tabindex="-1"></a>ggResidpanel<span class="sc">::</span><span class="fu">resid_panel</span>(fit_lm_both)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-163-1.png" width="75%" /></p>
+</div>
+</div>
+<div id="effect-size-variance-explained" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Effect Size, variance explained<a href="simple-regression.html#effect-size-variance-explained" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variance-partitioning" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Variance Partitioning<a href="simple-regression.html#variance-partitioning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="simple-regression.html#cb239-1" tabindex="-1"></a><span class="fu">var</span>(df_ginz<span class="sc">$</span>depression)</span></code></pre></div>
+<pre><code>[1] 0.2499999</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="simple-regression.html#cb241-1" tabindex="-1"></a><span class="fu">var</span>(fit_lm_sim<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>[1] 0.1465519</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="simple-regression.html#cb243-1" tabindex="-1"></a><span class="fu">var</span>(fit_lm_fat<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>[1] 0.141967</code></pre>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="simple-regression.html#cb245-1" tabindex="-1"></a><span class="fu">var</span>(fit_lm_both<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>[1] 0.1203068</code></pre>
+<div id="model-with-only-simplicity-2" class="section level4 hasAnchor" number="5.5.1.1">
+<h4><span class="header-section-number">5.5.1.1</span> Model with only Simplicity<a href="simple-regression.html#model-with-only-simplicity-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="simple-regression.html#cb247-1" tabindex="-1"></a><span class="fu">summary</span>(fit_lm_sim)<span class="sc">$</span>r.squared</span></code></pre></div>
+<pre><code>[1] 0.4137922</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="simple-regression.html#cb249-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">var</span>(fit_lm_sim<span class="sc">$</span>residuals)<span class="sc">/</span><span class="fu">var</span>(df_ginz<span class="sc">$</span>depression))</span></code></pre></div>
+<pre><code>[1] 0.4137922</code></pre>
+</div>
+<div id="model-with-only-fatalism-2" class="section level4 hasAnchor" number="5.5.1.2">
+<h4><span class="header-section-number">5.5.1.2</span> Model with only Fatalism<a href="simple-regression.html#model-with-only-fatalism-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="simple-regression.html#cb251-1" tabindex="-1"></a><span class="fu">summary</span>(fit_lm_fat)<span class="sc">$</span>r.squared</span></code></pre></div>
+<pre><code>[1] 0.4321319</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="simple-regression.html#cb253-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">var</span>(fit_lm_fat<span class="sc">$</span>residuals)<span class="sc">/</span><span class="fu">var</span>(df_ginz<span class="sc">$</span>depression))</span></code></pre></div>
+<pre><code>[1] 0.4321319</code></pre>
+</div>
+<div id="model-with-both-predictors-1" class="section level4 hasAnchor" number="5.5.1.3">
+<h4><span class="header-section-number">5.5.1.3</span> Model with Both Predictors<a href="simple-regression.html#model-with-both-predictors-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="simple-regression.html#cb255-1" tabindex="-1"></a><span class="fu">summary</span>(fit_lm_both)<span class="sc">$</span>r.squared</span></code></pre></div>
+<pre><code>[1] 0.5187726</code></pre>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="simple-regression.html#cb257-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">var</span>(fit_lm_both<span class="sc">$</span>residuals)<span class="sc">/</span><span class="fu">var</span>(df_ginz<span class="sc">$</span>depression))</span></code></pre></div>
+<pre><code>[1] 0.5187726</code></pre>
+</div>
+</div>
+<div id="semipartial-correlation-1" class="section level3 hasAnchor" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Semipartial Correlation<a href="simple-regression.html#semipartial-correlation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Therefor…</p>
+<ul>
+<li>Unique from Simplicity = .519 - .432 = .087</li>
+<li>Unique from Fatalism = .519 - .414 = .105</li>
+<li>Sharded from Both = .432 + .414 - .519 = .327</li>
+</ul>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="simple-regression.html#cb259-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">r2_semipartial</span>(fit_lm_both)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+  Term       r2_semipartial    CI CI_low CI_high
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 simplicity         0.0866  0.95 0.0128       1
+2 fatalism           0.105   0.95 0.0239       1</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="simple-regression.html#cb261-1" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">EtaSq</span>(fit_lm_both, <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>               eta.sq eta.sq.part
+simplicity 0.08664075    0.152572
+fatalism   0.10498045    0.179084</code></pre>
+</div>
+<div id="eta-squared" class="section level3 hasAnchor" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Eta-squared<a href="simple-regression.html#eta-squared" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Type I is sequential and terms are “added” to the model in order, first the main effects, then the interactions; the type I sum of squares are SS(A), SS(B|A)</p></li>
+<li><p>Type II adjust the contribution of a predictor for other main effects (but not its interactions, if any): SS(A|B), SS(B|A)</p></li>
+<li><p>Type III attributes to each term (main effect or interaction) its unique contribution. So the sum of squares due to A excludes the effect of the interaction between A and B: SS(A|B,A:B), SS(B|A,A:B), SS(A:B|A,B).</p></li>
+</ul>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="simple-regression.html#cb263-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span>(fit_lm_both, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+  Parameter   Eta2    CI CI_low CI_high
+  &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 simplicity 0.414  0.95 0.279        1
+2 fatalism   0.105  0.95 0.0223       1</code></pre>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="simple-regression.html#cb265-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">eta_squared</span>(fit_lm_both)</span></code></pre></div>
+<pre><code>simplicity   fatalism 
+ 0.4137922  0.1049805 </code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="simple-regression.html#cb267-1" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">EtaSq</span>(fit_lm_both, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>              eta.sq eta.sq.part
+simplicity 0.4137922   0.4623275
+fatalism   0.1049805   0.1790840</code></pre>
+</div>
+<div id="partial-eta-squared" class="section level3 hasAnchor" number="5.5.4">
+<h3><span class="header-section-number">5.5.4</span> Partial Eta-Squared<a href="simple-regression.html#partial-eta-squared" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="simple-regression.html#cb269-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span>(fit_lm_both, <span class="at">partial =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+  Parameter  Eta2_partial    CI CI_low CI_high
+  &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 simplicity        0.462  0.95 0.331        1
+2 fatalism          0.179  0.95 0.0683       1</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="simple-regression.html#cb271-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">partial_eta_squared</span>(fit_lm_both)</span></code></pre></div>
+<pre><code>simplicity   fatalism 
+ 0.4623275  0.1790840 </code></pre>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="simple-regression.html#cb273-1" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">EtaSq</span>(fit_lm_both, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>              eta.sq eta.sq.part
+simplicity 0.4137922   0.4623275
+fatalism   0.1049805   0.1790840</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-linear-regression---example-cancer-experiment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

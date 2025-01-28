@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Partial Relationship &amp; Multiple Regression | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Partial Relationship &amp; Multiple Regression | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="sarbearschwartz/v4_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Partial Relationship &amp; Multiple Regression | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro-to-simple-linear-regression.html"/>
+<link rel="next" href="ex-cancer-experiment.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation - Example: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#required-packages"><i class="fa fa-check"></i><b>1.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#example-dataset---cancer-experiment"><i class="fa fa-check"></i><b>1.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method"><i class="fa fa-check"></i><b>1.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>1.3</b> Pearson’s Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> Correlation Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#apa-style"><i class="fa fa-check"></i><b>1.4.3</b> APA Style</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> Pairs Plots</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#correlation-plots-corrolagrams"><i class="fa fa-check"></i><b>1.6</b> Correlation Plots: Corrolagrams</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation---example-cancer-experiment.html"><a href="linear-correlation---example-cancer-experiment.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html"><i class="fa fa-check"></i><b>2</b> Intro to Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#preparation"><i class="fa fa-check"></i><b>2.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#load-packages"><i class="fa fa-check"></i><b>2.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#load-data"><i class="fa fa-check"></i><b>2.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#display-data"><i class="fa fa-check"></i><b>2.2</b> DISPLAY DATA</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#full-table"><i class="fa fa-check"></i><b>2.2.1</b> Full Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.2</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#conditional-means"><i class="fa fa-check"></i><b>2.2.3</b> Conditional Means</a></li>
+<li class="chapter" data-level="2.2.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#y-intercept"><i class="fa fa-check"></i><b>2.2.4</b> Y-intercept</a></li>
+<li class="chapter" data-level="2.2.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#slope"><i class="fa fa-check"></i><b>2.2.5</b> Slope</a></li>
+<li class="chapter" data-level="2.2.6" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#format"><i class="fa fa-check"></i><b>2.2.6</b> Format</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#hand-calculations"><i class="fa fa-check"></i><b>2.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#estimates"><i class="fa fa-check"></i><b>2.3.1</b> Estimates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residuals"><i class="fa fa-check"></i><b>2.3.2</b> Residuals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#errors-of-estimate"><i class="fa fa-check"></i><b>2.3.3</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#deviation-scores"><i class="fa fa-check"></i><b>2.3.4</b> Deviation Scores</a></li>
+<li class="chapter" data-level="2.3.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#cross-products-squares"><i class="fa fa-check"></i><b>2.3.5</b> Cross-Products &amp; Squares</a></li>
+<li class="chapter" data-level="2.3.6" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#covariance"><i class="fa fa-check"></i><b>2.3.6</b> Covariance</a></li>
+<li class="chapter" data-level="2.3.7" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#important-note"><i class="fa fa-check"></i><b>2.3.7</b> Important Note</a></li>
+<li class="chapter" data-level="2.3.8" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#covar-to-var"><i class="fa fa-check"></i><b>2.3.8</b> Covar to Var</a></li>
+<li class="chapter" data-level="2.3.9" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#variance"><i class="fa fa-check"></i><b>2.3.9</b> Variance</a></li>
+<li class="chapter" data-level="2.3.10" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#standard-deviation"><i class="fa fa-check"></i><b>2.3.10</b> Standard Deviation</a></li>
+<li class="chapter" data-level="2.3.11" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#correlation"><i class="fa fa-check"></i><b>2.3.11</b> Correlation</a></li>
+<li class="chapter" data-level="2.3.12" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#coefficient-or-slope"><i class="fa fa-check"></i><b>2.3.12</b> Coefficient or Slope</a></li>
+<li class="chapter" data-level="2.3.13" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#constant-or-y-intercept"><i class="fa fa-check"></i><b>2.3.13</b> Constant or Y-intercept</a></li>
+<li class="chapter" data-level="2.3.14" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#regression-equation"><i class="fa fa-check"></i><b>2.3.14</b> Regression Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#using-software"><i class="fa fa-check"></i><b>2.4</b> USING SOFTWARE</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#linear-model"><i class="fa fa-check"></i><b>2.4.1</b> Linear Model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#coefficients---raw"><i class="fa fa-check"></i><b>2.4.2</b> Coefficients - Raw</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#coefficients---standardized"><i class="fa fa-check"></i><b>2.4.3</b> Coefficients - Standardized</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residuals-1"><i class="fa fa-check"></i><b>2.4.4</b> Residuals</a></li>
+<li class="chapter" data-level="2.4.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#errors-of-estimate-1"><i class="fa fa-check"></i><b>2.4.5</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.4.6" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#visualize"><i class="fa fa-check"></i><b>2.4.6</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residuals-2"><i class="fa fa-check"></i><b>2.5</b> RESIDUALS</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#properties"><i class="fa fa-check"></i><b>2.5.1</b> Properties</a></li>
+<li class="chapter" data-level="2.5.2" data-path="intro-to-simple-linear-regression.html"><a href="intro-to-simple-linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>2.5.2</b> Residual Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html"><i class="fa fa-check"></i><b>3</b> Partial Relationship &amp; Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#preparation-1"><i class="fa fa-check"></i><b>3.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#load-packages-1"><i class="fa fa-check"></i><b>3.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="3.1.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#load-data-1"><i class="fa fa-check"></i><b>3.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#exploratory"><i class="fa fa-check"></i><b>3.2</b> EXPLORATORY</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#summary-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Visualizations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#regression"><i class="fa fa-check"></i><b>3.3</b> REGRESSION</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#fit-the-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit the models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#output"><i class="fa fa-check"></i><b>3.3.2</b> Output</a></li>
+<li class="chapter" data-level="3.3.3" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#equations"><i class="fa fa-check"></i><b>3.3.3</b> Equations</a></li>
+<li class="chapter" data-level="3.3.4" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#tables"><i class="fa fa-check"></i><b>3.3.4</b> Tables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#semipartial-correlation"><i class="fa fa-check"></i><b>3.3.5</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="3.3.6" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#partial-correlation"><i class="fa fa-check"></i><b>3.3.6</b> Partial Correlation</a></li>
+<li class="chapter" data-level="3.3.7" data-path="partial-relationship-multiple-regression.html"><a href="partial-relationship-multiple-regression.html#standardized-regression-coefficients"><i class="fa fa-check"></i><b>3.3.7</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html"><i class="fa fa-check"></i><b>4</b> Ex) Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#background-1"><i class="fa fa-check"></i><b>4.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#required-packages-1"><i class="fa fa-check"></i><b>4.1.1</b> Required Packages</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#example-dataset---cancer-experiment-1"><i class="fa fa-check"></i><b>4.1.2</b> Example Dataset - Cancer Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#exploratory-data-analysis-i.e.-the-eyeball-method-1"><i class="fa fa-check"></i><b>4.2</b> Exploratory Data Analysis: i.e. the eyeball method</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#scatterplot-2"><i class="fa fa-check"></i><b>4.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#regression-model"><i class="fa fa-check"></i><b>4.3</b> Regression Model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#fit-the-model"><i class="fa fa-check"></i><b>4.3.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#parameter-estimates"><i class="fa fa-check"></i><b>4.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#prediction-equation"><i class="fa fa-check"></i><b>4.3.3</b> Prediction Equation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#estimated-marginal-means"><i class="fa fa-check"></i><b>4.3.4</b> Estimated Marginal Means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html"><i class="fa fa-check"></i><b>5</b> Ex) Ginzberg Depression</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#preparation-2"><i class="fa fa-check"></i><b>5.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#load-packages-2"><i class="fa fa-check"></i><b>5.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="5.1.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#load-data-2"><i class="fa fa-check"></i><b>5.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#explore-the-data"><i class="fa fa-check"></i><b>5.2</b> Explore the data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#correlations"><i class="fa fa-check"></i><b>5.2.2</b> Correlations</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#plots"><i class="fa fa-check"></i><b>5.2.3</b> Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#linear-regression-for-depression"><i class="fa fa-check"></i><b>5.3</b> Linear Regression for Depression</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-simplicity"><i class="fa fa-check"></i><b>5.3.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-fatalism"><i class="fa fa-check"></i><b>5.3.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="5.3.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-both-predictors"><i class="fa fa-check"></i><b>5.3.3</b> Model with only Both Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#residual-diagnostics"><i class="fa fa-check"></i><b>5.4</b> Residual Diagnostics</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-simplicity-1"><i class="fa fa-check"></i><b>5.4.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="5.4.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-fatalism-1"><i class="fa fa-check"></i><b>5.4.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="5.4.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-both-predictors"><i class="fa fa-check"></i><b>5.4.3</b> Model with Both Predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#effect-size-variance-explained"><i class="fa fa-check"></i><b>5.5</b> Effect Size, variance explained</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#variance-partitioning"><i class="fa fa-check"></i><b>5.5.1</b> Variance Partitioning</a></li>
+<li class="chapter" data-level="5.5.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#semipartial-correlation-1"><i class="fa fa-check"></i><b>5.5.2</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="5.5.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#eta-squared"><i class="fa fa-check"></i><b>5.5.3</b> Eta-squared</a></li>
+<li class="chapter" data-level="5.5.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#partial-eta-squared"><i class="fa fa-check"></i><b>5.5.4</b> Partial Eta-Squared</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="partial-relationship-multiple-regression" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Partial Relationship &amp; Multiple Regression<a href="partial-relationship-multiple-regression.html#partial-relationship-multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Darlington &amp; Hayes, Chapter 2</p>
+<p>Outside resource
+* <a href="https://www.harshaash.com/R/part-and-partial-corr/" class="uri">https://www.harshaash.com/R/part-and-partial-corr/</a>
+* <a href="https://dstanley4.github.io/psyc4780bookdown/multiple-regression.html" class="uri">https://dstanley4.github.io/psyc4780bookdown/multiple-regression.html</a></p>
+<p>Reference:</p>
+<ul>
+<li>Knapp, T. R. (1996). <a href="https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1631&amp;context=mwer">Semi-Partial Correlations: I Don’t Need Them; You Can Have Them.</a> Mid-Western Educational Researcher, 9(4), 4.</li>
+</ul>
+<div id="preparation-1" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> PREPARATION<a href="partial-relationship-multiple-regression.html#preparation-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="load-packages-1" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Load Packages<a href="partial-relationship-multiple-regression.html#load-packages-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="partial-relationship-multiple-regression.html#cb156-1" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
+<span id="cb156-2"><a href="partial-relationship-multiple-regression.html#cb156-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;sarbearschwartz/apaSupp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="partial-relationship-multiple-regression.html#cb157-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb157-2"><a href="partial-relationship-multiple-regression.html#cb157-2" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb157-3"><a href="partial-relationship-multiple-regression.html#cb157-3" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb157-4"><a href="partial-relationship-multiple-regression.html#cb157-4" tabindex="-1"></a><span class="fu">library</span>(apaSupp)</span>
+<span id="cb157-5"><a href="partial-relationship-multiple-regression.html#cb157-5" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb157-6"><a href="partial-relationship-multiple-regression.html#cb157-6" tabindex="-1"></a><span class="fu">library</span>(ppcor)</span>
+<span id="cb157-7"><a href="partial-relationship-multiple-regression.html#cb157-7" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb157-8"><a href="partial-relationship-multiple-regression.html#cb157-8" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
+<span id="cb157-9"><a href="partial-relationship-multiple-regression.html#cb157-9" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb157-10"><a href="partial-relationship-multiple-regression.html#cb157-10" tabindex="-1"></a><span class="fu">library</span>(ggResidpanel)</span></code></pre></div>
+</div>
+<div id="load-data-1" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Load Data<a href="partial-relationship-multiple-regression.html#load-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Manually enter the data set provided on page 44 in Table 3.1</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="partial-relationship-multiple-regression.html#cb158-1" tabindex="-1"></a>df_loss <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(<span class="sc">~</span>id, <span class="sc">~</span>exer, <span class="sc">~</span>diet, <span class="sc">~</span>loss,</span>
+<span id="cb158-2"><a href="partial-relationship-multiple-regression.html#cb158-2" tabindex="-1"></a>                           <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>,  <span class="dv">6</span>, </span>
+<span id="cb158-3"><a href="partial-relationship-multiple-regression.html#cb158-3" tabindex="-1"></a>                           <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>,  <span class="dv">2</span>,</span>
+<span id="cb158-4"><a href="partial-relationship-multiple-regression.html#cb158-4" tabindex="-1"></a>                           <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">6</span>,  <span class="dv">4</span>,</span>
+<span id="cb158-5"><a href="partial-relationship-multiple-regression.html#cb158-5" tabindex="-1"></a>                           <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>,  <span class="dv">8</span>,</span>
+<span id="cb158-6"><a href="partial-relationship-multiple-regression.html#cb158-6" tabindex="-1"></a>                           <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>,  <span class="dv">9</span>,</span>
+<span id="cb158-7"><a href="partial-relationship-multiple-regression.html#cb158-7" tabindex="-1"></a>                           <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">6</span>,  <span class="dv">8</span>,</span>
+<span id="cb158-8"><a href="partial-relationship-multiple-regression.html#cb158-8" tabindex="-1"></a>                           <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">8</span>,  <span class="dv">5</span>,</span>
+<span id="cb158-9"><a href="partial-relationship-multiple-regression.html#cb158-9" tabindex="-1"></a>                           <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">11</span>,</span>
+<span id="cb158-10"><a href="partial-relationship-multiple-regression.html#cb158-10" tabindex="-1"></a>                           <span class="dv">9</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">13</span>,</span>
+<span id="cb158-11"><a href="partial-relationship-multiple-regression.html#cb158-11" tabindex="-1"></a>                           <span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="partial-relationship-multiple-regression.html#cb159-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb159-2"><a href="partial-relationship-multiple-regression.html#cb159-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;ID&quot;</span> <span class="ot">=</span> id,</span>
+<span id="cb159-3"><a href="partial-relationship-multiple-regression.html#cb159-3" tabindex="-1"></a>                <span class="st">&quot;Exercise</span><span class="sc">\n</span><span class="st">Frequency&quot;</span> <span class="ot">=</span> exer,</span>
+<span id="cb159-4"><a href="partial-relationship-multiple-regression.html#cb159-4" tabindex="-1"></a>                <span class="st">&quot;Food</span><span class="sc">\n</span><span class="st">Intake&quot;</span> <span class="ot">=</span> diet,</span>
+<span id="cb159-5"><a href="partial-relationship-multiple-regression.html#cb159-5" tabindex="-1"></a>                <span class="st">&quot;Weight</span><span class="sc">\n</span><span class="st">Loss&quot;</span> <span class="ot">=</span> loss) <span class="sc">%&gt;%</span> </span>
+<span id="cb159-6"><a href="partial-relationship-multiple-regression.html#cb159-6" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb159-7"><a href="partial-relationship-multiple-regression.html#cb159-7" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">theme_apa</span>(<span class="at">caption =</span> <span class="st">&quot;D&amp;H Table 3.1: Exercise, Food Intake, and Weight Loss&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb159-8"><a href="partial-relationship-multiple-regression.html#cb159-8" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_double</span>(<span class="at">digits =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb159-9"><a href="partial-relationship-multiple-regression.html#cb159-9" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">footnote</span>(<span class="at">part =</span> <span class="st">&quot;header&quot;</span>, </span>
+<span id="cb159-10"><a href="partial-relationship-multiple-regression.html#cb159-10" tabindex="-1"></a>                      <span class="at">i =</span> <span class="dv">1</span>, <span class="at">j =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb159-11"><a href="partial-relationship-multiple-regression.html#cb159-11" tabindex="-1"></a>                      <span class="at">value =</span> <span class="fu">as_paragraph</span>(<span class="fu">c</span>(<span class="st">&quot;Weekly average of hours/day&quot;</span>,</span>
+<span id="cb159-12"><a href="partial-relationship-multiple-regression.html#cb159-12" tabindex="-1"></a>                                             <span class="st">&quot;Daily average of 100s of calories above recommendation&quot;</span>,</span>
+<span id="cb159-13"><a href="partial-relationship-multiple-regression.html#cb159-13" tabindex="-1"></a>                                             <span class="st">&quot;Weekly average of 100s of grams/week&quot;</span>)))</span></code></pre></div>
+<div class="tabwid"><style>.cl-19943d58{}.cl-198889fe{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19888a12{font-family:'Arial';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-198ce94a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-198ce954{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-198ce955{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-198ce95e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-198ce95f{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-198d1582{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d158c{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d158d{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d158e{width:0.761in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d1596{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d1597{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d1598{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15a0{width:0.761in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15a1{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15aa{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15ab{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15ac{width:0.761in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15b4{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15b5{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15b6{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15be{width:0.761in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15bf{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15c0{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15c8{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-198d15c9{width:0.761in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-19943d58'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-108)<span>D&amp;H Table 3.1: Exercise, Food Intake, and Weight Loss</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-198d1582"><p class="cl-198ce94a"><span class="cl-198889fe">ID</span></p></th><th class="cl-198d158c"><p class="cl-198ce954"><span class="cl-198889fe">Exercise</span><br><span class="cl-198889fe">Frequency</span><span class="cl-19888a12">1</span></p></th><th class="cl-198d158d"><p class="cl-198ce954"><span class="cl-198889fe">Food</span><br><span class="cl-198889fe">Intake</span><span class="cl-19888a12">2</span></p></th><th class="cl-198d158e"><p class="cl-198ce954"><span class="cl-198889fe">Weight</span><br><span class="cl-198889fe">Loss</span><span class="cl-19888a12">3</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">1</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">0</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">2</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">0</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d15a1"><p class="cl-198ce955"><span class="cl-198889fe">3</span></p></td><td class="cl-198d15aa"><p class="cl-198ce95e"><span class="cl-198889fe">0</span></p></td><td class="cl-198d15ab"><p class="cl-198ce95e"><span class="cl-198889fe">6</span></p></td><td class="cl-198d15ac"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">4</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">5</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">6</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">6</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">7</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">2</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">8</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d1596"><p class="cl-198ce955"><span class="cl-198889fe">8</span></p></td><td class="cl-198d1597"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td><td class="cl-198d1598"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td><td class="cl-198d15a0"><p class="cl-198ce95e"><span class="cl-198889fe">11</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d15a1"><p class="cl-198ce955"><span class="cl-198889fe">9</span></p></td><td class="cl-198d15aa"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td><td class="cl-198d15ab"><p class="cl-198ce95e"><span class="cl-198889fe">6</span></p></td><td class="cl-198d15ac"><p class="cl-198ce95e"><span class="cl-198889fe">13</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-198d15b4"><p class="cl-198ce955"><span class="cl-198889fe">10</span></p></td><td class="cl-198d15b5"><p class="cl-198ce95e"><span class="cl-198889fe">4</span></p></td><td class="cl-198d15b6"><p class="cl-198ce95e"><span class="cl-198889fe">8</span></p></td><td class="cl-198d15be"><p class="cl-198ce95e"><span class="cl-198889fe">9</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-198d15bf"><p class="cl-198ce95f"><span class="cl-19888a12">1</span><span class="cl-198889fe">Weekly average of hours/day</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-198d15bf"><p class="cl-198ce95f"><span class="cl-19888a12">2</span><span class="cl-198889fe">Daily average of 100s of calories above recommendation</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-198d15bf"><p class="cl-198ce95f"><span class="cl-19888a12">3</span><span class="cl-198889fe">Weekly average of 100s of grams/week</span></p></td></tr></tfoot></table></div>
+</div>
+</div>
+<div id="exploratory" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> EXPLORATORY<a href="partial-relationship-multiple-regression.html#exploratory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="summary-statistics" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Summary Statistics<a href="partial-relationship-multiple-regression.html#summary-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="partial-relationship-multiple-regression.html#cb160-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb160-2"><a href="partial-relationship-multiple-regression.html#cb160-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Exercise Frequency&quot;</span> <span class="ot">=</span> exer,</span>
+<span id="cb160-3"><a href="partial-relationship-multiple-regression.html#cb160-3" tabindex="-1"></a>                <span class="st">&quot;Food Intake&quot;</span> <span class="ot">=</span> diet,</span>
+<span id="cb160-4"><a href="partial-relationship-multiple-regression.html#cb160-4" tabindex="-1"></a>                <span class="st">&quot;Weight Loss&quot;</span> <span class="ot">=</span> loss) <span class="sc">%&gt;%</span> </span>
+<span id="cb160-5"><a href="partial-relationship-multiple-regression.html#cb160-5" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">tab_desc</span>(<span class="at">caption =</span> <span class="st">&quot;Summary Statistics&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb160-6"><a href="partial-relationship-multiple-regression.html#cb160-6" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">footnote</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">j =</span> <span class="dv">1</span>, </span>
+<span id="cb160-7"><a href="partial-relationship-multiple-regression.html#cb160-7" tabindex="-1"></a>                      <span class="at">value =</span> <span class="fu">as_paragraph</span>(<span class="fu">c</span>(<span class="st">&quot;Weekly average of hours/day&quot;</span>,</span>
+<span id="cb160-8"><a href="partial-relationship-multiple-regression.html#cb160-8" tabindex="-1"></a>                                             <span class="st">&quot;Daily average of 100s of calories above recommendation&quot;</span>,</span>
+<span id="cb160-9"><a href="partial-relationship-multiple-regression.html#cb160-9" tabindex="-1"></a>                                             <span class="st">&quot;Weekly average of 100s of grams/week&quot;</span>)))</span></code></pre></div>
+<div class="tabwid"><style>.cl-19f3e6a4{}.cl-19e8145a{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19e81464{font-family:'Arial';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19e8146e{font-family:'Arial';font-size:6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3pt;}.cl-19e8146f{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19e81470{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19e81478{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19e81479{font-family:'Arial';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-19ec69d8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-19ec69e2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-19ec69e3{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-19ec69ec{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-19ec69ed{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-19ec69ee{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-19ec9232{width:1.413in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec923c{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec923d{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec923e{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9246{width:1.413in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9247{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9250{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9251{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9252{width:1.413in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9253{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec925a{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec925b{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec925c{width:1.413in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9264{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9265{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec926e{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec926f{width:1.413in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9278{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec9279{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19ec927a{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-19f3e6a4'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-109)<span>Summary Statistics</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-19ec9232"><p class="cl-19ec69d8"><span class="cl-19e8145a">Measure</span></p></th><th class="cl-19ec923c"><p class="cl-19ec69e2"><span class="cl-19e8145a">NA</span></p></th><th class="cl-19ec923d"><p class="cl-19ec69e2"><span class="cl-19e81464">M</span></p></th><th class="cl-19ec923d"><p class="cl-19ec69e2"><span class="cl-19e81464">SD</span></p></th><th class="cl-19ec923d"><p class="cl-19ec69e2"><span class="cl-19e8145a">min</span></p></th><th class="cl-19ec923d"><p class="cl-19ec69e2"><span class="cl-19e8145a">Q1</span></p></th><th class="cl-19ec923d"><p class="cl-19ec69e2"><span class="cl-19e81464">Mdn</span></p></th><th class="cl-19ec923d"><p class="cl-19ec69e2"><span class="cl-19e8145a">Q3</span></p></th><th class="cl-19ec923e"><p class="cl-19ec69e2"><span class="cl-19e8145a">max</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-19ec9246"><p class="cl-19ec69e3"><span class="cl-19e8145a">Exercise Frequency</span><span class="cl-19e8146e">1</span></p></td><td class="cl-19ec9247"><p class="cl-19ec69ec"><span class="cl-19e8145a">0</span></p></td><td class="cl-19ec9250"><p class="cl-19ec69ec"><span class="cl-19e81464">2.00</span></p></td><td class="cl-19ec9250"><p class="cl-19ec69ec"><span class="cl-19e81464">1.63</span></p></td><td class="cl-19ec9250"><p class="cl-19ec69ec"><span class="cl-19e8145a">0.00</span></p></td><td class="cl-19ec9250"><p class="cl-19ec69ec"><span class="cl-19e8145a">0.50</span></p></td><td class="cl-19ec9250"><p class="cl-19ec69ec"><span class="cl-19e81464">2.00</span></p></td><td class="cl-19ec9250"><p class="cl-19ec69ec"><span class="cl-19e8145a">3.50</span></p></td><td class="cl-19ec9251"><p class="cl-19ec69ec"><span class="cl-19e8145a">4.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-19ec9252"><p class="cl-19ec69e3"><span class="cl-19e8145a">Food Intake</span><span class="cl-19e8146e">2</span></p></td><td class="cl-19ec9253"><p class="cl-19ec69ec"><span class="cl-19e8145a">0</span></p></td><td class="cl-19ec925a"><p class="cl-19ec69ec"><span class="cl-19e81464">5.00</span></p></td><td class="cl-19ec925a"><p class="cl-19ec69ec"><span class="cl-19e81464">2.16</span></p></td><td class="cl-19ec925a"><p class="cl-19ec69ec"><span class="cl-19e8145a">2.00</span></p></td><td class="cl-19ec925a"><p class="cl-19ec69ec"><span class="cl-19e8145a">4.00</span></p></td><td class="cl-19ec925a"><p class="cl-19ec69ec"><span class="cl-19e81464">5.00</span></p></td><td class="cl-19ec925a"><p class="cl-19ec69ec"><span class="cl-19e8145a">6.00</span></p></td><td class="cl-19ec925b"><p class="cl-19ec69ec"><span class="cl-19e8145a">8.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-19ec925c"><p class="cl-19ec69e3"><span class="cl-19e8145a">Weight Loss</span><span class="cl-19e8146e">3</span></p></td><td class="cl-19ec9264"><p class="cl-19ec69ec"><span class="cl-19e8145a">0</span></p></td><td class="cl-19ec9265"><p class="cl-19ec69ec"><span class="cl-19e81464">7.50</span></p></td><td class="cl-19ec9265"><p class="cl-19ec69ec"><span class="cl-19e81464">3.31</span></p></td><td class="cl-19ec9265"><p class="cl-19ec69ec"><span class="cl-19e8145a">2.00</span></p></td><td class="cl-19ec9265"><p class="cl-19ec69ec"><span class="cl-19e8145a">5.25</span></p></td><td class="cl-19ec9265"><p class="cl-19ec69ec"><span class="cl-19e81464">8.00</span></p></td><td class="cl-19ec9265"><p class="cl-19ec69ec"><span class="cl-19e8145a">9.00</span></p></td><td class="cl-19ec926e"><p class="cl-19ec69ec"><span class="cl-19e8145a">13.00</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="9"class="cl-19ec926f"><p class="cl-19ec69ed"><span class="cl-19e8146f">Note. </span><span class="cl-19e81470">NA = not available or missing. Mdn = median. Q1 = 25th percentile, Q3 = 75th percentile. N = 10.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="9"class="cl-19ec926f"><p class="cl-19ec69ed"><span class="cl-19e81479">1</span><span class="cl-19e81470">Weekly average of hours/day</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="9"class="cl-19ec926f"><p class="cl-19ec69ed"><span class="cl-19e81479">2</span><span class="cl-19e81470">Daily average of 100s of calories above recommendation</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="9"class="cl-19ec926f"><p class="cl-19ec69ed"><span class="cl-19e81479">3</span><span class="cl-19e81470">Weekly average of 100s of grams/week</span></p></td></tr></tfoot></table></div>
+</div>
+<div id="visualizations" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Visualizations<a href="partial-relationship-multiple-regression.html#visualizations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="partial-relationship-multiple-regression.html#cb161-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb161-2"><a href="partial-relationship-multiple-regression.html#cb161-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diet,</span>
+<span id="cb161-3"><a href="partial-relationship-multiple-regression.html#cb161-3" tabindex="-1"></a>             <span class="at">y =</span> loss)) <span class="sc">+</span></span>
+<span id="cb161-4"><a href="partial-relationship-multiple-regression.html#cb161-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> <span class="fu">factor</span>(exer))) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-110"></span>
+<img src="v4_regression_files/figure-html/unnamed-chunk-110-1.png" alt="D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BASIC" width="75%" />
+<p class="caption">
+Figure 3.1: D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BASIC
+</p>
+</div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="partial-relationship-multiple-regression.html#cb162-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb162-2"><a href="partial-relationship-multiple-regression.html#cb162-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diet,</span>
+<span id="cb162-3"><a href="partial-relationship-multiple-regression.html#cb162-3" tabindex="-1"></a>             <span class="at">y =</span> loss)) <span class="sc">+</span></span>
+<span id="cb162-4"><a href="partial-relationship-multiple-regression.html#cb162-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> <span class="fu">factor</span>(exer),</span>
+<span id="cb162-5"><a href="partial-relationship-multiple-regression.html#cb162-5" tabindex="-1"></a>                 <span class="at">color =</span> <span class="fu">factor</span>(exer)),</span>
+<span id="cb162-6"><a href="partial-relationship-multiple-regression.html#cb162-6" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>)  <span class="sc">+</span></span>
+<span id="cb162-7"><a href="partial-relationship-multiple-regression.html#cb162-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb162-8"><a href="partial-relationship-multiple-regression.html#cb162-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Observed Food Intake</span><span class="sc">\n</span><span class="st">Daily average of 100s of calories above recommendation&quot;</span>,</span>
+<span id="cb162-9"><a href="partial-relationship-multiple-regression.html#cb162-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Observed Weight Loss</span><span class="sc">\n</span><span class="st">Weekly average of 100s of grams/week&quot;</span>,</span>
+<span id="cb162-10"><a href="partial-relationship-multiple-regression.html#cb162-10" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Exercise Frequency</span><span class="sc">\n</span><span class="st">Weekly average of hours/day&quot;</span>,</span>
+<span id="cb162-11"><a href="partial-relationship-multiple-regression.html#cb162-11" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency</span><span class="sc">\n</span><span class="st">Weekly average of hours/day&quot;</span>) <span class="sc">+</span></span>
+<span id="cb162-12"><a href="partial-relationship-multiple-regression.html#cb162-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-111"></span>
+<img src="v4_regression_files/figure-html/unnamed-chunk-111-1.png" alt="D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BETTTER" width="75%" />
+<p class="caption">
+Figure 3.2: D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BETTTER
+</p>
+</div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="partial-relationship-multiple-regression.html#cb163-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb163-2"><a href="partial-relationship-multiple-regression.html#cb163-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">exer =</span> <span class="fu">factor</span>(exer)) <span class="sc">%&gt;%</span> </span>
+<span id="cb163-3"><a href="partial-relationship-multiple-regression.html#cb163-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diet,</span>
+<span id="cb163-4"><a href="partial-relationship-multiple-regression.html#cb163-4" tabindex="-1"></a>             <span class="at">y =</span> loss)) <span class="sc">+</span></span>
+<span id="cb163-5"><a href="partial-relationship-multiple-regression.html#cb163-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)  <span class="sc">+</span></span>
+<span id="cb163-6"><a href="partial-relationship-multiple-regression.html#cb163-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb163-7"><a href="partial-relationship-multiple-regression.html#cb163-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Observed Food Intake</span><span class="sc">\n</span><span class="st">(Daily average of 100s of calories above recommendation)&quot;</span>,</span>
+<span id="cb163-8"><a href="partial-relationship-multiple-regression.html#cb163-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Observed Weight Loss</span><span class="sc">\n</span><span class="st">(Weekly average of 100s of grams/week)&quot;</span>,</span>
+<span id="cb163-9"><a href="partial-relationship-multiple-regression.html#cb163-9" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Exercise Frequency</span><span class="sc">\n</span><span class="st">(Weekly average of hours/day)&quot;</span>,</span>
+<span id="cb163-10"><a href="partial-relationship-multiple-regression.html#cb163-10" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency</span><span class="sc">\n</span><span class="st">(Weekly average of hours/day)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb163-11"><a href="partial-relationship-multiple-regression.html#cb163-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb163-12"><a href="partial-relationship-multiple-regression.html#cb163-12" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>),</span>
+<span id="cb163-13"><a href="partial-relationship-multiple-regression.html#cb163-13" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb163-14"><a href="partial-relationship-multiple-regression.html#cb163-14" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb163-15"><a href="partial-relationship-multiple-regression.html#cb163-15" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-112"></span>
+<img src="v4_regression_files/figure-html/unnamed-chunk-112-1.png" alt="D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - WORST" width="75%" />
+<p class="caption">
+Figure 3.3: D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - WORST
+</p>
+</div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="partial-relationship-multiple-regression.html#cb164-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb164-2"><a href="partial-relationship-multiple-regression.html#cb164-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">exer =</span> <span class="fu">factor</span>(exer)) <span class="sc">%&gt;%</span> </span>
+<span id="cb164-3"><a href="partial-relationship-multiple-regression.html#cb164-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diet,</span>
+<span id="cb164-4"><a href="partial-relationship-multiple-regression.html#cb164-4" tabindex="-1"></a>             <span class="at">y =</span> loss,</span>
+<span id="cb164-5"><a href="partial-relationship-multiple-regression.html#cb164-5" tabindex="-1"></a>             <span class="at">group =</span> exer)) <span class="sc">+</span></span>
+<span id="cb164-6"><a href="partial-relationship-multiple-regression.html#cb164-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> exer,</span>
+<span id="cb164-7"><a href="partial-relationship-multiple-regression.html#cb164-7" tabindex="-1"></a>                 <span class="at">color =</span> exer),</span>
+<span id="cb164-8"><a href="partial-relationship-multiple-regression.html#cb164-8" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>)  <span class="sc">+</span></span>
+<span id="cb164-9"><a href="partial-relationship-multiple-regression.html#cb164-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb164-10"><a href="partial-relationship-multiple-regression.html#cb164-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Observed Food Intake</span><span class="sc">\n</span><span class="st">(Daily average of 100s of calories above recommendation)&quot;</span>,</span>
+<span id="cb164-11"><a href="partial-relationship-multiple-regression.html#cb164-11" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Observed Weight Loss</span><span class="sc">\n</span><span class="st">(Weekly average of 100s of grams/week)&quot;</span>,</span>
+<span id="cb164-12"><a href="partial-relationship-multiple-regression.html#cb164-12" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Exercise Frequency</span><span class="sc">\n</span><span class="st">(Weekly average of hours/day)&quot;</span>,</span>
+<span id="cb164-13"><a href="partial-relationship-multiple-regression.html#cb164-13" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Exercise Frequency</span><span class="sc">\n</span><span class="st">(Weekly average of hours/day)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb164-14"><a href="partial-relationship-multiple-regression.html#cb164-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb164-15"><a href="partial-relationship-multiple-regression.html#cb164-15" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> exer),</span>
+<span id="cb164-16"><a href="partial-relationship-multiple-regression.html#cb164-16" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb164-17"><a href="partial-relationship-multiple-regression.html#cb164-17" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb164-18"><a href="partial-relationship-multiple-regression.html#cb164-18" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-113"></span>
+<img src="v4_regression_files/figure-html/unnamed-chunk-113-1.png" alt="D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BEST" width="75%" />
+<p class="caption">
+Figure 3.4: D&amp;H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BEST
+</p>
+</div>
+</div>
+</div>
+<div id="regression" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> REGRESSION<a href="partial-relationship-multiple-regression.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fit-the-models" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Fit the models<a href="partial-relationship-multiple-regression.html#fit-the-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="partial-relationship-multiple-regression.html#cb165-1" tabindex="-1"></a>fit_lm_exer <span class="ot">&lt;-</span> <span class="fu">lm</span>(loss <span class="sc">~</span> exer,</span>
+<span id="cb165-2"><a href="partial-relationship-multiple-regression.html#cb165-2" tabindex="-1"></a>                  <span class="at">data =</span> df_loss)</span>
+<span id="cb165-3"><a href="partial-relationship-multiple-regression.html#cb165-3" tabindex="-1"></a></span>
+<span id="cb165-4"><a href="partial-relationship-multiple-regression.html#cb165-4" tabindex="-1"></a>fit_lm_diet <span class="ot">&lt;-</span> <span class="fu">lm</span>(loss <span class="sc">~</span> diet,</span>
+<span id="cb165-5"><a href="partial-relationship-multiple-regression.html#cb165-5" tabindex="-1"></a>                  <span class="at">data =</span> df_loss)</span>
+<span id="cb165-6"><a href="partial-relationship-multiple-regression.html#cb165-6" tabindex="-1"></a></span>
+<span id="cb165-7"><a href="partial-relationship-multiple-regression.html#cb165-7" tabindex="-1"></a>fit_lm_both <span class="ot">&lt;-</span> <span class="fu">lm</span>(loss <span class="sc">~</span> exer <span class="sc">+</span> diet,</span>
+<span id="cb165-8"><a href="partial-relationship-multiple-regression.html#cb165-8" tabindex="-1"></a>                  <span class="at">data =</span> df_loss)</span></code></pre></div>
+</div>
+<div id="output" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Output<a href="partial-relationship-multiple-regression.html#output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="partial-relationship-multiple-regression.html#cb166-1" tabindex="-1"></a>olsrr<span class="sc">::</span><span class="fu">ols_regress</span>(fit_lm_exer)</span></code></pre></div>
+<pre><code>                        Model Summary                          
+--------------------------------------------------------------
+R                       0.864       RMSE                1.581 
+R-Squared               0.746       MSE                 2.500 
+Adj. R-Squared          0.714       Coef. Var          23.570 
+Pred R-Squared          0.585       AIC                43.542 
+MAE                     1.300       SBC                44.449 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                              ANOVA                                
+------------------------------------------------------------------
+               Sum of                                             
+              Squares       DF    Mean Square      F         Sig. 
+------------------------------------------------------------------
+Regression     73.500        1         73.500     23.52    0.0013 
+Residual       25.000        8          3.125                     
+Total          98.500        9                                    
+------------------------------------------------------------------
+
+                                Parameter Estimates                                  
+------------------------------------------------------------------------------------
+      model     Beta    Std. Error    Std. Beta      t       Sig     lower    upper 
+------------------------------------------------------------------------------------
+(Intercept)    4.000         0.913                 4.382    0.002    1.895    6.105 
+       exer    1.750         0.361        0.864    4.850    0.001    0.918    2.582 
+------------------------------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="partial-relationship-multiple-regression.html#cb168-1" tabindex="-1"></a>olsrr<span class="sc">::</span><span class="fu">ols_regress</span>(fit_lm_diet)</span></code></pre></div>
+<pre><code>                         Model Summary                          
+---------------------------------------------------------------
+R                        0.047       RMSE                3.135 
+R-Squared                0.002       MSE                 9.829 
+Adj. R-Squared          -0.123       Coef. Var          46.735 
+Pred R-Squared          -0.393       AIC                57.232 
+MAE                      2.600       SBC                58.139 
+---------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                              ANOVA                               
+-----------------------------------------------------------------
+               Sum of                                            
+              Squares       DF    Mean Square      F        Sig. 
+-----------------------------------------------------------------
+Regression      0.214        1          0.214    0.017    0.8982 
+Residual       98.286        8         12.286                    
+Total          98.500        9                                   
+-----------------------------------------------------------------
+
+                                 Parameter Estimates                                   
+--------------------------------------------------------------------------------------
+      model     Beta    Std. Error    Std. Beta      t       Sig      lower     upper 
+--------------------------------------------------------------------------------------
+(Intercept)    7.143         2.923                 2.444    0.040     0.403    13.882 
+       diet    0.071         0.541        0.047    0.132    0.898    -1.176     1.319 
+--------------------------------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="partial-relationship-multiple-regression.html#cb170-1" tabindex="-1"></a>olsrr<span class="sc">::</span><span class="fu">ols_regress</span>(fit_lm_both)</span></code></pre></div>
+<pre><code>                        Model Summary                          
+--------------------------------------------------------------
+R                       0.915       RMSE                1.265 
+R-Squared               0.838       MSE                 1.600 
+Adj. R-Squared          0.791       Coef. Var          20.158 
+Pred R-Squared          0.669       AIC                41.079 
+MAE                     1.200       SBC                42.289 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                              ANOVA                                
+------------------------------------------------------------------
+               Sum of                                             
+              Squares       DF    Mean Square      F         Sig. 
+------------------------------------------------------------------
+Regression     82.500        2         41.250    18.047    0.0017 
+Residual       16.000        7          2.286                     
+Total          98.500        9                                    
+------------------------------------------------------------------
+
+                                  Parameter Estimates                                   
+---------------------------------------------------------------------------------------
+      model      Beta    Std. Error    Std. Beta      t        Sig      lower    upper 
+---------------------------------------------------------------------------------------
+(Intercept)     6.000         1.275                  4.706    0.002     2.985    9.015 
+       exer     2.000         0.333        0.987     6.000    0.001     1.212    2.788 
+       diet    -0.500         0.252       -0.326    -1.984    0.088    -1.096    0.096 
+---------------------------------------------------------------------------------------</code></pre>
+</div>
+<div id="equations" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Equations<a href="partial-relationship-multiple-regression.html#equations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>$$
+= 4 + 1.75(exercise) \</p>
+<p> = 7.14 + 0.07(food) \</p>
+<p> = 6 + 2(exercise) -0.5(food)
+$$</p>
+</div>
+<div id="tables" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Tables<a href="partial-relationship-multiple-regression.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="partial-relationship-multiple-regression.html#cb172-1" tabindex="-1"></a><span class="fu">list</span>(<span class="st">&quot;Just</span><span class="sc">\n</span><span class="st">Exercise&quot;</span> <span class="ot">=</span> fit_lm_exer,</span>
+<span id="cb172-2"><a href="partial-relationship-multiple-regression.html#cb172-2" tabindex="-1"></a>     <span class="st">&quot;Just</span><span class="sc">\n</span><span class="st">Diet&quot;</span> <span class="ot">=</span> fit_lm_diet,</span>
+<span id="cb172-3"><a href="partial-relationship-multiple-regression.html#cb172-3" tabindex="-1"></a>     <span class="st">&quot;Exercise</span><span class="sc">\n</span><span class="st">and Diet&quot;</span> <span class="ot">=</span> fit_lm_both) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-4"><a href="partial-relationship-multiple-regression.html#cb172-4" tabindex="-1"></a>  modelsummary<span class="sc">::</span><span class="fu">modelsummary</span>(<span class="at">output =</span> <span class="st">&quot;flextable&quot;</span>,</span>
+<span id="cb172-5"><a href="partial-relationship-multiple-regression.html#cb172-5" tabindex="-1"></a>                             <span class="at">fmt =</span> <span class="dv">2</span>,</span>
+<span id="cb172-6"><a href="partial-relationship-multiple-regression.html#cb172-6" tabindex="-1"></a>                             <span class="at">estimate =</span> <span class="st">&quot;{estimate}&quot;</span>,</span>
+<span id="cb172-7"><a href="partial-relationship-multiple-regression.html#cb172-7" tabindex="-1"></a>                             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
+<span id="cb172-8"><a href="partial-relationship-multiple-regression.html#cb172-8" tabindex="-1"></a>                             <span class="at">gof_map =</span> <span class="cn">NA</span>,</span>
+<span id="cb172-9"><a href="partial-relationship-multiple-regression.html#cb172-9" tabindex="-1"></a>                             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">&quot;exer&quot;</span> <span class="ot">=</span> <span class="st">&quot;Exercise Frequency&quot;</span>,</span>
+<span id="cb172-10"><a href="partial-relationship-multiple-regression.html#cb172-10" tabindex="-1"></a>                                             <span class="st">&quot;diet&quot;</span> <span class="ot">=</span> <span class="st">&quot;Food Intake&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-11"><a href="partial-relationship-multiple-regression.html#cb172-11" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">theme_apa</span>(<span class="at">caption =</span> <span class="st">&quot;Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BASIC&quot;</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-1bead6fc{}.cl-1bddcb88{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1be28a06{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-1be28a10{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-1be28a1a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-1be28a1b{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-1be2bd28{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd29{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd32{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd33{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd3c{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd3d{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd46{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd47{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd48{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd50{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd51{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1be2bd5a{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-1bead6fc'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-118)<span>Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BASIC</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-1be2bd28"><p class="cl-1be28a06"><span class="cl-1bddcb88"> </span></p></th><th class="cl-1be2bd29"><p class="cl-1be28a10"><span class="cl-1bddcb88">Just</span><br><span class="cl-1bddcb88">Exercise</span></p></th><th class="cl-1be2bd32"><p class="cl-1be28a10"><span class="cl-1bddcb88">Just</span><br><span class="cl-1bddcb88">Diet</span></p></th><th class="cl-1be2bd29"><p class="cl-1be28a10"><span class="cl-1bddcb88">Exercise</span><br><span class="cl-1bddcb88">and Diet</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1be2bd33"><p class="cl-1be28a1a"><span class="cl-1bddcb88">(Intercept)</span></p></td><td class="cl-1be2bd3c"><p class="cl-1be28a1b"><span class="cl-1bddcb88">4.00</span></p></td><td class="cl-1be2bd3d"><p class="cl-1be28a1b"><span class="cl-1bddcb88">7.14</span></p></td><td class="cl-1be2bd3c"><p class="cl-1be28a1b"><span class="cl-1bddcb88">6.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1be2bd46"><p class="cl-1be28a1a"><span class="cl-1bddcb88">Exercise Frequency</span></p></td><td class="cl-1be2bd47"><p class="cl-1be28a1b"><span class="cl-1bddcb88">1.75</span></p></td><td class="cl-1be2bd48"><p class="cl-1be28a1b"><span class="cl-1bddcb88"></span></p></td><td class="cl-1be2bd47"><p class="cl-1be28a1b"><span class="cl-1bddcb88">2.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1be2bd50"><p class="cl-1be28a1a"><span class="cl-1bddcb88">Food Intake</span></p></td><td class="cl-1be2bd51"><p class="cl-1be28a1b"><span class="cl-1bddcb88"></span></p></td><td class="cl-1be2bd5a"><p class="cl-1be28a1b"><span class="cl-1bddcb88">0.07</span></p></td><td class="cl-1be2bd51"><p class="cl-1be28a1b"><span class="cl-1bddcb88">-0.50</span></p></td></tr></tbody></table></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="partial-relationship-multiple-regression.html#cb173-1" tabindex="-1"></a>tab_mods <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;Just Exercise&quot;</span> <span class="ot">=</span> fit_lm_exer,</span>
+<span id="cb173-2"><a href="partial-relationship-multiple-regression.html#cb173-2" tabindex="-1"></a>                 <span class="st">&quot;Just Diet&quot;</span> <span class="ot">=</span> fit_lm_diet,</span>
+<span id="cb173-3"><a href="partial-relationship-multiple-regression.html#cb173-3" tabindex="-1"></a>                 <span class="st">&quot;Exercise and Diet&quot;</span> <span class="ot">=</span> fit_lm_both) <span class="sc">%&gt;%</span> </span>
+<span id="cb173-4"><a href="partial-relationship-multiple-regression.html#cb173-4" tabindex="-1"></a>  modelsummary<span class="sc">::</span><span class="fu">modelsummary</span>(<span class="at">output =</span> <span class="st">&quot;flextable&quot;</span>,</span>
+<span id="cb173-5"><a href="partial-relationship-multiple-regression.html#cb173-5" tabindex="-1"></a>                             <span class="at">fmt =</span> <span class="dv">2</span>,</span>
+<span id="cb173-6"><a href="partial-relationship-multiple-regression.html#cb173-6" tabindex="-1"></a>                             <span class="at">estimate =</span> <span class="st">&quot;{estimate} ({std.error})&quot;</span>,</span>
+<span id="cb173-7"><a href="partial-relationship-multiple-regression.html#cb173-7" tabindex="-1"></a>                             <span class="at">statistic =</span> <span class="st">&quot;{p.value}{stars}&quot;</span>,</span>
+<span id="cb173-8"><a href="partial-relationship-multiple-regression.html#cb173-8" tabindex="-1"></a>                             <span class="at">stars =</span> <span class="fu">c</span>(<span class="st">&#39;*&#39;</span> <span class="ot">=</span> .<span class="dv">05</span>, <span class="st">&#39;**&#39;</span> <span class="ot">=</span> .<span class="dv">01</span>, <span class="st">&#39;***&#39;</span> <span class="ot">=</span> .<span class="dv">001</span>),</span>
+<span id="cb173-9"><a href="partial-relationship-multiple-regression.html#cb173-9" tabindex="-1"></a>                             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">&quot;r.squared&quot;</span>, </span>
+<span id="cb173-10"><a href="partial-relationship-multiple-regression.html#cb173-10" tabindex="-1"></a>                                         <span class="co">#&quot;adj.r.squared&quot;,</span></span>
+<span id="cb173-11"><a href="partial-relationship-multiple-regression.html#cb173-11" tabindex="-1"></a>                                         <span class="st">&quot;rmse&quot;</span>),</span>
+<span id="cb173-12"><a href="partial-relationship-multiple-regression.html#cb173-12" tabindex="-1"></a>                             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">&quot;exer&quot;</span> <span class="ot">=</span> <span class="st">&quot;Exercise Frequency&quot;</span>,</span>
+<span id="cb173-13"><a href="partial-relationship-multiple-regression.html#cb173-13" tabindex="-1"></a>                                             <span class="st">&quot;diet&quot;</span> <span class="ot">=</span> <span class="st">&quot;Food Intake&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb173-14"><a href="partial-relationship-multiple-regression.html#cb173-14" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">theme_apa</span>(<span class="at">caption =</span> <span class="st">&quot;Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER&quot;</span>,</span>
+<span id="cb173-15"><a href="partial-relationship-multiple-regression.html#cb173-15" tabindex="-1"></a>                     <span class="at">p_note =</span> <span class="st">&quot;apa&quot;</span>,</span>
+<span id="cb173-16"><a href="partial-relationship-multiple-regression.html#cb173-16" tabindex="-1"></a>                     <span class="at">general_note =</span> <span class="st">&quot;Dependent variable is average weekly weight lost in 100s of grams. &quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb173-17"><a href="partial-relationship-multiple-regression.html#cb173-17" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">hline</span>(<span class="at">i =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb173-18"><a href="partial-relationship-multiple-regression.html#cb173-18" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">footnote</span>(<span class="at">i =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>), <span class="at">j =</span> <span class="dv">1</span>, </span>
+<span id="cb173-19"><a href="partial-relationship-multiple-regression.html#cb173-19" tabindex="-1"></a>                      <span class="at">value =</span> <span class="fu">as_paragraph</span>(<span class="fu">c</span>(<span class="st">&quot;Weekly average of hours/day&quot;</span>,</span>
+<span id="cb173-20"><a href="partial-relationship-multiple-regression.html#cb173-20" tabindex="-1"></a>                                             <span class="st">&quot;Daily average of 100s of calories above recommendation&quot;</span>)))</span>
+<span id="cb173-21"><a href="partial-relationship-multiple-regression.html#cb173-21" tabindex="-1"></a></span>
+<span id="cb173-22"><a href="partial-relationship-multiple-regression.html#cb173-22" tabindex="-1"></a>tab_mods</span></code></pre></div>
+<div class="tabwid"><style>.cl-1c8de54a{}.cl-1c832aa6{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1c832ab0{font-family:'Arial';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-1c832ab1{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1c871332{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-1c87133c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-1c87133d{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-1c871346{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-1c871347{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1c87393e{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873948{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873949{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873952{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873953{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873954{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c87395c{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c87395d{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c87395e{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873966{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873967{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873968{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873970{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873971{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873972{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c87397a{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c87397b{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c87397c{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c873984{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739ac{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739ad{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739ae{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739b6{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739b7{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739b8{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739c0{width:1.194in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739c1{width:1.024in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1c8739c2{width:1.482in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-1c8de54a'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-119)<span>Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-1c87393e"><p class="cl-1c871332"><span class="cl-1c832aa6"> </span></p></th><th class="cl-1c873948"><p class="cl-1c87133c"><span class="cl-1c832aa6">Just Exercise</span></p></th><th class="cl-1c873949"><p class="cl-1c87133c"><span class="cl-1c832aa6">Just Diet</span></p></th><th class="cl-1c873952"><p class="cl-1c87133c"><span class="cl-1c832aa6">Exercise and Diet</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1c873953"><p class="cl-1c87133d"><span class="cl-1c832aa6">(Intercept)</span></p></td><td class="cl-1c873954"><p class="cl-1c871346"><span class="cl-1c832aa6">4.00 (0.91)</span></p></td><td class="cl-1c87395c"><p class="cl-1c871346"><span class="cl-1c832aa6">7.14 (2.92)</span></p></td><td class="cl-1c87395d"><p class="cl-1c871346"><span class="cl-1c832aa6">6.00 (1.27)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c87395e"><p class="cl-1c87133d"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c873966"><p class="cl-1c871346"><span class="cl-1c832aa6">&lt;0.01**</span></p></td><td class="cl-1c873967"><p class="cl-1c871346"><span class="cl-1c832aa6">0.04*</span></p></td><td class="cl-1c873968"><p class="cl-1c871346"><span class="cl-1c832aa6">&lt;0.01**</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c873953"><p class="cl-1c87133d"><span class="cl-1c832aa6">Exercise Frequency</span><span class="cl-1c832ab0">1</span></p></td><td class="cl-1c873954"><p class="cl-1c871346"><span class="cl-1c832aa6">1.75 (0.36)</span></p></td><td class="cl-1c87395c"><p class="cl-1c871346"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c87395d"><p class="cl-1c871346"><span class="cl-1c832aa6">2.00 (0.33)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c87395e"><p class="cl-1c87133d"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c873966"><p class="cl-1c871346"><span class="cl-1c832aa6">&lt;0.01**</span></p></td><td class="cl-1c873967"><p class="cl-1c871346"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c873968"><p class="cl-1c871346"><span class="cl-1c832aa6">&lt;0.01***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c873953"><p class="cl-1c87133d"><span class="cl-1c832aa6">Food Intake</span><span class="cl-1c832ab0">2</span></p></td><td class="cl-1c873954"><p class="cl-1c871346"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c87395c"><p class="cl-1c871346"><span class="cl-1c832aa6">0.07 (0.54)</span></p></td><td class="cl-1c87395d"><p class="cl-1c871346"><span class="cl-1c832aa6">-0.50 (0.25)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c873970"><p class="cl-1c87133d"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c873971"><p class="cl-1c871346"><span class="cl-1c832aa6"></span></p></td><td class="cl-1c873972"><p class="cl-1c871346"><span class="cl-1c832aa6">0.90</span></p></td><td class="cl-1c87397a"><p class="cl-1c871346"><span class="cl-1c832aa6">0.09</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c87397b"><p class="cl-1c87133d"><span class="cl-1c832aa6">R2</span></p></td><td class="cl-1c87397c"><p class="cl-1c871346"><span class="cl-1c832aa6">0.746</span></p></td><td class="cl-1c873984"><p class="cl-1c871346"><span class="cl-1c832aa6">0.002</span></p></td><td class="cl-1c8739ac"><p class="cl-1c871346"><span class="cl-1c832aa6">0.838</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1c8739ad"><p class="cl-1c87133d"><span class="cl-1c832aa6">RMSE</span></p></td><td class="cl-1c8739ae"><p class="cl-1c871346"><span class="cl-1c832aa6">1.58</span></p></td><td class="cl-1c8739b6"><p class="cl-1c871346"><span class="cl-1c832aa6">3.14</span></p></td><td class="cl-1c8739b7"><p class="cl-1c871346"><span class="cl-1c832aa6">1.26</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-1c8739b8"><p class="cl-1c871347"><span class="cl-1c832ab1">Note. </span><span class="cl-1c832aa6">Dependent variable is average weekly weight lost in 100s of grams. </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-1c8739b8"><p class="cl-1c871347"><span class="cl-1c832aa6">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-1c8739b8"><p class="cl-1c871347"><span class="cl-1c832ab0">1</span><span class="cl-1c832aa6">Weekly average of hours/day</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-1c8739b8"><p class="cl-1c871347"><span class="cl-1c832ab0">2</span><span class="cl-1c832aa6">Daily average of 100s of calories above recommendation</span></p></td></tr></tfoot></table></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="partial-relationship-multiple-regression.html#cb174-1" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">save_as_docx</span>(tab_mods,</span>
+<span id="cb174-2"><a href="partial-relationship-multiple-regression.html#cb174-2" tabindex="-1"></a>                        <span class="at">path =</span> <span class="st">&quot;tab_mods.docx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="partial-relationship-multiple-regression.html#cb175-1" tabindex="-1"></a>modelsummary<span class="sc">::</span><span class="fu">modelsummary</span>(<span class="at">models =</span> <span class="fu">list</span>(<span class="st">&quot;Weight Loss&quot;</span> <span class="ot">=</span> fit_lm_both),</span>
+<span id="cb175-2"><a href="partial-relationship-multiple-regression.html#cb175-2" tabindex="-1"></a>                           <span class="at">output =</span> <span class="st">&quot;flextable&quot;</span>,</span>
+<span id="cb175-3"><a href="partial-relationship-multiple-regression.html#cb175-3" tabindex="-1"></a>                           <span class="at">fmt =</span> <span class="dv">2</span>,</span>
+<span id="cb175-4"><a href="partial-relationship-multiple-regression.html#cb175-4" tabindex="-1"></a>                           <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">&quot;exer&quot;</span> <span class="ot">=</span> <span class="st">&quot;Exercise Frequency&quot;</span>,</span>
+<span id="cb175-5"><a href="partial-relationship-multiple-regression.html#cb175-5" tabindex="-1"></a>                                           <span class="st">&quot;diet&quot;</span> <span class="ot">=</span> <span class="st">&quot;Food Intake&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb175-6"><a href="partial-relationship-multiple-regression.html#cb175-6" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">theme_apa</span>(<span class="at">caption =</span> <span class="st">&quot;Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER&quot;</span>,</span>
+<span id="cb175-7"><a href="partial-relationship-multiple-regression.html#cb175-7" tabindex="-1"></a>                     <span class="at">p_note =</span> <span class="st">&quot;apa&quot;</span>,</span>
+<span id="cb175-8"><a href="partial-relationship-multiple-regression.html#cb175-8" tabindex="-1"></a>                     <span class="at">general_note =</span> <span class="st">&quot;Dependent variable is average weekly weight lost in 100s of grams. &quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb175-9"><a href="partial-relationship-multiple-regression.html#cb175-9" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">hline</span>(<span class="at">i =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb175-10"><a href="partial-relationship-multiple-regression.html#cb175-10" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">footnote</span>(<span class="at">i =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>), <span class="at">j =</span> <span class="dv">1</span>, </span>
+<span id="cb175-11"><a href="partial-relationship-multiple-regression.html#cb175-11" tabindex="-1"></a>                      <span class="at">value =</span> <span class="fu">as_paragraph</span>(<span class="fu">c</span>(<span class="st">&quot;Weekly average of hours/day&quot;</span>,</span>
+<span id="cb175-12"><a href="partial-relationship-multiple-regression.html#cb175-12" tabindex="-1"></a>                                             <span class="st">&quot;Daily average of 100s of calories above recommendation&quot;</span>)))</span></code></pre></div>
+<div class="tabwid"><style>.cl-1d5d8976{}.cl-1d528cb0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1d528cba{font-family:'Arial';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-1d528cc4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1d56c816{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-1d56c82a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-1d56c82b{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-1d56c834{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-1d56c835{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1d56f3fe{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f408{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f409{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f412{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f413{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f414{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f41c{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f41d{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f426{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f427{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f428{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f430{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f431{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f432{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f43a{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f43b{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f444{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f445{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f446{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f44e{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f44f{width:1.635in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1d56f450{width:1.126in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-1d5d8976'>
+
+```
+
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">(\#tab:unnamed-chunk-121)<span>Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER</span></caption>
+
+```{=html}
+
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-1d56f3fe"><p class="cl-1d56c816"><span class="cl-1d528cb0"> </span></p></th><th class="cl-1d56f408"><p class="cl-1d56c82a"><span class="cl-1d528cb0">Weight Loss</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1d56f409"><p class="cl-1d56c82b"><span class="cl-1d528cb0">(Intercept)</span></p></td><td class="cl-1d56f412"><p class="cl-1d56c834"><span class="cl-1d528cb0">6.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f409"><p class="cl-1d56c82b"><span class="cl-1d528cb0"></span></p></td><td class="cl-1d56f412"><p class="cl-1d56c834"><span class="cl-1d528cb0">(1.27)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f413"><p class="cl-1d56c82b"><span class="cl-1d528cb0">Exercise Frequency</span><span class="cl-1d528cba">1</span></p></td><td class="cl-1d56f414"><p class="cl-1d56c834"><span class="cl-1d528cb0">2.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f409"><p class="cl-1d56c82b"><span class="cl-1d528cb0"></span></p></td><td class="cl-1d56f412"><p class="cl-1d56c834"><span class="cl-1d528cb0">(0.33)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f41c"><p class="cl-1d56c82b"><span class="cl-1d528cb0">Food Intake</span><span class="cl-1d528cba">2</span></p></td><td class="cl-1d56f41d"><p class="cl-1d56c834"><span class="cl-1d528cb0">-0.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f426"><p class="cl-1d56c82b"><span class="cl-1d528cb0"></span></p></td><td class="cl-1d56f427"><p class="cl-1d56c834"><span class="cl-1d528cb0">(0.25)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f428"><p class="cl-1d56c82b"><span class="cl-1d528cb0">Num.Obs.</span></p></td><td class="cl-1d56f430"><p class="cl-1d56c834"><span class="cl-1d528cb0">10</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f431"><p class="cl-1d56c82b"><span class="cl-1d528cb0">R2</span></p></td><td class="cl-1d56f432"><p class="cl-1d56c834"><span class="cl-1d528cb0">0.838</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f43a"><p class="cl-1d56c82b"><span class="cl-1d528cb0">R2 Adj.</span></p></td><td class="cl-1d56f43b"><p class="cl-1d56c834"><span class="cl-1d528cb0">0.791</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f444"><p class="cl-1d56c82b"><span class="cl-1d528cb0">AIC</span></p></td><td class="cl-1d56f445"><p class="cl-1d56c834"><span class="cl-1d528cb0">41.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f444"><p class="cl-1d56c82b"><span class="cl-1d528cb0">BIC</span></p></td><td class="cl-1d56f445"><p class="cl-1d56c834"><span class="cl-1d528cb0">42.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f413"><p class="cl-1d56c82b"><span class="cl-1d528cb0">Log.Lik.</span></p></td><td class="cl-1d56f414"><p class="cl-1d56c834"><span class="cl-1d528cb0">-16.539</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f41c"><p class="cl-1d56c82b"><span class="cl-1d528cb0">F</span></p></td><td class="cl-1d56f41d"><p class="cl-1d56c834"><span class="cl-1d528cb0">18.047</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1d56f446"><p class="cl-1d56c82b"><span class="cl-1d528cb0">RMSE</span></p></td><td class="cl-1d56f44e"><p class="cl-1d56c834"><span class="cl-1d528cb0">1.26</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="2"class="cl-1d56f44f"><p class="cl-1d56c835"><span class="cl-1d528cc4">Note. </span><span class="cl-1d528cb0">Dependent variable is average weekly weight lost in 100s of grams. </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="2"class="cl-1d56f44f"><p class="cl-1d56c835"><span class="cl-1d528cb0">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="2"class="cl-1d56f44f"><p class="cl-1d56c835"><span class="cl-1d528cba">1</span><span class="cl-1d528cb0">Weekly average of hours/day</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="2"class="cl-1d56f44f"><p class="cl-1d56c835"><span class="cl-1d528cba">2</span><span class="cl-1d528cb0">Daily average of 100s of calories above recommendation</span></p></td></tr></tfoot></table></div>
+</div>
+<div id="semipartial-correlation" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Semipartial Correlation<a href="partial-relationship-multiple-regression.html#semipartial-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="partial-relationship-multiple-regression.html#cb176-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb176-2"><a href="partial-relationship-multiple-regression.html#cb176-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>id) <span class="sc">%&gt;%</span> </span>
+<span id="cb176-3"><a href="partial-relationship-multiple-regression.html#cb176-3" tabindex="-1"></a>  ppcor<span class="sc">::</span><span class="fu">spcor</span>()</span></code></pre></div>
+<pre><code>$estimate
+          exer       diet       loss
+exer 1.0000000  0.3380417  0.8471174
+diet 0.6702634  1.0000000 -0.5554921
+loss 0.9139956 -0.3022756  1.0000000
+
+$p.value
+             exer      diet        loss
+exer 0.0000000000 0.3735995 0.003948288
+diet 0.0481997433 0.0000000 0.120479988
+loss 0.0005642547 0.4291901 0.000000000
+
+$statistic
+         exer       diet      loss
+exer 0.000000  0.9503186  4.217610
+diet 2.389563  0.0000000 -1.767475
+loss 5.960221 -0.8389938  0.000000
+
+$n
+[1] 10
+
+$gp
+[1] 1
+
+$method
+[1] &quot;pearson&quot;</code></pre>
+</div>
+<div id="partial-correlation" class="section level3 hasAnchor" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> Partial Correlation<a href="partial-relationship-multiple-regression.html#partial-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="partial-relationship-multiple-regression.html#cb178-1" tabindex="-1"></a>df_loss <span class="sc">%&gt;%</span> </span>
+<span id="cb178-2"><a href="partial-relationship-multiple-regression.html#cb178-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>id) <span class="sc">%&gt;%</span> </span>
+<span id="cb178-3"><a href="partial-relationship-multiple-regression.html#cb178-3" tabindex="-1"></a>  ppcor<span class="sc">::</span><span class="fu">pcor</span>()</span></code></pre></div>
+<pre><code>$estimate
+          exer       diet       loss
+exer 1.0000000  0.6709937  0.9149914
+diet 0.6709937  1.0000000 -0.6000000
+loss 0.9149914 -0.6000000  1.0000000
+
+$p.value
+             exer       diet         loss
+exer 0.0000000000 0.04786560 0.0005422583
+diet 0.0478656048 0.00000000 0.0876228290
+loss 0.0005422583 0.08762283 0.0000000000
+
+$statistic
+         exer      diet      loss
+exer 0.000000  2.394297  6.000000
+diet 2.394297  0.000000 -1.984313
+loss 6.000000 -1.984313  0.000000
+
+$n
+[1] 10
+
+$gp
+[1] 1
+
+$method
+[1] &quot;pearson&quot;</code></pre>
+</div>
+<div id="standardized-regression-coefficients" class="section level3 hasAnchor" number="3.3.7">
+<h3><span class="header-section-number">3.3.7</span> Standardized Regression Coefficients<a href="partial-relationship-multiple-regression.html#standardized-regression-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="partial-relationship-multiple-regression.html#cb180-1" tabindex="-1"></a><span class="fu">lm</span>(<span class="fu">scale</span>(loss) <span class="sc">~</span> <span class="fu">scale</span>(exer) <span class="sc">+</span> <span class="fu">scale</span>(diet),</span>
+<span id="cb180-2"><a href="partial-relationship-multiple-regression.html#cb180-2" tabindex="-1"></a>   <span class="at">data =</span> df_loss) <span class="sc">%&gt;%</span> </span>
+<span id="cb180-3"><a href="partial-relationship-multiple-regression.html#cb180-3" tabindex="-1"></a>  <span class="fu">coef</span>()</span></code></pre></div>
+<pre><code>  (Intercept)   scale(exer)   scale(diet) 
+ 8.239961e-17  9.872281e-01 -3.264950e-01 </code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="partial-relationship-multiple-regression.html#cb182-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span>(fit_lm_both, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+  Parameter   Eta2    CI CI_low CI_high
+  &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 exer      0.746   0.95  0.336       1
+2 diet      0.0914  0.95  0           1</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="partial-relationship-multiple-regression.html#cb184-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">r2_semipartial</span>(fit_lm_both)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+  Term  r2_semipartial    CI CI_low CI_high
+  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 exer          0.835   0.95  0.675       1
+2 diet          0.0914  0.95  0           1</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro-to-simple-linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ex-cancer-experiment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

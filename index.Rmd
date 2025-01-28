@@ -48,23 +48,35 @@ These blocks denote an area **UNDER CONSTRUCTION**, so check back often.  This m
 
 
 ```{block type='rmdimportant', echo=TRUE}
-These blocks denote something **EXTREMELY IMPORTANT**.  Do NOT skip these notes as they will be used very sparingly.
+These blocks denote something **EXTREMELY IMPORTANT**.  
+
+Do NOT skip these notes as they will be used very sparingly.
 ```
 
 
 ```{block type='rmddownload', echo=TRUE}
-These blocks denote something to **DOWNLOAD**.  This may include software installations, example datasets, or notebook code files.
+These blocks denote something to **DOWNLOAD**.  
+
+This may include software installations, example datasets, or notebook code files.
 ```
 
 
 ```{block type='rmdlightbulb', echo=TRUE}
-These blocks denote something **INTERESTING**.  These point out information we found of interest or added value.
+These blocks denote something **INTERESTING**.  
+
+These point out information we found of interest or added value.
 ```
 
 
 
 ```{block type='rmdlink', echo=TRUE}
-These blocks denote **LINKS** to other websites.  This may include instructional video clips, articles, or blog posts.  We are all about NOT re-creating the wheel.  If somebody else has described or illustrated a topic well, we celebrate it!
+These blocks denote **LINKS** to other websites.  
+
+This may include instructional video clips, articles, or blog posts.  
+
+We are all about NOT re-creating the wheel.  
+
+If somebody else has described or illustrated a topic well, we celebrate it!
 ```
 
 

@@ -1,4 +1,4 @@
-# Linear Correlation - Example: Cancer Experiment 
+# Linear Correlation: "Cancer" 
 
 
 ```{r, include=FALSE}
@@ -14,10 +14,6 @@ knitr::opts_chunk$set(comment     = NA,
 
 
 
-## Background
-
-### Required Packages 
-
 ```{r, comment=FALSE, message=FALSE}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(haven)        # Read in SPSS datasets
@@ -28,12 +24,17 @@ library(furniture)    # tables
 library(apaSupp)      # APA 7th ed tables
 ```
 
+## Purpose
+
+### Research Question
+
+> Is there a relationship between the demographics and oral condition over the 6 weeks?
 
 
+### Data Description
 
-### Example Dataset - Cancer Experiment 
+The `Cancer` data set contains 4 repeated measure of oral condition for 25 cancer patients to see if an aloe treatment helps with oral condition (ulcers).
 
-The `Cancer` dataset:
 
 
 ```{r}
@@ -54,7 +55,7 @@ cancer_clean <- cancer_raw %>%
 tibble::glimpse(cancer_clean)
 ```
 
-```{r}
+```{r df_cancer}
 psych::headTail(cancer_clean) %>% 
   flextable::flextable() %>% 
   apaSupp::theme_apa(caption = "Sample of Cancer Dataset")
@@ -63,11 +64,13 @@ psych::headTail(cancer_clean) %>%
 
 
 
-## Exploratory Data Analysis: i.e. the eyeball method
+## Exploratory Data Analysis
 
 ### Scatterplot
 
+```{block type='rmdimportant', echo=TRUE}
 Always plot your data first!
+```
 
 ```{r}
 cancer_clean %>% 
@@ -86,13 +89,13 @@ cancer_clean %>%
 ### Using the Default Settings
 
 
+```{block type='rmdlightbulb', echo=TRUE}
 The `cor.test()` function needs at least TWO arguments:
 
 * **formula** - The formula specifies the two variabels between which you would like to calcuate the correlation.  Note at the two variable names come AFTER the tilda symbol and are separated with a plus sign: `~ continuous_var1 + continuous_var2`
 
 * **data** - Since the datset is not the first argument in the function, you must use the period to signify that the datset is being piped from above `data = .` 
-
-
+```
 
 ```{r}
 cancer_clean %>% 
@@ -106,13 +109,13 @@ cancer_clean %>%
 ### Additional Arguments
 
 
-
+```{block type='rmdlightbulb', echo=TRUE}
 * **alternative**  - The `cor.test()` function defaults to the `alternative = "two.sided"`.  If you would like a one-sided alternative, you must choose which side you would like to test:  `alternative = "greater"` to test for POSITIVE correlation or `alternative = "less"` to test for NEGATIVE correlation.
 
 * **method** - The default is to calculate the Pearson correlation coefficient (`method = "pearson"`), but you may also specify the Kendall's tau (`method = "kendall"`)or Spearman's rho (`method = "spearman"`), which are both non-parametric methods.  
 
 * **conf.int** - It also defaults to testing for the two-sided alternative and computing a 95\% confidence interval (`conf.level = 0.95`), but this may be changed.  
-
+```
 
 Since the following code only specifies the**defaults**, it Will give the same results as if you did not type out the last three lines (see above).
 
@@ -126,6 +129,8 @@ cancer_clean %>%
 ```
 
 **Non-Significant Correlation**
+
+
 
 > **APA Results:** There was no evidence of an association in overall oral condition from baseline to two week follow-up, $r(25) = -0.288 $p < .163$.
 
@@ -177,6 +182,8 @@ cancer_clean %>%
 
 ## Correlation Tables
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 The may use the `tableC()` function from the `furniture` package to calculate all pair-wise correlations between more than two variables and arrange them all in a table.  The table is formatted with the variabels listed on the rows and numbered to show the same variabels across the columns. 
 
 * The cells ON the diagonal are all equal to *exactly one*, since each variable is perfectly correlated with itself.
@@ -184,6 +191,7 @@ The may use the `tableC()` function from the `furniture` package to calculate al
 * The cells ABOVE the diagonal are *blank* as them would just be a mirror image of the values below the diagonal. 
 
 * The cells BELOW the diagonal each contain the *Pearson's correlation coefficients* for each pair of variables, $r$, with the $p-value$ showing the significance vs. the null hypothesis for no association ($r = 0$) to the right.
+```
 
 ```{r}
 cancer_clean %>% 
@@ -193,10 +201,12 @@ cancer_clean %>%
 
 ### Missing Values - Default
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Default Behavior `na.rm = FALSE` (default)**
 
 If you don't say otherwise, the correlation $r$ with not be calculated (`NA`) between any pair of variables for which there is at least one subject with a missing value on at least one of the vairables.  This is a nice alert to make you aware of missing values.
-
+```
 
 ```{r}
 cancer_clean %>% 
@@ -206,9 +216,11 @@ cancer_clean %>%
 ### Missing Values - Listwise Deletion
 
 
+```{block type='rmdlightbulb', echo=TRUE}
 **Listwise Deletion `na.rm = TRUE`**
 
 Most of the time you will want to compute the correlation $r$ is the precense of missing values.  To do so, you want to remove or exclude subjects with missing data from ALL correlation computation in the table.  This is called **'list-wise deletion'**.  It ensures that all cells in the table refer to the exact same sub-sample (n = subjects with complete data for all variables in the table), and thus the same degrees of freedom (since $df = n - 2$).  This is done be changing the default to `na.rm = TRUE`.
+```
 
 ```{r}
 cancer_clean %>% 
