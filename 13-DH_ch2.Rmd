@@ -15,10 +15,6 @@ Reference:
 ```
 
 
-## PREPARATION
-
-### Load Packages
-
 ```{r}
 # library(remotes)
 # remotes::install_github("sarbearschwartz/apaSupp")
@@ -36,7 +32,17 @@ library(ggResidpanel)
 ```
 
 
-### Load Data
+
+
+## PURPOSE
+
+### Research Question
+
+> How is weight loss associationed with exercise frequency and food intake? 
+
+
+### Data Description
+
 
 
 ```{block type='rmdlightbulb', echo=TRUE}
@@ -78,7 +84,7 @@ df_loss %>%
 
 
 
-## EXPLORATORY
+## EXPLORATORY DATA ANALYSIS
 
 ### Summary Statistics
 
@@ -162,9 +168,12 @@ df_loss %>%
 
 
 
-## REGRESSION
+## REGRESSION ANALYSIS
 
 ### Fit the models
+
+> The dependent variable (DV) is weight loss
+> The independent variables (IVs) are exercise and diet
 
 ```{r}
 fit_lm_exer <- lm(loss ~ exer,

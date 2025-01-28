@@ -24,7 +24,7 @@ library(furniture)    # tables
 library(apaSupp)      # APA 7th ed tables
 ```
 
-## Purpose
+## PURPOSE
 
 ### Research Question
 
@@ -64,7 +64,7 @@ psych::headTail(cancer_clean) %>%
 
 
 
-## Exploratory Data Analysis
+## EXPLORATORY DATA ANALYSIS
 
 ### Scatterplot
 
@@ -84,7 +84,7 @@ cancer_clean %>%
 
 
 
-## Pearson's Correlation Coefficient
+## PEARSON'S CORRELATION
 
 ### Using the Default Settings
 
@@ -180,7 +180,7 @@ cancer_clean %>%
 
 
 
-## Correlation Tables
+## CORRELATION TABLES
 
 
 ```{block type='rmdlightbulb', echo=TRUE}
@@ -251,7 +251,7 @@ cancer_clean %>%
 
 
 
-## Pairs Plots
+## PAIRS PLOTS
 
 * [Helpful Website](http://jamesmarquezportfolio.com/correlation_matrices_in_r.html)
 
@@ -309,7 +309,7 @@ cancer_clean %>%
 
 
 
-## Correlation Plots: Corrolagrams
+## CORROLAGRAMS
 
 ### Simple Correlation Matrix (Base R)
 

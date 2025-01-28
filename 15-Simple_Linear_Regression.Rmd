@@ -31,7 +31,7 @@ emmeans::emm_options(opt.digits = FALSE)  # revert to optimal digits
 ```
 
 
-## Purpose
+## PURPOSE
 
 ### Research Question
 
@@ -45,7 +45,10 @@ The `Cancer` data set contains 4 repeated measure of oral condition for 25 cance
 
 ```{r}
 cancer_raw <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/eBook_ANOVA/master/data/Cancer.sav")
+```
 
+
+```{r}
 tibble::glimpse(cancer_raw)
 ```
 
@@ -72,26 +75,84 @@ psych::headTail(cancer_clean) %>%
 
 
 
-## Exploratory Data Analysis: i.e. the eyeball method
+## EXPLORATORY DATA ANALYSIS
 
-### Scatterplot
 
 ```{block type='rmdimportant', echo=TRUE}
-Always plot your data first!
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
 ```
+
+
+
+### Univariate Statistics
+
+Center: mean and median
+Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
+
+```{r}
+cancer_clean %>% 
+  dplyr::select("Age" = age,
+                "Weight" = weighin) %>% 
+  apaSupp::tab_desc(caption = "Description of Participants")
+```
+
+
+### Univariate Visualizations
+
+
+```{r}
+cancer_clean %>% 
+  apaSupp::spicy_histos(var = age)
+```
+
+
+```{r}
+cancer_clean %>% 
+  apaSupp::spicy_histos(var = weighin)
+```
+
+
+
+
+### Bivariate Statistics
+
+```{r}
+cancer_clean %>% 
+  cor.test(~ age + weighin,
+           data = .)
+```
+
+
+
+### Bivariate Visualization
+
 
 ```{r}
 cancer_clean %>% 
   ggplot(aes(x = age,
              y = weighin)) +
   geom_point() +
-  geom_smooth(aes(color = "Linear"), method = "lm",    se = TRUE) +  
-  geom_smooth(aes(color = "Loess"),  method = "loess", se = FALSE) +     
-  theme_bw()
+  geom_smooth(aes(color = "Linear"), 
+              method = "lm", 
+              formula = y ~ x,
+              se = TRUE) +  
+  geom_smooth(aes(color = "Loess"),  
+              method = "loess", 
+              se = FALSE) +     
+  theme_bw() +
+  labs(x = "Age, years",
+       y = "Weight, pounds",
+       color = "Smoother") +
+  theme(legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"))
 ```
 
 
-## Regression Model
+## REGRESSION ANALYSIS
+
+> The dependent variable (DV) is weight at intake
+> The independent variable (IV) is age at intake
 
 ### Fit the Model
 

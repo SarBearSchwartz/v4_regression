@@ -28,7 +28,7 @@ library(ggpubr)
 library(ggResidpanel)
 ```
 
-## Purpose
+## PURPOSE
 
 ### Research Question
 
@@ -60,23 +60,28 @@ df_ginz <- Ginzberg
 
 
 
+```{r}
+tibble::glimpse(df_ginz)
+```
 
 
 
 \clearpage
 
-## Explore the data
+## EXPLORATORY DATA ANALYSIS
 
-```{r}
-tibble::glimpse(df_ginz)
-```
-
-```{r}
-df_ginz
+```{block type='rmdimportant', echo=TRUE}
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
 ```
 
 
-### Descriptive Statistics
+
+
+
+### Univariate Statistics
+
+Center: mean and median
+Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
 
 ```{r}
 df_ginz %>% 
@@ -87,30 +92,8 @@ df_ginz %>%
 ```
 
 
-### Correlations
 
-```{r}
-df_ginz %>% 
-  dplyr::select("Simplicity" = simplicity,
-                "Fatalism" = fatalism,
-                "Depression" = depression) %>% 
-  apaSupp::tab_cor(caption = "Correlations")
-```
-
-
-
-```{r}
-df_ginz %>% 
-  dplyr::select("Simplicity" = simplicity,
-                "Fatalism" = fatalism,
-                "Depression" = depression) %>% 
-  cor(method = "pearson") %>% 
-  corrplot::corrplot.mixed()
-```
-
-
-
-### Plots
+### Univariate Visualizations
 
 
 ```{block type='rmdimportant', echo=TRUE}
@@ -136,6 +119,37 @@ df_ginz %>%
 
 
 
+
+
+
+
+### Bivariate Statistics
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  apaSupp::tab_cor(caption = "Correlations")
+```
+
+
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  cor(method = "pearson") %>% 
+  corrplot::corrplot.mixed()
+```
+
+
+
+### Bivariate Visualization
+
+
+
 ```{r}
 df_ginz %>% 
   dplyr::select("Simplicity" = simplicity,
@@ -145,6 +159,7 @@ df_ginz %>%
   ggscatmat() +
   theme_bw()
 ```
+
 
 
 
@@ -182,7 +197,10 @@ df_ginz %>%
 ```
 
 
-## Linear Regression for Depression
+## REGRESSION ANALYSIS
+
+> The dependent variable (DV) is depression score.
+> The independent variables (IVs) are 2 beliefs, simplicity and fatalism.
 
 ### Model with only Simplicity
 
@@ -193,7 +211,7 @@ fit_lm_sim <- lm(depression ~ simplicity,
 ```
 
 ```{r}
-olsrr::ols_regress(fit_lm_sim)
+summary(fit_lm_sim)
 ```
 
 ### Model with only Fatalism
@@ -205,7 +223,7 @@ fit_lm_fat <- lm(depression ~ fatalism,
 ```
 
 ```{r}
-olsrr::ols_regress(fit_lm_fat)
+summary(fit_lm_fat)
 ```
 
 
@@ -218,38 +236,49 @@ fit_lm_both <- lm(depression ~ simplicity + fatalism,
 ```
 
 ```{r}
-olsrr::ols_regress(fit_lm_both)
+summary(fit_lm_both)
 ```
 
 
-
-## Residual Diagnostics
-
-### Model with only Simplicity
-
-```{r}
-performance::check_residuals(fit_lm_sim)
-```
-
-```{r}
-ggResidpanel::resid_panel(fit_lm_sim)
-```
-
-
-
-### Model with only Fatalism
-
-```{r}
-performance::check_residuals(fit_lm_fat)
-```
 
 
 ```{r}
-ggResidpanel::resid_panel(fit_lm_fat)
+list("Just\nSimplicity" = fit_lm_sim,
+     "Just\nFatalism" = fit_lm_fat,
+     "Simplicity\nand Fatalism" = fit_lm_both) %>% 
+  modelsummary::modelsummary(output = "flextable",
+                             fmt = 2,
+                             estimate = "{estimate}",
+                             statistic = NULL,
+                             gof_map = NA,
+                             coef_rename = c("simplicity" = "Simplicity",
+                                             "fatalism" = "Fatalism")) %>% 
+  apaSupp::theme_apa(caption = "Parameter Estimates for Depression Regressed on Simplicity Belief and Fatalism Belief- BASIC")
+```
+
+```{r}
+list("Just\nSimplicity" = fit_lm_sim,
+     "Just\nFatalism" = fit_lm_fat,
+     "Simplicity\nand Fatalism" = fit_lm_both) %>% 
+  modelsummary::modelsummary(output = "flextable",
+                             fmt = 2,
+                             estimate = "{estimate} ({std.error})",
+                             statistic = "{p.value}{stars}",
+                             stars = c('*' = .05, '**' = .01, '***' = .001),
+                             gof_map = c("r.squared", 
+                                         #"adj.r.squared",
+                                         "rmse"),
+                             coef_rename = c("simplicity" = "Simplicity",
+                                             "fatalism" = "Fatalism")) %>% 
+  apaSupp::theme_apa(caption = "Parameter Estimates for Depression Regressed on Simplicity Belief and Fatalism Belief - BETTER",
+                     p_note = "apa",
+                     general_note = "Dependent variable is depression self-reported on the Beck Depression Scale. ") %>% 
+  flextable::hline(i = 6) 
 ```
 
 
-### Model with Both Predictors
+### Residual Diagnostics
+
 
 ```{r}
 performance::check_residuals(fit_lm_both)
@@ -260,21 +289,33 @@ ggResidpanel::resid_panel(fit_lm_both)
 ```
 
 
-## Effect Size, variance explained
+## EFFECT SIZES
+
+**Variance Explained** = variance in the DV "explained by" or "attributed to" the IV(s) 
 
 ### Variance Partitioning
 
+Variance in the DV - Total
 
 ```{r}
 var(df_ginz$depression)
 ```
+
+Variance in the SV - Not attributed to Simplicity
+
 ```{r}
 var(fit_lm_sim$residuals)
 ```
 
+
+Variance in the SV - Not attributed to Fatalism
+
 ```{r}
 var(fit_lm_fat$residuals)
 ```
+
+
+Variance in the SV - Not attributed to the combination of Simplicity and Fatalism
 
 ```{r}
 var(fit_lm_both$residuals)
@@ -282,7 +323,7 @@ var(fit_lm_both$residuals)
 
 
 
-#### Model with only Simplicity
+### Model with only Simplicity
 
 ```{r}
 summary(fit_lm_sim)$r.squared
@@ -302,7 +343,7 @@ knitr::include_graphics("images/VENN_DIAGRAM_sim.png")
 
 
 
-#### Model with only Fatalism
+### Model with only Fatalism
 
 ```{r}
 summary(fit_lm_fat)$r.squared
@@ -317,7 +358,8 @@ summary(fit_lm_fat)$r.squared
 knitr::include_graphics("images/VENN_DIAGRAM_fat.png")
 ```
 
-#### Model with Both Predictors
+
+### Model with Both Predictors
 
 ```{r}
 summary(fit_lm_both)$r.squared
@@ -331,6 +373,7 @@ summary(fit_lm_both)$r.squared
 ```{r, echo=FALSE, out.width = "75%"}
 knitr::include_graphics("images/VENN_DIAGRAM_both.png")
 ```
+
 
 ### Semipartial Correlation
 
@@ -354,12 +397,13 @@ DescTools::EtaSq(fit_lm_both, type = 3)
 
 ### Eta-squared
 
-
+```{block type='rmdlightbulb', echo=TRUE}
 * Type I is sequential and terms are "added" to the model in order, first the main effects, then the interactions; the type I sum of squares are SS(A), SS(B|A)
 
 * Type II adjust the contribution of a predictor for other main effects (but not its interactions, if any): SS(A|B), SS(B|A)
 
 * Type III attributes to each term (main effect or interaction) its unique contribution. So the sum of squares due to A excludes the effect of the interaction between A and B: SS(A|B,A:B), SS(B|A,A:B), SS(A:B|A,B).
+```
 
 
 ```{r}

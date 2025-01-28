@@ -13,6 +13,9 @@ knitr::opts_chunk$set(comment     = "",
 ```
 
 ```{r, comment=FALSE, message=FALSE}
+#library(remotes)
+#remotes::install_github("sarbearschwartz/apaSupp")
+
 library(tidyverse)       # super helpful everything!
 library(magrittr)        # includes other versions of the pipe 
 library(haven)           # inporting SPSS data files
@@ -26,7 +29,7 @@ library(psych)           # lots of handy tools
 library(ISwR)            # Introduction to Statistics with R (datasets)
 ```
 
-## Purpose
+## PURPOSE
 
 ### Research Question
 
@@ -46,12 +49,15 @@ This dataset is included in the `ISwR` package [@R-ISwR], which was a companion 
 
 ```{r}
 data(thuesen, package = "ISwR")
+```
 
+
+```{r}
 tibble::glimpse(thuesen)  # view the class and 1st few values of each variable
 ```
 
 
-## Exploratory Data Analysis
+## EXPLORATORY DATA ANALYSIS
 
 ```{block type='rmdimportant', echo=TRUE}
 Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
@@ -61,60 +67,39 @@ Before embarking on any inferencial anlaysis or modeling, always get familiar wi
 
 Summary Statistics for all three variables of interest
 
-```{r, results='asis'}
-thuesen %>% 
-  stargazer::stargazer(type = "html")
-```
 
-The `stargazer()` function has many handy options, should you wish to change the default settings.
-
-```{r, results="asis"}
-thuesen %>% 
-  stargazer::stargazer(type   = "html", 
-                       digits = 4, 
-                       flip   = TRUE,                    
-                       summary.stat   = c("n", "mean", "sd", "min", "median", "max"),
-                       title  = "Descriptives")
-```
-
-Although the `table1()` function from the `furniture` package creates a nice summary table, it 'hides' the nubmer of missing values for each continuous variable [@R-furniture].
+Center: mean and median
+Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
 
 ```{r}
 thuesen %>% 
-  furniture::table1("Fasting Blood Glucose" = blood.glucose, 
-                    "Circumferential Shortening Velocity" = short.velocity,  # defaults to excluding any row missing any variable
-                    output = "html")
+  dplyr::select("Fasting Blood Glucose" = blood.glucose, 
+                "Circumferential Shortening Velocity" = short.velocity) %>% 
+  apaSupp::tab_desc(caption = "Description of Diabetic Participants")
 ```
 
-
-```{r}
-thuesen %>% 
-  furniture::table1("Fasting Blood Glucose" = blood.glucose, 
-                    "Circumferential Shortening Velocity" = short.velocity,
-                    na.rm = FALSE,     # retains even partial cases
-                    output = "html")
-```
 
 
 ### Univariate Visualizations
 
 ```{r}
-ggplot(thuesen,
-       aes(blood.glucose)) +        # variable of interest (just one)
-  geom_histogram(binwidth = 2)      # specify the width of the bars
+thuesen %>% 
+  apaSupp::spicy_histos(var = blood.glucose)
 ```
 
 
 ```{r}
 thuesen %>% 
-  ggplot() +
-  aes(short.velocity) +              # variable of interest (just one)
-  geom_histogram(bins = 10)          # specify the number of bars
+  apaSupp::spicy_histos(var = short.velocity)
 ```
 
 
 
-### Bivariate Statistics (Unadjusted Pearson's correlation)
+
+
+### Bivariate Statistics 
+
+(Unadjusted Pearson's correlation)
 
 The `cor()` fucntion in base $R$ doesn't like `NA` or missing values
 
@@ -177,40 +162,25 @@ thuesen %$%                            # notice the special kind of pipe
 ```
 
 
-```{r}
-thuesen %>% 
-  dplyr::select(blood.glucose, short.velocity) %>% 
-  furniture::tableC(cor_type = "pearson",
-                    na.rm = TRUE,
-                    rounding = 3,
-                    output = "markdown",
-                    booktabs = TRUE,
-                    caption = "Correlation Table")
-```
-
 
 
 ### Bivariate Visualization
 
-Scatterplots show the relationship between two continuous measures (one on the $x-axis$ and the other on the $y-axis$), with one point for each observation.
 
-```{r, eval=FALSE}
+
+```{r}
 ggplot(thuesen, 
        aes(x = blood.glucose,        # x-axis variable
            y = short.velocity)) +    # y-axis variable
   geom_point() +                     # place a point for each observation
-  theme_bw()                         # black-and-white theme 
-```
-
-Both the code chunk above and below produce the same plot.
-
-```{r}
-thuesen %>% 
-  ggplot() +
-  aes(x = blood.glucose,         # x-axis variable
-      y = short.velocity) +     # y-axis variable
-  geom_point() +                 # place a point for each observation
-  theme_bw()                     # black-and-white theme 
+  geom_smooth(method = "lm",
+              formula = y ~ x) +
+  ggpubr::stat_regline_equation(label.x = 5,
+                                label.y = 1.85,
+                                size = 6) +
+  theme_bw() +
+  labs(x = "Blood Glucose, mmol/l",
+       y = "Mean Circumferential Shortening Velocity, %/s")
 ```
 
 
@@ -218,7 +188,7 @@ thuesen %>%
 
 
 
-## Regression Analysis
+## REGRESSION ANALYSIS
 
 
 ### Fit A Simple Linear Model
@@ -317,6 +287,14 @@ plot(fit_vel_glu, which = 6)
 
 
 
+```{r}
+performance::check_residuals(fit_vel_glu)
+```
+
+```{r}
+ggResidpanel::resid_panel(fit_vel_glu)
+```
+
 
 Viewing potentially influential or outlier points based on plots above:
 
@@ -326,11 +304,6 @@ thuesen %>%
   dplyr::filter(id == c(13, 20, 24))
 ```
 
-The `car` package has a handy function called `residualPlots()` for displaying residual plots quickly [@R-car].
-
-```{r}
-car::residualPlots(fit_vel_glu)
-```
 
 
 Here is a fancy way to visulaize 'potential problem cases' with `ggplot2`:
@@ -351,107 +324,26 @@ thuesen %>%
 ```
 
 
-### Manually checking residual diagnostics
-
-You may extract values from the model in dataset form and then you can maually plot the residuals.
-
-```{r}
-thuesen %>% 
-  dplyr::filter(complete.cases(.)) %>%            # keep only complete cases
-  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%   # fitted/prediction values
-  dplyr::mutate(resid = residuals(fit_vel_glu))   # residual values
-```
-
-Check for equal spread of points along the $y=0$ horizontal line: 
-
-```{r}
-thuesen %>% 
-  dplyr::mutate(id = row_number()) %>% 
-  dplyr::filter(complete.cases(.)) %>%                # keep only complete cases
-  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
-  dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
-  ggplot() +
-  aes(x = id,
-      y = resid) +
-  geom_point() +
-  geom_hline(yintercept = 0,
-             color = "red",
-             size = 1,
-             linetype = "dashed") +
-  theme_classic() +
-  labs(title = "Looking for homogeneity of residuals",
-       subtitle = "want to see equal spread all across")
-```
-
-
-Check for normality:
-
-```{r}
-thuesen %>% 
-  dplyr::filter(complete.cases(.)) %>%                # keep only complete cases
-  dplyr::mutate(pred = fitted(fit_vel_glu)) %>%       # fitted/prediction values
-  dplyr::mutate(resid = residuals(fit_vel_glu)) %>%   # residual values
-  ggplot() +
-  aes(resid) +
-  geom_histogram(bins = 12,
-                 color = "blue",
-                 fill = "blue",
-                 alpha = 0.3) +
-  geom_vline(xintercept = 0,
-             size = 1,
-             color = "red",
-             linetype = "dashed") +
-  theme_classic() +
-  labs(title = "Looking for normality of residuals",
-       subtitle = "want to see roughly a bell curve")
-```
 
 
 
 
 
 
-
-
-
-## Conclusion
+## CONCLUSION
 
 
 ### Tabulate the Final Model Summary
 
 You may also present the output in a table using two different packages:
 
-* The `stargazer` package has `stargazer()` function:
 
-```{r, results='asis'}
-stargazer::stargazer(fit_vel_glu, type = "html")
-```
-
-
-```{block type='rmdlightbulb', echo=TRUE}
-The `stargazer` package can produce the regression table in various output types:  
-
-* `type = "latex` **Default**  Use when knitting your .Rmd file to a .pdf via LaTeX
-* `type = "text` **Default**  Use when working on a project and viewing tables on your computer screen
-* `type = "html` **Default**  Use when knitting your .Rmd file to a .html document
-```
-
-* The `texreg` package has the `texreg()` fucntion:
+* The `texreg` package has the `knitreg()` function:
 
 ```{r, results="asis"}
-texreg::htmlreg(fit_vel_glu)
+texreg::knitreg(fit_vel_glu,
+                single.row = TRUE)
 ```
-
-
-```{block type='rmdlightbulb', echo=TRUE}
-The `texreg` package contains three version of the regression table function.  
-
-* `screenreg()` Use when working on a project and viewing tables on your computer screen
-* `htmlreg()` Use when knitting your .Rmd file to a .html document 
-* `texreg()` Use when knitting your .Rmd file to a .pdf via LaTeX
-```
-
-
 
 
 ### Plot the Model

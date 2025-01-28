@@ -5,17 +5,11 @@
 Darlington & Hayes, Chapter 1
 
 
-## PREPARATION
-
-### Load Packages
-
-```{r, eval=FALSE}
-library(remotes)
-remotes::install_github("sarbearschwartz/apaSupp")
-```
-
 
 ```{r}
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")
+
 library(tidyverse)
 library(broom)
 library(flextable)
@@ -27,7 +21,14 @@ library(ggResidpanel)
 ```
 
 
-### Load Data
+## PURPOSE
+
+### Research Question
+
+> Examine the relationship between the number of points won when playing mini golf and the number of times a player has played mini golf before before.
+
+
+### Data Description
 
 Manually enter the data set provided on page 18 in Table 2.1
 
@@ -60,7 +61,7 @@ tibble::glimpse(df_golf)
 
 \clearpage
 
-## DISPLAY DATA
+## VISUALIZATION
 
 ### Full Table
 
@@ -584,6 +585,7 @@ So for our golf example:
 ### Important Note
 
 > D&H Textbook: starting in the middle of page 27!
+
 ```{block type='rmdlightbulb', echo=TRUE}
 There are two *slightly different variations* to the covariance and variance formulas.  The one for covariance above (EQ 2.2) showns dividing by `N`and is specific to a POPULATION ($\sigma_{XY}$).  
 
@@ -815,6 +817,9 @@ $$
 ## USING SOFTWARE
 
 ### Linear Model
+
+> The dependent variable (DV) is points won (Y)
+> The independent variable (IV) is number of time previously played (X)
 
 
 ```{r}
