@@ -36,3 +36,8 @@ DescTools
 effectsize
 magrittr
 ISwR
+rgl
+scatterplot3d
+parameters
+interactions
+performance

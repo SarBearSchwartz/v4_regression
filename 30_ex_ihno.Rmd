@@ -238,6 +238,10 @@ data_ihno %>%
 
 ## REQRESSION ANALYSIS
 
+
+* The dependent variable (DV) is Stat Quiz score, `statquiz` ($Y$)
+* The independent variables (IVs) are both math quiz score `mathquiz` and math phobia `phobia`($X_1$, $X_2$)
+
 ### Subset the Sample
 
 

@@ -16,12 +16,18 @@ knitr::opts_chunk$set(comment     = NA,
 
 
 ```{r, comment=FALSE, message=FALSE}
-library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(haven)        # Read in SPSS datasets
-library(psych)        # Lots of nice tid-bits
-library(GGally)       # Extension to 'ggplot2' (ggpairs)
-library(furniture)    # tables
-library(apaSupp)      # APA 7th ed tables
+library(haven)
+library(tidyverse)
+library(flextable)
+library(psych) 
+library(apaSupp)
+library(olsrr)
+library(modelsummary)
+library(parameters)
+library(effectsize)
+library(interactions)
+library(performance)
+library(ggResidpanel)
 library(emmeans)
 library(effects)
 ```
@@ -151,8 +157,8 @@ cancer_clean %>%
 
 ## REGRESSION ANALYSIS
 
-> The dependent variable (DV) is weight at intake
-> The independent variable (IV) is age at intake
+* The dependent variable (DV) is weight at intake ($Y$)
+* The independent variable (IV) is age at intake ($X$)
 
 ### Fit the Model
 

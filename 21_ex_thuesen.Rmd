@@ -190,6 +190,9 @@ ggplot(thuesen,
 
 ## REGRESSION ANALYSIS
 
+* `short.velocity` dependent variable or outcome ($Y$)
+* `blood.glucose` independent variable or predictor ($X$)
+
 
 ### Fit A Simple Linear Model
 
@@ -208,8 +211,7 @@ The `lm()` function must be supplied with at least two options:
 When a model is fit and directly saved as a named object via the assignment opperator (`<-`), no output is produced.
 ```
 
-* `short.velocity` dependent variable or outcome ($Y$)
-* `blood.glucose` independent variable or predictor ($X$)
+
 
 
 

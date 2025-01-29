@@ -1,0 +1,324 @@
+# Multiple Regression: "Sport Skill"
+
+
+Darlington & Hayes, Chapter 3's second example
+
+
+```{r}
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")
+
+library(tidyverse)
+library(flextable)
+library(apaSupp)
+library(modelsummary)
+library(parameters)
+library(effectsize)
+library(interactions)
+library(performance)
+library(effects)
+library(ggResidpanel)
+```
+
+
+
+
+## PURPOSE
+
+### Research Question
+
+> Are sports skills related to preference?
+
+### Data Description
+
+Independent Variables (IV, $X$)
+* `soft` skill at softball
+* `basket` skill at basketball
+
+Dependent Variable (DV, $Y$)
+* `pref` On a scale from 1 to 9, which sport do you prefer?”
+    + 1 = much prefer softball
+    + 5 = no preference
+    + 9 = much prefer basketball
+
+
+```{r}
+df_sport <- tibble::tribble(~id, ~soft, ~basket, ~pref,
+                             1,   4, 17, 1,
+                             2,  56, 60, 3,
+                             3,  25,  3, 8,
+                             4,  50, 52, 4,
+                             5,   5, 16, 2,
+                             6,  72, 84, 2,
+                             7, 100, 95, 5,
+                             8,  39, 20, 8,
+                             9,  81, 75, 5,
+                            10,  61, 47, 7)
+```
+
+```{r}
+df_sport %>% 
+  dplyr::select("ID" = id,
+                "Softball Skill" = soft,
+                "Basketball Skill" = basket,
+                "Preference Score" = pref) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "D&H TAble 3.5 (pg 78) Skill at Softball, Basketball, and Preference") %>% 
+  flextable::colformat_double(digits = 0)
+```
+
+
+## EXPLORATORY DATA ANALYSIS
+
+### Univariate Statistics
+
+Center: mean and median
+Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
+
+```{r}
+df_sport %>% 
+  dplyr::select("Softball Skill" = soft,
+                "Basketball Skill" = basket,
+                "Preference Score" = pref) %>%
+  apaSupp::tab_desc(caption = "Summary Statistics")
+```
+
+
+
+### Univariate Visualizations
+
+
+```{r}
+df_sport %>% 
+  apaSupp::spicy_histos(var = soft)
+```
+
+
+```{r}
+df_sport %>% 
+  apaSupp::spicy_histos(var = basket)
+```
+
+
+```{r}
+df_sport %>% 
+  apaSupp::spicy_histos(var = pref)
+```
+
+
+
+
+### Bivariate Statistics
+
+```{r}
+df_sport %>% 
+  dplyr::select("Softball Skill" = soft,
+                "Basketball Skill" = basket,
+                "Preference Score" = pref) %>%
+  apaSupp::tab_cor(caption = "Unadjusted, Pairwise Correlations")
+```
+
+
+
+
+### Bivariate Visualization
+
+
+
+
+```{r}
+df_sport %>% 
+  dplyr::select("Softball Skill" = soft,
+                "Basketball Skill" = basket,
+                "Preference Score" = pref) %>%
+  data.frame %>% 
+  GGally::ggscatmat() +
+  theme_bw()
+```
+
+
+
+```{r}
+df_sport %>% 
+  ggplot(aes(x = soft,        
+           y = pref)) +   
+  geom_point() +                    
+  geom_smooth(method = "lm",
+              formula = y ~ x) +
+  ggpubr::stat_regline_equation(label.x = 75,
+                                label.y = 1,
+                                size = 6) +
+  theme_bw() +
+  labs(x = "Softball Skill",
+       y = "Preference")
+```
+
+
+```{r}
+df_sport %>% 
+  ggplot(aes(x = basket,        
+             y = pref)) +   
+  geom_point() +                    
+  geom_smooth(method = "lm",
+              formula = y ~ x) +
+  ggpubr::stat_regline_equation(label.x = 75,
+                                label.y = 1,
+                                size = 6) +
+  theme_bw() +
+  labs(x = "Basketball Skill",
+       y = "Preference")
+```
+
+
+
+## REGRESSION ANALYSIS
+
+* The dependent variable (DV) is preference ($Y$)
+* The independent variable (IVs) are skill levels ($X$)
+
+### Fit the Models
+
+```{r}
+fit_lm_soft <- lm(pref ~ soft,
+                   data = df_sport)  
+
+fit_lm_basket <- lm(pref ~ basket,
+                   data = df_sport)
+
+fit_lm_both <- lm(pref ~ soft + basket,
+                   data = df_sport)
+```
+
+
+
+```{r}
+list("Just\nSoftball" = fit_lm_soft,
+     "Just\nBasketball" = fit_lm_basket,
+     "Softball\nand Basketball" = fit_lm_both) %>% 
+  modelsummary::modelsummary(output = "flextable",
+                             fmt = 2,
+                             estimate = "{estimate} ({std.error})",
+                             statistic = "{p.value}{stars}",
+                             stars = c('*' = .05, '**' = .01, '***' = .001),
+                             gof_map = c("r.squared", 
+                                         #"adj.r.squared",
+                                         "rmse"),
+                             coef_rename = c("soft" = "Softball Skill",
+                                             "basket" = "Basketball Skill")) %>% 
+  apaSupp::theme_apa(caption = "Parameter Estimates for Preference REgressed on Skills in Softball and Basketball",
+                     p_note = "apa") %>% 
+  flextable::hline(i = 6) 
+```
+
+
+```{block type='rmdimportant', echo=TRUE}
+We call a set of regressors **complementary** if $R^2$ for the set exceeds the sum of the individual values of $r^2_{YX}$ . Thus, complementarity and **collinearity** are opposites, though either can occur only when regressors in a set are **intercorrelated**.
+```
+
+
+
+
+### Semipartial Correlation
+
+
+
+```{r}
+effectsize::r2_semipartial(fit_lm_both)
+```
+
+
+### Venn Diagram - Variances 
+
+https://freetools.touchpoint.com/venn-diagram-template-generator 
+
+```{r}
+ABCD <- var(df_sport$pref)
+ABCD
+```
+
+```{r}
+AB <- var(fit_lm_soft$residuals)
+AB
+```
+
+
+```{r}
+BC <- var(fit_lm_basket$residuals)
+BC
+```
+
+
+```{r}
+D <- var(fit_lm_both$residuals)
+D
+```
+
+
+```{r}
+ABC <- ABCD - D
+ABC
+```
+
+
+```{r}
+A <- ABC - BC
+A
+```
+
+```{r}
+C <- ABC - AB
+C
+```
+
+```{r}
+B <- AB + BC - ABC
+B
+```
+
+### Venn Diagram - Proportions
+
+Total Variance in Preference Explained by Both Skills
+
+```{r}
+R2 <- ABC/ABCD
+R2
+```
+
+Variance in Preference Uniquely Explained by Softball skills, across all Basketball skill levels
+
+```{r}
+sr2_soft <- A/ABCD
+sr2_soft
+```
+
+
+Variance in Preference Uniquely Explained by Basketball skills, across all Softball skill levels
+
+```{r}
+sr2_basket <- C/ABCD
+sr2_basket
+```
+
+Variance in Preference Explained by Softball skills, when holding Basketball skill constant
+
+```{r}
+pr2_soft <- A/(A + D)
+pr2_soft
+```
+
+
+
+```{r}
+pr2_basket <- C/(C + D)
+pr2_basket
+```
+
+### Residual Diagnostics
+
+```{r}
+performance::check_residuals(fit_lm_both)
+```
+
+```{r}
+ggResidpanel::resid_panel(fit_lm_both)
+```

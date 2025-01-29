@@ -199,8 +199,8 @@ df_ginz %>%
 
 ## REGRESSION ANALYSIS
 
-> The dependent variable (DV) is depression score.
-> The independent variables (IVs) are 2 beliefs, simplicity and fatalism.
+* The dependent variable (DV) is depression score ($Y$)
+* The independent variables (IVs) are 2 beliefs, simplicity and fatalism ($X_1$, $X_2$)
 
 ### Model with only Simplicity
 
@@ -381,7 +381,7 @@ Therefor...
 
 * Unique from Simplicity = .519 - .432 = .087
 * Unique from Fatalism = .519 - .414 = .105
-* Sharded from Both =  .432 + .414 - .519 = .327
+* Shared from Both =  .432 + .414 - .519 = .327
 
 
 ```{r}

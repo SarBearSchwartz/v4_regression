@@ -1,18 +1,9 @@
 
-# Multiple Regression: "Weight"
+# Simple Regression: "Minigolf"
 
 
 Darlington & Hayes, Chapter 2
 
-```{block type='rmdlink', echo=TRUE}
-Outside resource
-* https://www.harshaash.com/R/part-and-partial-corr/
-* https://dstanley4.github.io/psyc4780bookdown/multiple-regression.html
-
-Reference:
-
-* Knapp, T. R. (1996). [Semi-Partial Correlations: I Don't Need Them; You Can Have Them.](https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1631&context=mwer) Mid-Western Educational Researcher, 9(4), 4.
-```
 
 
 ```{r}
@@ -20,305 +11,1015 @@ Reference:
 # remotes::install_github("sarbearschwartz/apaSupp")
 
 library(tidyverse)
-library(broom)
 library(flextable)
 library(apaSupp)
+library(olsrr)
 library(modelsummary)
-library(ppcor)
+library(parameters)
+library(effectsize)
+library(interactions)
+library(performance)
+library(ggResidpanel)
 library(jtools)
 library(olsrr)
 library(ggpubr)
-library(ggResidpanel)
 ```
-
-
 
 
 ## PURPOSE
 
 ### Research Question
 
-> How is weight loss associationed with exercise frequency and food intake? 
+> Examine the relationship between the number of points won when playing mini golf and the number of times a player has played mini golf before before.
 
 
 ### Data Description
 
+Manually enter the data set provided on page 18 in Table 2.1
 
+```{r}
+df_golf <- data.frame(ID = 1:23,
+                      X = c(0, 0, 
+                            1, 1, 1, 
+                            2, 2, 2, 2, 
+                            3, 3, 3, 3, 3, 
+                            4, 4, 4, 4,
+                            5, 5, 5, 
+                            6, 6),
+                      Y = c(2, 3, 
+                            2, 3, 4,
+                            2, 3, 4, 5,
+                            2, 3, 4, 5, 6,
+                               3, 4, 5, 6,
+                                  4, 5, 6,
+                                     5, 6)) %>% 
+  dplyr::mutate(ID = as.character(ID)) %>% 
+  dplyr::mutate(across(c(X, Y), as.integer))  
+```
+
+
+```{r}
+tibble::glimpse(df_golf)
+```
+
+
+
+\clearpage
+
+## VISUALIZATION
+
+### Full Table
+
+
+This is Table 2.1 on page 18.
+
+```{r}
+tab_df_golf <- df_golf %>% 
+  dplyr::select(ID,
+                "X\n'Previous Plays'" = X,
+                "Y\n'Points Won'" = Y) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "D&H Table 2.1: Golfing Scores and Prior Plays") %>% 
+  flextable::colformat_double(digits = 0)
+```
+
+
+This is how you save a table to Word.
+
+```{r}
+flextable::save_as_docx(tab_df_golf,
+                        path = "tables/tab_df_golf.docx")
+```
+
+
+
+\clearpage
+
+
+```{r}
+tab_df_golf
+```
+
+
+\clearpage
+
+### Scatterplot
+
+This is Figure 2.1 on page 19
+
+```{r, collapse = TRUE}
+fig_blank <- df_golf %>% 
+  ggplot(aes(x = X,
+             y = Y)) +
+  geom_vline(xintercept = 0,
+             linewidth = 1) +
+  geom_hline(yintercept = 0,
+             linewidth = 1) +
+  scale_x_continuous(breaks = 0:6, limits = c(-.5, 6.5)) +
+  scale_y_continuous(breaks = 0:6, limits = c(-.5, 6.5)) +
+  labs(x = "X = Number of Previous Plays",
+       y = "Y = Points Won") +
+  theme_bw() +
+  theme(panel.grid.minor = element_line(linewidth = .5, 
+                                        linetype = "longdash"),
+        panel.grid.major = element_line(linewidth = 1))
+```
+
+
+```{r, collapse = TRUE}
+fig_golf_scatter <- fig_blank +
+  geom_point(shape = 15,
+             size = 4) +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE) 
+```
+
+
+
+```{r, fig.cap="D&H Figure 2.1 (page 19) A Simple Scatter Plot"}
+fig_golf_scatter 
+```
+
+\clearpage
+
+This is how you save a plot, in three different formats.
+
+```{r}
+ggsave(plot = fig_golf_scatter,
+       file = "figures/fig_golf_scatter.png",
+       width = 6,
+       height = 4,
+       units = "in")
+```
+
+```{r}
+ggsave(plot = fig_golf_scatter,
+       file = "figures/fig_golf_scatter.jpg",
+       width = 6,
+       height = 4,
+       units = "in")
+```
+
+
+```{r}
+ggsave(plot = fig_golf_scatter,
+       file = "figures/fig_golf_scatter.tif",
+       width = 6,
+       height = 4,
+       units = "in")
+```
+
+\clearpage
+
+### Conditional Means
+
+
+```{r}
+df_golf_means <- df_golf %>% 
+  dplyr::group_by(X) %>% 
+  dplyr::summarise(N = n(),
+                   Y_bar = mean(Y)) %>% 
+  dplyr::ungroup()
+```
+
+ 
+```{r, fig.cap="Conditional Mean of Y When X = 0"}
+fig_blank +
+  geom_rect(xmin = 0 - .25, xmax = 0 + 0.25,
+            ymin = 2 - .25, ymax = 3 + 0.25,
+            color = "red",
+            alpha = .5,
+            fill = "yellow") +
+  geom_point(shape = 15,
+             size = 4) +
+  geom_point(data = df_golf_means %>% 
+               dplyr::filter(X <= 0),
+             aes(x = X,
+                 y = Y_bar),
+             color = "red",
+             shape = 13,
+             size = 10) 
+```
+
+\clearpage
+
+
+```{r, fig.cap="Conditional Mean of Y When X = 1"}
+fig_blank +
+  geom_rect(xmin = 1 - .25, xmax = 1 + 0.25,
+            ymin = 2 - .25, ymax = 4 + 0.25,
+            color = "red",
+            alpha = .5,
+            fill = "yellow") +
+  geom_point(shape = 15,
+             size = 4) +
+  geom_point(data = df_golf_means %>% 
+               dplyr::filter(X <= 1),
+             aes(x = X,
+                 y = Y_bar),
+             color = "red",
+             shape = 13,
+             size = 10)
+```
+
+
+\clearpage
+
+
+
+```{r, fig.cap="Conditional Mean of Y When X = 2"}
+fig_blank +
+  geom_rect(xmin = 2 - .25, xmax = 2 + 0.25,
+            ymin = 2 - .25, ymax = 5 + 0.25,
+            color = "red",
+            alpha = .5,
+            fill = "yellow") +
+  geom_point(shape = 15,
+             size = 4) +
+  geom_point(data = df_golf_means %>% 
+               dplyr::filter(X <= 2),
+             aes(x = X,
+                 y = Y_bar),
+             color = "red",
+             shape = 13,
+             size = 10)
+```
+
+\clearpage
+
+
+
+```{r}
+df_golf_means %>% 
+  dplyr::select("X\nPrevious\nPlays" = N,
+                "N\nNumber of\nObservations" = N,
+                "Mean(Y)\nConditional Mean of\nPoints Won" = Y_bar) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Golfing Scores and Prior Plays")  %>% 
+  flextable::align(part = "body", align = "center") %>% 
+  flextable::align(part = "head", align = "center")
+```
+
+
+\clearpage
+
+
+
+```{r, fig.cap="Textbook's Figure 2.2 (page 20) A Line Through Conditional Means"}
+fig_golf_scatter +
+  geom_point(data = df_golf_means,
+             aes(x = X,
+                 y = Y_bar),
+             color = "red",
+             shape = 13,
+             size = 10)
+```
+
+
+\clearpage
+
+
+
+```{r, fig.cap="Y-Intercept and Slope of the Line"}
+fig_blank +
+  geom_point(shape = 15,
+             size = 4,
+             alpha = .3) +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE) +
+  geom_point(x = 0,
+             y = 2.5,
+             color = "red",
+             shape = 13,
+             size = 10) +
+  geom_segment(x = -.75, xend = -.1,
+               y = 2.5, yend = 2.5,
+               arrow = arrow(type = "closed"),
+               color ="red") +
+  geom_segment(x = 1, xend = 1,
+               y = 3, yend = 4,
+               arrow = arrow(length = unit(.3, "cm"),
+                             type = "closed"),
+               linewidth = 1,
+               color = "darkgreen") +
+  geom_segment(x = 1, xend = 3,
+               y = 4, yend = 4,
+               arrow = arrow(length = unit(.3, "cm"),
+                             type = "closed"),
+               linewidth = 1,
+               color = "darkgreen") +
+  annotate(x = 0.75, y = 3.5, 
+           geom = "text", 
+           label = "Rise 1",
+           color = "darkgreen")+
+  annotate(x = 2, y = 4.5, 
+           geom = "text", 
+           label = "Run 2",
+           color = "darkgreen") +
+  ggpubr::stat_regline_equation(label.x = 4.5,
+                                label.y = 1,
+                                size = 6)
+```
+
+### Y-intercept
+
+Where the line crosses the *vertical* or y-axis
+
+$$
+b_0 = 2.5 
+$$
+
+### Slope
+
+The incline or decline of the line
+
+$$
+b_1 = \frac{rise}{run} = \frac{1}{2} = 0.5
+$$
+
+
+\clearpage
+
+### Format
+
+Standard slope-intercept form
+
+
+$$
+Y = mX + b \\
+\text{or} \\
+Y = b + mX
+\tag{Slope-Intercept Form}
+$$
+
+In statistics:
+
+$$
+Y = b_0 + b_1X
+\tag{D&H 2.10}
+$$
+
+So for this example, $\hat{Y}$ is said "Y hat".
+
+$$
+\hat{Y} = 2.5 + 0.5X \\
+\text{or} \\
+\widehat{\text{points}} = 2.58 + 0.5(\text{plays}) 
+$$
+
+
+\clearpage
+
+
+## HAND CALCULATIONS
+
+
+ORDINARY LEAST SQUARES (OLS)
+
+### Estimates
+
+The equation may be used to estimate predicted values ($\hat{Y}$) for each participant ($i$).  
+
+$$
+\tag{OLS EQ}
+\widehat{Y_i} = 2.5 + 0.5X_i
+$$
+
+
+The first participant (`id = 1`) had no previous plays ($X = 0$) and won two points ($Y=2$)...
+
+```{r}
+df_golf %>% 
+  dplyr::filter(ID == "1")
+```
+
+...so we plug in the value of `0` for the variable $x$ in the OLS Equation...
+
+$$
+\hat{Y} = 2.5 + 0.5 (0) \\
+= 2.5 + 0 \\
+= 2.5 \\
+$$
+
+...which gives a predicted value of two and a half points won ($\hat{Y} = 2.5$).
+
+
+\clearpae
+
+### Residuals
+
+The words `error` and `residual` mean the same thing ($e$).  
+
+$$
+\tag{residuals}
+residual  = \text{observed} - \text{predicted} \\
+\text{or} \\
+e_i= Y_i - \widehat{Y_i}
+$$
+For the first participant (`ID = 1`), this would be...
+
+$$
+e_1 = (2 - 2.5) 
+= - 0.5
+$$
+
+This is because this participant won two points, which is a half a point LESS THAN the OLS equation which predicted two and a half points.
+
+
+\clearpage
+
+
+We can use this process to find the predicted values ($\hat{Y}$) and residuals ($e$)  for all the participants in this sample (`N = 23`). 
+
+```{r}
+mean(df_golf$X)
+
+mean(df_golf$Y)
+```
+
+
+
+```{r}
+df_golf_est <- df_golf %>% 
+  dplyr::mutate(X2 = X^2) %>% 
+  dplyr::mutate(Y2 = Y^2) %>% 
+  dplyr::mutate(devX = X - 3) %>% 
+  dplyr::mutate(devY = Y - 4) %>% 
+  dplyr::mutate(devX_devY = devX*devY) %>% 
+  dplyr::mutate(devX2 = devX^2) %>% 
+  dplyr::mutate(devY2 = devY^2) %>%
+  dplyr::mutate(estY = 2.5 + 0.5*X) %>%  # predicted
+  dplyr::mutate(e = Y - estY) %>%        # deviation or residual
+  dplyr::mutate(e2 = e^2)
+```
+
+
+```{r}
+df_golf_est_sums <- df_golf_est %>% 
+  dplyr::summarise(across(where(is.numeric),~sum(.x))) %>% 
+  dplyr::mutate(ID = "Sum") %>% 
+  dplyr::select(ID, everything())
+```
+
+```{r}
+df_golf_est_means <- df_golf_est %>% 
+  dplyr::summarise(across(where(is.numeric),~mean(.x))) %>% 
+  dplyr::mutate(ID = "Mean") %>% 
+  dplyr::select(ID, everything())
+```
+
+
+```{r}
+tab_golf_est <- df_golf_est %>% 
+  dplyr::bind_rows(df_golf_est_sums) %>% 
+  dplyr::bind_rows(df_golf_est_means) %>% 
+  dplyr::select(ID, X, Y,estY, e, e2) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "D&H Tabel 2.2: Estimates and Residuals") %>% 
+  flextable::hline(i = 23) 
+```
+
+\clearpage
+
+```{r}
+tab_golf_est
+```
+
+
+\clearpage
+
+### Errors of Estimate
+
+"Sum of the Squared Residuals" or "Sum of the Squared Errors" ($SS_{residual}$)
+
+$$
+SS_{residual} = \sum^{N}_{i = 1}{(Y_i - \hat{Y_i})^2 = \sum^{N}_{i = 1}{e_i^2}}
+\tag{D&H 2.1}
+$$
+
+For this golf example, $SS_{residual}$ = 25.00.
+
+
+\clearpage
+
+### Deviation Scores
+
+**Deviation Scores** measures how far an observed value is from the MEAN of all observed values for that variable.
+
+
+$$
+\tag{deviation}
+\text{deviation}  = \text{observed} - \text{mean} \\ 
+$$
+
+Deviations may be calculated for each variable, separately.
+
+> Note: In our textbook lower cases letters here represent the deviation scores of the larger letter counterparts.
+
+
+$$
+x_i= X_i - \bar{X_i}\\
+y_i= Y_i - \bar{Y_i} 
+$$
+
+
+
+\clearpage
+
+
+### Cross-Products & Squares
+
+**Cross-Product** is another term for multiply, specifically when talking about the the **deviance scores**.
+
+
+```{r}
+df_golf_est %>% 
+  dplyr::bind_rows(df_golf_est_sums) %>% 
+  dplyr::bind_rows(df_golf_est_means) %>% 
+  dplyr::select(ID, X, Y, 
+                # "Squared\nX" = X2, 
+                # "Squared\nY" = Y2,
+                "Deviation\nX" = devX, 
+                "Deviation\nY" = devY, 
+                "Squared\nDeviation\nof X" = devX2,
+                "Squared\nDeviation\nof Y" = devY2,
+                "Deviation\nCross\nProduct" = devX_devY) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "D&H Table 2.3: Regression Computations") %>% 
+  flextable::hline(i = 23)
+```
+
+
+\clearpage
+
+
+
+### Covariance
+
+Usually not interpreted, but useful in computing things in stats, such as the regression coefficients and correlations.
+
+> Covariance is a measure of the **relationship between two random variables** and to what extent, they **change together**. Or we can say, in other words, it defines the changes between the two variables, *such that change in one variable is equal to change in another variable*. This is the property of a function of maintaining its form when the variables are linearly transformed. Covariance is measured in units, which are calculated by multiplying the units of the two variables.
+
+
+Note: $N$ is the size of the sample, or the number of observations
+
+
+The formula for **COVARIANCE** in a full known population (size = `N`) is:
+
+$$
+Cov(XY) = \frac{\sum_{i = 1}^{N}{(X - \bar{X})(Y - \bar{Y})}}{N}
+\tag{D&H 2.2}
+$$
+
+So for our golf example:
+
+```{r}
+34/23
+```
+
+
+
+
+
+
+
+\clearpage
+
+### Important Note
+
+> D&H Textbook: starting in the middle of page 27!
 
 ```{block type='rmdlightbulb', echo=TRUE}
-Manually enter the data set provided on page 44 in Table 3.1
+There are two *slightly different variations* to the covariance and variance formulas.  The one for covariance above (EQ 2.2) showns dividing by `N`and is specific to a POPULATION ($\sigma_{XY}$).  
+
+When the data used is a SAMPLE, and you are ESTIAMTING the POPULATION PARAMETER, you divide by `n - 1` rather than `N`.  
+```
+
+```{r}
+34/23         # divide by N
+34/(23 - 1)   # divide by n - 1
+```
+
+This is important because in `R`, the functions ASSUME you have a SAMPLE, not a population.
+
+```{r}
+cov(df_golf$X, df_golf$Y)  # does the sample version
+```
+
+
+
+\clearpage
+
+
+### Covar to Var
+
+This is another version of Equation 2.2 that is a bit more 'complex', but can be helpful.
+
+$$
+Cov(XY) = \frac{N\sum_{i = 1}^{N}{X_iY_i} - 
+(\sum_{i = 1}^{N}{X_i})(\sum_{i = 1}^{N}{Y_i})}{N^2}
+$$
+
+Variance is the same as the Covariance of a variable with itself.  
+
+$$
+Cov(XX) = \frac{N\sum_{i = 1}^{N}{X_iX_i} - 
+(\sum_{i = 1}^{N}{X_i})(\sum_{i = 1}^{N}{X_i})}{N^2}
+$$
+
+Now we can simplify.
+
+$$
+Var(X) = \frac{N\sum_{i = 1}^{N}{X_i^2} - 
+(\sum_{i = 1}^{N}{X_i})^2}{N^2} 
+$$
+
+
+And some more...
+
+$$
+Var(X) = \frac{\sum_{i = 1}^{N}{(X_i - \bar{X_i})^2}}{N}
+\tag{D&H 2.3}
+$$
+
+
+
+
+
+
+
+
+
+\clearpage
+
+### Variance
+
+The formula for **VARIANCE** in a full known population (size = `N`) is:
+
+$$
+Var(X) = \frac{\sum_{i = 1}^{N}{(X_i - \bar{X_i})^2}}{N}
+\tag{D&H 2.3}  
+$$
+
+
+So for our golf example, variable X:
+
+
+```{r}
+68/23
+68/22
+```
+
+```{r}
+var(df_golf$X)
+```
+
+So for our golf example, variable Y:
+
+```{r}
+42/23
+42/22
 ```
 
 
 ```{r}
-df_loss <- tibble::tribble(~id, ~exer, ~diet, ~loss,
-                           1, 0, 2,  6, 
-                           2, 0, 4,  2,
-                           3, 0, 6,  4,
-                           4, 2, 2,  8,
-                           5, 2, 4,  9,
-                           6, 2, 6,  8,
-                           7, 2, 8,  5,
-                           8, 4, 4, 11,
-                           9, 4, 6, 13,
-                           10, 4, 8, 9)
+var(df_golf$Y)
+```
+
+
+
+
+
+\clearpage
+
+### Standard Deviation
+
+```{block type='rmdlightbulb', echo=TRUE}
+Instead of interpreting variance, we usually refer to **STANDARD DEVIATION**.
+```
+
+
+$$
+SD_X = \sqrt{Var(X)}
+$$
+
+So for our golf example, variable X:
+
+```{r}
+sqrt(68/23)
+sqrt(68/22)
+```
+
+```{r}
+sd(df_golf$X)
+```
+
+So for our golf example, variable Y:
+
+```{r}
+sqrt(42/23)
+sqrt(42/22)
+```
+
+```{r}
+sd(df_golf$Y)
+```
+
+
+\clearpage
+
+### Correlation
+
+Pearson Product-Moment Correlation coefficient:
+
+
+$$
+r_{XY} = \frac{Cov(XY)}{SD_X \times SD_Y}
+\tag{D&H 2.4}
+$$
+
+So for our golf example:
+
+```{r}
+(34/23)/(sqrt(68/23)*sqrt(42/23))
+```
+
+
+```{r}
+cor(df_golf$X, df_golf$Y)
+```
+
+
+\clearpage
+
+### Coefficient or Slope
+
+Covariance can be used to find the SLOPE:
+
+$$
+b_1 = \frac{Cov(XY)}{Var(X)}
+\tag{D&H 2.5}
+$$
+
+For our golf example:
+
+```{r}
+cov(df_golf$X, df_golf$Y)/var(df_golf$X)
+```
+
+
+
+but I prefer this formula that uses summary statistics.
+
+
+$$
+b_1 = r\frac{SD_Y}{SD_X}
+\tag{D&H 2.6}
+$$
+
+For our golf example:
+
+```{r}
+cor(df_golf$X, df_golf$Y)*(sd(df_golf$Y)/sd(df_golf$X))
+```
+
+
+\clearpage
+
+### Constant or Y-intercept
+
+$$
+b_0 = \bar{Y} - b_1 \bar{X}
+\tag{D&H 2.8}
+$$
+
+```{r}
+mean(df_golf$Y) - 0.5*mean(df_golf$X)
+```
+
+
+### Regression Equation
+
+
+$$
+Y = b_0 + b_1X
+\tag{D&H 2.10}
+$$
+
+So for this example, $\hat{Y}$ is said "Y hat".
+
+$$
+\hat{Y} = 2.5 + 0.5X \\
+\text{or} \\
+\widehat{\text{points}} = 2.58 + 0.5(\text{plays}) 
+$$
+
+\clearpage
+
+
+## USING SOFTWARE
+
+### Linear Model
+
+* The dependent variable (DV) is points won ($Y$)
+* The independent variable (IV) is number of time previously played ($X$)
+
+
+```{r}
+fit_lm_golf <- lm(Y ~ X,
+                  data = df_golf)
+```
+
+```{r}
+summary(fit_lm_golf)
 ```
 
 
 
 ```{r}
-df_loss %>% 
-  dplyr::select("ID" = id,
-                "Exercise\nFrequency" = exer,
-                "Food\nIntake" = diet,
-                "Weight\nLoss" = loss) %>% 
+olsrr::ols_regress(fit_lm_golf)
+```
+
+
+
+
+
+
+### Coefficients - Raw
+
+Slope and intercept
+
+```{r}
+broom::tidy(fit_lm_golf) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "D&H Table 3.1: Exercise, Food Intake, and Weight Loss") %>% 
-  flextable::colformat_double(digits = 0) %>% 
-  flextable::footnote(part = "header", 
-                      i = 1, j = 2:4, 
-                      value = as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation",
-                                             "Weekly average of 100s of grams/week")))
+  apaSupp::theme_apa(caption = "Linear Regression Coefficients")
 ```
 
 
-
-## EXPLORATORY DATA ANALYSIS
-
-### Summary Statistics
 
 ```{r}
-df_loss %>% 
-  dplyr::select("Exercise Frequency" = exer,
-                "Food Intake" = diet,
-                "Weight Loss" = loss) %>% 
-  apaSupp::tab_desc(caption = "Summary Statistics") %>% 
-  flextable::footnote(i = 1:3, j = 1, 
-                      value = as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation",
-                                             "Weekly average of 100s of grams/week")))
+coef(fit_lm_golf)
 ```
 
 
 
-### Visualizations
 
-```{r, fig.cap= "D&H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BASIC"}
-df_loss %>% 
-  ggplot(aes(x = diet,
-             y = loss)) +
-  geom_point(aes(shape = factor(exer))) 
+```{r}
+jtools::summ(fit_lm_golf)
 ```
 
-```{r, fig.cap= "D&H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BETTTER"}
-df_loss %>% 
-  ggplot(aes(x = diet,
-             y = loss)) +
-  geom_point(aes(shape = factor(exer),
-                 color = factor(exer)),
-             size = 3)  +
+### Coefficients - Standardized
+
+```{r}
+lm(scale(Y) ~ scale(X),
+   data = df_golf) %>% 
+  summary()
+```
+
+
+
+
+
+
+```{r}
+cor(df_golf$X, df_golf$Y)
+```
+
+```{r}
+cor(df_golf$Y, df_golf$X)
+```
+
+
+```{r}
+broom::glance(fit_lm_golf) 
+```
+
+```{r}
+broom::glance(fit_lm_golf)$r.squared %>% sqrt()
+```
+
+
+
+\clearpage
+
+### Residuals
+
+```{r}
+round(fit_lm_golf$residuals, 2)
+```
+
+
+
+```{r}
+broom::augment(fit_lm_golf) 
+```
+
+
+\clearpage
+
+### Errors of Estimate
+
+"Sum of the Squared Residuals" or "Sum of the Squared Errors" ($SS_{residuals}$)
+
+```{r}
+sum(fit_lm_golf$residuals^2) 
+```
+
+
+```{r}
+anova(fit_lm_golf)
+```
+
+
+
+
+\clearpage
+
+### Visualize
+
+```{r, fig.cap="Regress Points Won on Number of Previous Plays"}
+df_golf %>% 
+  ggplot(aes(x = X,
+             y = Y)) +
   theme_bw() +
-  labs(x = "Observed Food Intake\nDaily average of 100s of calories above recommendation",
-       y = "Observed Weight Loss\nWeekly average of 100s of grams/week",
-       shape = "Exercise Frequency\nWeekly average of hours/day",
-       color = "Exercise Frequency\nWeekly average of hours/day") +
-  theme(legend.position = "bottom")
-```
-
-```{r, fig.cap= "D&H Figure 3.1 (page 45) An example with positive simple association and negative partial association - WORST"}
-df_loss %>% 
-  dplyr::mutate(exer = factor(exer)) %>% 
-  ggplot(aes(x = diet,
-             y = loss)) +
-  geom_point(size = 3)  +
-  theme_bw() +
-  labs(x = "Observed Food Intake\n(Daily average of 100s of calories above recommendation)",
-       y = "Observed Weight Loss\n(Weekly average of 100s of grams/week)",
-       shape = "Exercise Frequency\n(Weekly average of hours/day)",
-       color = "Exercise Frequency\n(Weekly average of hours/day)") +
-  theme(legend.position = "bottom") +
-  geom_smooth(aes(group = 1),
-              method = "lm",
-              formula = y ~ x,
-              se = FALSE)
+  geom_point(size = 4,
+             alpha = .4) +
+  geom_smooth(method = "lm",
+              formula = y ~ x)  +
+  annotate(x = 0.5,
+           y = 5.5,
+           size = 6,
+           geom = "text",
+           label = "r = .636") +
+  ggpubr::stat_regline_equation(label.x = 0,
+                                label.y = 6,
+                                size = 6) +
+  labs(x = "Number of Previous Plays",
+       y = "Points Won")
 ```
 
 
-```{r, fig.cap= "D&H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BEST"}
-df_loss %>% 
-  dplyr::mutate(exer = factor(exer)) %>% 
-  ggplot(aes(x = diet,
-             y = loss,
-             group = exer)) +
-  geom_point(aes(shape = exer,
-                 color = exer),
-             size = 3)  +
-  theme_bw() +
-  labs(x = "Observed Food Intake\n(Daily average of 100s of calories above recommendation)",
-       y = "Observed Weight Loss\n(Weekly average of 100s of grams/week)",
-       shape = "Exercise Frequency\n(Weekly average of hours/day)",
-       color = "Exercise Frequency\n(Weekly average of hours/day)") +
-  theme(legend.position = "bottom") +
-  geom_smooth(aes(color = exer),
-              method = "lm",
-              formula = y ~ x,
-              se = FALSE)
-```
+\clearpage
 
+## RESIDUALS
 
+### Properties
 
-## REGRESSION ANALYSIS
-
-### Fit the models
-
-> The dependent variable (DV) is weight loss
-> The independent variables (IVs) are exercise and diet
+1. Mean of residuals = zero
 
 ```{r}
-fit_lm_exer <- lm(loss ~ exer,
-                  data = df_loss)
-
-fit_lm_diet <- lm(loss ~ diet,
-                  data = df_loss)
-
-fit_lm_both <- lm(loss ~ exer + diet,
-                  data = df_loss)
+summary(fit_lm_golf$residuals)
 ```
 
-### Output
 
-```{r}
-olsrr::ols_regress(fit_lm_exer)
-```
+2. Zero correlation between residuals the X
 
 
 ```{r}
-olsrr::ols_regress(fit_lm_diet)
+cor(fit_lm_golf$residuals, df_golf$X)
 ```
 
-
-```{r}
-olsrr::ols_regress(fit_lm_both)
-```
-
-### Equations
+3. Variance of residuals = Proportion of Variance not Explained
 
 $$
-\widehat{loss} = 4 + 1.75(exercise) \\
-
-\widehat{loss} = 7.14 + 0.07(food) \\
-
-\widehat{loss} = 6 + 2(exercise) -0.5(food)
+\frac{Var(\text{residuals})}{Var(Y)} = 1 - r^2
+\tag{D&H 2.12}
 $$
 
 
-
-### Tables
-
 ```{r}
-list("Just\nExercise" = fit_lm_exer,
-     "Just\nDiet" = fit_lm_diet,
-     "Exercise\nand Diet" = fit_lm_both) %>% 
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate}",
-                             statistic = NULL,
-                             gof_map = NA,
-                             coef_rename = c("exer" = "Exercise Frequency",
-                                             "diet" = "Food Intake")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BASIC")
-```
-
-
-```{r}
-tab_mods <- list("Just Exercise" = fit_lm_exer,
-                 "Just Diet" = fit_lm_diet,
-                 "Exercise and Diet" = fit_lm_both) %>% 
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate} ({std.error})",
-                             statistic = "{p.value}{stars}",
-                             stars = c('*' = .05, '**' = .01, '***' = .001),
-                             gof_map = c("r.squared", 
-                                         #"adj.r.squared",
-                                         "rmse"),
-                             coef_rename = c("exer" = "Exercise Frequency",
-                                             "diet" = "Food Intake")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER",
-                     p_note = "apa",
-                     general_note = "Dependent variable is average weekly weight lost in 100s of grams. ") %>% 
-  flextable::hline(i = 6) %>% 
-  flextable::footnote(i = c(3, 5), j = 1, 
-                      value = as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation")))
-
-tab_mods
+var(fit_lm_golf$residuals)/var(df_golf$Y)
 ```
 
 ```{r}
-flextable::save_as_docx(tab_mods,
-                        path = "tab_mods.docx")
+1 - (cor(df_golf$X, df_golf$Y))^2
 ```
 
+
+\clearpage
+
+
+### Residual Analysis
 
 
 
 ```{r}
-modelsummary::modelsummary(models = list("Weight Loss" = fit_lm_both),
-                           output = "flextable",
-                           fmt = 2,
-                           coef_rename = c("exer" = "Exercise Frequency",
-                                           "diet" = "Food Intake")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER",
-                     p_note = "apa",
-                     general_note = "Dependent variable is average weekly weight lost in 100s of grams. ") %>% 
-  flextable::hline(i = 6) %>% 
-  flextable::footnote(i = c(3, 5), j = 1, 
-                      value = as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation")))
+ggResidpanel::resid_xpanel(fit_lm_golf)
 ```
 
-
-
-
-### Semipartial Correlation
-
 ```{r}
-df_loss %>% 
-  dplyr::select(-id) %>% 
-  ppcor::spcor()
+ggResidpanel::resid_panel(fit_lm_golf)
 ```
 
-
-### Partial Correlation
-
 ```{r}
-df_loss %>% 
-  dplyr::select(-id) %>% 
-  ppcor::pcor()
-```
-
-
-### Standardized Regression Coefficients
-
-
-```{r}
-lm(scale(loss) ~ scale(exer) + scale(diet),
-   data = df_loss) %>% 
-  coef()
+performance::check_residuals(fit_lm_golf)
 ```
 
 
 ```{r}
-effectsize::eta_squared(fit_lm_both, partial = FALSE)
+olsrr::ols_plot_diagnostics(fit_lm_golf)
 ```
-
-
-
-```{r}
-effectsize::r2_semipartial(fit_lm_both)
-```
-
 
 
