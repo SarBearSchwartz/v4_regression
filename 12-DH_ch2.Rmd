@@ -1,5 +1,5 @@
 
-# Simple Regression: "Minigolf"
+# D&H Ch 2 - Simple Regression: "Minigolf"
 
 
 Darlington & Hayes, Chapter 2
@@ -30,7 +30,7 @@ library(ggpubr)
 
 ### Research Question
 
-> Examine the relationship between the number of points won when playing mini golf and the number of times a player has played mini golf before before.
+> Examine the relationship between the number of points won when playing mini golf and the number of times a player has played mini golf before.
 
 
 ### Data Description
@@ -842,7 +842,12 @@ summary(fit_lm_golf)
 olsrr::ols_regress(fit_lm_golf)
 ```
 
-
+```{r}
+apaSupp::tab_lm(fit_lm_golf,
+                var_labels = c("X" = "Previous"),
+                caption = "Parameter Esgtimates for Points Won Regression on Times Previously Played Minigolf",
+                general_note = "Previous captures the number of times each person has played minigolf.")
+```
 
 
 

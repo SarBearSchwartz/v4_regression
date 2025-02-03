@@ -43,7 +43,7 @@ The data for psychiatric patients (*n* = 84) hospitalized for depression is prov
 > 
 > References: Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
 
-**Variables**
+#### Variables
 
 
 * `simplicity` Measures subject's need to see the world in black and white
@@ -242,39 +242,12 @@ summary(fit_lm_both)
 
 
 
-```{r}
-list("Just\nSimplicity" = fit_lm_sim,
-     "Just\nFatalism" = fit_lm_fat,
-     "Simplicity\nand Fatalism" = fit_lm_both) %>% 
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate}",
-                             statistic = NULL,
-                             gof_map = NA,
-                             coef_rename = c("simplicity" = "Simplicity",
-                                             "fatalism" = "Fatalism")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Depression Regressed on Simplicity Belief and Fatalism Belief- BASIC")
-```
+### Table
 
 ```{r}
-list("Just\nSimplicity" = fit_lm_sim,
-     "Just\nFatalism" = fit_lm_fat,
-     "Simplicity\nand Fatalism" = fit_lm_both) %>% 
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate} ({std.error})",
-                             statistic = "{p.value}{stars}",
-                             stars = c('*' = .05, '**' = .01, '***' = .001),
-                             gof_map = c("r.squared", 
-                                         #"adj.r.squared",
-                                         "rmse"),
-                             coef_rename = c("simplicity" = "Simplicity",
-                                             "fatalism" = "Fatalism")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Depression Regressed on Simplicity Belief and Fatalism Belief - BETTER",
-                     p_note = "apa",
-                     general_note = "Dependent variable is depression self-reported on the Beck Depression Scale. ") %>% 
-  flextable::hline(i = 6) 
+apaSupp::tab_lms(list(fit_lm_sim, fit_lm_fat, fit_lm_both))
 ```
+
 
 
 ### Residual Diagnostics

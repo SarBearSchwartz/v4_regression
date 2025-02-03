@@ -1,4 +1,4 @@
-# Multiple Regression: "Sport Skill"
+# D&H Ch3b - Multiple Regression: "Sport Skill"
 
 
 Darlington & Hayes, Chapter 3's second example
@@ -30,6 +30,9 @@ library(ggResidpanel)
 > Are sports skills related to preference?
 
 ### Data Description
+
+
+#### Variables
 
 Independent Variables (IV, $X$)
 * `soft` skill at softball
@@ -192,27 +195,41 @@ fit_lm_both <- lm(pref ~ soft + basket,
 
 
 ```{r}
-list("Just\nSoftball" = fit_lm_soft,
-     "Just\nBasketball" = fit_lm_basket,
-     "Softball\nand Basketball" = fit_lm_both) %>% 
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate} ({std.error})",
-                             statistic = "{p.value}{stars}",
-                             stars = c('*' = .05, '**' = .01, '***' = .001),
-                             gof_map = c("r.squared", 
-                                         #"adj.r.squared",
-                                         "rmse"),
-                             coef_rename = c("soft" = "Softball Skill",
-                                             "basket" = "Basketball Skill")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Preference REgressed on Skills in Softball and Basketball",
-                     p_note = "apa") %>% 
-  flextable::hline(i = 6) 
+tab_lm3 <- apaSupp::tab_lms(list(fit_lm_soft, fit_lm_basket, fit_lm_both),
+                            mod_names = c("Softball", "Basketball", "Both"),
+                            var_labels = c("soft" = "Softball Skill",
+                                           "basket" = "Basketball Skill"),
+                            caption = "Parameter Estimates for Sport Preference Regression on Skill Level in Softball and Basketball",
+                            general_note = "Dependent variable is preference rating on a scale of 1 (much prefer softball) to  9 (much prefer basketball).  Both softball and Baksetball skill levels are on a scale of 0 to 100.",
+                            d = 3) 
+
+tab_lm3
 ```
 
 
 ```{block type='rmdimportant', echo=TRUE}
 We call a set of regressors **complementary** if $R^2$ for the set exceeds the sum of the individual values of $r^2_{YX}$ . Thus, complementarity and **collinearity** are opposites, though either can occur only when regressors in a set are **intercorrelated**.
+```
+
+
+### Visualize
+
+```{r}
+interactions::interact_plot(model = fit_lm_both,
+                            pred = soft,
+                            modx = basket,
+                            modx.values = c(25, 50, 75),
+                            legend.main = "Basketball Skill\n(0-100)",
+                            interval = TRUE) +
+  theme_bw() +
+  labs(x = "Softball Skill, (0-100)",
+       y = "Estimated Marginal Mean Preference\n1 = much prefer softball\n9 = much prefer basketball") +
+  coord_cartesian(ylim = c(1, 9)) +
+  scale_y_continuous(breaks = 1:9) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm"))
 ```
 
 

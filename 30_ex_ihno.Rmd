@@ -16,20 +16,16 @@ knitr::opts_chunk$set(comment     = "",
 ```
 
 
-```{r, comment=FALSE, message=FALSE}
-#library(remotes)
-#remotes::install_github("sarbearschwartz/apaSupp")
+```{r, comment=FALSE, message=FALSE, warning=FALSE}
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")
+# pak::pkg_install("ddsjoberg/gtsummary", dependencies = TRUE) #developyment version
 
-library(tidyverse)       # super helpful everything!
-library(haven)           # importing SPSS data files
-library(furniture)       # nice tables of descriptives
-library(texreg)          # nice regression summary tables
-library(stargazer)       # nice tables of descrip and regression
-library(corrplot)        # visualize correlations
-library(car)             # companion for applied regression
-library(effects)         # effect displays for models
-library(psych)           # lots of handy tools
-library(GGally)
+library(tidyverse)       
+library(haven)      
+library(corrplot)        
+library(apaSupp)
+library(gtsummary)
 ```
 
 
@@ -49,20 +45,30 @@ library(GGally)
 Inho's dataset is included in the textbook "Explaining Psychological Statistics" [@epse4] and details regarding the sample and measures is describe in this Encyclopedia's [Vol. 2 - Ihno's Dataset](https://cehs-research.github.io/eBook_explore/example-ihnos-dataset.html).
 ```
 
+#### Variables
+
+* `statquiz` dependent variable (DV, Y): stat quiz score, max = 10
+* `mathquiz` independent variable (IC, X1): prior math quiz score, max = 50
+* `phobia`   indepedent variable (IC, X2): self-reported math phobia, score of 0-10
+
+
 ```{r}
 data_ihno <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/Ihno_dataset.sav") %>% 
+  haven::zap_widths() %>% 
+  haven::zap_label() %>% 
+  haven::zap_formats() %>% 
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(gender = factor(gender, 
-                               levels = c(1, 2),
-                               labels = c("Female", 
-                                          "Male"))) %>% 
+                                levels = c(1, 2),
+                                labels = c("Female", 
+                                           "Male"))) %>% 
   dplyr::mutate(major = factor(major, 
-                              levels = c(1, 2, 3, 4,5),
-                              labels = c("Psychology",
-                                         "Premed",
-                                         "Biology",
-                                         "Sociology",
-                                         "Economics"))) %>% 
+                               levels = c(1, 2, 3, 4,5),
+                               labels = c("Psychology",
+                                          "Premed",
+                                          "Biology",
+                                          "Sociology",
+                                          "Economics"))) %>% 
   dplyr::mutate(reason = factor(reason,
                                 levels = c(1, 2, 3),
                                 labels = c("Program requirement",
@@ -89,6 +95,9 @@ tibble::glimpse(data_ihno)
 
 
 
+```{r}
+str(data_ihno)
+```
 
 ## EXPLORATORY DATA ANALYSIS
 
@@ -240,6 +249,7 @@ data_ihno %>%
 
 
 * The dependent variable (DV) is Stat Quiz score, `statquiz` ($Y$)
+
 * The independent variables (IVs) are both math quiz score `mathquiz` and math phobia `phobia`($X_1$, $X_2$)
 
 ### Subset the Sample
@@ -254,35 +264,68 @@ This complicates model comparisons, which require nested models be fit to the sa
 
 ```{r}
 data_ihno_fitting <- data_ihno %>% 
-                      dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
+  dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
+```
 
+
+```{r}
 tibble::glimpse(data_ihno_fitting)
-```      
- 
+```
+
 
 ### Fit Nested Models 
-                   
+
 The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
 
 Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.                                     
-                                    
+
 ```{r}
-fit_ihno_lm_0 <- lm(statquiz ~ 1,                    # null model: intercept only
+fit_ihno_lm_0 <- lm(statquiz ~ 1,                 # null model: intercept only
                     data = data_ihno_fitting)
 
-fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,             # only main effect of mathquiz
+fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,          # only main effect of mathquiz
                     data = data_ihno_fitting)
 
-fit_ihno_lm_2 <- lm(statquiz ~ phobia,               # only main effect of phobia
+fit_ihno_lm_2 <- lm(statquiz ~ phobia,            # only main effect of phobia
                     data = data_ihno_fitting)
 
-fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia,    # both main effects 
+fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia, # both main effects 
                     data = data_ihno_fitting)
 
-fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,      # additional interaction
+fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,   # additional interaction
                     data = data_ihno_fitting)
 ```
 
+
+```{r}
+summary(fit_ihno_lm_1)
+```
+
+```{r}
+tab_lm(fit_ihno_lm_2)
+```
+
+
+```{r}
+fit_ihno_lm_3$rank
+```
+
+
+
+```{r}
+summary(fit_ihno_lm_2)
+```
+
+
+```{r}
+summary(fit_ihno_lm_3)
+```
+
+
+
+```{r}
+summary(fit_ihno_lm_4)
+```
 
 
 ### Comparing Nested Models
@@ -290,24 +333,31 @@ fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,      # additional interaction
 
 #### Model Comparison Table
 
+https://ddsjoberg.r-universe.dev/gtsummary/doc/manual.html
+
 In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
 
-Again the `texreg` package comes in handy to display several models in the same tal e [@R-texreg].
 
 
-```{r, results='asis'}
-texreg::knitreg(list(fit_ihno_lm_0, 
-                     fit_ihno_lm_1, 
-                     fit_ihno_lm_2, 
-                     fit_ihno_lm_3, 
-                     fit_ihno_lm_4),
-                custom.model.names = c("No Predictors", 
-                                       "Only Math Quiz", 
-                                       "Only Phobia", 
-                                       "Both IVs", 
-                                       "Add Interaction"))
+
+
+
+```{r}
+apaSupp::tab_lms(list(fit_ihno_lm_3, fit_ihno_lm_4)) 
 ```
 
+
+
+```{r}
+list(fit_ihno_lm_3, fit_ihno_lm_4) %>% 
+  apaSupp::tab_lms(mod_names = c("Main Effects", "Moderation"),
+                   var_labels = c("mathquiz" = "Math Quiz",
+                                  "phobia" = "Math Phobia",
+                                  "mathquiz * phobia" = "Quiz X Phobia"),
+                   caption = "Multiple Linear Models Regression of Statistics Quiz Performance on Math Phobia and Prior Math Performance",
+                   general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.",
+                   p_note = "apa") 
+```
 
 
 #### Likelihood Ratio Test of Nested Models
@@ -374,10 +424,10 @@ Many journals prefer that regression tables include 95% confidence intervals, ra
 
 ```{r, results='asis'}
 texreg::knitreg(fit_ihno_lm_3,
-               custom.model.names = "Main Effects Model",
-               ci.force = TRUE,                              # request 95% conf interv
-               caption = "Final Model for Stat's Quiz",
-               single.row = TRUE)
+                custom.model.names = "Main Effects Model",
+                ci.force = TRUE,                              # request 95% conf interv
+                caption = "Final Model for Stat's Quiz",
+                single.row = TRUE)
 ```
 
 

@@ -1,5 +1,4 @@
-
-# Multiple Regression: "Weight Loss"
+# D&H Ch3a - Multiple Regression: "Weight"
 
 
 Darlington & Hayes, Chapter 3's first example
@@ -48,6 +47,8 @@ library(ggResidpanel)
 
 Suppose you conducted a study examining the relationship between food consumption and weight loss among people enrolled (`n` = 10) in a month-long healthy living class.
 
+#### Variables
+
 * `exer` average weekly hours of exercise
 * `diet` average daily food consumption (in 100s of calories about the recommended minimum of 1,000 calories required to maintain good health)
 * `loss` average weight loss in hundreds of grams per week
@@ -61,15 +62,15 @@ Manually enter the data set provided on page 44 in Table 3.1
 
 ```{r}
 df_loss <- tibble::tribble(~id, ~exer, ~diet, ~meta, ~loss,
-                            1, 0, 2, 15,  6, 
-                            2, 0, 4, 14,  2,
-                            3, 0, 6, 19,  4,
-                            4, 2, 2, 15,  8,
-                            5, 2, 4, 21,  9,
-                            6, 2, 6, 23,  8,
-                            7, 2, 8, 21,  5,
-                            8, 4, 4, 22, 11,
-                            9, 4, 6, 24, 13,
+                           1, 0, 2, 15,  6, 
+                           2, 0, 4, 14,  2,
+                           3, 0, 6, 19,  4,
+                           4, 2, 2, 15,  8,
+                           5, 2, 4, 21,  9,
+                           6, 2, 6, 23,  8,
+                           7, 2, 8, 21,  5,
+                           8, 4, 4, 22, 11,
+                           9, 4, 6, 24, 13,
                            10, 4, 8, 26,  9)
 ```
 
@@ -231,6 +232,8 @@ olsrr::ols_regress(fit_lm_three)
 ```
 
 
+
+
 ### Equations
 
 $$
@@ -247,75 +250,41 @@ $$
 
 ### Tables
 
-```{r}
-list("Just\nExercise" = fit_lm_exer,
-     "Just\nDiet" = fit_lm_diet,
-     "Exercise\nand Diet" = fit_lm_both,
-     "Add\nMetabolism" = fit_lm_three) %>% 
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate}",
-                             statistic = NULL,
-                             gof_map = NA,
-                             coef_rename = c("exer" = "Exercise Frequency",
-                                             "diet" = "Food Intake",
-                                             "meta" = "Metabolism")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BASIC")
-```
-
 
 ```{r}
-tab_mods <- list("Just Exercise" = fit_lm_exer,
-                 "Just Diet" = fit_lm_diet,
-                 "Exercise\nand Diet" = fit_lm_both,
-     "Add\nMetabolism" = fit_lm_three) %>%  
-  modelsummary::modelsummary(output = "flextable",
-                             fmt = 2,
-                             estimate = "{estimate} ({std.error})",
-                             statistic = "{p.value}{stars}",
-                             stars = c('*' = .05, '**' = .01, '***' = .001),
-                             gof_map = c("r.squared", 
-                                         #"adj.r.squared",
-                                         "rmse"),
-                             coef_rename = c("exer" = "Exercise Frequency",
-                                             "diet" = "Food Intake",
-                                             "meta" = "Metabolism")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER",
-                     p_note = "apa",
-                     general_note = "Dependent variable is average weekly weight lost in 100s of grams. ") %>% 
-  flextable::hline(i = 8) %>% 
-  flextable::footnote(i = c(3, 5, 7), j = 1, 
-                      value = as_paragraph(c("Weekly average of hours/day",
-                                             "Rate",
-                                             "Daily average of 100s of calories above recommendation")))
-
-tab_mods
-```
-
-```{r}
-flextable::save_as_docx(tab_mods,
-                        path = "tab_mods.docx")
-```
-
-
-
-
-```{r}
-modelsummary::modelsummary(models = list("Weight Loss" = fit_lm_both),
-                           output = "flextable",
-                           fmt = 2,
-                           coef_rename = c("exer" = "Exercise Frequency",
-                                           "diet" = "Food Intake")) %>% 
-  apaSupp::theme_apa(caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake - BETTER",
-                     p_note = "apa",
-                     general_note = "Dependent variable is average weekly weight lost in 100s of grams. ") %>% 
-  flextable::hline(i = 6) %>% 
-  flextable::footnote(i = c(3, 5), j = 1, 
+tab_lm3 <- apaSupp::tab_lms(list(fit_lm_exer, fit_lm_diet, fit_lm_both),
+                            mod_names = c("Exercise", "Food Intake", "Both"),
+                            var_labels = c("exer" = "Exercise",
+                                           "diet" = "Food"),
+                            caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake",
+                            general_note = "Dependent variable is average weekly weight lost in 100s of grams.") %>% 
+  flextable::footnote(part = "body",
+                      i = c(2, 3), j = 1, 
                       value = as_paragraph(c("Weekly average of hours/day",
                                              "Daily average of 100s of calories above recommendation")))
+
+tab_lm3
+```
+
+How to save to word document in the same folder as your R file.
+
+```{r}
+flextable::save_as_docx(tab_lm3,
+                        path = "DH_ch3_tab_lm3.docx")
 ```
 
 
+
+```{r}
+apaSupp::tab_lms(list(fit_lm_both, fit_lm_three),
+                 mod_names = c("Two Predictors", "Three Predictors"),
+                 var_labels = c("exer" = "Exercise",
+                                "diet" = "Food Intake",
+                                "meta" = "Metabolism"),
+                 caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency, Food Intake, and Metabolic Rate",
+                 general_note = "Dependent variable is average weekly weight lost in 100s of grams.  Exercise captures daily average of hours.  Food intake is the average of 100's of calories above the recommendation.  Metabolism is the metobalic rate.") 
+
+```
 
 
 
@@ -328,8 +297,8 @@ xlims <- 0:4
 ylims <- 0:8
 
 persp(x = xlims,
-        y = ylims,
-        z = outer(xlims, ylims, eq),
+      y = ylims,
+      z = outer(xlims, ylims, eq),
       xlab = "Exercise",
       ylab = "Food Consumed",
       zlab = "Weight Loss",
@@ -489,7 +458,7 @@ fit_lm_both %>%
   emmeans::emmeans(~ exer + diet,
                    at = list(exer = 0,
                              diet = 0))
-  
+
 ```
 
 > The estimated marginal mean weight loss is 600 grams per week among thoes who eat the minimum number of calories to maintain good health and who do not exercise at, *b* = 6.00, 95% *CI* = [2.99, 9.01].
@@ -502,7 +471,7 @@ fit_lm_both %>%
 fit_lm_both %>% 
   emmeans::emmeans(~ exer + diet,
                    at = list(exer = 0:4))
-  
+
 ```
 
 
@@ -517,7 +486,7 @@ fit_lm_both %>%
 fit_lm_both %>% 
   emmeans::emmeans(~ diet,
                    at = list(diet = 0:4))
-  
+
 ```
 
 > Holding exercise constant, each additional 100 calories of food consumed daily is associated with 50 grams weight gained per week, *b* = -0.50, 95% *CI* = [1.21, 2.79]. 

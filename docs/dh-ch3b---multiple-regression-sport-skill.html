@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 D&amp;H Ch3b - Multiple Regression: “Sport Skill” | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 D&amp;H Ch3b - Multiple Regression: “Sport Skill” | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="sarbearschwartz/v4_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 D&amp;H Ch3b - Multiple Regression: “Sport Skill” | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dh-ch3a---multiple-regression-weight.html"/>
+<link rel="next" href="ex-cancer-experiment.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation: “Cancer”</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#purpose"><i class="fa fa-check"></i><b>1.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#research-question"><i class="fa fa-check"></i><b>1.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#data-description"><i class="fa fa-check"></i><b>1.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>1.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pearsons-correlation"><i class="fa fa-check"></i><b>1.3</b> PEARSON’S CORRELATION</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> CORRELATION TABLES</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#apa-style"><i class="fa fa-check"></i><b>1.4.3</b> APA Style</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> PAIRS PLOTS</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#corrolagrams"><i class="fa fa-check"></i><b>1.6</b> CORROLAGRAMS</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html"><i class="fa fa-check"></i><b>2</b> D&amp;H Ch 2 - Simple Regression: “Minigolf”</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#purpose-1"><i class="fa fa-check"></i><b>2.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#research-question-1"><i class="fa fa-check"></i><b>2.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#data-description-1"><i class="fa fa-check"></i><b>2.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#visualization"><i class="fa fa-check"></i><b>2.2</b> VISUALIZATION</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#full-table"><i class="fa fa-check"></i><b>2.2.1</b> Full Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.2</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#conditional-means"><i class="fa fa-check"></i><b>2.2.3</b> Conditional Means</a></li>
+<li class="chapter" data-level="2.2.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#y-intercept"><i class="fa fa-check"></i><b>2.2.4</b> Y-intercept</a></li>
+<li class="chapter" data-level="2.2.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#slope"><i class="fa fa-check"></i><b>2.2.5</b> Slope</a></li>
+<li class="chapter" data-level="2.2.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#format"><i class="fa fa-check"></i><b>2.2.6</b> Format</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#hand-calculations"><i class="fa fa-check"></i><b>2.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#estimates"><i class="fa fa-check"></i><b>2.3.1</b> Estimates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals"><i class="fa fa-check"></i><b>2.3.2</b> Residuals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#errors-of-estimate"><i class="fa fa-check"></i><b>2.3.3</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#deviation-scores"><i class="fa fa-check"></i><b>2.3.4</b> Deviation Scores</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#cross-products-squares"><i class="fa fa-check"></i><b>2.3.5</b> Cross-Products &amp; Squares</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#covariance"><i class="fa fa-check"></i><b>2.3.6</b> Covariance</a></li>
+<li class="chapter" data-level="2.3.7" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#important-note"><i class="fa fa-check"></i><b>2.3.7</b> Important Note</a></li>
+<li class="chapter" data-level="2.3.8" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#covar-to-var"><i class="fa fa-check"></i><b>2.3.8</b> Covar to Var</a></li>
+<li class="chapter" data-level="2.3.9" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#variance"><i class="fa fa-check"></i><b>2.3.9</b> Variance</a></li>
+<li class="chapter" data-level="2.3.10" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#standard-deviation"><i class="fa fa-check"></i><b>2.3.10</b> Standard Deviation</a></li>
+<li class="chapter" data-level="2.3.11" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#correlation"><i class="fa fa-check"></i><b>2.3.11</b> Correlation</a></li>
+<li class="chapter" data-level="2.3.12" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficient-or-slope"><i class="fa fa-check"></i><b>2.3.12</b> Coefficient or Slope</a></li>
+<li class="chapter" data-level="2.3.13" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#constant-or-y-intercept"><i class="fa fa-check"></i><b>2.3.13</b> Constant or Y-intercept</a></li>
+<li class="chapter" data-level="2.3.14" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#regression-equation"><i class="fa fa-check"></i><b>2.3.14</b> Regression Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#using-software"><i class="fa fa-check"></i><b>2.4</b> USING SOFTWARE</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#linear-model"><i class="fa fa-check"></i><b>2.4.1</b> Linear Model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficients---raw"><i class="fa fa-check"></i><b>2.4.2</b> Coefficients - Raw</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficients---standardized"><i class="fa fa-check"></i><b>2.4.3</b> Coefficients - Standardized</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals-1"><i class="fa fa-check"></i><b>2.4.4</b> Residuals</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#errors-of-estimate-1"><i class="fa fa-check"></i><b>2.4.5</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.4.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#visualize"><i class="fa fa-check"></i><b>2.4.6</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals-2"><i class="fa fa-check"></i><b>2.5</b> RESIDUALS</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#properties"><i class="fa fa-check"></i><b>2.5.1</b> Properties</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residual-analysis"><i class="fa fa-check"></i><b>2.5.2</b> Residual Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html"><i class="fa fa-check"></i><b>3</b> D&amp;H Ch3a - Multiple Regression: “Weight”</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#purpose-2"><i class="fa fa-check"></i><b>3.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#research-question-2"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#data-description-2"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#summary-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#correlation-1"><i class="fa fa-check"></i><b>3.2.2</b> Correlation</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#visualizations"><i class="fa fa-check"></i><b>3.2.3</b> Visualizations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#fit-the-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit the models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#output"><i class="fa fa-check"></i><b>3.3.2</b> Output</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#equations"><i class="fa fa-check"></i><b>3.3.3</b> Equations</a></li>
+<li class="chapter" data-level="3.3.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#tables"><i class="fa fa-check"></i><b>3.3.4</b> Tables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#visualization-1"><i class="fa fa-check"></i><b>3.3.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#effect-sizes"><i class="fa fa-check"></i><b>3.4</b> EFFECT SIZES</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#semipartial-correlation"><i class="fa fa-check"></i><b>3.4.1</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#eta-squared"><i class="fa fa-check"></i><b>3.4.2</b> Eta Squared</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#standardized-regression-coefficients"><i class="fa fa-check"></i><b>3.4.3</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#variance-inflation-factors"><i class="fa fa-check"></i><b>3.5</b> VARIANCE INFLATION FACTORS</a></li>
+<li class="chapter" data-level="3.6" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#conclusion-specific-questions"><i class="fa fa-check"></i><b>3.6</b> CONCLUSION: SPECIFIC QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html"><i class="fa fa-check"></i><b>4</b> D&amp;H Ch3b - Multiple Regression: “Sport Skill”</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#purpose-3"><i class="fa fa-check"></i><b>4.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#research-question-3"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#data-description-3"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-statistics"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-visualizations"><i class="fa fa-check"></i><b>4.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-statistics"><i class="fa fa-check"></i><b>4.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="4.2.4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-visualization"><i class="fa fa-check"></i><b>4.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#fit-the-models-1"><i class="fa fa-check"></i><b>4.3.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#visualize-1"><i class="fa fa-check"></i><b>4.3.2</b> Visualize</a></li>
+<li class="chapter" data-level="4.3.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#semipartial-correlation-1"><i class="fa fa-check"></i><b>4.3.3</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---variances"><i class="fa fa-check"></i><b>4.3.4</b> Venn Diagram - Variances</a></li>
+<li class="chapter" data-level="4.3.5" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---proportions"><i class="fa fa-check"></i><b>4.3.5</b> Venn Diagram - Proportions</a></li>
+<li class="chapter" data-level="4.3.6" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#residual-diagnostics"><i class="fa fa-check"></i><b>4.3.6</b> Residual Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html"><i class="fa fa-check"></i><b>5</b> Ex: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#purpose-4"><i class="fa fa-check"></i><b>5.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#research-question-4"><i class="fa fa-check"></i><b>5.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="5.1.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#data-description-4"><i class="fa fa-check"></i><b>5.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>5.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#univariate-statistics-1"><i class="fa fa-check"></i><b>5.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#univariate-visualizations-1"><i class="fa fa-check"></i><b>5.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#bivariate-statistics-1"><i class="fa fa-check"></i><b>5.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="5.2.4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#bivariate-visualization-1"><i class="fa fa-check"></i><b>5.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#fit-the-model"><i class="fa fa-check"></i><b>5.3.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#parameter-estimates"><i class="fa fa-check"></i><b>5.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="5.3.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#prediction-equation"><i class="fa fa-check"></i><b>5.3.3</b> Prediction Equation</a></li>
+<li class="chapter" data-level="5.3.4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#table"><i class="fa fa-check"></i><b>5.3.4</b> Table</a></li>
+<li class="chapter" data-level="5.3.5" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#estimated-marginal-means"><i class="fa fa-check"></i><b>5.3.5</b> Estimated Marginal Means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html"><i class="fa fa-check"></i><b>6</b> Ex: Ventricular Shortening Velocity</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#purpose-5"><i class="fa fa-check"></i><b>6.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#research-question-5"><i class="fa fa-check"></i><b>6.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="6.1.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#data-description-5"><i class="fa fa-check"></i><b>6.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>6.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#univariate-statistics-2"><i class="fa fa-check"></i><b>6.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="6.2.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#univariate-visualizations-2"><i class="fa fa-check"></i><b>6.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="6.2.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#bivariate-statistics-2"><i class="fa fa-check"></i><b>6.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="6.2.4" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#bivariate-visualization-2"><i class="fa fa-check"></i><b>6.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#regression-analysis-3"><i class="fa fa-check"></i><b>6.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#fit-a-simple-linear-model"><i class="fa fa-check"></i><b>6.3.1</b> Fit A Simple Linear Model</a></li>
+<li class="chapter" data-level="6.3.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#checking-assumptions-via-residual-diagnostics"><i class="fa fa-check"></i><b>6.3.2</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#conclusion"><i class="fa fa-check"></i><b>6.4</b> CONCLUSION</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#tabulate-the-final-model-summary"><i class="fa fa-check"></i><b>6.4.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="6.4.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#plot-the-model"><i class="fa fa-check"></i><b>6.4.2</b> Plot the Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html"><i class="fa fa-check"></i><b>7</b> Ex: Ginzberg Depression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#purpose-6"><i class="fa fa-check"></i><b>7.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#research-question-6"><i class="fa fa-check"></i><b>7.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#data-description-6"><i class="fa fa-check"></i><b>7.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>7.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#univariate-statistics-3"><i class="fa fa-check"></i><b>7.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#univariate-visualizations-3"><i class="fa fa-check"></i><b>7.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#bivariate-statistics-3"><i class="fa fa-check"></i><b>7.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#bivariate-visualization-3"><i class="fa fa-check"></i><b>7.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#regression-analysis-4"><i class="fa fa-check"></i><b>7.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-simplicity"><i class="fa fa-check"></i><b>7.3.1</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-fatalism"><i class="fa fa-check"></i><b>7.3.2</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="7.3.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-both-predictors"><i class="fa fa-check"></i><b>7.3.3</b> Model with only Both Predictors</a></li>
+<li class="chapter" data-level="7.3.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#table-1"><i class="fa fa-check"></i><b>7.3.4</b> Table</a></li>
+<li class="chapter" data-level="7.3.5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>7.3.5</b> Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#effect-sizes-1"><i class="fa fa-check"></i><b>7.4</b> EFFECT SIZES</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#variance-partitioning"><i class="fa fa-check"></i><b>7.4.1</b> Variance Partitioning</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-simplicity-1"><i class="fa fa-check"></i><b>7.4.2</b> Model with only Simplicity</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-only-fatalism-1"><i class="fa fa-check"></i><b>7.4.3</b> Model with only Fatalism</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#model-with-both-predictors"><i class="fa fa-check"></i><b>7.4.4</b> Model with Both Predictors</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#semipartial-correlation-2"><i class="fa fa-check"></i><b>7.4.5</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#eta-squared-1"><i class="fa fa-check"></i><b>7.4.6</b> Eta-squared</a></li>
+<li class="chapter" data-level="7.4.7" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#partial-eta-squared"><i class="fa fa-check"></i><b>7.4.7</b> Partial Eta-Squared</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html"><i class="fa fa-check"></i><b>8</b> Ex: Ihno’s Experiment</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#purpose-7"><i class="fa fa-check"></i><b>8.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#research-question-7"><i class="fa fa-check"></i><b>8.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="8.1.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#data-description-7"><i class="fa fa-check"></i><b>8.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>8.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#univariate-statistics-4"><i class="fa fa-check"></i><b>8.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="8.2.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#univariate-visualizations-4"><i class="fa fa-check"></i><b>8.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="8.2.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#bivariate-statistics-4"><i class="fa fa-check"></i><b>8.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="8.2.4" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#bivariate-visualization-4"><i class="fa fa-check"></i><b>8.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#missing-data"><i class="fa fa-check"></i><b>8.3</b> MISSING DATA</a></li>
+<li class="chapter" data-level="8.4" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#reqression-analysis"><i class="fa fa-check"></i><b>8.4</b> REQRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#subset-the-sample"><i class="fa fa-check"></i><b>8.4.1</b> Subset the Sample</a></li>
+<li class="chapter" data-level="8.4.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#fit-nested-models"><i class="fa fa-check"></i><b>8.4.2</b> Fit Nested Models</a></li>
+<li class="chapter" data-level="8.4.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#comparing-nested-models"><i class="fa fa-check"></i><b>8.4.3</b> Comparing Nested Models</a></li>
+<li class="chapter" data-level="8.4.4" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#checking-assumptions-via-residual-diagnostics-1"><i class="fa fa-check"></i><b>8.4.4</b> Checking Assumptions via Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#conclusion-1"><i class="fa fa-check"></i><b>8.5</b> CONCLUSION</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#tabulate-the-final-model-summary-1"><i class="fa fa-check"></i><b>8.5.1</b> Tabulate the Final Model Summary</a></li>
+<li class="chapter" data-level="8.5.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#plot-the-model-1"><i class="fa fa-check"></i><b>8.5.2</b> Plot the Model</a></li>
+<li class="chapter" data-level="8.5.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#apa-write-up"><i class="fa fa-check"></i><b>8.5.3</b> APA Write up</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#multicolinearity"><i class="fa fa-check"></i><b>8.6</b> MULTICOLINEARITY</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#variable-inflation-factors-vif"><i class="fa fa-check"></i><b>8.6.1</b> Variable Inflation Factors (VIF)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dh-ch3b---multiple-regression-sport-skill" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> D&amp;H Ch3b - Multiple Regression: “Sport Skill”<a href="dh-ch3b---multiple-regression-sport-skill.html#dh-ch3b---multiple-regression-sport-skill" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Darlington &amp; Hayes, Chapter 3’s second example</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-1" tabindex="-1"></a><span class="co"># library(remotes)</span></span>
+<span id="cb215-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-2" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;sarbearschwartz/apaSupp&quot;)</span></span>
+<span id="cb215-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-3" tabindex="-1"></a></span>
+<span id="cb215-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb215-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-5" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb215-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-6" tabindex="-1"></a><span class="fu">library</span>(apaSupp)</span>
+<span id="cb215-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-7" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb215-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-8" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb215-9"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-9" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb215-10"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-10" tabindex="-1"></a><span class="fu">library</span>(interactions)</span>
+<span id="cb215-11"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-11" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb215-12"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-12" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb215-13"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb215-13" tabindex="-1"></a><span class="fu">library</span>(ggResidpanel)</span></code></pre></div>
+<div id="purpose-3" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> PURPOSE<a href="dh-ch3b---multiple-regression-sport-skill.html#purpose-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="research-question-3" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Research Question<a href="dh-ch3b---multiple-regression-sport-skill.html#research-question-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>Are sports skills related to preference?</p>
+</blockquote>
+</div>
+<div id="data-description-3" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Data Description<a href="dh-ch3b---multiple-regression-sport-skill.html#data-description-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="variables-1" class="section level4 hasAnchor" number="4.1.2.1">
+<h4><span class="header-section-number">4.1.2.1</span> Variables<a href="dh-ch3b---multiple-regression-sport-skill.html#variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Independent Variables (IV, <span class="math inline">\(X\)</span>)
+* <code>soft</code> skill at softball
+* <code>basket</code> skill at basketball</p>
+<p>Dependent Variable (DV, <span class="math inline">\(Y\)</span>)
+* <code>pref</code> On a scale from 1 to 9, which sport do you prefer?”
++ 1 = much prefer softball
++ 5 = no preference
++ 9 = much prefer basketball</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-1" tabindex="-1"></a>df_sport <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(<span class="sc">~</span>id, <span class="sc">~</span>soft, <span class="sc">~</span>basket, <span class="sc">~</span>pref,</span>
+<span id="cb216-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-2" tabindex="-1"></a>                             <span class="dv">1</span>,   <span class="dv">4</span>, <span class="dv">17</span>, <span class="dv">1</span>,</span>
+<span id="cb216-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-3" tabindex="-1"></a>                             <span class="dv">2</span>,  <span class="dv">56</span>, <span class="dv">60</span>, <span class="dv">3</span>,</span>
+<span id="cb216-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-4" tabindex="-1"></a>                             <span class="dv">3</span>,  <span class="dv">25</span>,  <span class="dv">3</span>, <span class="dv">8</span>,</span>
+<span id="cb216-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-5" tabindex="-1"></a>                             <span class="dv">4</span>,  <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">4</span>,</span>
+<span id="cb216-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-6" tabindex="-1"></a>                             <span class="dv">5</span>,   <span class="dv">5</span>, <span class="dv">16</span>, <span class="dv">2</span>,</span>
+<span id="cb216-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-7" tabindex="-1"></a>                             <span class="dv">6</span>,  <span class="dv">72</span>, <span class="dv">84</span>, <span class="dv">2</span>,</span>
+<span id="cb216-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-8" tabindex="-1"></a>                             <span class="dv">7</span>, <span class="dv">100</span>, <span class="dv">95</span>, <span class="dv">5</span>,</span>
+<span id="cb216-9"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-9" tabindex="-1"></a>                             <span class="dv">8</span>,  <span class="dv">39</span>, <span class="dv">20</span>, <span class="dv">8</span>,</span>
+<span id="cb216-10"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-10" tabindex="-1"></a>                             <span class="dv">9</span>,  <span class="dv">81</span>, <span class="dv">75</span>, <span class="dv">5</span>,</span>
+<span id="cb216-11"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb216-11" tabindex="-1"></a>                            <span class="dv">10</span>,  <span class="dv">61</span>, <span class="dv">47</span>, <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb217-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;ID&quot;</span> <span class="ot">=</span> id,</span>
+<span id="cb217-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-3" tabindex="-1"></a>                <span class="st">&quot;Softball Skill&quot;</span> <span class="ot">=</span> soft,</span>
+<span id="cb217-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-4" tabindex="-1"></a>                <span class="st">&quot;Basketball Skill&quot;</span> <span class="ot">=</span> basket,</span>
+<span id="cb217-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-5" tabindex="-1"></a>                <span class="st">&quot;Preference Score&quot;</span> <span class="ot">=</span> pref) <span class="sc">%&gt;%</span> </span>
+<span id="cb217-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-6" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb217-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-7" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">theme_apa</span>(<span class="at">caption =</span> <span class="st">&quot;D&amp;H TAble 3.5 (pg 78) Skill at Softball, Basketball, and Preference&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb217-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb217-8" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_double</span>(<span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-5541a1ba{}.cl-5537c3de{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-553b5c24{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-553b5c38{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-553b5c39{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-553b5c4c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-553b7880{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b788a{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b7894{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b7895{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b789e{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b789f{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78a8{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78b2{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78bc{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78c6{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78d0{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78d1{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78da{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78db{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78e4{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78f8{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78f9{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b78fa{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b7902{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553b790c{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-5541a1ba'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-155">Table 4.1: </span><span>D&amp;H TAble 3.5 (pg 78) Skill at Softball, Basketball, and Preference</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-553b7880"><p class="cl-553b5c24"><span class="cl-5537c3de">ID</span></p></th><th class="cl-553b788a"><p class="cl-553b5c38"><span class="cl-5537c3de">Softball Skill</span></p></th><th class="cl-553b7894"><p class="cl-553b5c38"><span class="cl-5537c3de">Basketball Skill</span></p></th><th class="cl-553b7895"><p class="cl-553b5c38"><span class="cl-5537c3de">Preference Score</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-553b789e"><p class="cl-553b5c39"><span class="cl-5537c3de">1</span></p></td><td class="cl-553b789f"><p class="cl-553b5c4c"><span class="cl-5537c3de">4</span></p></td><td class="cl-553b78a8"><p class="cl-553b5c4c"><span class="cl-5537c3de">17</span></p></td><td class="cl-553b78b2"><p class="cl-553b5c4c"><span class="cl-5537c3de">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78bc"><p class="cl-553b5c39"><span class="cl-5537c3de">2</span></p></td><td class="cl-553b78c6"><p class="cl-553b5c4c"><span class="cl-5537c3de">56</span></p></td><td class="cl-553b78d0"><p class="cl-553b5c4c"><span class="cl-5537c3de">60</span></p></td><td class="cl-553b78d1"><p class="cl-553b5c4c"><span class="cl-5537c3de">3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78bc"><p class="cl-553b5c39"><span class="cl-5537c3de">3</span></p></td><td class="cl-553b78c6"><p class="cl-553b5c4c"><span class="cl-5537c3de">25</span></p></td><td class="cl-553b78d0"><p class="cl-553b5c4c"><span class="cl-5537c3de">3</span></p></td><td class="cl-553b78d1"><p class="cl-553b5c4c"><span class="cl-5537c3de">8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78da"><p class="cl-553b5c39"><span class="cl-5537c3de">4</span></p></td><td class="cl-553b78db"><p class="cl-553b5c4c"><span class="cl-5537c3de">50</span></p></td><td class="cl-553b78e4"><p class="cl-553b5c4c"><span class="cl-5537c3de">52</span></p></td><td class="cl-553b78f8"><p class="cl-553b5c4c"><span class="cl-5537c3de">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78da"><p class="cl-553b5c39"><span class="cl-5537c3de">5</span></p></td><td class="cl-553b78db"><p class="cl-553b5c4c"><span class="cl-5537c3de">5</span></p></td><td class="cl-553b78e4"><p class="cl-553b5c4c"><span class="cl-5537c3de">16</span></p></td><td class="cl-553b78f8"><p class="cl-553b5c4c"><span class="cl-5537c3de">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78da"><p class="cl-553b5c39"><span class="cl-5537c3de">6</span></p></td><td class="cl-553b78db"><p class="cl-553b5c4c"><span class="cl-5537c3de">72</span></p></td><td class="cl-553b78e4"><p class="cl-553b5c4c"><span class="cl-5537c3de">84</span></p></td><td class="cl-553b78f8"><p class="cl-553b5c4c"><span class="cl-5537c3de">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78da"><p class="cl-553b5c39"><span class="cl-5537c3de">7</span></p></td><td class="cl-553b78db"><p class="cl-553b5c4c"><span class="cl-5537c3de">100</span></p></td><td class="cl-553b78e4"><p class="cl-553b5c4c"><span class="cl-5537c3de">95</span></p></td><td class="cl-553b78f8"><p class="cl-553b5c4c"><span class="cl-5537c3de">5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78bc"><p class="cl-553b5c39"><span class="cl-5537c3de">8</span></p></td><td class="cl-553b78c6"><p class="cl-553b5c4c"><span class="cl-5537c3de">39</span></p></td><td class="cl-553b78d0"><p class="cl-553b5c4c"><span class="cl-5537c3de">20</span></p></td><td class="cl-553b78d1"><p class="cl-553b5c4c"><span class="cl-5537c3de">8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78da"><p class="cl-553b5c39"><span class="cl-5537c3de">9</span></p></td><td class="cl-553b78db"><p class="cl-553b5c4c"><span class="cl-5537c3de">81</span></p></td><td class="cl-553b78e4"><p class="cl-553b5c4c"><span class="cl-5537c3de">75</span></p></td><td class="cl-553b78f8"><p class="cl-553b5c4c"><span class="cl-5537c3de">5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553b78f9"><p class="cl-553b5c39"><span class="cl-5537c3de">10</span></p></td><td class="cl-553b78fa"><p class="cl-553b5c4c"><span class="cl-5537c3de">61</span></p></td><td class="cl-553b7902"><p class="cl-553b5c4c"><span class="cl-5537c3de">47</span></p></td><td class="cl-553b790c"><p class="cl-553b5c4c"><span class="cl-5537c3de">7</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</div>
+<div id="exploratory-data-analysis-2" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> EXPLORATORY DATA ANALYSIS<a href="dh-ch3b---multiple-regression-sport-skill.html#exploratory-data-analysis-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="univariate-statistics" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Univariate Statistics<a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Center: mean and median
+Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb218-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb218-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb218-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Softball Skill&quot;</span> <span class="ot">=</span> soft,</span>
+<span id="cb218-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb218-3" tabindex="-1"></a>                <span class="st">&quot;Basketball Skill&quot;</span> <span class="ot">=</span> basket,</span>
+<span id="cb218-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb218-4" tabindex="-1"></a>                <span class="st">&quot;Preference Score&quot;</span> <span class="ot">=</span> pref) <span class="sc">%&gt;%</span></span>
+<span id="cb218-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb218-5" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">tab_desc</span>(<span class="at">caption =</span> <span class="st">&quot;Summary Statistics&quot;</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-558b4d42{}.cl-557e5dc6{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-557e5dd0{font-family:'Arial';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-557e5dd1{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-557e5dda{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-557e5dee{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-55853ce0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-55853cfe{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-55853d08{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-55853d09{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-55853d1c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-55853d26{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-558560d0{width:1.266in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-558560da{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-558560e4{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-558560ee{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-558560f8{width:0.61in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-558560f9{width:1.266in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-558560fa{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856102{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5585610c{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856116{width:0.61in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856120{width:1.266in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856121{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856122{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5585612a{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856134{width:0.61in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856135{width:1.266in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5585613e{width:0.378in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5585613f{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856148{width:0.456in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55856152{width:0.61in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-558b4d42'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-156">Table 4.2: </span><span>Summary Statistics</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-558560d0"><p class="cl-55853ce0"><span class="cl-557e5dc6">Measure</span></p></th><th class="cl-558560da"><p class="cl-55853cfe"><span class="cl-557e5dc6">NA</span></p></th><th class="cl-558560e4"><p class="cl-55853cfe"><span class="cl-557e5dd0">M</span></p></th><th class="cl-558560e4"><p class="cl-55853cfe"><span class="cl-557e5dd0">SD</span></p></th><th class="cl-558560ee"><p class="cl-55853cfe"><span class="cl-557e5dc6">min</span></p></th><th class="cl-558560e4"><p class="cl-55853cfe"><span class="cl-557e5dc6">Q1</span></p></th><th class="cl-558560e4"><p class="cl-55853cfe"><span class="cl-557e5dd0">Mdn</span></p></th><th class="cl-558560e4"><p class="cl-55853cfe"><span class="cl-557e5dc6">Q3</span></p></th><th class="cl-558560f8"><p class="cl-55853cfe"><span class="cl-557e5dc6">max</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-558560f9"><p class="cl-55853d08"><span class="cl-557e5dc6">Softball Skill</span></p></td><td class="cl-558560fa"><p class="cl-55853d09"><span class="cl-557e5dc6">0</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dd0">49.30</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dd0">31.59</span></p></td><td class="cl-5585610c"><p class="cl-55853d09"><span class="cl-557e5dc6">4.00</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dc6">28.50</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dd0">53.00</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dc6">69.25</span></p></td><td class="cl-55856116"><p class="cl-55853d09"><span class="cl-557e5dc6">100.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-558560f9"><p class="cl-55853d08"><span class="cl-557e5dc6">Basketball Skill</span></p></td><td class="cl-558560fa"><p class="cl-55853d09"><span class="cl-557e5dc6">0</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dd0">46.90</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dd0">31.93</span></p></td><td class="cl-5585610c"><p class="cl-55853d09"><span class="cl-557e5dc6">3.00</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dc6">17.75</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dd0">49.50</span></p></td><td class="cl-55856102"><p class="cl-55853d09"><span class="cl-557e5dc6">71.25</span></p></td><td class="cl-55856116"><p class="cl-55853d09"><span class="cl-557e5dc6">95.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-55856120"><p class="cl-55853d08"><span class="cl-557e5dc6">Preference Score</span></p></td><td class="cl-55856121"><p class="cl-55853d09"><span class="cl-557e5dc6">0</span></p></td><td class="cl-55856122"><p class="cl-55853d09"><span class="cl-557e5dd0">4.50</span></p></td><td class="cl-55856122"><p class="cl-55853d09"><span class="cl-557e5dd0">2.55</span></p></td><td class="cl-5585612a"><p class="cl-55853d09"><span class="cl-557e5dc6">1.00</span></p></td><td class="cl-55856122"><p class="cl-55853d09"><span class="cl-557e5dc6">2.25</span></p></td><td class="cl-55856122"><p class="cl-55853d09"><span class="cl-557e5dd0">4.50</span></p></td><td class="cl-55856122"><p class="cl-55853d09"><span class="cl-557e5dc6">6.50</span></p></td><td class="cl-55856134"><p class="cl-55853d09"><span class="cl-557e5dc6">8.00</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="9"class="cl-55856135"><p class="cl-55853d1c"><span class="cl-557e5dd1">Note. </span><span class="cl-557e5dda">NA = not available or missing. Mdn = median. Q1 = 25th percentile, Q3 = 75th percentile. N = 10.</span></p></td></tr></tfoot></table></div>
+</div>
+<div id="univariate-visualizations" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Univariate Visualizations<a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-visualizations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb219-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb219-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb219-2" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">spicy_histos</span>(<span class="at">var =</span> soft)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-157-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb220-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb220-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb220-2" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">spicy_histos</span>(<span class="at">var =</span> basket)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-158-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb221-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb221-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb221-2" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">spicy_histos</span>(<span class="at">var =</span> pref)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-159-1.png" width="75%" /></p>
+</div>
+<div id="bivariate-statistics" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Bivariate Statistics<a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb222-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb222-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb222-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Softball Skill&quot;</span> <span class="ot">=</span> soft,</span>
+<span id="cb222-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb222-3" tabindex="-1"></a>                <span class="st">&quot;Basketball Skill&quot;</span> <span class="ot">=</span> basket,</span>
+<span id="cb222-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb222-4" tabindex="-1"></a>                <span class="st">&quot;Preference Score&quot;</span> <span class="ot">=</span> pref) <span class="sc">%&gt;%</span></span>
+<span id="cb222-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb222-5" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">tab_cor</span>(<span class="at">caption =</span> <span class="st">&quot;Unadjusted, Pairwise Correlations&quot;</span>)</span></code></pre></div>
+<div class="tabwid"><style>.cl-566dfea8{}.cl-5663aaf2{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5663ab06{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-56682582{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-5668258c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:0;line-height: 1.5;background-color:transparent;}.cl-56682596{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:0;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-566825a0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-566825aa{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-566825ab{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:0;line-height: 0.5;background-color:transparent;}.cl-566825b4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:0;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-566825b5{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-566825be{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-566825bf{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:0;line-height: 1;background-color:transparent;}.cl-566825c8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:0;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-56684490{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5668449a{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5668449b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844a4{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844a5{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844ae{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844b8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844b9{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844cc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844cd{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844d6{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844d7{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844e0{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844e1{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844ea{width:1.313in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844f4{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844f5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-566844f6{width:0.757in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-566dfea8'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-160">Table 4.3: </span><span>Unadjusted, Pairwise Correlations</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th  colspan="2"class="cl-56684490"><p class="cl-56682582"><span class="cl-5663aaf2">Variables</span></p></th><th class="cl-5668449b"><p class="cl-56682582"><span class="cl-5663aaf2">r</span></p></th><th  colspan="2"class="cl-566844a4"><p class="cl-5668258c"><span class="cl-5663aaf2">p</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-566844a5"><p class="cl-566825a0"><span class="cl-5663aaf2">Softball Skill</span></p></td><td class="cl-566844ae"><p class="cl-566825a0"><span class="cl-5663aaf2">Basketball Skill</span></p></td><td class="cl-566844b8"><p class="cl-566825aa"><span class="cl-5663aaf2">0.920</span></p></td><td class="cl-566844b9"><p class="cl-566825ab"><span class="cl-5663aaf2">&lt; .001 </span></p></td><td class="cl-566844cc"><p class="cl-566825b4"><span class="cl-5663aaf2">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-566844a5"><p class="cl-566825a0"><span class="cl-5663aaf2">Softball Skill</span></p></td><td class="cl-566844ae"><p class="cl-566825a0"><span class="cl-5663aaf2">Preference Score</span></p></td><td class="cl-566844b8"><p class="cl-566825aa"><span class="cl-5663aaf2">0.210</span></p></td><td class="cl-566844b9"><p class="cl-566825ab"><span class="cl-5663aaf2">.562</span></p></td><td class="cl-566844cc"><p class="cl-566825b4"><span class="cl-5663aaf2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-566844cd"><p class="cl-566825a0"><span class="cl-5663aaf2">Basketball Skill</span></p></td><td class="cl-566844d6"><p class="cl-566825a0"><span class="cl-5663aaf2">Preference Score</span></p></td><td class="cl-566844d7"><p class="cl-566825aa"><span class="cl-5663aaf2">-0.190</span></p></td><td class="cl-566844e0"><p class="cl-566825ab"><span class="cl-5663aaf2">.590</span></p></td><td class="cl-566844e1"><p class="cl-566825b4"><span class="cl-5663aaf2"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="5"class="cl-566844ea"><p class="cl-566825b5"><span class="cl-5663ab06">Note. </span><span class="cl-5663aaf2">r = Pearson's Product-Moment correlation coefficient. N = 10.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="5"class="cl-566844ea"><p class="cl-566825b5"><span class="cl-5663aaf2">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="5"class="cl-566844ea"><p class="cl-566825b5"><span class="cl-5663aaf2"></span></p></td></tr></tfoot></table></div>
+</div>
+<div id="bivariate-visualization" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Bivariate Visualization<a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb223-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Softball Skill&quot;</span> <span class="ot">=</span> soft,</span>
+<span id="cb223-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-3" tabindex="-1"></a>                <span class="st">&quot;Basketball Skill&quot;</span> <span class="ot">=</span> basket,</span>
+<span id="cb223-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-4" tabindex="-1"></a>                <span class="st">&quot;Preference Score&quot;</span> <span class="ot">=</span> pref) <span class="sc">%&gt;%</span></span>
+<span id="cb223-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-5" tabindex="-1"></a>  data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb223-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-6" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggscatmat</span>() <span class="sc">+</span></span>
+<span id="cb223-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb223-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-161-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb224-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> soft,        </span>
+<span id="cb224-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-3" tabindex="-1"></a>           <span class="at">y =</span> pref)) <span class="sc">+</span>   </span>
+<span id="cb224-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>                    </span>
+<span id="cb224-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb224-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-6" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
+<span id="cb224-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-7" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_regline_equation</span>(<span class="at">label.x =</span> <span class="dv">75</span>,</span>
+<span id="cb224-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-8" tabindex="-1"></a>                                <span class="at">label.y =</span> <span class="dv">1</span>,</span>
+<span id="cb224-9"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-9" tabindex="-1"></a>                                <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb224-10"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb224-11"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Softball Skill&quot;</span>,</span>
+<span id="cb224-12"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb224-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Preference&quot;</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-162-1.png" width="75%" /></p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-1" tabindex="-1"></a>df_sport <span class="sc">%&gt;%</span> </span>
+<span id="cb225-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> basket,        </span>
+<span id="cb225-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-3" tabindex="-1"></a>             <span class="at">y =</span> pref)) <span class="sc">+</span>   </span>
+<span id="cb225-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>                    </span>
+<span id="cb225-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb225-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-6" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
+<span id="cb225-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-7" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_regline_equation</span>(<span class="at">label.x =</span> <span class="dv">75</span>,</span>
+<span id="cb225-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-8" tabindex="-1"></a>                                <span class="at">label.y =</span> <span class="dv">1</span>,</span>
+<span id="cb225-9"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-9" tabindex="-1"></a>                                <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb225-10"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb225-11"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Basketball Skill&quot;</span>,</span>
+<span id="cb225-12"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb225-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Preference&quot;</span>)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-163-1.png" width="75%" /></p>
+</div>
+</div>
+<div id="regression-analysis-1" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> REGRESSION ANALYSIS<a href="dh-ch3b---multiple-regression-sport-skill.html#regression-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>The dependent variable (DV) is preference (<span class="math inline">\(Y\)</span>)</li>
+<li>The independent variable (IVs) are skill levels (<span class="math inline">\(X\)</span>)</li>
+</ul>
+<div id="fit-the-models-1" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Fit the Models<a href="dh-ch3b---multiple-regression-sport-skill.html#fit-the-models-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-1" tabindex="-1"></a>fit_lm_soft <span class="ot">&lt;-</span> <span class="fu">lm</span>(pref <span class="sc">~</span> soft,</span>
+<span id="cb226-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-2" tabindex="-1"></a>                   <span class="at">data =</span> df_sport)  </span>
+<span id="cb226-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-3" tabindex="-1"></a></span>
+<span id="cb226-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-4" tabindex="-1"></a>fit_lm_basket <span class="ot">&lt;-</span> <span class="fu">lm</span>(pref <span class="sc">~</span> basket,</span>
+<span id="cb226-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-5" tabindex="-1"></a>                   <span class="at">data =</span> df_sport)</span>
+<span id="cb226-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-6" tabindex="-1"></a></span>
+<span id="cb226-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-7" tabindex="-1"></a>fit_lm_both <span class="ot">&lt;-</span> <span class="fu">lm</span>(pref <span class="sc">~</span> soft <span class="sc">+</span> basket,</span>
+<span id="cb226-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb226-8" tabindex="-1"></a>                   <span class="at">data =</span> df_sport)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-1" tabindex="-1"></a>tab_lm3 <span class="ot">&lt;-</span> apaSupp<span class="sc">::</span><span class="fu">tab_lms</span>(<span class="fu">list</span>(fit_lm_soft, fit_lm_basket, fit_lm_both),</span>
+<span id="cb227-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-2" tabindex="-1"></a>                            <span class="at">mod_names =</span> <span class="fu">c</span>(<span class="st">&quot;Softball&quot;</span>, <span class="st">&quot;Basketball&quot;</span>, <span class="st">&quot;Both&quot;</span>),</span>
+<span id="cb227-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-3" tabindex="-1"></a>                            <span class="at">var_labels =</span> <span class="fu">c</span>(<span class="st">&quot;soft&quot;</span> <span class="ot">=</span> <span class="st">&quot;Softball Skill&quot;</span>,</span>
+<span id="cb227-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-4" tabindex="-1"></a>                                           <span class="st">&quot;basket&quot;</span> <span class="ot">=</span> <span class="st">&quot;Basketball Skill&quot;</span>),</span>
+<span id="cb227-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-5" tabindex="-1"></a>                            <span class="at">caption =</span> <span class="st">&quot;Parameter Estimates for Sport Preference Regression on Skill Level in Softball and Basketball&quot;</span>,</span>
+<span id="cb227-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-6" tabindex="-1"></a>                            <span class="at">general_note =</span> <span class="st">&quot;Dependent variable is preference rating on a scale of 1 (much prefer softball) to  9 (much prefer basketball).  Both softball and Baksetball skill levels are on a scale of 0 to 100.&quot;</span>,</span>
+<span id="cb227-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-7" tabindex="-1"></a>                            <span class="at">d =</span> <span class="dv">3</span>) </span>
+<span id="cb227-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-8" tabindex="-1"></a></span>
+<span id="cb227-9"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb227-9" tabindex="-1"></a>tab_lm3</span></code></pre></div>
+<div class="tabwid"><style>.cl-59026456{}.cl-58f7af02{font-family:'Arial';font-size:9pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-58f7af16{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-58f7af20{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-58f7af21{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-58f7af2a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-58fbae54{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-58fbae68{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-58fbae69{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-58fbae72{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-58fbae73{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-58fbd550{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd55a{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd564{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd56e{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd578{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd582{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd58c{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd596{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5a0{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5a1{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5aa{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5be{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5bf{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5c8{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5c9{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5d2{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5dc{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5dd{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5e6{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5e7{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5f0{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5fa{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd5fb{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd604{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd60e{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd618{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd622{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd623{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd62c{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd636{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd640{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd641{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd64a{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd654{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd65e{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd65f{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd660{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd668{width:0.54in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd669{width:0.581in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd672{width:0.428in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd673{width:0.56in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-58fbd67c{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-59026456'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-165">Table 4.4: </span><span>Parameter Estimates for Sport Preference Regression on Skill Level in Softball and Basketball</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-58fbd550"><p class="cl-58fbae54"><span class="cl-58f7af02"> </span></p></th><th  colspan="3"class="cl-58fbd55a"><p class="cl-58fbae68"><span class="cl-58f7af02">Softball</span></p></th><th  colspan="3"class="cl-58fbd55a"><p class="cl-58fbae68"><span class="cl-58f7af02">Basketball</span></p></th><th  colspan="3"class="cl-58fbd55a"><p class="cl-58fbae68"><span class="cl-58f7af02">Both</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-58fbd58c"><p class="cl-58fbae54"><span class="cl-58f7af16">Variable</span></p></th><th class="cl-58fbd596"><p class="cl-58fbae68"><span class="cl-58f7af16">b</span></p></th><th class="cl-58fbd5a0"><p class="cl-58fbae68"><span class="cl-58f7af16">(SE)</span></p></th><th class="cl-58fbd5a1"><p class="cl-58fbae68"><span class="cl-58f7af16">p</span></p></th><th class="cl-58fbd596"><p class="cl-58fbae68"><span class="cl-58f7af16">b</span></p></th><th class="cl-58fbd5a0"><p class="cl-58fbae68"><span class="cl-58f7af16">(SE)</span></p></th><th class="cl-58fbd5aa"><p class="cl-58fbae68"><span class="cl-58f7af16">p</span></p></th><th class="cl-58fbd596"><p class="cl-58fbae68"><span class="cl-58f7af16">b</span></p></th><th class="cl-58fbd5a0"><p class="cl-58fbae68"><span class="cl-58f7af16">(SE)</span></p></th><th class="cl-58fbd5be"><p class="cl-58fbae68"><span class="cl-58f7af16">p</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-58fbd5bf"><p class="cl-58fbae69"><span class="cl-58f7af20">(Intercept)</span></p></td><td class="cl-58fbd5c8"><p class="cl-58fbae72"><span class="cl-58f7af20">3.669</span></p></td><td class="cl-58fbd5c9"><p class="cl-58fbae72"><span class="cl-58f7af20">(1.610)</span></p></td><td class="cl-58fbd5d2"><p class="cl-58fbae72"><span class="cl-58f7af20">.052</span></p></td><td class="cl-58fbd5c8"><p class="cl-58fbae72"><span class="cl-58f7af20">5.228</span></p></td><td class="cl-58fbd5c9"><p class="cl-58fbae72"><span class="cl-58f7af20">(1.546)</span></p></td><td class="cl-58fbd5dc"><p class="cl-58fbae72"><span class="cl-58f7af20">.010 **</span></p></td><td class="cl-58fbd5c8"><p class="cl-58fbae72"><span class="cl-58f7af20">3.899</span></p></td><td class="cl-58fbd5c9"><p class="cl-58fbae72"><span class="cl-58f7af20">(0.200)</span></p></td><td class="cl-58fbd5dd"><p class="cl-58fbae72"><span class="cl-58f7af20">&lt; .001 ***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-58fbd5bf"><p class="cl-58fbae69"><span class="cl-58f7af20">Softball Skill</span></p></td><td class="cl-58fbd5c8"><p class="cl-58fbae72"><span class="cl-58f7af20">0.017</span></p></td><td class="cl-58fbd5c9"><p class="cl-58fbae72"><span class="cl-58f7af20">(0.028)</span></p></td><td class="cl-58fbd5d2"><p class="cl-58fbae72"><span class="cl-58f7af20">.562</span></p></td><td class="cl-58fbd5c8"><p class="cl-58fbae72"><span class="cl-58f7af20"></span></p></td><td class="cl-58fbd5c9"><p class="cl-58fbae72"><span class="cl-58f7af20"></span></p></td><td class="cl-58fbd5dc"><p class="cl-58fbae72"><span class="cl-58f7af20"></span></p></td><td class="cl-58fbd5c8"><p class="cl-58fbae72"><span class="cl-58f7af20">0.198</span></p></td><td class="cl-58fbd5c9"><p class="cl-58fbae72"><span class="cl-58f7af20">(0.009)</span></p></td><td class="cl-58fbd5dd"><p class="cl-58fbae72"><span class="cl-58f7af20">&lt; .001 ***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-58fbd5e6"><p class="cl-58fbae69"><span class="cl-58f7af20">Basketball Skill</span></p></td><td class="cl-58fbd5e7"><p class="cl-58fbae72"><span class="cl-58f7af20"></span></p></td><td class="cl-58fbd5f0"><p class="cl-58fbae72"><span class="cl-58f7af20"></span></p></td><td class="cl-58fbd5fa"><p class="cl-58fbae72"><span class="cl-58f7af20"></span></p></td><td class="cl-58fbd5e7"><p class="cl-58fbae72"><span class="cl-58f7af20">-0.016</span></p></td><td class="cl-58fbd5f0"><p class="cl-58fbae72"><span class="cl-58f7af20">(0.028)</span></p></td><td class="cl-58fbd5fb"><p class="cl-58fbae72"><span class="cl-58f7af20">.590</span></p></td><td class="cl-58fbd5e7"><p class="cl-58fbae72"><span class="cl-58f7af20">-0.195</span></p></td><td class="cl-58fbd5f0"><p class="cl-58fbae72"><span class="cl-58f7af20">(0.009)</span></p></td><td class="cl-58fbd604"><p class="cl-58fbae72"><span class="cl-58f7af20">&lt; .001 ***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-58fbd60e"><p class="cl-58fbae69"><span class="cl-58f7af16">R²</span></p></td><td class="cl-58fbd618"><p class="cl-58fbae72"><span class="cl-58f7af16">0.044</span></p></td><td class="cl-58fbd622"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd623"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd618"><p class="cl-58fbae72"><span class="cl-58f7af16">0.038</span></p></td><td class="cl-58fbd622"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd62c"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd618"><p class="cl-58fbae72"><span class="cl-58f7af16">0.987</span></p></td><td class="cl-58fbd622"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd636"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-58fbd640"><p class="cl-58fbae69"><span class="cl-58f7af16">Adjusted R²</span></p></td><td class="cl-58fbd641"><p class="cl-58fbae72"><span class="cl-58f7af16">-0.076</span></p></td><td class="cl-58fbd64a"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd654"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd641"><p class="cl-58fbae72"><span class="cl-58f7af16">-0.082</span></p></td><td class="cl-58fbd64a"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd65e"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd641"><p class="cl-58fbae72"><span class="cl-58f7af16">0.983</span></p></td><td class="cl-58fbd64a"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td><td class="cl-58fbd65f"><p class="cl-58fbae72"><span class="cl-58f7af16"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="10"class="cl-58fbd660"><p class="cl-58fbae73"><span class="cl-58f7af21">Note. </span><span class="cl-58f7af2a">Dependent variable is preference rating on a scale of 1 (much prefer softball) to  9 (much prefer basketball).  Both softball and Baksetball skill levels are on a scale of 0 to 100.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="10"class="cl-58fbd660"><p class="cl-58fbae73"><span class="cl-58f7af2a">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr></tfoot></table></div>
+<div class="rmdimportant">
+<p>
+We call a set of regressors <strong>complementary</strong> if <span class="math inline"><span class="math inline">\(R^2\)</span></span> for the set exceeds the sum of the
+individual values of <span class="math inline"><span class="math inline">\(r^2_{YX}\)</span></span> .
+Thus, complementarity and <strong>collinearity</strong> are opposites,
+though either can occur only when regressors in a set are
+<strong>intercorrelated</strong>.
+</p>
+</div>
+</div>
+<div id="visualize-1" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Visualize<a href="dh-ch3b---multiple-regression-sport-skill.html#visualize-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-1" tabindex="-1"></a>interactions<span class="sc">::</span><span class="fu">interact_plot</span>(<span class="at">model =</span> fit_lm_both,</span>
+<span id="cb228-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-2" tabindex="-1"></a>                            <span class="at">pred =</span> soft,</span>
+<span id="cb228-3"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-3" tabindex="-1"></a>                            <span class="at">modx =</span> basket,</span>
+<span id="cb228-4"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-4" tabindex="-1"></a>                            <span class="at">modx.values =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">75</span>),</span>
+<span id="cb228-5"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-5" tabindex="-1"></a>                            <span class="at">legend.main =</span> <span class="st">&quot;Basketball Skill</span><span class="sc">\n</span><span class="st">(0-100)&quot;</span>,</span>
+<span id="cb228-6"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-6" tabindex="-1"></a>                            <span class="at">interval =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb228-7"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb228-8"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Softball Skill, (0-100)&quot;</span>,</span>
+<span id="cb228-9"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Estimated Marginal Mean Preference</span><span class="sc">\n</span><span class="st">1 = much prefer softball</span><span class="sc">\n</span><span class="st">9 = much prefer basketball&quot;</span>) <span class="sc">+</span></span>
+<span id="cb228-10"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-10" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb228-11"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-11" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb228-12"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb228-13"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-13" tabindex="-1"></a>        <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb228-14"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-14" tabindex="-1"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb228-15"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb228-15" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="fl">1.5</span>, <span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-167-1.png" width="75%" /></p>
+</div>
+<div id="semipartial-correlation-1" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Semipartial Correlation<a href="dh-ch3b---multiple-regression-sport-skill.html#semipartial-correlation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb229-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">r2_semipartial</span>(fit_lm_both)</span></code></pre></div>
+<pre><code># A tibble: 2 × 5
+  Term   r2_semipartial    CI CI_low CI_high
+  &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 soft            0.949  0.95  0.756       1
+2 basket          0.943  0.95  0.737       1</code></pre>
+</div>
+<div id="venn-diagram---variances" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Venn Diagram - Variances<a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---variances" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://freetools.touchpoint.com/venn-diagram-template-generator" class="uri">https://freetools.touchpoint.com/venn-diagram-template-generator</a></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb231-1" tabindex="-1"></a>ABCD <span class="ot">&lt;-</span> <span class="fu">var</span>(df_sport<span class="sc">$</span>pref)</span>
+<span id="cb231-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb231-2" tabindex="-1"></a>ABCD</span></code></pre></div>
+<pre><code>[1] 6.5</code></pre>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb233-1" tabindex="-1"></a>AB <span class="ot">&lt;-</span> <span class="fu">var</span>(fit_lm_soft<span class="sc">$</span>residuals)</span>
+<span id="cb233-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb233-2" tabindex="-1"></a>AB</span></code></pre></div>
+<pre><code>[1] 6.216137</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb235-1" tabindex="-1"></a>BC <span class="ot">&lt;-</span> <span class="fu">var</span>(fit_lm_basket<span class="sc">$</span>residuals)</span>
+<span id="cb235-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb235-2" tabindex="-1"></a>BC</span></code></pre></div>
+<pre><code>[1] 6.254138</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb237-1" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">var</span>(fit_lm_both<span class="sc">$</span>residuals)</span>
+<span id="cb237-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb237-2" tabindex="-1"></a>D</span></code></pre></div>
+<pre><code>[1] 0.08349447</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb239-1" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> ABCD <span class="sc">-</span> D</span>
+<span id="cb239-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb239-2" tabindex="-1"></a>ABC</span></code></pre></div>
+<pre><code>[1] 6.416506</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb241-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> ABC <span class="sc">-</span> BC</span>
+<span id="cb241-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb241-2" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>[1] 0.1623674</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb243-1" tabindex="-1"></a>C <span class="ot">&lt;-</span> ABC <span class="sc">-</span> AB</span>
+<span id="cb243-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb243-2" tabindex="-1"></a>C</span></code></pre></div>
+<pre><code>[1] 0.2003681</code></pre>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb245-1" tabindex="-1"></a>B <span class="ot">&lt;-</span> AB <span class="sc">+</span> BC <span class="sc">-</span> ABC</span>
+<span id="cb245-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb245-2" tabindex="-1"></a>B</span></code></pre></div>
+<pre><code>[1] 6.05377</code></pre>
+</div>
+<div id="venn-diagram---proportions" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Venn Diagram - Proportions<a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Total Variance in Preference Explained by Both Skills</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb247-1" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> ABC<span class="sc">/</span>ABCD</span>
+<span id="cb247-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb247-2" tabindex="-1"></a>R2</span></code></pre></div>
+<pre><code>[1] 0.9871547</code></pre>
+<p>Variance in Preference Uniquely Explained by Softball skills, across all Basketball skill levels</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb249-1" tabindex="-1"></a>sr2_soft <span class="ot">&lt;-</span> A<span class="sc">/</span>ABCD</span>
+<span id="cb249-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb249-2" tabindex="-1"></a>sr2_soft</span></code></pre></div>
+<pre><code>[1] 0.0249796</code></pre>
+<p>Variance in Preference Uniquely Explained by Basketball skills, across all Softball skill levels</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb251-1" tabindex="-1"></a>sr2_basket <span class="ot">&lt;-</span> C<span class="sc">/</span>ABCD</span>
+<span id="cb251-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb251-2" tabindex="-1"></a>sr2_basket</span></code></pre></div>
+<pre><code>[1] 0.03082587</code></pre>
+<p>Variance in Preference Explained by Softball skills, when holding Basketball skill constant</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb253-1" tabindex="-1"></a>pr2_soft <span class="ot">&lt;-</span> A<span class="sc">/</span>(A <span class="sc">+</span> D)</span>
+<span id="cb253-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb253-2" tabindex="-1"></a>pr2_soft</span></code></pre></div>
+<pre><code>[1] 0.6604009</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb255-1" tabindex="-1"></a>pr2_basket <span class="ot">&lt;-</span> C<span class="sc">/</span>(C <span class="sc">+</span> D)</span>
+<span id="cb255-2"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb255-2" tabindex="-1"></a>pr2_basket</span></code></pre></div>
+<pre><code>[1] 0.7058631</code></pre>
+</div>
+<div id="residual-diagnostics" class="section level3 hasAnchor" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Residual Diagnostics<a href="dh-ch3b---multiple-regression-sport-skill.html#residual-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb257-1" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_residuals</span>(fit_lm_both)</span></code></pre></div>
+<pre><code>OK: Simulated residuals appear as uniformly distributed (p = 0.676).</code></pre>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="dh-ch3b---multiple-regression-sport-skill.html#cb259-1" tabindex="-1"></a>ggResidpanel<span class="sc">::</span><span class="fu">resid_panel</span>(fit_lm_both)</span></code></pre></div>
+<p><img src="v4_regression_files/figure-html/unnamed-chunk-183-1.png" width="75%" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dh-ch3a---multiple-regression-weight.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ex-cancer-experiment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -188,6 +188,13 @@ $$
 \hat{weight} = 220.69 - 0.71 \times (age)
 $$
 
+### Table
+
+```{r}
+apaSupp::tab_lm(fit_lm)
+```
+
+
 
 ### Estimated Marginal Means
 
@@ -206,7 +213,17 @@ fit_lm %>%
 ```{r}
 fit_lm %>% 
   emmeans::emmeans(~ age,
-                   at = list(age = seq(from = 30, to = 90, by = 10)))
+                   at = list(age = seq(from = 30, to = 90, by = 10))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(ci = glue::glue("[{apaSupp::apa2(lower.CL)}, {apaSupp::apa2(upper.CL)}]")) %>% 
+  dplyr::select("Age" = age,
+                "Est. Marginal Mean" = emmean,
+                SE,
+                "95% CI" = ci) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Estimated Marginal Means for Weight Regression on Age") %>% 
+  flextable::colformat_double(j = 1, digits = 0) %>% 
+  flextable::align(align = "center")
 ```
 
 
