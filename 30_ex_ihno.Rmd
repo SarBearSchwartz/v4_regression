@@ -5,21 +5,9 @@ interaction between two continuous IVs
 ![](images/common/Ihno_header.PNG)
 
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(comment     = "",
-                      echo        = TRUE, 
-                      warning     = FALSE, 
-                      message     = FALSE,
-                      fig.align   = "center", # center all figures
-                      fig.width   = 6,        # set default figure width to 4 inches
-                      fig.height  = 4)        # set default figure height to 3 inches
-```
-
-
-```{r, comment=FALSE, message=FALSE, warning=FALSE}
-# library(remotes)
+```{r, message=FALSE, warning=FALSE}
 # remotes::install_github("sarbearschwartz/apaSupp")
-# pak::pkg_install("ddsjoberg/gtsummary", dependencies = TRUE) #developyment version
+# remotes::install_github("ddsjoberg/gtsummary")
 
 library(tidyverse)       
 library(haven)      
@@ -245,31 +233,27 @@ data_ihno %>%
 
 
 
-## REQRESSION ANALYSIS
+## REGRESSION ANALYSIS
 
 
 * The dependent variable (DV) is Stat Quiz score, `statquiz` ($Y$)
 
 * The independent variables (IVs) are both math quiz score `mathquiz` and math phobia `phobia`($X_1$, $X_2$)
 
-### Subset the Sample
-
 
 All regression models can only be fit to complete observations regarding the variables included in the model (dependent and independent).  Removing any case that is incomplete with respect to even one variables is called **"list-wise deletion"**.  
 
-In this analysis, models including the `mathquiz` variable will be fit on only 85 students (sincle 15 students did not take the math quiz), where as models not including this variable will be fit to all 100 studnets.  
+In this analysis, models including the `mathquiz` variable will be fit on only 85 students (since 15 students did not take the math quiz), where as models not including this variable will be fit to all 100 students.  
 
 This complicates model comparisons, which require nested models be fit to the same data (exactly).  For this reason, the dataset has been reduced to the subset of students that are complete regarding the three variables utilized throughout the set of five nested models.
 
-
 ```{r}
-data_ihno_fitting <- data_ihno %>% 
-  dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
+df_use <- data_ihno %>% 
+  dplyr::filter(complete.cases(statquiz, mathquiz, phobia))
 ```
 
-
 ```{r}
-tibble::glimpse(data_ihno_fitting)
+tibble::glimpse(df_use)
 ```
 
 
@@ -277,23 +261,26 @@ tibble::glimpse(data_ihno_fitting)
 
 The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
 
-Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.                                     
+Two models are considered **nested** if one is conains a subset of the terms (predictors or IV) compared to the other.              
+
+#### Intercept Only (Null Model)
 
 ```{r}
 fit_ihno_lm_0 <- lm(statquiz ~ 1,                 # null model: intercept only
-                    data = data_ihno_fitting)
+                    data = df_use)
+```
 
+
+```{r}
+apaSupp::tab_lm(fit_ihno_lm_0)
+```
+
+
+#### Unadjusted or Simple Regression
+
+```{r}
 fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,          # only main effect of mathquiz
-                    data = data_ihno_fitting)
-
-fit_ihno_lm_2 <- lm(statquiz ~ phobia,            # only main effect of phobia
-                    data = data_ihno_fitting)
-
-fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia, # both main effects 
-                    data = data_ihno_fitting)
-
-fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,   # additional interaction
-                    data = data_ihno_fitting)
+                    data = df_use)
 ```
 
 
@@ -301,31 +288,95 @@ fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,   # additional interaction
 summary(fit_ihno_lm_1)
 ```
 
-```{r}
-tab_lm(fit_ihno_lm_2)
-```
-
 
 ```{r}
-fit_ihno_lm_3$rank
+apaSupp::tab_lm(fit_ihno_lm_1)
 ```
 
 
 
 ```{r}
-summary(fit_ihno_lm_2)
+apaTables::apa.aov.table(fit_ihno_lm_1,
+                         conf.level = .95)$table_body %>% 
+  data.frame() %>%  
+  dplyr::filter(Predictor != "(Intercept)") %>% 
+  dplyr::select(Predictor, SS, df, MS, F, p, "eta2_p" = partial_eta2) %>% 
+  dplyr::mutate(p = apaSupp::p_num(as.numeric(p))) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Regression Anova Table")
+```
+
+
+
+
+
+
+```{r}
+fit_ihno_lm_2 <- lm(statquiz ~ phobia,            # only main effect of phobia
+                    data = df_use)
 ```
 
 
 ```{r}
-summary(fit_ihno_lm_3)
+apaSupp::tab_lm(fit_ihno_lm_2)
+```
+
+
+#### Adjusted or Multiple Regression
+
+```{r}
+fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia, # both main effects 
+                    data = df_use)
+```
+
+
+```{r}
+apaSupp::tab_lm(fit_ihno_lm_3)
 ```
 
 
 
 ```{r}
-summary(fit_ihno_lm_4)
+apaTables::apa.aov.table(fit_ihno_lm_3,
+                         conf.level = .95)$table_body %>% 
+  data.frame() %>%  
+  dplyr::filter(Predictor != "(Intercept)") %>% 
+  dplyr::select(Predictor, SS, df, MS, F, p, "eta2_p" = partial_eta2) %>% 
+  dplyr::mutate(p = apaSupp::p_num(as.numeric(p))) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Regression Anova Table")
 ```
+
+```{r}
+effectsize::r2_semipartial(fit_ihno_lm_3)
+```
+
+```{r}
+effectsize::eta_squared(fit_ihno_lm_3, partial = TRUE)
+```
+
+```{r}
+effectsize::eta_squared(fit_ihno_lm_3, partial = FALSE)
+```
+
+
+#### Moderation or Interaction
+
+
+```{r}
+fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,   # additional interaction
+                    data = df_use)
+```
+
+
+```{r}
+apaSupp::tab_lm(fit_ihno_lm_4)
+```
+
+```{r}
+anova(fit_ihno_lm_4)
+```
+
 
 
 ### Comparing Nested Models
@@ -339,11 +390,8 @@ In single level, multiple linear regression significance of predictors (independ
 
 
 
-
-
-
 ```{r}
-apaSupp::tab_lms(list(fit_ihno_lm_3, fit_ihno_lm_4)) 
+apaSupp::tab_lms(list(fit_ihno_lm_1, fit_ihno_lm_2, fit_ihno_lm_3)) 
 ```
 
 
@@ -354,15 +402,18 @@ list(fit_ihno_lm_3, fit_ihno_lm_4) %>%
                    var_labels = c("mathquiz" = "Math Quiz",
                                   "phobia" = "Math Phobia",
                                   "mathquiz * phobia" = "Quiz X Phobia"),
-                   caption = "Multiple Linear Models Regression of Statistics Quiz Performance on Math Phobia and Prior Math Performance",
-                   general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.",
-                   p_note = "apa") 
+                   caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
+                   general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.") 
 ```
 
 
 #### Likelihood Ratio Test of Nested Models
 
-An alternative method for determing model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+An alternative method for determine model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
+
+
+
+
 
 * Test the main effect of math quiz:
 ```{r}
@@ -375,6 +426,10 @@ anova(fit_ihno_lm_0, fit_ihno_lm_2)
 ```
 
 
+
+
+
+
 * Test the main effect of math phobia,  after controlling for math test
 ```{r}
 anova(fit_ihno_lm_1, fit_ihno_lm_3) 
@@ -384,20 +439,6 @@ anova(fit_ihno_lm_1, fit_ihno_lm_3)
 ```{r}
 anova(fit_ihno_lm_3, fit_ihno_lm_4)
 ```
-
-
-
-While the model tables give starts to denote significance, you may print the actual p-values with the `summary()` function applied to the model name.
-
-```{r}
-summary(fit_ihno_lm_3)
-```
-
-
-```{r}
-summary(fit_ihno_lm_4)
-```
-
 
 
 
@@ -422,12 +463,14 @@ ggResidpanel::resid_panel(fit_ihno_lm_3)
 Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
 
 
-```{r, results='asis'}
-texreg::knitreg(fit_ihno_lm_3,
-                custom.model.names = "Main Effects Model",
-                ci.force = TRUE,                              # request 95% conf interv
-                caption = "Final Model for Stat's Quiz",
-                single.row = TRUE)
+
+```{r}
+apaSupp::tab_lm(fit_ihno_lm_3,
+                var_labels = c("mathquiz" = "Math Quiz",
+                               "phobia" = "Math Phobia"),
+                caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
+                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.",
+                p_note = "* p < .05. *** p < .001.") 
 ```
 
 
@@ -480,24 +523,29 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                 mod = fit_ihno_lm_3,
                 xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
   data.frame() %>% 
-  dplyr::mutate(phobia = factor(phobia)) %>%               # factor for illustration
+  dplyr::mutate(phobia = factor(phobia,
+                                levels = c(0, 5, 10),
+                                labels = c(" 0 = minimun",
+                                           " 5 = middle",
+                                           "10 = maximum"))) %>%               # factor for illustration
   ggplot() +
   aes(x = mathquiz,
       y = fit,
-      fill = phobia) +
+      group = phobia) +
   geom_ribbon(aes(ymin = fit - se, 
                   ymax = fit + se),
-              alpha = .3) +
-  geom_line(aes(color = phobia)) +
+              alpha = .15) +
+  geom_line(aes(linetype = phobia),
+            linewidth = 1) +
   theme_bw() +
   labs(x = "Score on Math Quiz",
        y = "Estimated Marginal Mean\nScore on Stat Quiz",
-       fill  = "Self Rated\nMath Phobia",
-       color = "Self Rated\nMath Phobia") +
+       linetype = "Self-Rated Math Phobia") +
   theme(legend.background = element_rect(color = "black"),
         legend.position = c(0, 1),
-        legend.key.width = unit(1.5, "cm"),
-        legend.justification = c(-0.1, 1.1))
+        legend.key.width = unit(2, "cm"),
+        legend.justification = c(-0.1, 1.1)) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
 ```
 
 
@@ -522,12 +570,4 @@ car::vif(fit_ihno_lm_3)
 ```
 
 
-
-```{r}
-
-fit_ihno_lm_5 <- lm(statquiz ~ mathquiz*phobia*reason,      # additional interaction
-                    data = data_ihno_fitting)
-
-texreg::screenreg(fit_ihno_lm_5)
-```
 
