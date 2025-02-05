@@ -6,14 +6,22 @@ interaction between two continuous IVs
 
 
 ```{r, message=FALSE, warning=FALSE}
+# install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
 
-library(tidyverse)       
-library(haven)      
-library(corrplot)        
-library(apaSupp)
+library(tidyverse)  
+library(naniar)
+library(corrplot)   
+library(GGally)
 library(gtsummary)
+library(apaSupp)
+library(car)
+library(performance)
+library(interactions)
+library(effects)
+library(emmeans)
+library(ggResidpanel)
 ```
 
 
@@ -41,7 +49,7 @@ Inho's dataset is included in the textbook "Explaining Psychological Statistics"
 
 
 ```{r}
-data_ihno <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/Ihno_dataset.sav") %>% 
+df_ihno <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/eBook_regression/master/data/Ihno_dataset.sav") %>% 
   haven::zap_widths() %>% 
   haven::zap_label() %>% 
   haven::zap_formats() %>% 
@@ -78,14 +86,10 @@ data_ihno <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/e
 
 
 ```{r}
-tibble::glimpse(data_ihno)
+tibble::glimpse(df_ihno)
 ```
 
 
-
-```{r}
-str(data_ihno)
-```
 
 ## EXPLORATORY DATA ANALYSIS
 
@@ -103,11 +107,11 @@ Center: mean and median
 Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   dplyr::select("Math Phobia" = phobia,
                 "Math Quiz" = mathquiz,
                 "Stat Quiz" = statquiz) %>% 
-  apaSupp::tab_desc(caption = "Description of Participants")
+  apaSupp::tab_desc(caption = "Descriptive Summary of Participants")
 ```
 
 
@@ -120,20 +124,20 @@ Always plot your data first!
 ```
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   apaSupp::spicy_histos(var = phobia)
 ```
 
 
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   apaSupp::spicy_histos(var = mathquiz)
 ```
 
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   apaSupp::spicy_histos(var = statquiz)
 ```
 
@@ -156,7 +160,7 @@ Often it is easier to digest a correlation matrix if it is visually presented, i
 
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   dplyr::select(phobia, mathquiz, statquiz) %>% 
   cor(use = "complete.obs") %>% 
   corrplot::corrplot.mixed(lower  = "ellipse",
@@ -166,7 +170,7 @@ data_ihno %>%
 
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   dplyr::select("Math Phobia" = phobia,
                 "Math Quiz" = mathquiz,
                 "Stat Quiz" = statquiz) %>% 
@@ -180,7 +184,7 @@ data_ihno %>%
 
 
 ```{r}
-data_ihno %>% 
+df_ihno %>% 
   dplyr::select(phobia, mathquiz, statquiz) %>% 
   data.frame %>% 
   GGally::ggscatmat() +
@@ -192,7 +196,7 @@ data_ihno %>%
 
 
 ```{r, fig.caption = "Scatterplot for Stat Quiz Regressed on Math Quiz"}
-data_ihno %>% 
+df_ihno %>% 
   ggplot(aes(x = mathquiz,
              y = statquiz)) +
   geom_point() +
@@ -207,7 +211,7 @@ data_ihno %>%
 
 
 ```{r, fig.caption = "Scatterplot for Stat Quiz Regressed on Phobia"}
-data_ihno %>% 
+df_ihno %>% 
   ggplot(aes(x = phobia,
              y = statquiz)) +
   geom_point() +
@@ -223,8 +227,17 @@ data_ihno %>%
 
 It turns out that 15 of the 100 students did not have a math quiz score recorded.
 
+
 ```{r}
-data_ihno %>% 
+df_ihno %>%
+  dplyr::select(mathquiz, statquiz, phobia) %>% 
+  naniar::gg_miss_var() +
+  theme_bw()
+```
+
+
+```{r}
+df_ihno %>% 
   dplyr::filter(!complete.cases(mathquiz, statquiz, phobia)) %>% 
   dplyr::select(sub_num, mathquiz, statquiz, phobia)
 ```
@@ -248,12 +261,12 @@ In this analysis, models including the `mathquiz` variable will be fit on only 8
 This complicates model comparisons, which require nested models be fit to the same data (exactly).  For this reason, the dataset has been reduced to the subset of students that are complete regarding the three variables utilized throughout the set of five nested models.
 
 ```{r}
-df_use <- data_ihno %>% 
+df_ihno_use <- df_ihno %>% 
   dplyr::filter(complete.cases(statquiz, mathquiz, phobia))
 ```
 
 ```{r}
-tibble::glimpse(df_use)
+tibble::glimpse(df_ihno_use)
 ```
 
 
@@ -267,12 +280,12 @@ Two models are considered **nested** if one is conains a subset of the terms (pr
 
 ```{r}
 fit_ihno_lm_0 <- lm(statquiz ~ 1,                 # null model: intercept only
-                    data = df_use)
+                    data = df_ihno_use)
 ```
 
 
 ```{r}
-apaSupp::tab_lm(fit_ihno_lm_0)
+summary(fit_ihno_lm_0)
 ```
 
 
@@ -280,30 +293,19 @@ apaSupp::tab_lm(fit_ihno_lm_0)
 
 ```{r}
 fit_ihno_lm_1 <- lm(statquiz ~ mathquiz,          # only main effect of mathquiz
-                    data = df_use)
-```
-
-
-```{r}
-summary(fit_ihno_lm_1)
-```
-
-
-```{r}
-apaSupp::tab_lm(fit_ihno_lm_1)
+                    data = df_ihno_use)
 ```
 
 
 
+
 ```{r}
-apaTables::apa.aov.table(fit_ihno_lm_1,
-                         conf.level = .95)$table_body %>% 
-  data.frame() %>%  
-  dplyr::filter(Predictor != "(Intercept)") %>% 
-  dplyr::select(Predictor, SS, df, MS, F, p, "eta2_p" = partial_eta2) %>% 
-  dplyr::mutate(p = apaSupp::p_num(as.numeric(p))) %>% 
-  flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Regression Anova Table")
+apaSupp::tab_lm(fit_ihno_lm_1,
+                caption = "Parameter Estiamtes for Statistics Performance Regressed on Math Performance")
+```
+
+```{r}
+anova(fit_ihno_lm_1)
 ```
 
 
@@ -313,38 +315,37 @@ apaTables::apa.aov.table(fit_ihno_lm_1,
 
 ```{r}
 fit_ihno_lm_2 <- lm(statquiz ~ phobia,            # only main effect of phobia
-                    data = df_use)
+                    data = df_ihno_use)
 ```
 
 
 ```{r}
-apaSupp::tab_lm(fit_ihno_lm_2)
+apaSupp::tab_lm(fit_ihno_lm_2,
+                caption = "Parameter Estiamtes for Statistics Performance Regressed on Math Phobia")
 ```
+
+
+```{r}
+anova(fit_ihno_lm_2)
+```
+
 
 
 #### Adjusted or Multiple Regression
 
 ```{r}
 fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia, # both main effects 
-                    data = df_use)
+                    data = df_ihno_use)
 ```
 
 
 ```{r}
-apaSupp::tab_lm(fit_ihno_lm_3)
+apaSupp::tab_lm(fit_ihno_lm_3,
+                caption = "Parameter Estiamtes for Statistics Performance Regressed on Math Performance and Phobia")
 ```
 
-
-
 ```{r}
-apaTables::apa.aov.table(fit_ihno_lm_3,
-                         conf.level = .95)$table_body %>% 
-  data.frame() %>%  
-  dplyr::filter(Predictor != "(Intercept)") %>% 
-  dplyr::select(Predictor, SS, df, MS, F, p, "eta2_p" = partial_eta2) %>% 
-  dplyr::mutate(p = apaSupp::p_num(as.numeric(p))) %>% 
-  flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Regression Anova Table")
+anova(fit_ihno_lm_3)
 ```
 
 ```{r}
@@ -365,7 +366,7 @@ effectsize::eta_squared(fit_ihno_lm_3, partial = FALSE)
 
 ```{r}
 fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,   # additional interaction
-                    data = df_use)
+                    data = df_ihno_use)
 ```
 
 
@@ -435,6 +436,11 @@ anova(fit_ihno_lm_0, fit_ihno_lm_2)
 anova(fit_ihno_lm_1, fit_ihno_lm_3) 
 ```
 
+* Test the main effect of math math test,  after controlling for phobia
+```{r}
+anova(fit_ihno_lm_2, fit_ihno_lm_3) 
+```
+
 * Test the interaction between math test and math phobia (i.e. moderation)
 ```{r}
 anova(fit_ihno_lm_3, fit_ihno_lm_4)
@@ -458,7 +464,7 @@ ggResidpanel::resid_panel(fit_ihno_lm_3)
 ## CONCLUSION
 
 
-### Tabulate the Final Model Summary
+### Table
 
 Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
 
@@ -469,12 +475,12 @@ apaSupp::tab_lm(fit_ihno_lm_3,
                 var_labels = c("mathquiz" = "Math Quiz",
                                "phobia" = "Math Phobia"),
                 caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
-                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.",
+                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points.",
                 p_note = "* p < .05. *** p < .001.") 
 ```
 
 
-### Plot the Model
+### Plot
 
 When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
 
@@ -506,6 +512,20 @@ interactions::interact_plot(model = fit_ihno_lm_3,
                             interval = TRUE,
                             int.width = .68)
 ```
+
+
+
+```{r}
+interactions::interact_plot(model = fit_ihno_lm_3,
+                            pred = phobia,
+                            modx = mathquiz,
+                            modx.values = c(15, 30, 45),
+                            interval = TRUE,
+                            int.width = .68) +
+  theme_bw()
+```
+
+
 
 
 The `Effect()` function from the `effects` package chooses '5 or 6 nice values' for each of your continuous independent variable ($X's$) based on the range of values found in the dataset on which the model and plugs all possible combinations of them into the regression equation $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 \dots \beta_k X_k$ to compute the predicted *mean* value of the outcome ($Y$) [@R-effects].

@@ -15,15 +15,15 @@ knitr::opts_chunk$set(comment     = NA,
 
 
 ```{r, comment=FALSE, message=FALSE, warning=FALSE}
-# library(remotes)
+# install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
 
 library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(haven)        # Read in SPSS datasets
 library(psych)        # Lots of nice tid-bits
 library(GGally)       # Extension to 'ggplot2' (ggpairs)
 library(corrplot)     # Correlation Matrix plots
-library(furniture)    # tables
 library(apaSupp)      # APA 7th ed tables
 ```
 

@@ -2,30 +2,35 @@
 
 ![](images/common/ISwR_thuesen.PNG)
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(comment     = "",
-                      echo        = TRUE, 
-                      warning     = FALSE, 
-                      message     = FALSE,
-                      fig.align   = "center", # center all figures
-                      fig.width   = 6,        # set default figure width to 4 inches
-                      fig.height  = 4)        # set default figure height to 3 inches
-```
+
 
 ```{r, comment=FALSE, message=FALSE}
-#library(remotes)
-#remotes::install_github("sarbearschwartz/apaSupp")
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
 
-library(tidyverse)       # super helpful everything!
-library(magrittr)        # includes other versions of the pipe 
-library(haven)           # inporting SPSS data files
-library(furniture)       # nice tables of descriptives
-library(texreg)          # nice regression summary tables
-library(stargazer)       # nice tables of descrip and regression
-library(corrplot)        # visualize correlations
-library(car)             # companion for applied regression
-library(effects)         # effect displays for models
-library(psych)           # lots of handy tools
+library(magrittr)       
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
+library(apaSupp)
+library(performance)
+library(interactions)
+library(effects)
+library(emmeans)
+library(car)
+library(ggResidpanel)
+library(modelsummary)
+library(ppcor)
+library(jtools)
+library(olsrr)
+library(DescTools)
+library(effectsize)
+library(ggpubr)
+
 library(ISwR)            # Introduction to Statistics with R (datasets)
 ```
 
@@ -339,13 +344,11 @@ thuesen %>%
 
 You may also present the output in a table using two different packages:
 
-
-* The `texreg` package has the `knitreg()` function:
-
-```{r, results="asis"}
-texreg::knitreg(fit_vel_glu,
-                single.row = TRUE)
+```{r}
+apaSupp::tab_lm(fit_vel_glu)
 ```
+
+
 
 
 ### Plot the Model

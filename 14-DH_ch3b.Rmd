@@ -5,19 +5,31 @@ Darlington & Hayes, Chapter 3's second example
 
 
 ```{r}
-# library(remotes)
+# install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
 
-library(tidyverse)
-library(flextable)
+library(magrittr)       
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
 library(apaSupp)
-library(modelsummary)
-library(parameters)
-library(effectsize)
-library(interactions)
 library(performance)
+library(interactions)
 library(effects)
+library(emmeans)
+library(car)
 library(ggResidpanel)
+library(modelsummary)
+library(ppcor)
+library(jtools)
+library(olsrr)
+library(DescTools)
+library(effectsize)
+library(ggpubr)
 ```
 
 

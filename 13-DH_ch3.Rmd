@@ -18,19 +18,31 @@ Reference:
 
 
 ```{r}
-# library(remotes)
+# install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
 
-library(tidyverse)
-library(flextable)
+library(magrittr)       
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
 library(apaSupp)
-library(olsrr)
-library(modelsummary)
-library(parameters)
-library(effectsize)
-library(interactions)
 library(performance)
+library(interactions)
+library(effects)
+library(emmeans)
+library(car)
 library(ggResidpanel)
+library(modelsummary)
+library(ppcor)
+library(jtools)
+library(olsrr)
+library(DescTools)
+library(effectsize)
+library(ggpubr)
 ```
 
 
@@ -237,6 +249,7 @@ olsrr::ols_regress(fit_lm_three)
 ### Equations
 
 $$
+
 \widehat{loss} = 4 + 1.75(exercise) \\
 
 \widehat{loss} = 7.14 + 0.07(food) \\
@@ -244,6 +257,7 @@ $$
 \widehat{loss} = 6 + 2(exercise) -0.5(food) \\
 
 \widehat{loss} = -1.636 + 1.045(exercise) -1.136(food) + 0.636(metabolism)\\
+
 $$
 
 
@@ -260,7 +274,7 @@ tab_lm3 <- apaSupp::tab_lms(list(fit_lm_exer, fit_lm_diet, fit_lm_both),
                             general_note = "Dependent variable is average weekly weight lost in 100s of grams.") %>% 
   flextable::footnote(part = "body",
                       i = c(2, 3), j = 1, 
-                      value = as_paragraph(c("Weekly average of hours/day",
+                      value = flextable::as_paragraph(c("Weekly average of hours/day",
                                              "Daily average of 100s of calories above recommendation")))
 
 tab_lm3

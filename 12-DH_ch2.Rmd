@@ -7,21 +7,30 @@ Darlington & Hayes, Chapter 2
 
 
 ```{r}
-# library(remotes)
+# install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
 
-library(tidyverse)
-library(flextable)
+library(magrittr)       
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
 library(apaSupp)
-library(olsrr)
-library(modelsummary)
-library(parameters)
-library(effectsize)
-library(interactions)
 library(performance)
+library(interactions)
+library(effects)
+library(emmeans)
+library(car)
 library(ggResidpanel)
+library(modelsummary)
+library(ppcor)
 library(jtools)
 library(olsrr)
+library(DescTools)
+library(effectsize)
 library(ggpubr)
 ```
 
@@ -871,17 +880,20 @@ coef(fit_lm_golf)
 
 
 
-```{r}
-jtools::summ(fit_lm_golf)
-```
-
 ### Coefficients - Standardized
+
+
+
+```{r}
+parameters::standardise_parameters(fit_lm_golf)
+```
 
 ```{r}
 lm(scale(Y) ~ scale(X),
    data = df_golf) %>% 
   summary()
 ```
+
 
 
 
@@ -1009,22 +1021,11 @@ var(fit_lm_golf$residuals)/var(df_golf$Y)
 ### Residual Analysis
 
 
-
 ```{r}
-ggResidpanel::resid_xpanel(fit_lm_golf)
+performance::check_residuals(fit_lm_golf)
 ```
 
 ```{r}
 ggResidpanel::resid_panel(fit_lm_golf)
 ```
-
-```{r}
-performance::check_residuals(fit_lm_golf)
-```
-
-
-```{r}
-olsrr::ols_plot_diagnostics(fit_lm_golf)
-```
-
 
