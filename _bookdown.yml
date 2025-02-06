@@ -3,3 +3,7 @@ repo: http://github.com/sarbearschwartz/v4_regression/
 output_dir: "docs"
 new_session: no
 delete_merged_file: true
+language:
+  label:
+    fig: !expr function(i) paste0('<strong> Figure  ', i, '</strong><br/> ')
+    tab: !expr function(i) paste0('<strong> Table  ', i, '</strong><br/> ') 
