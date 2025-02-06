@@ -10,14 +10,24 @@
 
 
 ```{r}
-#library(remotes)
-#remotes::install_github("sarbearschwartz/apaSupp")
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
 
 library(carData)
-library(tidyverse)
-library(broom)
-library(flextable)
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
 library(apaSupp)
+library(performance)
+library(interactions)
+library(car)
+library(effects)
+library(emmeans)
+library(ggResidpanel)
 library(modelsummary)
 library(ppcor)
 library(jtools)
@@ -25,7 +35,6 @@ library(olsrr)
 library(DescTools)
 library(effectsize)
 library(ggpubr)
-library(ggResidpanel)
 ```
 
 ## PURPOSE
@@ -414,5 +423,9 @@ rstatix::partial_eta_squared(fit_lm_both)
 DescTools::EtaSq(fit_lm_both, type = 1)
 ```
 
+### Standardized Regression 
 
+```{r}
+parameters::standardise_parameters(fit_lm_both)
+```
 

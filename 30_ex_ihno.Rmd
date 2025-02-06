@@ -5,6 +5,7 @@ interaction between two continuous IVs
 ![](images/common/Ihno_header.PNG)
 
 
+
 ```{r, include=FALSE}
 # set global chunk options...  
 #  this changes the defaults so you don't have to repeat yourself
@@ -124,12 +125,13 @@ Before embarking on any inferential analysis or modeling, always get familiar wi
 Center: mean and median
 Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
 
-```{r test2, label="ihno_desc"}
+
+```{r}
 df_ihno %>% 
   dplyr::select("Math Phobia" = phobia,
                 "Math Quiz" = mathquiz,
                 "Stat Quiz" = statquiz) %>% 
-  apaSupp::tab_desc(caption = "Description of Participants") 
+  apaSupp::tab_desc(caption = "Descriptive Summary of Participants")
 ```
 
 
@@ -143,6 +145,7 @@ df_ihno %>%
 Always plot your data first!
 ```
 
+
 ```{r, fig.id="ihno_histo1", fig.cap="Distribution of Self-Reported Math Phobia"}
 df_ihno %>% 
   apaSupp::spicy_histos(var = phobia)
@@ -150,10 +153,12 @@ df_ihno %>%
 
 
 
+
 ```{r, fig.id="ihno_histo2", fig.cap="Distribution of Prior Math Quiz Performance"}
 df_ihno %>% 
   apaSupp::spicy_histos(var = mathquiz)
 ```
+
 
 
 ```{r, fig.id="ihno_histo3", fig.cap="Distribution of Statistics Quiz Performance"}
@@ -179,6 +184,7 @@ Often it is easier to digest a correlation matrix if it is visually presented, i
 
 
 
+
 ```{r, fig.id="ihno_corr", fig.cap="Visualize Correlation Matrix"}
 df_ihno %>% 
   dplyr::select(phobia, mathquiz, statquiz) %>% 
@@ -189,7 +195,8 @@ df_ihno %>%
 ```
 
 
-```{r, label="ihno_cor"}
+
+```{r}
 df_ihno %>% 
   dplyr::select("Math Phobia" = phobia,
                 "Math Quiz" = mathquiz,
@@ -215,6 +222,7 @@ df_ihno %>%
 
 
 
+
 ```{r, fit.id="ihno_scatter1", fig.cap="Scatterplot for Stat Quiz Regressed on Math Quiz"}
 df_ihno %>% 
   ggplot(aes(x = mathquiz,
@@ -226,6 +234,7 @@ df_ihno %>%
   labs(x = "Math Quiz",
        y = "Stat Quiz")
 ```
+
 
 
 
@@ -247,6 +256,7 @@ df_ihno %>%
 
 It turns out that 15 of the 100 students did not have a math quiz score recorded.
 
+
 ```{r, fig.id="inho_miss1", fig.cap="Missingness on Each Variable"}
 df_ihno %>%
   dplyr::select(mathquiz, statquiz, phobia) %>% 
@@ -255,17 +265,22 @@ df_ihno %>%
 ```
 
 
+```{r}
+df_ihno %>% 
+  dplyr::filter(!complete.cases(mathquiz, statquiz, phobia)) %>% 
+  dplyr::select(sub_num, mathquiz, statquiz, phobia)
+```
 
 
 
-## REQRESSION ANALYSIS
+
+
+## REGRESSION ANALYSIS
 
 
 * The dependent variable (DV) is Stat Quiz score, `statquiz` ($Y$)
 
 * The independent variables (IVs) are both math quiz score `mathquiz` and math phobia `phobia`($X_1$, $X_2$)
-
-### Subset the Sample
 
 
 All regression models can only be fit to complete observations regarding the variables included in the model (dependent and independent).  Removing any case that is incomplete with respect to even one variables is called **"list-wise deletion"**.  
@@ -274,13 +289,11 @@ In this analysis, models including the `mathquiz` variable will be fit on only 8
 
 This complicates model comparisons, which require nested models be fit to the same data (exactly).  For this reason, the dataset has been reduced to the subset of students that are complete regarding the three variables utilized throughout the set of five nested models.
 
-
 ```{r}
 df_ihno_fitting <- df_ihno %>% 
   dplyr::select(mathquiz, statquiz, phobia) %>% 
   dplyr::filter(complete.cases(mathquiz, statquiz, phobia))
 ```
-
 
 ```{r}
 tibble::glimpse(df_ihno_fitting)
@@ -290,6 +303,7 @@ tibble::glimpse(df_ihno_fitting)
 ### Fit Nested Models 
 
 The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
+
 
 Two models are considered **nested** if one is contains a subset of the terms (predictors or IV) compared to the other.                                     
 
@@ -301,27 +315,29 @@ fit_ihno_lm_3 <- lm(statquiz ~ mathquiz + phobia, data = df_ihno_fitting)
 fit_ihno_lm_4 <- lm(statquiz ~ mathquiz*phobia,   data = df_ihno_fitting)
 ```
 
+```{r}
+summary(fit_ihno_lm_0)
+```
 
 ```{r}
 summary(fit_ihno_lm_1)
 ```
 
-
 ```{r}
 summary(fit_ihno_lm_2)
 ```
-
-
 
 ```{r}
 summary(fit_ihno_lm_3)
 ```
 
+```{r}
+summary(fit_ihno_lm_4)
+```
 
 ```{r}
 apaSupp::tab_lm(fit_ihno_lm_3)
 ```
-
 
 
 
@@ -334,26 +350,26 @@ apaSupp::tab_lm(fit_ihno_lm_3)
 In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
 
 
-```{r, label="ihno_lms1"}
+
+```{r}
 apaSupp::tab_lms(list(fit_ihno_lm_3, fit_ihno_lm_4)) 
 ```
 
 
 
-```{r, label="ihno_lms2"}
+```{r}
 list(fit_ihno_lm_3, fit_ihno_lm_4) %>% 
   apaSupp::tab_lms(mod_names = c("Main Effects", "Moderation"),
                    var_labels = c("mathquiz" = "Math Quiz",
                                   "phobia" = "Math Phobia",
                                   "mathquiz * phobia" = "Quiz X Phobia"),
-                   caption = "Multiple Linear Models Regression of Statistics Quiz Performance on Math Phobia and Prior Math Performance",
+                   caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
                    general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.") 
 ```
 
 
-#### Likelihood Ratio Test of Nested Models
+#### Test of Nested Models
 
-An alternative method for determine model fit and variable importance is the likelihood ratio test.  This involves comparing the $-2LL$ or inverse of twice the log of the likelihood value for the model.  The difference in these values follows a Chi Squared distribution with degrees of freedom equal to the difference in the number of parameters estimated *(number of betas)*.
 
 * Test the main effect of math quiz:
 ```{r}
@@ -371,13 +387,15 @@ anova(fit_ihno_lm_0, fit_ihno_lm_2)
 anova(fit_ihno_lm_1, fit_ihno_lm_3) 
 ```
 
+* Test the main effect of math math test,  after controlling for phobia
+```{r}
+anova(fit_ihno_lm_2, fit_ihno_lm_3) 
+```
+
 * Test the interaction between math test and math phobia (i.e. moderation)
 ```{r}
 anova(fit_ihno_lm_3, fit_ihno_lm_4)
 ```
-
-
-
 
 
 ### Checking Assumptions via Residual Diagnostics
@@ -409,14 +427,18 @@ car::vif(fit_ihno_lm_3)
 
 Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
 
-```{r, label="ihno_tab2"}
+
+
+
+
+```{r}
 apaSupp::tab_lm(fit_ihno_lm_3,
                 var_labels = c("mathquiz" = "Math Quiz",
                                "phobia" = "Math Phobia"),
-                caption = "Multiple Linear Models Regression of Statistics Quiz Performance on Math Phobia and Prior Math Performance",
-                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points. NA = not applicable, since variable not included in this model.") 
+                caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
+                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points.",
+                p_note = "* p < .05. *** p < .001.") 
 ```
-
 
 
 ### Plot
@@ -454,6 +476,20 @@ interactions::interact_plot(model = fit_ihno_lm_3,
 ```
 
 
+
+```{r}
+interactions::interact_plot(model = fit_ihno_lm_3,
+                            pred = phobia,
+                            modx = mathquiz,
+                            modx.values = c(15, 30, 45),
+                            interval = TRUE,
+                            int.width = .68) +
+  theme_bw()
+```
+
+
+
+
 The `Effect()` function from the `effects` package chooses '5 or 6 nice values' for each of your continuous independent variable ($X's$) based on the range of values found in the dataset on which the model and plugs all possible combinations of them into the regression equation $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 \dots \beta_k X_k$ to compute the predicted *mean* value of the outcome ($Y$) [@R-effects].
 
 ```{block type='rmdlightbulb', echo=TRUE}
@@ -464,7 +500,7 @@ When plotting a regression model the outcome (dependent variable) is always on t
 
 
 
-```{r, label="ihno_viz", fig.cap="Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance"}
+```{r, fig.id="ihno_viz", fig.cap="Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance"}
 effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                 mod = fit_ihno_lm_3,
                 xlevels = list(phobia = c(0, 5, 10))) %>%   # values for illustration
@@ -505,9 +541,5 @@ There is a strong association between math and stats quiz scores, *r* = .51.  Ma
 Not surprisingly, while higher self-reported math phobia was associated with lower statistics scores, *b* = -0.162, **p* = .018, 95% *CI* = [-0.29, -0.03]$, higher math quiz scores were associated with higher stats score, *b* = -0.081, *p* < .001, 95% *CI* = [0.05, 0.12].  
 
 There was no evidence that math phobia moderated the relationship between math and quiz performance, *p* = .377. 
-
-
-
-
 
 

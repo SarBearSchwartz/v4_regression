@@ -1,35 +1,32 @@
 # Ex: Cancer Experiment 
 
 
-```{r, include=FALSE}
-# set global chunk options...  
-#  this changes the defaults so you don't have to repeat yourself
-knitr::opts_chunk$set(comment     = NA,
-                      cache       = TRUE,
-                      echo        = TRUE, 
-                      warning     = FALSE, 
-                      message     = FALSE,
-                      out.width   = "75%")
-```
-
-
-
-
 ```{r, comment=FALSE, message=FALSE}
-library(haven)
-library(tidyverse)
-library(flextable)
-library(psych) 
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
+
+library(magrittr)       
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
 library(apaSupp)
-library(olsrr)
-library(modelsummary)
-library(parameters)
-library(effectsize)
-library(interactions)
 library(performance)
-library(ggResidpanel)
-library(emmeans)
+library(interactions)
 library(effects)
+library(emmeans)
+library(car)
+library(ggResidpanel)
+library(modelsummary)
+library(ppcor)
+library(jtools)
+library(olsrr)
+library(DescTools)
+library(effectsize)
+library(ggpubr)
 ```
 
 ```{r}

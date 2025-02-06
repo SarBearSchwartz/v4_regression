@@ -1,0 +1,203 @@
+# D&H Ch5 - Dichotomous Regressors: "Weight"
+
+
+Darlington & Hayes, Chapter 5's first example
+
+
+```{r}
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
+
+library(magrittr)       
+library(tidyverse)   
+library(broom)     
+library(naniar)
+library(corrplot)   
+library(GGally)
+library(gtsummary)
+library(apaSupp)
+library(performance)
+library(interactions)
+library(effects)
+library(emmeans)
+library(car)
+library(ggResidpanel)
+library(modelsummary)
+library(ppcor)
+library(jtools)
+library(olsrr)
+library(DescTools)
+library(effectsize)
+library(ggpubr)
+```
+
+
+
+
+## PURPOSE
+
+### Research Question
+
+> How is weight loss associationed with exercise frequency and food intake? 
+
+
+### Data Description
+
+Suppose you conducted a study examining the relationship between food consumption and weight loss among people enrolled (`n` = 10) in a month-long healthy living class.
+
+#### Variables
+
+Dependent Variable (DV)
+* `loss` average weight loss in hundreds of grams per week
+
+Independent Variables (IVs)
+* `exer` average weekly hours of exercise
+* `diet` average daily food consumption (in 100s of calories about the recommended minimum of 1,000 calories required to maintain good health)
+* `meta` metabolic rate
+* `sex` dichotomous variable with 2 codes
+
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+Manually enter the data set provided on page 44 in Table 3.1
+```
+
+
+```{r}
+df_loss <- tibble::tribble(~id, ~exer, ~diet, ~meta, ~ sex, ~loss,
+                            1, 0, 2, 15,  0,  6, 
+                            2, 0, 4, 14,  0,  2,
+                            3, 0, 6, 19,  0,  4,
+                            4, 2, 2, 15,  1,  8,
+                            5, 2, 4, 21,  1,  9,
+                            6, 2, 6, 23,  0,  8,
+                            7, 2, 8, 21,  1,  5,
+                            8, 4, 4, 22,  1, 11,
+                            9, 4, 6, 24,  0, 13,
+                           10, 4, 8, 26,  0,  9) %>% 
+  dplyr::mutate(sex = factor(sex,
+                             levels = c(0, 1),
+                             labels = c("Male", "Female")))
+```
+
+
+
+```{r}
+df_loss %>% 
+  dplyr::select("ID" = id,
+                "Exercise\nFrequency" = exer,
+                "Food\nIntake" = diet,
+                "Metabolic\nRate" = meta,
+                "Sex" = sex,
+                "Weight\nLoss" = loss) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Exercise, Food Intake, and Weight Loss") %>% 
+  flextable::colformat_double(digits = 0) 
+```
+
+
+
+## EXPLORATORY DATA ANALYSIS
+
+### Summary Statistics
+
+```{r}
+df_loss %>% 
+  dplyr::select("Exercise Frequency" = exer,
+                "Food Intake" = diet,
+                "Metabolic Rate" = meta,
+                "Weight Loss" = loss) %>% 
+  apaSupp::tab_desc(caption = "Summary Statistics") %>% 
+  flextable::hline(i = 3)
+```
+
+### Correlation
+
+> Note: Pearson's correlation is only appropriate for TWO CONTINUOUS variables.  The exception is when 1 variable is continuous and the other has exactly 2 levels.  In this case, the binary variable needs to be converted to two numbers (numeric not factor) and the value is called the **Point-Biserial Correlation** ($r_{pb}$).
+
+```{r}
+df_loss %>% 
+  dplyr::mutate(sex = as.numeric(sex == "Female")) %>% 
+  dplyr::select("Weight Loss" = loss,
+                "Exercise Frequency" = exer,
+                "Food Intake" = diet,
+                "Metabolic Rate" = meta,
+                "Sex" = sex) %>% 
+  apaSupp::tab_cor(caption = "Correlations",
+                   general_note = "For pairs of variables with sex, r = Point-Biserial Correlation, otherwise ") %>% 
+  flextable::hline(i = 4)
+```
+
+
+### Visualizations
+
+```{r}
+df_loss %>% 
+  ggplot(aes(x = sex,
+             y = loss)) +
+  geom_boxplot() +
+  geom_point(size = 3)  +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Observed Weight Loss\nWeekly average of 100s of grams/week") 
+```
+
+
+## REGRESSION ANALYSIS
+
+### Add 2-level Categorical Predictor
+
+```{r}
+fit_weight_3 <- lm(loss ~ exer + diet + sex,
+                   data = df_loss)
+```
+
+
+```{r}
+apaSupp::tab_lm(fit_weight_3, 
+                fit = c("r.squared", "adj.r.squared",
+                        "statistic", "df", "df.residual", "p.value"),
+                d = 3)
+```
+
+
+### Compare significance of a set of variables
+
+
+```{r}
+fit_loss_4a <- lm(loss ~ 1,
+                  data = df_loss)
+
+fit_loss_4b <- lm(loss ~ meta + sex,
+                  data = df_loss)
+
+fit_loss_4c <- lm(loss ~ meta + sex + exer + diet,
+                  data = df_loss)
+```
+
+
+```{r}
+apaSupp::tab_lms(list(fit_loss_4a, fit_loss_4b, fit_loss_4c),
+                fit = c("r.squared", "adj.r.squared",
+                        "sigma", 
+                        "statistic", "df", "df.residual", "p.value"),
+                d = 3)
+```
+
+
+```{r}
+performance::compare_performance(fit_loss_4a, fit_loss_4b, fit_loss_4c) %>% 
+  data.frame() %>% 
+  dplyr::select(Name, AIC, BIC, R2, R2_adjusted, RMSE, Sigma) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Compare Models")
+```
+
+
+```{r}
+anova(fit_loss_4a, fit_loss_4b, fit_loss_4c)
+```
+
+
+
