@@ -83,14 +83,11 @@ tibble::glimpse(df_ginz)
 Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
 ```
 
+### Summary Statistics
 
 
 
-
-### Univariate Statistics
-
-Center: mean and median
-Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
+#### Univariate
 
 ```{r}
 df_ginz %>% 
@@ -102,7 +99,33 @@ df_ginz %>%
 
 
 
-### Univariate Visualizations
+
+#### Bivariate
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  apaSupp::tab_cor(caption = "Correlations Between Continuous Meaurses")
+```
+
+
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity" = simplicity,
+                "Fatalism" = fatalism,
+                "Depression" = depression) %>% 
+  cor(method = "pearson") %>% 
+  corrplot::corrplot.mixed()
+```
+
+
+
+### Visualizations
+
+#### Univariate 
 
 
 ```{block type='rmdimportant', echo=TRUE}
@@ -131,31 +154,7 @@ df_ginz %>%
 
 
 
-
-### Bivariate Statistics
-
-```{r}
-df_ginz %>% 
-  dplyr::select("Simplicity" = simplicity,
-                "Fatalism" = fatalism,
-                "Depression" = depression) %>% 
-  apaSupp::tab_cor(caption = "Correlations")
-```
-
-
-
-```{r}
-df_ginz %>% 
-  dplyr::select("Simplicity" = simplicity,
-                "Fatalism" = fatalism,
-                "Depression" = depression) %>% 
-  cor(method = "pearson") %>% 
-  corrplot::corrplot.mixed()
-```
-
-
-
-### Bivariate Visualization
+#### Bivariate
 
 
 
@@ -211,7 +210,7 @@ df_ginz %>%
 * The dependent variable (DV) is depression score ($Y$)
 * The independent variables (IVs) are 2 beliefs, simplicity and fatalism ($X_1$, $X_2$)
 
-### Model with only Simplicity
+### IV = Simplicity
 
 
 ```{r}
@@ -223,7 +222,7 @@ fit_lm_sim <- lm(depression ~ simplicity,
 summary(fit_lm_sim)
 ```
 
-### Model with only Fatalism
+### IV = Fatalism
 
 
 ```{r}
@@ -236,7 +235,7 @@ summary(fit_lm_fat)
 ```
 
 
-### Model with only Both Predictors
+### IVs = Both Beliefs
 
 
 ```{r}
@@ -251,7 +250,7 @@ summary(fit_lm_both)
 
 
 
-### Table
+### Compare Models
 
 ```{r}
 apaSupp::tab_lms(list(fit_lm_sim, fit_lm_fat, fit_lm_both))

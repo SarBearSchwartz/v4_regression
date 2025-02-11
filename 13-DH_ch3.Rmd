@@ -59,11 +59,18 @@ library(ggpubr)
 
 Suppose you conducted a study examining the relationship between food consumption and weight loss among people enrolled (`n` = 10) in a month-long healthy living class.
 
-#### Variables
+**Dependent Variable (DV)**
+
+* `loss` average weight loss in hundreds of grams per week
+
+
+**Independent Variables (IVs)**
 
 * `exer` average weekly hours of exercise
+
 * `diet` average daily food consumption (in 100s of calories about the recommended minimum of 1,000 calories required to maintain good health)
-* `loss` average weight loss in hundreds of grams per week
+
+* `meta` metabolic rate
 
 
 
@@ -74,15 +81,15 @@ Manually enter the data set provided on page 44 in Table 3.1
 
 ```{r}
 df_loss <- tibble::tribble(~id, ~exer, ~diet, ~meta, ~loss,
-                           1, 0, 2, 15,  6, 
-                           2, 0, 4, 14,  2,
-                           3, 0, 6, 19,  4,
-                           4, 2, 2, 15,  8,
-                           5, 2, 4, 21,  9,
-                           6, 2, 6, 23,  8,
-                           7, 2, 8, 21,  5,
-                           8, 4, 4, 22, 11,
-                           9, 4, 6, 24, 13,
+                            1, 0, 2, 15,  6, 
+                            2, 0, 4, 14,  2,
+                            3, 0, 6, 19,  4,
+                            4, 2, 2, 15,  8,
+                            5, 2, 4, 21,  9,
+                            6, 2, 6, 23,  8,
+                            7, 2, 8, 21,  5,
+                            8, 4, 4, 22, 11,
+                            9, 4, 6, 24, 13,
                            10, 4, 8, 26,  9)
 ```
 
@@ -110,31 +117,58 @@ df_loss %>%
 
 ### Summary Statistics
 
+
+#### Univariate
+
 ```{r}
 df_loss %>% 
   dplyr::select("Exercise Frequency" = exer,
                 "Food Intake" = diet,
-                "Weight Loss" = loss,
-                "Metabolic Rate" = meta) %>% 
-  apaSupp::tab_desc(caption = "Summary Statistics") %>% 
-  flextable::footnote(i = 1:3, j = 1, 
-                      value = as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation",
-                                             "Weekly average of 100s of grams/week")))
+                "Metabolic Rate" = meta,
+                "Weight Loss" = loss) %>% 
+  apaSupp::tab_desc(caption = "Summary Statistics",
+                    general_not = "Exercise captures daily average hours.  Food intake is the average of 100's of calories above the recommendation.  Metabolism is the metobalic rate. Weight loss is average weekly weight lost in 100s of grams.") 
 ```
 
-### Correlation
+#### Bivariate
 
 ```{r}
 df_loss %>% 
-  dplyr::select("Exercise Frequency" = exer,
-                "Food Intake" = diet,
-                "Weight Loss" = loss) %>% 
-  apaSupp::tab_cor(caption = "Correlations")
+  dplyr::select("Weight Loss" = loss,
+                "Exercise Frequency" = exer,
+                "Food Intake" = diet) %>% 
+  apaSupp::tab_cor(caption = "Correlations",
+                   general_note = "Exercise captures daily average hours.  Food intake is the average of 100's of calories above the recommendation.  Weight loss is average weekly weight lost in 100s of grams.") %>% 
+  flextable::hline(i = 2)
 ```
 
 
 ### Visualizations
+
+#### Univariate
+
+
+
+```{r, fig.cap="Univariate Distibution on Continuous Measures"}
+df_loss %>% 
+  dplyr::select(id, 
+                "Weight Loss\n(100 g/day)" = loss,
+                "Exercise Frequency\n(hr/day)" = exer,
+                "Food Intake\n(100 cal/day above 1000)" = diet,
+                "Metabolic Rate" = meta) %>% 
+  tidyr::pivot_longer(cols = -id) %>% 
+  ggplot(aes(value)) +
+  geom_histogram(binwidth = 1,
+                 color = "black",
+                 alpha = .25) +
+  theme_bw() +
+  facet_wrap(~ name,
+             scale = "free_x") +
+  labs(x = NULL,
+       y = "Count")
+```
+
+#### Bivariate
 
 ```{r, fig.cap= "D&H Figure 3.1 (page 45) An example with positive simple association and negative partial association - BASIC"}
 df_loss %>% 
@@ -151,10 +185,10 @@ df_loss %>%
                  color = factor(exer)),
              size = 3)  +
   theme_bw() +
-  labs(x = "Observed Food Intake\nDaily average of 100s of calories above recommendation",
-       y = "Observed Weight Loss\nWeekly average of 100s of grams/week",
-       shape = "Exercise Frequency\nWeekly average of hours/day",
-       color = "Exercise Frequency\nWeekly average of hours/day") +
+  labs(x = "Observed Food Intake)",
+       y = "Observed Weight Loss",
+       shape = "Exercise Frequency",
+       color = "Exercise Frequency") +
   theme(legend.position = "bottom")
 ```
 
@@ -165,10 +199,10 @@ df_loss %>%
              y = loss)) +
   geom_point(size = 3)  +
   theme_bw() +
-  labs(x = "Observed Food Intake\n(Daily average of 100s of calories above recommendation)",
-       y = "Observed Weight Loss\n(Weekly average of 100s of grams/week)",
-       shape = "Exercise Frequency\n(Weekly average of hours/day)",
-       color = "Exercise Frequency\n(Weekly average of hours/day)") +
+  labs(x = "Observed Food Intake)",
+       y = "Observed Weight Loss",
+       shape = "Exercise Frequency",
+       color = "Exercise Frequency") +
   theme(legend.position = "bottom") +
   geom_smooth(aes(group = 1),
               method = "lm",
@@ -187,10 +221,10 @@ df_loss %>%
                  color = exer),
              size = 3)  +
   theme_bw() +
-  labs(x = "Observed Food Intake\n(Daily average of 100s of calories above recommendation)",
-       y = "Observed Weight Loss\n(Weekly average of 100s of grams/week)",
-       shape = "Exercise Frequency\n(Weekly average of hours/day)",
-       color = "Exercise Frequency\n(Weekly average of hours/day)") +
+  labs(x = "Observed Food Intake",
+       y = "Observed Weight Loss",
+       shape = "Exercise Frequency",
+       color = "Exercise Frequency") +
   theme(legend.position = "bottom") +
   geom_smooth(aes(color = exer),
               method = "lm",
@@ -249,15 +283,10 @@ olsrr::ols_regress(fit_lm_three)
 ### Equations
 
 $$
-
-\widehat{loss} = 4 + 1.75(exercise) \\
-
-\widehat{loss} = 7.14 + 0.07(food) \\
-
-\widehat{loss} = 6 + 2(exercise) -0.5(food) \\
-
-\widehat{loss} = -1.636 + 1.045(exercise) -1.136(food) + 0.636(metabolism)\\
-
+\hat{loss} = 4 + 1.75(exercise) \\
+\hat{loss} = 7.14 + 0.07(food) \\
+\hat{loss} = 6 + 2(exercise) -0.5(food) \\
+\hat{loss} = -1.636 + 1.045(exercise) -1.136(food) + 0.636(metabolism)\\
 $$
 
 
@@ -266,16 +295,17 @@ $$
 
 
 ```{r}
-tab_lm3 <- apaSupp::tab_lms(list(fit_lm_exer, fit_lm_diet, fit_lm_both),
-                            mod_names = c("Exercise", "Food Intake", "Both"),
+tab_lm3 <- apaSupp::tab_lms(list(fit_lm_exer, 
+                                 fit_lm_diet, 
+                                 fit_lm_both),
+                            mod_names = c("Exercise", 
+                                          "Food Intake", 
+                                          "Both"),
                             var_labels = c("exer" = "Exercise",
                                            "diet" = "Food"),
                             caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake",
-                            general_note = "Dependent variable is average weekly weight lost in 100s of grams.") %>% 
-  flextable::footnote(part = "body",
-                      i = c(2, 3), j = 1, 
-                      value = flextable::as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation")))
+                            general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") 
+
 
 tab_lm3
 ```
@@ -292,11 +322,11 @@ flextable::save_as_docx(tab_lm3,
 ```{r}
 apaSupp::tab_lms(list(fit_lm_both, fit_lm_three),
                  mod_names = c("Two Predictors", "Three Predictors"),
-                 var_labels = c("exer" = "Exercise",
+                 var_labels = c("exer" = "Exercise Freq",
                                 "diet" = "Food Intake",
-                                "meta" = "Metabolism"),
+                                "meta" = "Metabolic Rate"),
                  caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency, Food Intake, and Metabolic Rate",
-                 general_note = "Dependent variable is average weekly weight lost in 100s of grams.  Exercise captures daily average of hours.  Food intake is the average of 100's of calories above the recommendation.  Metabolism is the metobalic rate.") 
+                            general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") 
 
 ```
 
@@ -304,24 +334,11 @@ apaSupp::tab_lms(list(fit_lm_both, fit_lm_three),
 
 ### Visualization
 
-```{r}
-eq <- function(x, y){6 + 2*x -.5 *y}
 
-xlims <- 0:4
-ylims <- 0:8
 
-persp(x = xlims,
-      y = ylims,
-      z = outer(xlims, ylims, eq),
-      xlab = "Exercise",
-      ylab = "Food Consumed",
-      zlab = "Weight Loss",
-      shade = .3,
-      theta = 200, 
-      phi = 15, 
-      r = 5,
-      d = .5,
-      ticktype = 'detailed')
+
+```{r, fig.cap="Darlington & Hayes: Figure 3.2, page 49"}
+knitr::include_graphics("images/DH_fig3-2.png")
 ```
 
 
@@ -330,10 +347,7 @@ persp(x = xlims,
 interactions::interact_plot(model = fit_lm_both,
                             pred = diet,
                             modx = exer,
-                            modx.values = 0:4,
-                            x.label = "Food Consumption, 100s calories above 1000",
-                            y.label = "Weight Loss, 100s of grams",
-                            legend.main = "Exercise,\nhours/day") +
+                            modx.values = 0:4) +
   theme_bw() 
 ```
 
@@ -343,10 +357,7 @@ interactions::interact_plot(model = fit_lm_both,
 interactions::interact_plot(model = fit_lm_both,
                             pred = exer,
                             modx = diet,
-                            modx.values = c(2, 4, 6, 8),
-                            x.label = "Daily Exercise, hours",
-                            y.label = "Weight Loss, 100s of grams",
-                            legend.main = "Food Consumption\n100s calories") +
+                            modx.values = c(0, 2, 4, 6, 8)) +
   theme_bw() 
 ```
 
@@ -364,7 +375,7 @@ interactions::interact_plot(model = fit_lm_three,
                             mod2.labels = c("Low Metabolic Rate\n(Q1 = 16.00)", 
                                             "High Metabolic Rate\n(Q3 = 22.75)"),
                             x.label = "Daily Exercise, hours",
-                            y.label = "Weight Loss, grams/week",
+                            y.label = "Weight Loss, 100s grams/week",
                             legend.main = "Food Consumption") +
   theme_bw() +
   theme(legend.position = c(0, 1),
@@ -459,7 +470,7 @@ confint(fit_lm_both)
 
 
 $$
-\widehat{loss} = 6 + 2(exercise) -0.5(food)
+\hat{loss} = 6 + 2(exercise) -0.5(food)
 $$
 
 Suppose an examination of the literature on diet, exercise, and weight loss led you to the following conclusions: 

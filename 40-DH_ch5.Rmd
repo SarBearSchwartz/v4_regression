@@ -4,34 +4,25 @@
 Darlington & Hayes, Chapter 5's first example
 
 
-```{r}
+```{r, warning=FALSE, message=FALSE, error=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
-
-library(magrittr)       
-library(tidyverse)   
-library(broom)     
-library(naniar)
-library(corrplot)   
-library(GGally)
-library(gtsummary)
+     
+library(tidyverse) 
+library(flextable)
 library(apaSupp)
+library(car)
+library(rempsyc)
+library(parameters)
 library(performance)
 library(interactions)
-library(effects)
-library(emmeans)
-library(car)
 library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
-library(effectsize)
-library(ggpubr)
 ```
 
+```{r}
+flextable::set_flextable_defaults(digits = 2)
+```
 
 
 
@@ -48,33 +39,39 @@ Suppose you conducted a study examining the relationship between food consumptio
 
 #### Variables
 
-Dependent Variable (DV)
+**Dependent Variable (DV)**
+
 * `loss` average weight loss in hundreds of grams per week
 
-Independent Variables (IVs)
+
+**Independent Variables (IVs)**
+
 * `exer` average weekly hours of exercise
+
 * `diet` average daily food consumption (in 100s of calories about the recommended minimum of 1,000 calories required to maintain good health)
+
 * `meta` metabolic rate
+
 * `sex` dichotomous variable with 2 codes
 
 
 
-```{block type='rmdlightbulb', echo=TRUE}
+
 Manually enter the data set provided on page 44 in Table 3.1
-```
+
 
 
 ```{r}
 df_loss <- tibble::tribble(~id, ~exer, ~diet, ~meta, ~ sex, ~loss,
-                            1, 0, 2, 15,  0,  6, 
-                            2, 0, 4, 14,  0,  2,
-                            3, 0, 6, 19,  0,  4,
-                            4, 2, 2, 15,  1,  8,
-                            5, 2, 4, 21,  1,  9,
-                            6, 2, 6, 23,  0,  8,
-                            7, 2, 8, 21,  1,  5,
-                            8, 4, 4, 22,  1, 11,
-                            9, 4, 6, 24,  0, 13,
+                           1, 0, 2, 15,  0,  6, 
+                           2, 0, 4, 14,  0,  2,
+                           3, 0, 6, 19,  0,  4,
+                           4, 2, 2, 15,  1,  8,
+                           5, 2, 4, 21,  1,  9,
+                           6, 2, 6, 23,  0,  8,
+                           7, 2, 8, 21,  1,  5,
+                           8, 4, 4, 22,  1, 11,
+                           9, 4, 6, 24,  0, 13,
                            10, 4, 8, 26,  0,  9) %>% 
   dplyr::mutate(sex = factor(sex,
                              levels = c(0, 1),
@@ -82,6 +79,7 @@ df_loss <- tibble::tribble(~id, ~exer, ~diet, ~meta, ~ sex, ~loss,
 ```
 
 
+View the dataset
 
 ```{r}
 df_loss %>% 
@@ -92,7 +90,8 @@ df_loss %>%
                 "Sex" = sex,
                 "Weight\nLoss" = loss) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Exercise, Food Intake, and Weight Loss") %>% 
+  apaSupp::theme_apa(caption = "Dataset on Exercise, Food Intake, and Weight Loss",
+                     general_note = "Darlington and Hayes textbook, data set provided on page 44 in Table 3.1.  Dependent variable is average weekly weight lost in 100s of grams.  Exercise captures daily average of hours.  Food intake is the average of 100's of calories above the recommendation.") %>% 
   flextable::colformat_double(digits = 0) 
 ```
 
@@ -100,7 +99,17 @@ df_loss %>%
 
 ## EXPLORATORY DATA ANALYSIS
 
-### Summary Statistics
+### Descriptive Statistics
+
+#### Univariate
+
+```{r}
+df_loss %>% 
+  dplyr::select("Sex" = sex) %>% 
+  apaSupp::tab_freq(caption = "Summary of Categorical Measures")
+```
+
+
 
 ```{r}
 df_loss %>% 
@@ -108,13 +117,41 @@ df_loss %>%
                 "Food Intake" = diet,
                 "Metabolic Rate" = meta,
                 "Weight Loss" = loss) %>% 
-  apaSupp::tab_desc(caption = "Summary Statistics") %>% 
+  apaSupp::tab_desc(caption = "Summary for Continuous Measures") %>% 
   flextable::hline(i = 3)
 ```
 
-### Correlation
 
-> Note: Pearson's correlation is only appropriate for TWO CONTINUOUS variables.  The exception is when 1 variable is continuous and the other has exactly 2 levels.  In this case, the binary variable needs to be converted to two numbers (numeric not factor) and the value is called the **Point-Biserial Correlation** ($r_{pb}$).
+
+
+```{r}
+df_loss %>% 
+  dplyr::select(sex,
+                "Weight Loss" = loss,
+                "Exercise Frequency" = exer,
+                "Food Intake" = diet,
+                "Metabolic Rate" = meta) %>% 
+  apaSupp::table1_apa(caption = "Descriptive of Continuous Measures by Sex",
+                      split = sex) %>% 
+  flextable::bg(i = 1:3, j = 3, bg = "lightblue") %>% 
+  flextable::bg(i = 1:3, j = 4, bg = "lightpink")
+```
+
+
+#### Bivariate
+
+
+
+```{block type='rmdimportant', echo=TRUE}
+Pearson's correlation is only appropriate for TWO CONTINUOUS variables.  The exception is when 1 variable is continuous and the other has exactly 2 levels.  In this case, the binary variable needs to be converted to two numbers (numeric not factor) and the value is called the **Point-Biserial Correlation** ($r_{pb}$).
+```
+
+TAble highlighting below:
+
+* YELLOW: un-adjusted correlation between each IV and the DV, at least some of them will usually be significant
+
+* ORANGE: pairwise correlations between each pair of IVs...if any are moderately strong, then we need to be concerned about potential multicolinearity and check the variance inflation factors (VIF).
+
 
 ```{r}
 df_loss %>% 
@@ -124,80 +161,489 @@ df_loss %>%
                 "Food Intake" = diet,
                 "Metabolic Rate" = meta,
                 "Sex" = sex) %>% 
-  apaSupp::tab_cor(caption = "Correlations",
+  apaSupp::tab_cor(caption = "Correlation Between Pairs of Measures",
                    general_note = "For pairs of variables with sex, r = Point-Biserial Correlation, otherwise ") %>% 
-  flextable::hline(i = 4)
+  flextable::hline(i = 4) %>% 
+  flextable::bg(i = 1:4, bg = "yellow") %>% 
+  flextable::bg(i = c(6, 8), bg = "orange") %>% 
+  flextable::bold(i = c(4, 7, 9, 10))
 ```
 
 
-### Visualizations
+### Visualizing Distributions
 
-```{r}
+#### Univariate
+
+
+```{r, fig.cap="Univariate Distibution of Measures"}
+df_loss %>% 
+  dplyr::mutate(sex = as.numeric(sex)) %>% 
+  dplyr::select(id, 
+                "Sex" = sex,
+                "Weight Loss\n(100 g/day)" = loss,
+                "Exercise Frequency\n(hr/day)" = exer,
+                "Food Intake\n(100 cal/day above 1000)" = diet,
+                "Metabolic Rate" = meta) %>% 
+  tidyr::pivot_longer(cols = -id) %>% 
+  ggplot(aes(value)) +
+  geom_histogram(binwidth = 1,
+                 color = "black",
+                 alpha = .25) +
+  theme_bw() +
+  facet_wrap(~ name,
+             scale = "free_x") +
+  labs(x = NULL,
+       y = "Count")
+```
+
+
+
+#### Bivariate
+
+
+
+```{r, fig.cap="Scatterplot for Weight Loss Regressed on Sex"}
+df_loss %>% 
+  dplyr::mutate(sex = as.numeric(sex == "Female")) %>% 
+  ggplot(aes(x = sex,
+             y = loss)) +
+  geom_point(size = 3)  +
+  geom_smooth(method = "lm",
+              formula = y ~ x) +
+  geom_hline(yintercept = mean(df_loss$loss),
+             linetype = "longdash") +
+  stat_summary(geom = "point",
+               fun = "mean",
+               color = "red",
+               fill = "red",
+               alpha = .2,
+               shape = 23,
+               size = 9) +
+  theme_bw() +
+  scale_x_continuous(breaks = 0:1) +
+  labs(x = "Sex, recoded as 0 = Male and 1 = Female",
+       y = "Observed Weight Loss, 100s of grams/week") 
+```
+
+
+```{r, fig.cap="Boxplot for Weight Loss Distribution by Sex"}
 df_loss %>% 
   ggplot(aes(x = sex,
              y = loss)) +
-  geom_boxplot() +
-  geom_point(size = 3)  +
+  geom_boxplot(fill = "gray") +
+  stat_summary(geom = "point",
+               fun = "mean",
+               color = "red",
+               shape = 18,
+               size = 9) +
   theme_bw() +
   labs(x = NULL,
        y = "Observed Weight Loss\nWeekly average of 100s of grams/week") 
 ```
 
 
+
+
+
+
 ## REGRESSION ANALYSIS
+
+This data was previously analyzed by regressing weight loss on the main effects of the continuous independent measures (See D & H Ch2 a).
+
 
 ### Add 2-level Categorical Predictor
 
 ```{r}
-fit_weight_3 <- lm(loss ~ exer + diet + sex,
-                   data = df_loss)
+fit_loss_wsex <- lm(loss ~ exer + diet + meta + sex,
+                    data = df_loss)
+
+summary(fit_loss_wsex)
 ```
 
 
+
 ```{r}
-apaSupp::tab_lm(fit_weight_3, 
+apaSupp::tab_lm(fit_loss_wsex)
+```
+
+```{r}
+apaSupp::tab_lm(fit_loss_wsex, 
                 fit = c("r.squared", "adj.r.squared",
                         "statistic", "df", "df.residual", "p.value"),
-                d = 3)
+                var_labels = c("exer" = "Exercise Freq",
+                               "diet" = "Food Intake",
+                               "meta" = "Metabolic Rate",
+                               "sex"  = "Sex"),
+                caption = "Parameter Estimtates for Weight Loss Regressed Exercise Frequency, Food Intake, and Sex",
+                d = 3) %>% 
+  flextable::bg(i = 5:7, bg = "yellow")
 ```
 
 
-### Compare significance of a set of variables
+
+
+```{block type='rmdimportant', echo=TRUE}
+Estimated Regression Coefficients show **RELATIONSHIPS**
+
+* Continuous IV: slope, rise per run
+* Categorical IV: difference in group means
+```
+
+> INTERPRETATION: After adjusting or correcting for difference in exercise frequency, food intake, and metobalic rate, females lost nearly 404 g/wk less on average than their male counterparts although this was not a statistically significant difference, *b* = -0.40, *SE* = 0.87, *p* = .662.
+
+
+
+
+### Model to Visualize
+
+#### Fit Model
 
 
 ```{r}
-fit_loss_4a <- lm(loss ~ 1,
-                  data = df_loss)
+fit_loss_plot <- lm(loss ~ exer + diet + sex,
+                    data = df_loss)
 
-fit_loss_4b <- lm(loss ~ meta + sex,
-                  data = df_loss)
-
-fit_loss_4c <- lm(loss ~ meta + sex + exer + diet,
-                  data = df_loss)
+summary(fit_loss_plot)
 ```
 
 
-```{r}
-apaSupp::tab_lms(list(fit_loss_4a, fit_loss_4b, fit_loss_4c),
-                fit = c("r.squared", "adj.r.squared",
-                        "sigma", 
-                        "statistic", "df", "df.residual", "p.value"),
-                d = 3)
+#### Equations
+
+$$
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008(sex)
+\tag{DH 5.1.4}
+$$
+
+For MALES:
+
+$$
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008(0) \\
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 0\\
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet)
+\tag{Males}
+$$
+
+For FEAMLES:
+
+$$
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008(1) \\
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008 \\
+\widehat{loss} = -6.437 + 2.127(exer) - 0.584(diet)
+\tag{Females}
+$$
+
+#### 3D Plot
+
+
+```{r, fig.cap="Darlington & Hayes: Figure 5.2, page 130"}
+knitr::include_graphics("images/DH_fig5-2.png")
 ```
 
 
+#### 2D Plots
+
 ```{r}
-performance::compare_performance(fit_loss_4a, fit_loss_4b, fit_loss_4c) %>% 
+interactions::interact_plot(model = fit_loss_plot,
+                            pred = exer,
+                            modx = sex,
+                            mod2 = diet,
+                            mod2.values = c(2, 8),
+                            mod2.labels = c("1200 Calories/day",
+                                            "1800 Calories/day"),
+                            interval = TRUE,
+                            legend.main = "Sex",
+                            x.label = "Exercise, hr/wk",
+                            y.label = "Estimated Marginal Mean\nWeight Loss, 100g/wk") + 
+  theme_bw() +
+  theme(legend.position = "inside",
+        legend.position.inside = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm"))
+```
+
+
+
+```{r}
+interactions::interact_plot(model = fit_loss_plot,
+                            pred = diet,
+                            modx = sex,
+                            mod2 = exer,
+                            mod2.values = c(0, 2, 4),
+                            mod2.labels = c("Exercise = 0 hr/wk",
+                                            "Exercise = 2 hr/wk",
+                                            "Exercise = 4 hr/wk"),
+                            interval = TRUE,
+                            legend.main = "Sex",
+                            x.label = "Food Intake, cal/day",
+                            y.label = "Estimated Marginal Mean\nWeight Loss, 100g/wk") + 
+  theme_bw() +
+  scale_x_continuous(breaks = c(2, 4, 6, 8),
+                     labels = c(1200, 1400, 1600, 1800)) +
+  theme(legend.position = "inside",
+        legend.position.inside = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm")) 
+```
+
+
+
+
+
+```{r}
+interactions::interact_plot(model = fit_loss_plot,
+                            pred = diet,
+                            modx = exer,
+                            modx.values = c(0, 2, 4),
+                            modx.labels = c("0 hr/wk",
+                                            "2 hr/wk",
+                                            "4 hr/wk"),
+                            mod2 = sex,
+                            mod2.labels = c("Male", "Female"),
+                            interval = TRUE,
+                            legend.main = "Exercise",
+                            x.label = "Food Intake, cal/day",
+                            y.label = "Estimated Marginal Mean\nWeight Loss, 100g/wk") + 
+  theme_bw() +
+  scale_x_continuous(breaks = c(2, 4, 6, 8),
+                     labels = c(1200, 1400, 1600, 1800)) +
+  theme(legend.position = "inside",
+        legend.position.inside = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm")) 
+```
+
+
+## MULTIDIMENSIONAL SETS
+
+### Fit Models
+
+
+* "Set A" (`meta` and `sex`) demographic or biological that are hard to change
+
+* "Set B" (`exer` and `diet`) modifiable behavioral measures that can be targeted
+
+
+```{r}
+fit_loss_none <- lm(loss ~ 1,                        data = df_loss)
+fit_loss_setA <- lm(loss ~ meta + sex,               data = df_loss)
+fit_loss_setB <- lm(loss ~ exer + diet,              data = df_loss)
+fit_loss_all4 <- lm(loss ~ meta + sex + exer + diet, data = df_loss)
+```
+
+
+### Table of Parameter Estimates
+
+
+```{r}
+apaSupp::tab_lms(list(fit_loss_setA, fit_loss_setB, fit_loss_all4),
+                 mod_names = c("Set A",
+                               "Set B",
+                               "A & B"),
+                 var_labels = c("exer" = "Exercise Freq",
+                                "diet" = "Food Intake",
+                                "meta" = "Metabolic Rate",
+                                "sex"  = "Sex"),
+                 caption = "Compare Model Parameter Estimates") %>% 
+  flextable::bg(i = 2:5, bg = "lightgreen") %>% 
+  flextable::bg(i = 6:7, bg = "violet")
+```
+
+
+### Compare Fit Statistics
+
+```{r}
+performance::compare_performance(fit_loss_none,
+                                 fit_loss_setA, 
+                                 fit_loss_setB, 
+                                 fit_loss_all4) %>% 
   data.frame() %>% 
-  dplyr::select(Name, AIC, BIC, R2, R2_adjusted, RMSE, Sigma) %>% 
+  dplyr::mutate(Model = c("None", "Set A", "Set B", "A & B")) %>% 
+  dplyr::select(Model, AIC, BIC, R2, R2_adjusted, RMSE, Sigma) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Compare Models")
+  apaSupp::theme_apa(caption = "Compare Models Fit Measures")
+```
+
+
+### Formal Compairison Tests
+
+```{r}
+anova(fit_loss_none, fit_loss_setA, fit_loss_all4)
 ```
 
 
 ```{r}
-anova(fit_loss_4a, fit_loss_4b, fit_loss_4c)
+anova(fit_loss_none, fit_loss_setB, fit_loss_all4)
 ```
 
 
+
+### Multicolinearity Checks
+
+Refer back to the pairwise correlations in the exploratory data anlaysis section above
+
+
+```{r}
+car::vif(fit_loss_setA)
+```
+
+```{r}
+car::vif(fit_loss_setB)
+```
+
+```{r}
+car::vif(fit_loss_all4)
+```
+
+
+### Residual Diagnostics
+
+
+```{r}
+rempsyc::nice_assumptions(fit_loss_all4) %>% 
+  unlist()
+```
+
+
+
+> Interpretation: (p) values < .05 imply assumptions are not respected. Diagnostic is how many assumptions are not respected for a given model or variable.
+
+```{r}
+performance::check_residuals(fit_loss_all4)
+```
+
+```{r}
+ggResidpanel::resid_panel(fit_loss_all4)
+```
+
+
+## EFFECT SIZES
+
+Unique Contribution: amount $R^2$ would drop if the regressor(s) were removed from the analysis.
+
+
+
+```{r}
+ss_lm <- function(model){
+  ss_tot = data.frame(anova(model))$Sum.Sq[model$rank]
+  ss_reg = sum(data.frame(anova(model))$Sum.Sq[-model$rank])
+  ss_err = deviance(model)
+  r_sqr  = summary(model)$r.squared
+  r_adj  = summary(model)$adj.r.squared
+  return(list(R2_Unadjusted = r_sqr,
+              R2_Adjusted   = r_adj,
+              SS_Total      = ss_tot, 
+              SS_Regression = ss_reg, 
+              SS_Error      = ss_err))
+}
+```
+
+
+```{r}
+data.frame(Variables = c("None", "Set A", "Set B", "A & B")) %>% 
+  dplyr::mutate(model = list(fit_loss_none,
+                             fit_loss_setA,
+                             fit_loss_setB,
+                             fit_loss_all4)) %>% 
+  dplyr::mutate(values = purrr::map_df(model, ss_lm)) %>% 
+  dplyr::select(-model) %>% 
+  tidyr::unnest(cols = values) %>% 
+  flextable::flextable() %>% 
+  flextable::separate_header() %>% 
+  apaSupp::theme_apa(caption = "Contribution of Variables Sets A and B") %>% 
+  flextable::border_inner(part = "header", border = officer::fp_border(width = 0)) %>% 
+  flextable::align(part = "body", j = c(2, 4, 5), align = "right")%>% 
+  flextable::align(part = "body", j = c(3, 6), align = "left")
+```
+
+
+
+#### Set B's Unique Contriburion
+
+*Semipartial Multiple Correlation*, $SR(B \vert A)$  
+
+* UNIQUE contribution of set B, relative to **ALL** the variance in the Dependent Variable (DV)
+
+* Correlation between the Dependent Variable (DV) AND set B, with all the the variables in set A held constant.
+
+* How much $R^2$ increase when the variables in set B are added to a model of Y already including set A variables as regressors.
+
+
+$$
+SR(B \vert A)^2 = R(AB)^2 - R(A)^2 \\
+$$
+
+
+```{r}
+summary(fit_loss_all4)$r.squared - summary(fit_loss_setA)$r.squared
+```
+
+
+### Significance of Set B's Contribution
+
+
+*F*(2, 5) = 16.54, *p* = .006
+
+```{r}
+anova(fit_loss_setA, fit_loss_all4)
+```
+
+
+
+
+*Partial multiple correlation*, $PR(B \vert A)$
+
+* Proportion of remaining variables explained by set B
+
+
+* UNIQUE contribution of set B, relative to the **REMAINING** variance in the Dependent Variable (DV) unaccounted for by set A
+
+
+
+
+
+$$
+PR(B \vert A)^2 = \frac{SR(B \vert A)^2}{1 - R(A)^2}
+$$
+
+
+```{r}
+(summary(fit_loss_all4)$r.squared - summary(fit_loss_setA)$r.squared) /
+  (1 - summary(fit_loss_setA)$r.squared)
+```
+
+
+> INTERPRETATION: 
+>
+> Of these four factors, the onse most under a person's control (food intake and exercise) uniquely explain about 45.7% of the varaince in weight loss, holding constant the ones less under personal control (sex and metabolism).  
+>
+> We can also say the factors more under personal control explain about 86.9% of the variance in weight loss that remains after accounting for the factors less under control.
+
+
+
+
+
+
+
+
+
+
+
+
+### Standardized Regression Coefficients
+
+```{block type='rmdimportant', echo=TRUE}
+Standardized regression coefficients for **CATEGORICAL** predictors (IVs) is **DISCOURAGED!**
+```
+
+
+```{r}
+parameters::standardise_parameters(fit_loss_setB)
+```
+
+```{r}
+parameters::standardise_parameters(fit_loss_all4)
+```
 

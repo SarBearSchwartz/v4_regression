@@ -538,7 +538,7 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
 
 There is a strong association between math and stats quiz scores, *r* = .51.  Math phobia is associated with lower math, *r* = -.28, and stats quiz scores, *r* = -.36.  When considered together, the combined effects of math phobia and math score account for 31% of the variance in statistical achievement.  
 
-Not surprisingly, while higher self-reported math phobia was associated with lower statistics scores, *b* = -0.162, **p* = .018, 95% *CI* = [-0.29, -0.03]$, higher math quiz scores were associated with higher stats score, *b* = -0.081, *p* < .001, 95% *CI* = [0.05, 0.12].  
+Not surprisingly, while higher self-reported math phobia was associated with lower statistics scores, *b* = -0.162, *p* = .018, 95% *CI* = [-0.29, -0.03], higher math quiz scores were associated with higher stats score, *b* = -0.081, *p* < .001, 95% *CI* = [0.05, 0.12].  
 
 There was no evidence that math phobia moderated the relationship between math and quiz performance, *p* = .377. 
 
