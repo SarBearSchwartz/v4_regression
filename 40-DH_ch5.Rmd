@@ -28,14 +28,16 @@ flextable::set_flextable_defaults(digits = 2)
 
 ## PURPOSE
 
-### Research Question
 
-> How is weight loss associationed with exercise frequency and food intake? 
+```{block type='rmdlightbulb', echo=TRUE}
+RESEARCH QUESTION:
 
+How is weight loss associationed with **sex**, after accounting for metabolism, exercise and food intake? 
+```
 
 ### Data Description
 
-Suppose you conducted a study examining the relationship between food consumption and weight loss among people enrolled (`n` = 10) in a month-long healthy living class.
+Suppose you conducted a study examining the relationship between food consumption and weight loss among people enrolled (*n* = 10) in a month-long healthy living class.
 
 #### Variables
 
@@ -52,7 +54,7 @@ Suppose you conducted a study examining the relationship between food consumptio
 
 * `meta` metabolic rate
 
-* `sex` dichotomous variable with 2 codes
+* `sex` dichotomous variable with 2 codes for Male and Female
 
 
 
@@ -146,12 +148,14 @@ df_loss %>%
 Pearson's correlation is only appropriate for TWO CONTINUOUS variables.  The exception is when 1 variable is continuous and the other has exactly 2 levels.  In this case, the binary variable needs to be converted to two numbers (numeric not factor) and the value is called the **Point-Biserial Correlation** ($r_{pb}$).
 ```
 
-TAble highlighting below:
+
+```{block type='rmdlightbulb', echo=TRUE}
+Table highlighting below:
 
 * YELLOW: un-adjusted correlation between each IV and the DV, at least some of them will usually be significant
 
 * ORANGE: pairwise correlations between each pair of IVs...if any are moderately strong, then we need to be concerned about potential multicolinearity and check the variance inflation factors (VIF).
-
+```
 
 ```{r}
 df_loss %>% 
@@ -242,7 +246,53 @@ df_loss %>%
 ```
 
 
+## GROUP MEAN DIFFERENCE
 
+
+### Assess Homogeneity of Variance 
+
+```{block type='rmdimportant', echo=TRUE}
+When conducting an independent group mean difference t-test ...
+
+IF: 
+* evidence that HOV is violated (Levene's *p* < .05)
+
+THEN: 
+* use Welch's adjustment to degrees of freedom and perform a seperate variance t-test instead of a standard pool-variance t-test.
+```
+
+
+```{r}
+car::leveneTest(loss ~ sex,
+                data = df_loss,
+                center = "mean")
+```
+
+
+
+```{block type='rmdimportant', echo=TRUE}
+The un-adjusted MEAN DIFFERENCE in weight loss by gender may be tested with a t-test
+```
+
+
+```{r}
+t.test(loss ~ sex,
+       data = df_loss,
+       var.equal = TRUE)
+```
+
+
+
+```{r}
+cor.test(~ loss + as.numeric(sex), data = df_loss)
+```
+
+
+```{r}
+r <- 0.1951181 
+
+r^2
+```
 
 
 
@@ -251,7 +301,19 @@ df_loss %>%
 This data was previously analyzed by regressing weight loss on the main effects of the continuous independent measures (See D & H Ch2 a).
 
 
-### Add 2-level Categorical Predictor
+### Binary Predictor (IV)
+
+#### Unadjusted Model
+
+```{r}
+fit_loss_sex <- lm(loss ~ sex,
+                    data = df_loss)
+
+summary(fit_loss_sex)
+```
+
+
+#### Adjusted Model
 
 ```{r}
 fit_loss_wsex <- lm(loss ~ exer + diet + meta + sex,
@@ -263,8 +325,17 @@ summary(fit_loss_wsex)
 
 
 ```{r}
-apaSupp::tab_lm(fit_loss_wsex)
+apaSupp::tab_lms(list(fit_loss_sex, fit_loss_wsex),
+                 mod_names = c("Unadjusted", "Adjusted"),
+                var_labels = c("exer" = "Exercise Freq",
+                               "diet" = "Food Intake",
+                               "meta" = "Metabolic Rate",
+                               "sex"  = "Sex"),
+                caption = "Compare Unadjusted and Adjusted Models") %>% 
+  flextable::bg(i = 2:4, bg = "yellow")
 ```
+
+
 
 ```{r}
 apaSupp::tab_lm(fit_loss_wsex, 
@@ -289,8 +360,12 @@ Estimated Regression Coefficients show **RELATIONSHIPS**
 * Categorical IV: difference in group means
 ```
 
-> INTERPRETATION: After adjusting or correcting for difference in exercise frequency, food intake, and metobalic rate, females lost nearly 404 g/wk less on average than their male counterparts although this was not a statistically significant difference, *b* = -0.40, *SE* = 0.87, *p* = .662.
 
+```{block type='rmdlightbulb', echo=TRUE}
+INTERPRETATION: 
+
+After adjusting or correcting for difference in exercise frequency, food intake, and metobalic rate, females lost nearly 404 g/wk less on average than their male counterparts although this was not a statistically significant difference, *b* = -0.40, *SE* = 0.87, *p* = .662.
+```
 
 
 
@@ -309,40 +384,42 @@ summary(fit_loss_plot)
 
 #### Equations
 
-$$
-\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008(sex)
-\tag{DH 5.1.4}
-$$
 
-For MALES:
+General Equation:
 
 $$
-\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008(0) \\
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 1.008(sex)
+$$
+
+Equation for MALES:
+
+$$
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 1.008(0) \\
 \widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 0\\
 \widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet)
-\tag{Males}
 $$
 
-For FEAMLES:
+Equation for FEAMLES:
 
 $$
-\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008(1) \\
-\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 13.008 \\
-\widehat{loss} = -6.437 + 2.127(exer) - 0.584(diet)
-\tag{Females}
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 1.008(1) \\
+\widehat{loss} = 6.571 + 2.127(exer) - 0.584(diet) - 1.008 \\
+\widehat{loss} = 5.563 + 2.127(exer) - 0.584(diet)
 $$
 
 #### 3D Plot
 
 
-```{r, fig.cap="Darlington & Hayes: Figure 5.2, page 130"}
+```{r, fig.cap="Darlington & Hayes: Figure 5.2, page 130", echo=FALSE}
 knitr::include_graphics("images/DH_fig5-2.png")
 ```
 
 
 #### 2D Plots
 
-```{r}
+There is always more than one way to arrange a plot when there are TWO OR MORE predictors (IVs).
+
+```{r, fig.cap = "Option A"}
 interactions::interact_plot(model = fit_loss_plot,
                             pred = exer,
                             modx = sex,
@@ -364,7 +441,7 @@ interactions::interact_plot(model = fit_loss_plot,
 
 
 
-```{r}
+```{r, fig.cap = "Option B"}
 interactions::interact_plot(model = fit_loss_plot,
                             pred = diet,
                             modx = sex,
@@ -391,7 +468,7 @@ interactions::interact_plot(model = fit_loss_plot,
 
 
 
-```{r}
+```{r, fig.cap = "Option C"}
 interactions::interact_plot(model = fit_loss_plot,
                             pred = diet,
                             modx = exer,
@@ -420,10 +497,12 @@ interactions::interact_plot(model = fit_loss_plot,
 
 ### Fit Models
 
+Divide the predictors (IVs) into two sets as folows:
 
-* "Set A" (`meta` and `sex`) demographic or biological that are hard to change
 
-* "Set B" (`exer` and `diet`) modifiable behavioral measures that can be targeted
+* "Set A" (`meta` and `sex`) demographic or biological,hard to change
+
+* "Set B" (`exer` and `diet`) modifiable behavioral, can be targeted
 
 
 ```{r}
@@ -467,18 +546,6 @@ performance::compare_performance(fit_loss_none,
 ```
 
 
-### Formal Compairison Tests
-
-```{r}
-anova(fit_loss_none, fit_loss_setA, fit_loss_all4)
-```
-
-
-```{r}
-anova(fit_loss_none, fit_loss_setB, fit_loss_all4)
-```
-
-
 
 ### Multicolinearity Checks
 
@@ -501,14 +568,20 @@ car::vif(fit_loss_all4)
 ### Residual Diagnostics
 
 
+```{block type='rmdlightbulb', echo=TRUE}
+Interpretation:
+
+> `rempsyc::nice_assumption()`
+
+p-values < .05 imply assumptions are not respected. 
+`Diagnostic` is how many assumptions are not respected for a given model or variable.
+```
+
 ```{r}
 rempsyc::nice_assumptions(fit_loss_all4) %>% 
   unlist()
 ```
 
-
-
-> Interpretation: (p) values < .05 imply assumptions are not respected. Diagnostic is how many assumptions are not respected for a given model or variable.
 
 ```{r}
 performance::check_residuals(fit_loss_all4)
@@ -519,7 +592,7 @@ ggResidpanel::resid_panel(fit_loss_all4)
 ```
 
 
-## EFFECT SIZES
+## EFFECT of VARIABLE SET
 
 Unique Contribution: amount $R^2$ would drop if the regressor(s) were removed from the analysis.
 
@@ -581,17 +654,6 @@ summary(fit_loss_all4)$r.squared - summary(fit_loss_setA)$r.squared
 ```
 
 
-### Significance of Set B's Contribution
-
-
-*F*(2, 5) = 16.54, *p* = .006
-
-```{r}
-anova(fit_loss_setA, fit_loss_all4)
-```
-
-
-
 
 *Partial multiple correlation*, $PR(B \vert A)$
 
@@ -615,20 +677,36 @@ $$
 ```
 
 
-> INTERPRETATION: 
->
-> Of these four factors, the onse most under a person's control (food intake and exercise) uniquely explain about 45.7% of the varaince in weight loss, holding constant the ones less under personal control (sex and metabolism).  
->
-> We can also say the factors more under personal control explain about 86.9% of the variance in weight loss that remains after accounting for the factors less under control.
+```{block type='rmdlightbulb', echo=TRUE}
+INTERPRETATION: 
+
+Of these four factors, the onse most under a person's control (food intake and exercise) uniquely explain about 45.7% of the varaince in weight loss, holding constant the ones less under personal control (sex and metabolism).  
+
+We can also say the factors more under personal control explain about 86.9% of the variance in weight loss that remains after accounting for the factors less under control.
+```
 
 
 
 
 
 
+### Significance of Set B's Contribution
 
 
 
+```{r}
+anova(fit_loss_none, fit_loss_setA, fit_loss_all4)
+```
+
+
+
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+INTERPRETATION: 
+
+After controlling for biological factors of metabolism and sex, *F*(2, 7) = 17.19, *p* = .005, the modifiable factors of exercise and food intake significantly impart weight loss, *F*(2, 5) = 16.54, *p* = .006.
+```
 
 
 

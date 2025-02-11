@@ -337,7 +337,7 @@ apaSupp::tab_lms(list(fit_lm_both, fit_lm_three),
 
 
 
-```{r, fig.cap="Darlington & Hayes: Figure 3.2, page 49"}
+```{r, fig.cap="Darlington & Hayes: Figure 3.2, page 49", echo=FALSE}
 knitr::include_graphics("images/DH_fig3-2.png")
 ```
 
