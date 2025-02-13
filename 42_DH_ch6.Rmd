@@ -1,0 +1,139 @@
+# D&H Ch6 - Statistical vs. Experimental Control: "PTSD"
+
+
+Darlington & Hayes, Chapter 6's first example
+
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
+     
+library(tidyverse) 
+library(flextable)
+library(apaSupp)
+library(car)
+library(rempsyc)
+library(parameters)
+library(performance)
+library(interactions)
+library(ggResidpanel)
+```
+
+```{r}
+flextable::set_flextable_defaults(digits = 2)
+```
+
+
+
+## PURPOSE
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+RESEARCH QUESTION:
+```
+
+### Data Description
+
+
+
+
+
+
+Manually enter the data set provided on page 44 in Table 3.1
+
+
+
+```{r}
+df_ptsd <- tibble::tribble(~id, ~post_test, ~pre_test, ~therapy,
+                            1,  2,   1,  1,  
+                            2,  4,   3,  1,
+                            3,  6,   7,  1,
+                            4,  6,  10,  1,
+                            5,  9,  13,  1,
+                            6, 10,  17,  1,
+                            7, 12,  19,  1,
+                            8,  6,   1,  0,
+                            9,  7,   5,  0,
+                           10,  9,   7,  0,
+                           11,  9,   9,  0,
+                           12, 12,  13,  0,
+                           13, 12,  16,  0,
+                           14, 15,  19,  0) %>% 
+  dplyr::mutate(therapy = factor(therapy,
+                                 levels = c(0, 1),
+                                 labels = c("Traditional", "Experimental"))) %>% 
+  dplyr::mutate(gain = post_test - pre_test)
+```
+
+
+```{r}
+df_ptsd %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Dataset") %>% 
+  flextable::colformat_double(digits = 0)
+```
+
+
+
+```{r}
+df_ptsd %>% 
+  ggplot(aes(x = pre_test,
+             y = post_test)) +
+  geom_point(aes(color = therapy,
+                 shape = therapy)) + 
+  theme_bw() +
+  geom_smooth(aes(color = therapy,
+                  fill = therapy),
+              method = "lm",
+              formula = y ~x,
+              alpha = .2)
+```
+
+
+
+## EXPLORATORY DATA ANALYSIS
+
+### Descriptive Statistics
+
+#### Univariate
+
+
+```{r}
+df_ptsd %>% 
+  dplyr::select("Therapy" = therapy) %>% 
+  apaSupp::tab_freq(caption = "Summary of Categorical Measures")
+```
+
+```{r}
+df_ptsd %>% 
+  dplyr::select("Post Test" = post_test,
+                "Pre Test"  = pre_test,
+                "Gain" = gain) %>% 
+  apaSupp::tab_desc(caption = "Summary of Measures")
+```
+
+
+
+#### Bivariate
+
+
+
+```{block type='rmdimportant', echo=TRUE}
+Pearson's correlation is only appropriate for TWO CONTINUOUS variables.  The exception is when 1 variable is continuous and the other has exactly 2 levels.  In this case, the binary variable needs to be converted to two numbers (numeric not factor) and the value is called the **Point-Biserial Correlation** ($r_{pb}$).
+```
+
+
+```{r}
+df_ptsd %>% 
+  dplyr::mutate(therapy = as.numeric(therapy == "Experimental")) %>% 
+  dplyr::select("Post Test" = post_test,
+                "Pre Test"  = pre_test,
+                "Gain" = gain,
+                "Therapy" = therapy) %>% 
+  apaSupp::tab_cor(caption = "Correlation Between Pairs of Measures",
+                   general_note = "For pairs of variables with therapy, r = Point-Biserial Correlation, otherwise ") %>% 
+  flextable::hline(i = 3) %>% 
+  flextable::bg(i = 1:3, bg = "yellow") %>% 
+  flextable::bg(i = c(4), bg = "orange") 
+```
