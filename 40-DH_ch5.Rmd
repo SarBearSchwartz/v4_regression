@@ -18,6 +18,7 @@ library(parameters)
 library(performance)
 library(interactions)
 library(ggResidpanel)
+library(olsrr)
 ```
 
 ```{r}
@@ -563,6 +564,13 @@ car::vif(fit_loss_setB)
 ```{r}
 car::vif(fit_loss_all4)
 ```
+
+Most multivariate statistical approaches involve decomposing a correlation matrix into linear combinations of variables. The linear combinations are chosen so that the first combination has the largest possible variance (subject to some restrictions we won’t discuss), the second combination has the next largest variance, subject to being uncorrelated with the first, the third has the largest possible variance, subject to being uncorrelated with the first and second, and so forth. The variance of each of these linear combinations is called an eigenvalue. Collinearity is spotted by finding 2 or more variables that have large proportions of variance (.50 or more) that correspond to large condition indices. A rule of thumb is to label as large those condition indices in the range of 30 or larger.
+
+```{r}
+olsrr::ols_coll_diag(fit_loss_all4)
+```
+
 
 
 ### Residual Diagnostics

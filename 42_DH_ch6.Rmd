@@ -31,11 +31,20 @@ flextable::set_flextable_defaults(digits = 2)
 
 ```{block type='rmdlightbulb', echo=TRUE}
 RESEARCH QUESTION:
+
+Does the experimental therapy reduce PTSD symptom severity more than the traditional therapy?
 ```
 
 ### Data Description
 
+Hypothetical study of the effect of a proposed therapy for Post-Traumatic Stress Disorder (PTSD) conducted on 14 military veterans who experienced combat.  Half were randomly assigned to experience 6 weeks of proposed therapy (experimental) and the other half received 6 weeks of traditional therapy.  Each was pre tested with respect to their PTSD symptoms and an identical post test assessment of their symptoms was administered upon the completion of the therapy.
 
+
+* `pre_test` symptom severity prior to therapy
+* `post_test` symptom severity after therapy
+* `gain` symptom severity gain
+
+* `therapy` which therapy was randomly assigned
 
 
 
@@ -69,26 +78,17 @@ df_ptsd <- tibble::tribble(~id, ~post_test, ~pre_test, ~therapy,
 
 ```{r}
 df_ptsd %>% 
+  dplyr::select("ID" = id,
+                "Therapy"   = therapy,
+                "Pre Test"  = pre_test,
+                "Post Test" = post_test,
+                "Gain"      = gain) %>% 
   flextable::flextable() %>% 
   apaSupp::theme_apa(caption = "Dataset") %>% 
   flextable::colformat_double(digits = 0)
 ```
 
 
-
-```{r}
-df_ptsd %>% 
-  ggplot(aes(x = pre_test,
-             y = post_test)) +
-  geom_point(aes(color = therapy,
-                 shape = therapy)) + 
-  theme_bw() +
-  geom_smooth(aes(color = therapy,
-                  fill = therapy),
-              method = "lm",
-              formula = y ~x,
-              alpha = .2)
-```
 
 
 
@@ -118,6 +118,18 @@ df_ptsd %>%
 #### Bivariate
 
 
+```{r}
+df_ptsd %>% 
+  dplyr::select(therapy,
+                "Post Test" = post_test,
+                "Pre Test"  = pre_test,
+                "Gain" = gain) %>% 
+  apaSupp::table1_apa(split = therapy,
+                      caption = "Descriptive Summary by Therapy Group")
+```
+
+
+
 
 ```{block type='rmdimportant', echo=TRUE}
 Pearson's correlation is only appropriate for TWO CONTINUOUS variables.  The exception is when 1 variable is continuous and the other has exactly 2 levels.  In this case, the binary variable needs to be converted to two numbers (numeric not factor) and the value is called the **Point-Biserial Correlation** ($r_{pb}$).
@@ -137,3 +149,294 @@ df_ptsd %>%
   flextable::bg(i = 1:3, bg = "yellow") %>% 
   flextable::bg(i = c(4), bg = "orange") 
 ```
+
+
+
+
+### Visualizing Distributions
+
+#### Univariate
+
+
+```{r, fig.cap="Univariate Distibution of Measures"}
+df_ptsd %>% 
+  dplyr::mutate(therapy = as.numeric(therapy == "Experimental")) %>% 
+  dplyr::select(id,
+                "Post Test" = post_test,
+                "Pre Test"  = pre_test,
+                "Gain" = gain,
+                "Therapy" = therapy) %>%  
+  tidyr::pivot_longer(cols = -id) %>% 
+  ggplot(aes(value)) +
+  geom_histogram(binwidth = 1,
+                 color = "black",
+                 alpha = .25) +
+  theme_bw() +
+  facet_wrap(~ name,
+             scale = "free_x") +
+  labs(x = NULL,
+       y = "Count")
+```
+
+
+#### Bivariate
+
+
+```{r, fig.cap="Distribution of Pre-test Score by Therapy Type"}
+apaSupp::spicy_histos(df = df_ptsd,
+                      var = pre_test,
+                      split = therapy,
+                      lab = "Pre-Test Score") +
+  scale_x_continuous(breaks = seq(from = -24, to = 24, by = 2)) 
+```
+
+
+
+```{r, fig.cap="Distribution of Post-test Score by Therapy Type"}
+apaSupp::spicy_histos(df = df_ptsd,
+                      var = post_test,
+                      split = therapy,
+                      lab = "Post-Test Score") +
+  scale_x_continuous(breaks = seq(from = -24, to = 24, by = 2))
+```
+
+
+
+```{r, fig.cap="Distribution of Gain Score by Therapy Type"}
+apaSupp::spicy_histos(df = df_ptsd,
+                      var = gain,
+                      split = therapy,
+                      lab = "Gain on Test") +
+  scale_x_continuous(breaks = seq(from = -24, to = 24, by = 2)) 
+```
+
+#### Multivariate
+
+
+```{r, fig.cap="Association Between Post-Test and Pre-Test, Stratified by Therapy"}
+df_ptsd %>% 
+  ggplot(aes(x = pre_test,
+             y = post_test)) +
+  geom_point(aes(color = therapy,
+                 shape = therapy),
+             size = 3) + 
+  theme_bw() +
+  geom_smooth(aes(color = therapy,
+                  fill = therapy,
+                  linetype = therapy),
+              method = "lm",
+              formula = y ~x,
+              alpha = .2) +
+  labs(x = "Observed Pre-Test Score",
+       y = "Observed Post-Test Score",
+       color    = "Therapy:",
+       fill     = "Therapy:",
+       shape    = "Therapy:",
+       linetype = "Therapy:") +
+  theme(legend.position.inside = TRUE,
+        legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("solid", "longdash")) +
+  scale_x_continuous(breaks = seq(from = 0, to = 24, by = 2)) +
+  scale_y_continuous(breaks = seq(from = 0, to = 24, by = 2)) + 
+  geom_abline(intercept = 0, slope = 1)
+```
+
+
+
+```{r, fig.cap="Association Between Test Gain in Score and Pre-Test, Stratified by Therapy"}
+df_ptsd %>% 
+  ggplot(aes(x = pre_test,
+             y = gain)) +
+  geom_point(aes(color = therapy,
+                 shape = therapy),
+             size = 3) + 
+  theme_bw() +
+  geom_smooth(aes(color = therapy,
+                  fill = therapy,
+                  linetype = therapy),
+              method = "lm",
+              formula = y ~x,
+              alpha = .2) +
+  labs(x = "Observed Pre-Test Score",
+       y = "Observed GAIN, Post-Test vs. Pre-Test",
+       color    = "Therapy:",
+       fill     = "Therapy:",
+       shape    = "Therapy:",
+       linetype = "Therapy:") +
+  theme(legend.position.inside = TRUE,
+        legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("solid", "longdash")) +
+  scale_x_continuous(breaks = seq(from = 0, to = 24, by = 2))+
+  scale_y_continuous(breaks = seq(from = -24, to = 24, by = 2)) +
+  geom_hline(yintercept = 0)
+```
+
+
+
+## REGRESSION ANALYSIS
+
+### DV = Post Score, controlling for Pre Score
+
+```{r}
+fit_ptsd_1 <- lm(post_test ~ pre_test + therapy,
+                 data = df_ptsd)
+
+summary(fit_ptsd_1)
+```
+
+```{r}
+anova(fit_ptsd_1)
+```
+
+
+
+
+#### Equation
+
+$$
+\widehat{post} = 5.019 + 0.498(pre) -3.00(EXP)
+$$
+
+#### Role of Therapy
+
+Test the significance for therapy: *t*(11) = -8.33, *p* <.001, VERY significant
+
+After controlling for pre-test score, the experimental therapy is associated with 3 point lower post-test score compared to the traditional therapy, *b* = -3.00, *SE* = 0.36, *p* <.001.
+
+> Notes:
+>
+> Covariate `pre_test` has *b* = -0.50, *SE* = 0.03, *p* <.001. 
+>
+> The entire model: *SS*resid = 4.998, *R^2* = .970, *F*(2, 11) = 176.6, *p* < .001
+
+
+
+
+
+
+### DV = Gain Score, ignoring Pre-Score
+
+```{r}
+fit_ptsd_2 <- lm(gain ~ therapy,
+                 data = df_ptsd)
+
+summary(fit_ptsd_2)
+```
+
+
+```{r}
+anova(fit_ptsd_2)
+```
+
+#### Equation
+
+$$
+\widehat{gain} = 0 -3.00(EXP)
+$$
+
+#### Role of Therapy
+
+Test the significance for therapy: *t*(12) = -1.67, *p* = .121, NOT significant
+
+No evidene was found that the therapy is associated with a differential gain on the test,*b* = -3.00, *SE* = 1.80, *p* =.121.
+
+> Note:
+>
+> The entire model: *SS*resid = 136, *R^2* = .188, *F*(1, 11) = 2.78, *p* =.121
+
+
+
+#### Equivalent Analysis: independent groups t-test
+
+```{r}
+t.test(gain ~ therapy,
+       data = df_ptsd)
+```
+
+
+
+
+### DV = Gain Score, controlling for Pre-Score
+
+```{r}
+fit_ptsd_3 <- lm(gain ~ pre_test + therapy,
+                 data = df_ptsd)
+
+summary(fit_ptsd_3)
+```
+
+
+```{r}
+anova(fit_ptsd_3)
+```
+
+
+
+#### Equation
+
+$$
+\widehat{gain} = 5.019 - 0.50(pre) -3.00(EXP)
+$$
+
+#### Role of Therapy
+
+Test the significance for therapy: *t*(11) = -8.33, *p* <.001, VERY significant
+
+After controlling for pre-test score, the experimental therapy is associated with 3 point lower gain on the post-test compared to the traditional therapy, *b* = -3.00, *SE* = 0.36, *p* <.001.
+
+> Notes:
+>
+> Covariate `pre_test` has *b* = -0.50, *SE* = 0.03, *p* <.001. 
+>
+> The entire model: *SS*resid = 4.998, *R^2* = .970, *F*(2, 11) = 178.8, *p* < .001
+
+
+
+
+
+### Compare Models
+
+```{r, warning=FALSE, message=FALSE}
+performance::compare_performance(fit_ptsd_1, fit_ptsd_2, fit_ptsd_3,
+                                 metrics = c("AIC", "BIC",
+                                             "R2", "R2_adj",
+                                             "RMSE", "SIGMA"))
+```
+
+
+
+
+## ALTERNATIVE ANALYSIS
+
+### Longer Format of Repeated Measures
+
+```{r}
+df_ptsd_long <- df_ptsd %>% 
+  dplyr::select(-gain) %>% 
+  tidyr::pivot_longer(cols = ends_with("test"),
+                      names_to = c("time", ".value"),
+                      names_pattern = "(.*)_(.*)") %>% 
+  dplyr::mutate(time = factor(time,
+                              levels = c("pre", "post")))
+
+df_ptsd_long
+```
+
+
+### 2x2 mix ANOVA
+
+```{r}
+fit_aov <- afex::aov_4(test ~ therapy + (time|id),
+                       data = df_ptsd_long)
+
+summary(fit_aov)
+```
+
+
+

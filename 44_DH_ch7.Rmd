@@ -1,0 +1,92 @@
+# D&H Ch7 - Regression for Prediction: "GPA"
+
+
+Darlington & Hayes, Chapter 7's  example
+
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
+     
+library(tidyverse) 
+library(flextable)
+library(apaSupp)
+library(car)
+library(rempsyc)
+library(parameters)
+library(performance)
+library(interactions)
+library(ggResidpanel)
+```
+
+```{r}
+flextable::set_flextable_defaults(digits = 2)
+```
+
+
+
+## PURPOSE
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+RESEARCH QUESTION:
+
+What varaibles predict emplyed?
+```
+
+### Data Description
+
+Six canidate predictors of GPA
+
+
+
+```{r}
+mtcars
+```
+
+
+```{r}
+fit_mtcars_1 <- lm(mpg ~ disp + hp + drat + wt + qsec, 
+                   data = mtcars)
+
+summary(fit_mtcars_1)
+```
+
+
+https://olsrr.rsquaredacademy.com/articles/variable_selection 
+
+
+### All Possible Subsets
+
+```{r}
+fit_mtcars_1_all <- olsrr::ols_step_all_possible(fit_mtcars_1)
+
+fit_mtcars_1_all
+```
+
+
+```{r}
+plot(fit_mtcars_1_all)
+```
+
+### Best Subsets
+
+```{r}
+olsrr::ols_step_best_subset(fit_mtcars_1)
+```
+
+### Forward Stepwise
+
+```{r}
+olsrr::ols_step_forward_p(fit_mtcars_1)
+```
+
+
+
+### BAckwards Stepwise
+
+```{r}
+olsrr::ols_step_backward_p(fit_mtcars_1)
+```
+
