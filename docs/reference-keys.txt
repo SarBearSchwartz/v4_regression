@@ -60,12 +60,13 @@ fig:unnamed-chunk-371
 fig:unnamed-chunk-372
 fig:unnamed-chunk-373
 fig:unnamed-chunk-374
-fig:unnamed-chunk-406
-fig:unnamed-chunk-407
 fig:unnamed-chunk-408
 fig:unnamed-chunk-409
 fig:unnamed-chunk-410
 fig:unnamed-chunk-411
+fig:unnamed-chunk-412
+fig:unnamed-chunk-413
+fig:unnamed-chunk-414
 linear-correlation-cancer
 purpose
 research-question
@@ -282,6 +283,7 @@ standardized-regression-coefficients-1
 dh-ch6---statistical-vs.-experimental-control-ptsd
 purpose-9
 data-description-9
+longer-format-of-repeated-measures
 exploratory-data-analysis-8
 descriptive-statistics-1
 univariate-6
@@ -303,9 +305,8 @@ equation-2
 role-of-therapy-2
 compare-models-1
 alternative-analysis
-longer-format-of-repeated-measures
 x2-mix-anova
-dh-ch7---regression-for-prediction-gpa
+dh-ch7---regression-for-prediction-mtcars
 purpose-10
 data-description-10
 all-possible-subsets

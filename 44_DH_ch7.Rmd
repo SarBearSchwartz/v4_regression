@@ -1,4 +1,4 @@
-# D&H Ch7 - Regression for Prediction: "GPA"
+# D&H Ch7 - Regression for Prediction: "mtcars"
 
 
 Darlington & Hayes, Chapter 7's  example
@@ -32,18 +32,27 @@ flextable::set_flextable_defaults(digits = 2)
 ```{block type='rmdlightbulb', echo=TRUE}
 RESEARCH QUESTION:
 
-What varaibles predict emplyed?
+What variables predict fuel efficiency?
 ```
 
 ### Data Description
 
-Six canidate predictors of GPA
+Five candidate predictors of `mpg` (miles per gallon)
 
+
+* `disp` displacement, cubic inches 
+* `hp` gross hoursepower
+* `drat` rear axle ratio
+* `wt` weight, 1000s pounds
+* `qsec` 1/4 mile time, seconds
 
 
 ```{r}
 mtcars
 ```
+
+
+## REGRESSION ANALYSIS
 
 
 ```{r}
@@ -53,6 +62,7 @@ fit_mtcars_1 <- lm(mpg ~ disp + hp + drat + wt + qsec,
 summary(fit_mtcars_1)
 ```
 
+## AUTOMATED VARIABLE SELECTION
 
 https://olsrr.rsquaredacademy.com/articles/variable_selection 
 
@@ -76,7 +86,7 @@ plot(fit_mtcars_1_all)
 olsrr::ols_step_best_subset(fit_mtcars_1)
 ```
 
-### Forward Stepwise
+### Forward Stepwise, p-value
 
 ```{r}
 olsrr::ols_step_forward_p(fit_mtcars_1)
@@ -84,9 +94,48 @@ olsrr::ols_step_forward_p(fit_mtcars_1)
 
 
 
-### BAckwards Stepwise
+### Backwards Stepwise, p-value
 
 ```{r}
 olsrr::ols_step_backward_p(fit_mtcars_1)
 ```
+
+
+### Forward Stepwise, R-squared
+
+```{r}
+olsrr::ols_step_forward_r2(fit_mtcars_1)
+```
+
+
+
+
+
+
+
+### Forward Stepwise, Adjusted R-squared
+
+```{r}
+olsrr::ols_step_forward_adj_r2(fit_mtcars_1)
+```
+
+
+
+### Forward Stepwise, AIC
+
+```{r}
+olsrr::ols_step_forward_aic(fit_mtcars_1)
+```
+
+
+### Forward Stepwise, Schwartz Bayesian Criterion
+
+```{r}
+olsrr::ols_step_forward_sbc(fit_mtcars_1)
+```
+
+
+
+
+
 

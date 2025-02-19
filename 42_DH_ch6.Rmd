@@ -84,11 +84,36 @@ df_ptsd %>%
                 "Post Test" = post_test,
                 "Gain"      = gain) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Dataset") %>% 
+  apaSupp::theme_apa(caption = "Dataset, wide Format") %>% 
   flextable::colformat_double(digits = 0)
 ```
 
 
+
+### Longer Format of Repeated Measures
+
+```{r}
+df_ptsd_long <- df_ptsd %>% 
+  dplyr::select(-gain) %>% 
+  tidyr::pivot_longer(cols = ends_with("test"),
+                      names_to = c("time", ".value"),
+                      names_pattern = "(.*)_(.*)") %>% 
+  dplyr::mutate(time = factor(time,
+                              levels = c("pre", "post"))) %>% 
+  dplyr::arrange(id, time)
+```
+
+
+```{r}
+df_ptsd_long %>% 
+  dplyr::select("ID" = id,
+                "Therapy"    = therapy,
+                "Time"       = time,
+                "Test Score" = test) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Dataset, Long Format") %>% 
+  flextable::colformat_double(digits = 0)
+```
 
 
 
@@ -162,9 +187,9 @@ df_ptsd %>%
 df_ptsd %>% 
   dplyr::mutate(therapy = as.numeric(therapy == "Experimental")) %>% 
   dplyr::select(id,
-                "Post Test" = post_test,
-                "Pre Test"  = pre_test,
-                "Gain" = gain,
+                "Post Symptom Severity" = post_test,
+                "Pre Symptom Severity"  = pre_test,
+                "Change in Symptom Severity" = gain,
                 "Therapy" = therapy) %>%  
   tidyr::pivot_longer(cols = -id) %>% 
   ggplot(aes(value)) +
@@ -182,38 +207,65 @@ df_ptsd %>%
 #### Bivariate
 
 
-```{r, fig.cap="Distribution of Pre-test Score by Therapy Type"}
+```{r, fig.cap="Distribution of Symptom Severity Prior to Therapy"}
 apaSupp::spicy_histos(df = df_ptsd,
                       var = pre_test,
                       split = therapy,
-                      lab = "Pre-Test Score") +
+                      lab = "Symptom Severity Prior to Therapy") +
   scale_x_continuous(breaks = seq(from = -24, to = 24, by = 2)) 
 ```
 
 
 
-```{r, fig.cap="Distribution of Post-test Score by Therapy Type"}
+```{r, fig.cap="Distribution of Symptom Severity After Therapy"}
 apaSupp::spicy_histos(df = df_ptsd,
                       var = post_test,
                       split = therapy,
-                      lab = "Post-Test Score") +
+                      lab = "Symptom Severity After Therapy") +
   scale_x_continuous(breaks = seq(from = -24, to = 24, by = 2))
 ```
 
 
 
-```{r, fig.cap="Distribution of Gain Score by Therapy Type"}
+```{r, fig.cap="Distribution of Change in Symptom Severity"}
 apaSupp::spicy_histos(df = df_ptsd,
                       var = gain,
                       split = therapy,
-                      lab = "Gain on Test") +
+                      lab = "Change in Symptom Severity") +
   scale_x_continuous(breaks = seq(from = -24, to = 24, by = 2)) 
 ```
+
+```{r, fig.cap="Progression in Symptom Severity, Stratified by Therapy"}
+df_ptsd_long %>% 
+  ggplot(aes(x = time,
+             y = test,
+             group = id)) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Symptom Severity Score") +
+  facet_grid(~ therapy) +
+  stat_summary(aes(group = 1),
+           geom = "point",
+           fun = "mean",
+           shape = 13,
+           size = 5,
+           color = "red")+
+  stat_summary(aes(group = 1),
+           geom = "line",
+           fun = "mean",
+           color = "red",
+           linewidth = 1.5)
+```
+
+
+
 
 #### Multivariate
 
 
-```{r, fig.cap="Association Between Post-Test and Pre-Test, Stratified by Therapy"}
+```{r, fig.cap="Association Between Symptom Severity Prior to and After Therapy, Stratified by Therapy Type"}
 df_ptsd %>% 
   ggplot(aes(x = pre_test,
              y = post_test)) +
@@ -227,12 +279,12 @@ df_ptsd %>%
               method = "lm",
               formula = y ~x,
               alpha = .2) +
-  labs(x = "Observed Pre-Test Score",
-       y = "Observed Post-Test Score",
-       color    = "Therapy:",
-       fill     = "Therapy:",
-       shape    = "Therapy:",
-       linetype = "Therapy:") +
+  labs(x = "Observed Symptom Severity Prior to Therapy",
+       y = "Observed Symptom Severity\nAfter Therapy",
+       color    = "Therapy Type:",
+       fill     = "Therapy Type:",
+       shape    = "Therapy Type:",
+       linetype = "Therapy Type:") +
   theme(legend.position.inside = TRUE,
         legend.position = c(0, 1),
         legend.justification = c(-.1, 1.1),
@@ -260,12 +312,12 @@ df_ptsd %>%
               method = "lm",
               formula = y ~x,
               alpha = .2) +
-  labs(x = "Observed Pre-Test Score",
-       y = "Observed GAIN, Post-Test vs. Pre-Test",
-       color    = "Therapy:",
-       fill     = "Therapy:",
-       shape    = "Therapy:",
-       linetype = "Therapy:") +
+  labs(x = "Observed Symptom Severity Prior to Therapy",
+       y = "Observed Change in Symptom Severity",
+       color    = "Therapy Type:",
+       fill     = "Therapy Type:",
+       shape    = "Therapy Type:",
+       linetype = "Therapy Type:") +
   theme(legend.position.inside = TRUE,
         legend.position = c(1, 1),
         legend.justification = c(1.1, 1.1),
@@ -300,7 +352,7 @@ anova(fit_ptsd_1)
 #### Equation
 
 $$
-\widehat{post} = 5.019 + 0.498(pre) -3.00(EXP)
+\widehat{post} = 5.019 + 0.498(pre) -3.00(type=exp)
 $$
 
 #### Role of Therapy
@@ -344,7 +396,7 @@ $$
 
 Test the significance for therapy: *t*(12) = -1.67, *p* = .121, NOT significant
 
-No evidene was found that the therapy is associated with a differential gain on the test,*b* = -3.00, *SE* = 1.80, *p* =.121.
+No evidence was found that the therapy type was associated with a differential change in symptom severity,*b* = -3.00, *SE* = 1.80, *p* =.121.
 
 > Note:
 >
@@ -386,9 +438,9 @@ $$
 
 #### Role of Therapy
 
-Test the significance for therapy: *t*(11) = -8.33, *p* <.001, VERY significant
+Test the significance for therapy type on symptom severity change: *t*(11) = -8.33, *p* <.001, VERY significant
 
-After controlling for pre-test score, the experimental therapy is associated with 3 point lower gain on the post-test compared to the traditional therapy, *b* = -3.00, *SE* = 0.36, *p* <.001.
+After controlling for symptom severity prior to therapy, the experimental therapy was associated with 3 point lower change on symptom severity after therapy compared to traditional therapy, *b* = -3.00, *SE* = 0.36, *p* <.001.
 
 > Notes:
 >
@@ -413,20 +465,6 @@ performance::compare_performance(fit_ptsd_1, fit_ptsd_2, fit_ptsd_3,
 
 
 ## ALTERNATIVE ANALYSIS
-
-### Longer Format of Repeated Measures
-
-```{r}
-df_ptsd_long <- df_ptsd %>% 
-  dplyr::select(-gain) %>% 
-  tidyr::pivot_longer(cols = ends_with("test"),
-                      names_to = c("time", ".value"),
-                      names_pattern = "(.*)_(.*)") %>% 
-  dplyr::mutate(time = factor(time,
-                              levels = c("pre", "post")))
-
-df_ptsd_long
-```
 
 
 ### 2x2 mix ANOVA
