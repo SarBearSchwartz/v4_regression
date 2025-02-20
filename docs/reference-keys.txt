@@ -309,7 +309,13 @@ x2-mix-anova
 dh-ch7---regression-for-prediction-mtcars
 purpose-10
 data-description-10
+regression-analysis-8
+automated-variable-selection
 all-possible-subsets
 best-subsets
-forward-stepwise
-backwards-stepwise
+forward-stepwise-p-value
+backwards-stepwise-p-value
+forward-stepwise-r-squared
+forward-stepwise-adjusted-r-squared
+forward-stepwise-aic
+forward-stepwise-schwartz-bayesian-criterion
