@@ -39,9 +39,17 @@ library(ggpubr)
 
 ## PURPOSE
 
+### Background
+
+Fatalism has been studied as a health belief since 1980. Several studies have found a positive association between fatalism and depression. Researchers have suggested that fatalism can make people more vulnerable to depression. 
+
+If you have pathological Simplicity thinking, you can't think gray about nearly anything. You see everything in life as a black-and-white film. You think in such extremes, so you end up feeling in these extremes as well.
+
 ### Research Question
 
-> Is there a relationship between depression and beliefs (simplicity and fatalism)?
+> Is there a relationship between depression and beliefs (simplicity and fatalism)? 
+>
+> More so, if we control for the assumed association between fatalism and depression, does simplistic beliefs play an additional role?
 
 
 ### Data Description
@@ -210,7 +218,7 @@ df_ginz %>%
 * The dependent variable (DV) is depression score ($Y$)
 * The independent variables (IVs) are 2 beliefs, simplicity and fatalism ($X_1$, $X_2$)
 
-### IV = Simplicity
+### Model 1: Simplicity
 
 
 ```{r}
@@ -222,7 +230,7 @@ fit_lm_sim <- lm(depression ~ simplicity,
 summary(fit_lm_sim)
 ```
 
-### IV = Fatalism
+### Model 2: Fatalism
 
 
 ```{r}
@@ -235,7 +243,7 @@ summary(fit_lm_fat)
 ```
 
 
-### IVs = Both Beliefs
+### Model 3: Both Beliefs
 
 
 ```{r}
@@ -304,7 +312,7 @@ var(fit_lm_both$residuals)
 
 
 
-### Model with only Simplicity
+#### Model with only Simplicity
 
 ```{r}
 summary(fit_lm_sim)$r.squared
@@ -324,7 +332,7 @@ knitr::include_graphics("images/VENN_DIAGRAM_sim.png")
 
 
 
-### Model with only Fatalism
+#### Model with only Fatalism
 
 ```{r}
 summary(fit_lm_fat)$r.squared
@@ -340,7 +348,7 @@ knitr::include_graphics("images/VENN_DIAGRAM_fat.png")
 ```
 
 
-### Model with Both Predictors
+#### Model with Both Predictors
 
 ```{r}
 summary(fit_lm_both)$r.squared
@@ -356,70 +364,77 @@ knitr::include_graphics("images/VENN_DIAGRAM_both.png")
 ```
 
 
-### Semipartial Correlation
+### Variance Explained
 
-Therefor...
+#### R-squared 
 
-* Unique from Simplicity = .519 - .432 = .087
-* Unique from Fatalism = .519 - .414 = .105
-* Shared from Both =  .432 + .414 - .519 = .327
+AKA: "Coefficient of Determination"
 
-
-```{r}
-effectsize::r2_semipartial(fit_lm_both)
-```
+Total for all the predictors in the model
 
 
+* From Simplicity, not controlling for Fatalism = .414
+* From Fatalism, not controlling for Simplicity = .432
 
-```{r}
-DescTools::EtaSq(fit_lm_both, type = 3)
-```
+* Total COLLECTIVELY from Both Beliefs = .519
 
-
-### Eta-squared
-
-```{block type='rmdlightbulb', echo=TRUE}
-* Type I is sequential and terms are "added" to the model in order, first the main effects, then the interactions; the type I sum of squares are SS(A), SS(B|A)
-
-* Type II adjust the contribution of a predictor for other main effects (but not its interactions, if any): SS(A|B), SS(B|A)
-
-* Type III attributes to each term (main effect or interaction) its unique contribution. So the sum of squares due to A excludes the effect of the interaction between A and B: SS(A|B,A:B), SS(B|A,A:B), SS(A:B|A,B).
-```
-
+"Coefficient of **NON-**Determination"
 
 ```{r}
-effectsize::eta_squared(fit_lm_both, partial = FALSE)
-```
-
-
-```{r}
-rstatix::eta_squared(fit_lm_both)
-```
-
-
-
-```{r}
-DescTools::EtaSq(fit_lm_both, type = 1)
+1 - .519
 ```
 
 
 
 
-### Partial Eta-Squared
+#### Eta-Squared
 
+AKA: "Semi-partial Correlation"
+
+
+* Unique from only Simplicity, WHILE controlling for Fatalism
 
 ```{r}
-effectsize::eta_squared(fit_lm_both, partial = TRUE)
+.519 - .432
 ```
 
+
+
+* Unique from only Fatalism, WHILE controlling for Simplicity
+
 ```{r}
-rstatix::partial_eta_squared(fit_lm_both)
+.519 - .414
 ```
 
 
+* Shared from OVERLAP in Both Beliefs 
 
 ```{r}
-DescTools::EtaSq(fit_lm_both, type = 1)
+.432 + .414 - .519
+```
+
+
+#### Partial Eta-squared
+
+AKA: "Partial Correlation"
+
+* Unique from only Simplicity, AFTER controlling for Fatalism
+
+```{r}
+.087/(.087 + .481)
+```
+
+* Unique from only Fatalism, AFTER controlling for Simplicity
+
+```{r}
+.105/(.105 + .481)
+```
+
+
+#### Auto Calculations
+
+```{r}
+DescTools::EtaSq(fit_lm_both)
 ```
 
 ### Standardized Regression 
@@ -428,3 +443,49 @@ DescTools::EtaSq(fit_lm_both, type = 1)
 parameters::standardise_parameters(fit_lm_both)
 ```
 
+
+
+
+## APA WRITE-UP
+
+
+
+### Methods
+
+A sample of 82 psychiatric patients hospitalized for depression completed the Beck Depression Inventory by self-report.  Their beliefs in simplicity (*black and white thinking*) and fatalism (*fate controls everything*) were also self-reported and scored. 
+
+To assess the potential relationship between both these beliefs and depressive symptoms, first Pearson correlations were computed.  Multiple linear regression was used to further investigate the hypothesized association between simplicity and depression after controlling for the previously shown correlation between fatalism and depression.
+
+
+### Results
+
+A summary of the participant measures is provided in Table 1.  Notably, the distribution of simplicity beliefs exhibited a high degree of positive skewness, while depressive symptoms was less positively skewed (*see supplemental materials*).    
+
+Depressive Symptoms were  positively correlated with both fatalism beliefs, *r* = .660, *p* < .001, and simplicity beliefs, *r* = .640, *p* <.001. A similar degree of correlation was manifest between the two types of belief, *r* = .630, *p* < .001.
+
+**...need to write up the regression now...**
+
+### Tables
+
+```{r}
+df_ginz %>% 
+  dplyr::select("Simplicity Beliefs" = simplicity,
+                "Fatalism Beliefs" = fatalism,
+                "Depressive Symptoms" = depression) %>% 
+  apaSupp::tab_desc(caption = "Description of Sampled Psychiatric Patients Hospitalized for Depression",
+                    general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three.")
+```
+
+
+
+```{r}
+apaSupp::tab_lms(list(fit_lm_sim, fit_lm_fat, fit_lm_both),
+                 mod_names = c("Model 1\nSimplicity Only",
+                               "Model 2\nFatalism Only",
+                               "Model 3\nBoth Beliefs"),
+                 var_labels = c("simplicity" = "Simplicity",
+                                "fatalism"   = "Fatalism"),
+                 caption = "Parameter Estimates for Models Regressing Depressive Symptoms on Belief Scores",
+                 general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three. N = 82.",
+                 p_note = "* p < .05. *** p < .001")
+```

@@ -38,12 +38,12 @@ library(ISwR)            # Introduction to Statistics with R (datasets)
 
 ### Research Question
 
-> Is there a relationship between fasting blood flucose and shortening of ventricular velocity among type 1 diabetic patiences?  If so, what is the nature of the association?
+> Is there a relationship between fasting blood glucose and shortening of ventricular velocity among type 1 diabetic patiences?  If so, what is the nature of the association?
 
 
 ### Data Description
 
-This dataset is included in the `ISwR` package [@R-ISwR], which was a companion to the texbook "Introductory Statistics with R, 2nd ed." [@dalgaard2008], although it was first published by @altman1991 in table 11.6. 
+This dataset is included in the `ISwR` package [@R-ISwR], which was a companion to the texbook "Introductory Statistics with R, 2nd ed." [@dalgaard2008], although it was first published by @altman1991 in Table 11.6. 
 
 
 > The `thuesen` data frame has 24 rows and 2 columns. It contains ventricular shortening velocity and blood glucose for type 1 diabetic patients.
@@ -333,25 +333,8 @@ thuesen %>%
 
 
 
+### Visualize Relationships
 
-
-
-
-## CONCLUSION
-
-
-### Tabulate the Final Model Summary
-
-You may also present the output in a table using two different packages:
-
-```{r}
-apaSupp::tab_lm(fit_vel_glu)
-```
-
-
-
-
-### Plot the Model
 
 
 ```{block type='rmdimportant', echo=TRUE}
@@ -400,6 +383,8 @@ effects::Effect(focal.predictors = c("blood.glucose"),
   geom_line() +
   theme_bw()
 ```
+
+
 
 
 Notice that although the regression line is smooth, the ribbon is choppy.  This is because we are basing it on only THREE values of $X$.
@@ -466,9 +451,7 @@ effects::Effect(focal.predictors = c("blood.glucose"),
                   ymax = upper),   # top edge of the ribbon
               alpha = .3) +        # ribbon transparency level
   geom_line() +
-  theme_bw() +
-  labs(x = "Fasting Blood Glucose (mmol/l)",
-       y = "Mean Circumferential Shortening Velocity (%/s)")   # axis labels
+  theme_bw()
 ```
 
 
@@ -487,9 +470,7 @@ effects::Effect(focal.predictors = c("blood.glucose"),
                   ymax = fit + se),   # top edge of the ribbon
               alpha = .3) +        
   geom_line() +
-  theme_bw() +
-  labs(x = "Fasting Blood Glucose (mmol/l)",
-       y = "Mean Circumferential Shortening Velocity (%/s)")   
+  theme_bw()   
 ```
 
 
@@ -512,7 +493,55 @@ effects::Effect(focal.predictors = c("blood.glucose"),
                   ymax = fit + se),   # top edge of the ribbon = Mean + SE
               alpha = .3) +        
   geom_line() +
+  theme_bw() 
+```
+
+
+
+
+
+
+## CONCLUSION
+
+
+### Table
+
+You may also present the output in a table using two different packages:
+
+```{r}
+apaSupp::tab_lm(fit_vel_glu,
+                var_labels = c("blood.glucose" = "Blood Glucose"),
+                caption = "Parameter Estimates for Mean Circumferential Shortening Velocity Regressed on Fasting Blood Glucose",
+                general_note = "Units are perceont per second for mean circumferential shortening velocity and mmol per liter for fasting blood glucose.")
+```
+
+
+
+
+### Plot
+
+
+```{r}
+effects::Effect(focal.predictors = c("blood.glucose"),
+                mod = fit_vel_glu,
+                xlevels = list(blood.glucose = seq(from = 5, to = 20, by = .5))) %>% 
+  data.frame() %>% 
+  ggplot() +
+  aes(x = blood.glucose,           
+      y = fit) +                   
+  geom_ribbon(aes(ymin = fit - se,    # bottom edge of the ribbon
+                  ymax = fit + se),   # top edge of the ribbon
+              alpha = .3) +        
+  geom_line() +
   theme_bw() +
   labs(x = "Fasting Blood Glucose (mmol/l)",
-       y = "Mean Circumferential Shortening Velocity (%/s)")   # axis labels
+       y = "EStimated Marginal Mean\nMean Circumferential Shortening Velocity (%/s)")   
 ```
+
+
+
+### APA Write up
+
+> There is evidence `blood.glucose` is associated with `short.velocity`.
+
+In this sample of Type 1 Diabetic patient (*n* = 24), there is a moderate positive correlation between fasting blood glucose (*M* = 10.30 mmol/l, *SD* = 4.34) and shortening of ventricular velocity (*M* = 1.33 %/s, *SD* = 0.23), *r* = .417, *p* = .048. An increase of 1 mmol/l fasting blood glucose is associated with a .02 %/s increase in ventricular velocity shortening, *b* = 0.02, *SE* = 0.01, *p* = .048, $R^2$ = .

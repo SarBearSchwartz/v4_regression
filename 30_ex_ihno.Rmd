@@ -412,36 +412,7 @@ ggResidpanel::resid_panel(fit_ihno_lm_3)
 ```
 
 
-## MULTICOLINEARITY
-
-### Variable Inflation Factors (VIF)
-
-```{r}
-car::vif(fit_ihno_lm_3)
-```
-
-## CONCLUSION
-
-
-### Table
-
-Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
-
-
-
-
-
-```{r}
-apaSupp::tab_lm(fit_ihno_lm_3,
-                var_labels = c("mathquiz" = "Math Quiz",
-                               "phobia" = "Math Phobia"),
-                caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
-                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points.",
-                p_note = "* p < .05. *** p < .001.") 
-```
-
-
-### Plot
+### Visualize Rlationships
 
 When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
 
@@ -500,6 +471,50 @@ When plotting a regression model the outcome (dependent variable) is always on t
 
 
 
+## MULTICOLINEARITY
+
+### Variable Inflation Factors (VIF)
+
+```{r}
+car::vif(fit_ihno_lm_3)
+```
+
+
+
+
+## APA WRITE-UP
+
+
+### Results
+
+> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction).
+
+
+There is a strong association between math and stats quiz scores, *r* = .51.  Math phobia is associated with lower math, *r* = -.28, and stats quiz scores, *r* = -.36.  When considered together, the combined effects of math phobia and math score account for 31% of the variance in statistical achievement.  
+
+Not surprisingly, while higher self-reported math phobia was associated with lower statistics scores, *b* = -0.162, *p* = .018, 95% *CI* = [-0.29, -0.03], higher math quiz scores were associated with higher stats score, *b* = -0.081, *p* < .001, 95% *CI* = [0.05, 0.12].  
+
+There was no evidence that math phobia moderated the relationship between math and quiz performance, *p* = .377. 
+
+
+### Table
+
+Many journals prefer that regression tables include 95% confidence intervals, rater than standard errors for the beta estimates.
+
+
+```{r}
+apaSupp::tab_lm(fit_ihno_lm_3,
+                var_labels = c("mathquiz" = "Math Quiz",
+                               "phobia" = "Math Phobia"),
+                caption = "Multiple Linear Models for Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance",
+                general_note = "Math Phobia was self-reported on a scale of 0 (none) to 10 (max) and the math quiz had a max of 50 points while the statistics quiz had a max of 10 points.",
+                p_note = "* p < .05. *** p < .001.") 
+```
+
+
+### Plot
+
+
 ```{r, fig.id="ihno_viz", fig.cap="Statistics Quiz Performance Regressed on Math Phobia and Prior Math Performance"}
 effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                 mod = fit_ihno_lm_3,
@@ -509,7 +524,7 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
                                 levels = c(0, 5, 10),
                                 labels = c(" 0 = minimun",
                                            " 5 = middle",
-                                           "10 = maximum"))) %>%               # factor for illustration
+                                           "10 = maximum"))) %>% # factor for illustration
   ggplot() +
   aes(x = mathquiz,
       y = fit,
@@ -529,17 +544,4 @@ effects::Effect(focal.predictors = c("mathquiz", "phobia"),
         legend.justification = c(-0.1, 1.1)) +
   scale_linetype_manual(values = c("solid", "longdash", "dotted"))
 ```
-
-
-### APA Write up
-
-> There is evidence both `mathquiz` and `phobia` are associated with `statquiz` and that the relationship is addative (i.e. no interaction).
-
-
-There is a strong association between math and stats quiz scores, *r* = .51.  Math phobia is associated with lower math, *r* = -.28, and stats quiz scores, *r* = -.36.  When considered together, the combined effects of math phobia and math score account for 31% of the variance in statistical achievement.  
-
-Not surprisingly, while higher self-reported math phobia was associated with lower statistics scores, *b* = -0.162, *p* = .018, 95% *CI* = [-0.29, -0.03], higher math quiz scores were associated with higher stats score, *b* = -0.081, *p* < .001, 95% *CI* = [0.05, 0.12].  
-
-There was no evidence that math phobia moderated the relationship between math and quiz performance, *p* = .377. 
-
 
