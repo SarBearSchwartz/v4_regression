@@ -701,6 +701,7 @@ We can also say the factors more under personal control explain about 86.9% of t
 ### Significance of Set B's Contribution
 
 
+### Significance of Set B's Contribution
 
 ```{r}
 anova(fit_loss_none, fit_loss_setA, fit_loss_all4)

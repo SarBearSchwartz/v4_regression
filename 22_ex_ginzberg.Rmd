@@ -37,6 +37,8 @@ library(effectsize)
 library(ggpubr)
 ```
 
+
+
 ## PURPOSE
 
 ### Background
@@ -218,19 +220,8 @@ df_ginz %>%
 * The dependent variable (DV) is depression score ($Y$)
 * The independent variables (IVs) are 2 beliefs, simplicity and fatalism ($X_1$, $X_2$)
 
-### Model 1: Simplicity
 
-
-```{r}
-fit_lm_sim <- lm(depression ~ simplicity,
-               data = df_ginz)
-```
-
-```{r}
-summary(fit_lm_sim)
-```
-
-### Model 2: Fatalism
+### Model 1: Fatalism
 
 
 ```{r}
@@ -243,11 +234,24 @@ summary(fit_lm_fat)
 ```
 
 
+
+### Model 2: Simplicity
+
+
+```{r}
+fit_lm_sim <- lm(depression ~ simplicity,
+               data = df_ginz)
+```
+
+```{r}
+summary(fit_lm_sim)
+```
+
 ### Model 3: Both Beliefs
 
 
 ```{r}
-fit_lm_both <- lm(depression ~ simplicity + fatalism,
+fit_lm_both <- lm(depression ~ fatalism + simplicity,
                data = df_ginz)
 ```
 
@@ -264,6 +268,11 @@ summary(fit_lm_both)
 apaSupp::tab_lms(list(fit_lm_sim, fit_lm_fat, fit_lm_both))
 ```
 
+### Multicolinearity Check
+
+```{r}
+car::vif(fit_lm_both)
+```
 
 
 ### Residual Diagnostics
@@ -454,16 +463,19 @@ parameters::standardise_parameters(fit_lm_both)
 
 A sample of 82 psychiatric patients hospitalized for depression completed the Beck Depression Inventory by self-report.  Their beliefs in simplicity (*black and white thinking*) and fatalism (*fate controls everything*) were also self-reported and scored. 
 
-To assess the potential relationship between both these beliefs and depressive symptoms, first Pearson correlations were computed.  Multiple linear regression was used to further investigate the hypothesized association between simplicity and depression after controlling for the previously shown correlation between fatalism and depression.
+To assess the potential relationship between both these beliefs and depressive symptoms, first Pearson correlations were computed between pairs of all three measures.  Then unadjusted, simple linear regression models for each belief score separately were compared to the multiple linear regression including both beliefs. Multiple linear regression was used to further investigate the hypothesized association between simplicity and depression after controlling for the previously documented correlation between fatalism and depression. Variance inflation factors (*VIF*) were computed to assess potential concern regarding colinearity between the two beliefs.
 
 
 ### Results
 
 A summary of the participant measures is provided in Table 1.  Notably, the distribution of simplicity beliefs exhibited a high degree of positive skewness, while depressive symptoms was less positively skewed (*see supplemental materials*).    
 
-Depressive Symptoms were  positively correlated with both fatalism beliefs, *r* = .660, *p* < .001, and simplicity beliefs, *r* = .640, *p* <.001. A similar degree of correlation was manifest between the two types of belief, *r* = .630, *p* < .001.
+Depressive Symptoms were positively correlated with both fatalism beliefs (*r* = .660) and simplicity beliefs (*r* = .640). A similar degree of correlation was manifest between the two types of belief (*r* = .630).
 
-**...need to write up the regression now...**
+The unadjusted models are presented in Table 2.  The first model replicated previous studies, as fatalism beliefs exhibited a strong and significant association with depressive symptoms, *b* = 0.66, *SE* = 0.08, *p* < .001, $R^2$ = .43. The second model showed a similar association between simplicity beliefs and depressive symptoms, *b* = 0.64, *SE* = 0.09, *p* < .001, $R^2$ = .41.
+
+Table 3 details the final model which revealed that after accounting for fatalism's role, simplicity beliefs accounted for 15% of the remaining variance in depressive symptoms, $\eta_p^2$ = .153. Over half of the total variance in depressive symptoms may be attributed to both beliefs together, $R_{adj}^2$ = .51. No concern was raised regarding multicolinearity, thus each belief exhibited a distinct association with depression symptom. Fatalism belief did expressed a slightly stronger association, *b* = 0.42, *SE* = 0.10, *p* < .001, $\eta^2$ = .105, compared to simplicity beliefs, *b* = 0.38, *SE* = 0.10, *p* < .001, $\eta^2$ = .087. 
+  
 
 ### Tables
 
@@ -479,13 +491,26 @@ df_ginz %>%
 
 
 ```{r}
-apaSupp::tab_lms(list(fit_lm_sim, fit_lm_fat, fit_lm_both),
-                 mod_names = c("Model 1\nSimplicity Only",
-                               "Model 2\nFatalism Only",
-                               "Model 3\nBoth Beliefs"),
+apaSupp::tab_lms(list(fit_lm_fat, fit_lm_sim),
+                 mod_names = c("Model 1\nFatalism Only",
+                               "Model 2\nSimplicity Only"),
                  var_labels = c("simplicity" = "Simplicity",
                                 "fatalism"   = "Fatalism"),
-                 caption = "Parameter Estimates for Models Regressing Depressive Symptoms on Belief Scores",
+                 caption = "Parameter Estimates for Unadjusted, Simple Linear Models Regressing Depressive Symptoms on EAch Belief Score Seperately",
                  general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three. N = 82.",
-                 p_note = "* p < .05. *** p < .001")
+                 p_note = "*** p < .001")
 ```
+
+
+```{r}
+apaSupp::tab_lm(fit_lm_both,
+                 var_labels = c("simplicity" = "Simplicity",
+                                "fatalism"   = "Fatalism"),
+                 caption = "Parameter Estimates for Multiple Linear Model Regressing Depressive Symptoms on Both Belief Scorse",
+                 general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three. N = 82.",
+                 p_note = "* p < .05. *** p < .001",
+         std = FALSE,
+         vif = TRUE)
+```
+
+
