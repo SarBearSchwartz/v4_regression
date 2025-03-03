@@ -87,7 +87,9 @@ Before embarking on any inferencial anlaysis or modeling, always get familiar wi
 
 
 
-### Univariate Statistics
+### Summary Statistics
+
+#### Univariate 
 
 Center: mean and median
 Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
@@ -100,7 +102,23 @@ cancer_clean %>%
 ```
 
 
-### Univariate Visualizations
+
+#### Bivariate 
+
+```{r}
+cancer_clean %>% 
+  cor.test(~ age + weighin,
+           data = .)
+```
+
+
+
+
+
+### Visualize Distributions
+
+
+#### Univariate 
 
 
 ```{r}
@@ -115,19 +133,7 @@ cancer_clean %>%
 ```
 
 
-
-
-### Bivariate Statistics
-
-```{r}
-cancer_clean %>% 
-  cor.test(~ age + weighin,
-           data = .)
-```
-
-
-
-### Bivariate Visualization
+#### Bivariate 
 
 
 ```{r}
@@ -154,10 +160,22 @@ cancer_clean %>%
 
 ## REGRESSION ANALYSIS
 
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `lm()` function must be supplied with at least two options:
+
+* a formula:  `Y ~ X`
+* a dataset: `data = XXXXXXX`
+
+When a model is fit and directly saved as a named object via the assignment opperator (`<-`), no output is produced.
+```
+
+
 * The dependent variable (DV) is weight at intake ($Y$)
 * The independent variable (IV) is age at intake ($X$)
 
-### Fit the Model
+### Fit Model
 
 ```{r}
 fit_lm <- lm(weighin ~ age,

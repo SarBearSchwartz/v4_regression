@@ -118,9 +118,9 @@ Before embarking on any inferential analysis or modeling, always get familiar wi
 
 
 
+### Summary Statistics
 
-
-### Univariate Statistics
+#### Univariate 
 
 Center: mean and median
 Spread: standard deviation, range (max - min), interquartile range (Q3 - Q1)
@@ -138,40 +138,9 @@ df_ihno %>%
 
 
 
-### Univariate Visualizations
 
 
-```{block type='rmdimportant', echo=TRUE}
-Always plot your data first!
-```
-
-
-```{r, fig.id="ihno_histo1", fig.cap="Distribution of Self-Reported Math Phobia"}
-df_ihno %>% 
-  apaSupp::spicy_histos(var = phobia)
-```
-
-
-
-
-```{r, fig.id="ihno_histo2", fig.cap="Distribution of Prior Math Quiz Performance"}
-df_ihno %>% 
-  apaSupp::spicy_histos(var = mathquiz)
-```
-
-
-
-```{r, fig.id="ihno_histo3", fig.cap="Distribution of Statistics Quiz Performance"}
-df_ihno %>% 
-  apaSupp::spicy_histos(var = statquiz)
-```
-
-
-
-
-
-
-### Bivariate Statistics
+#### Bivariate 
 
 
 
@@ -206,7 +175,44 @@ df_ihno %>%
 
 
 
-### Bivariate Visualization
+### Visualize Distributions
+
+
+
+
+
+#### Univariate 
+
+
+```{block type='rmdimportant', echo=TRUE}
+Always plot your data first!
+```
+
+
+```{r, fig.id="ihno_histo1", fig.cap="Distribution of Self-Reported Math Phobia"}
+df_ihno %>% 
+  apaSupp::spicy_histos(var = phobia)
+```
+
+
+
+
+```{r, fig.id="ihno_histo2", fig.cap="Distribution of Prior Math Quiz Performance"}
+df_ihno %>% 
+  apaSupp::spicy_histos(var = mathquiz)
+```
+
+
+
+```{r, fig.id="ihno_histo3", fig.cap="Distribution of Statistics Quiz Performance"}
+df_ihno %>% 
+  apaSupp::spicy_histos(var = statquiz)
+```
+
+
+
+
+#### Bivariate 
 
 
 
@@ -278,6 +284,18 @@ df_ihno %>%
 ## REGRESSION ANALYSIS
 
 
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `lm()` function must be supplied with at least two options:
+
+* a formula:  `Y ~ X`
+* a dataset: `data = XXXXXXX`
+
+When a model is fit and directly saved as a named object via the assignment opperator (`<-`), no output is produced.
+```
+
+
+
 * The dependent variable (DV) is Stat Quiz score, `statquiz` ($Y$)
 
 * The independent variables (IVs) are both math quiz score `mathquiz` and math phobia `phobia`($X_1$, $X_2$)
@@ -300,7 +318,7 @@ tibble::glimpse(df_ihno_fitting)
 ```
 
 
-### Fit Nested Models 
+### Fit Models 
 
 The **bottom-up** approach consists of starting with an initial `NULL` model with only an intercept term and them building additional models that are nested.  
 
@@ -341,10 +359,10 @@ apaSupp::tab_lm(fit_ihno_lm_3)
 
 
 
-### Comparing Nested Models
+### Comparing Models
 
 
-#### Model Comparison Table
+#### Table
 
 
 In single level, multiple linear regression significance of predictors (independent variables, IV) is usually based on both the Wald tests of significance for each beta estimate (shown with stars here) and comparisons in the model fit via the $R^2$ values.
@@ -368,7 +386,7 @@ list(fit_ihno_lm_3, fit_ihno_lm_4) %>%
 ```
 
 
-#### Test of Nested Models
+#### Test
 
 
 * Test the main effect of math quiz:
@@ -398,10 +416,20 @@ anova(fit_ihno_lm_3, fit_ihno_lm_4)
 ```
 
 
-### Checking Assumptions via Residual Diagnostics
+### Assumptions Checking
+
+
+#### Variable Inflation Factors (VIF)
+
+```{r}
+car::vif(fit_ihno_lm_3)
+```
+
+
 
 Before reporting a model, ALWAYS make sure to check the residues to ensure that the model assumptions are not violated.
 
+#### Residual Diagnostics
 
 ```{r}
 performance::check_residuals(fit_ihno_lm_3)
@@ -412,7 +440,7 @@ ggResidpanel::resid_panel(fit_ihno_lm_3)
 ```
 
 
-### Visualize Rlationships
+### Visualize Relationships
 
 When a model only contains main effects, a plot is not important for interpretation, but can help understand the relationship between multiple predictors.
 
@@ -471,19 +499,12 @@ When plotting a regression model the outcome (dependent variable) is always on t
 
 
 
-## MULTICOLINEARITY
-
-### Variable Inflation Factors (VIF)
-
-```{r}
-car::vif(fit_ihno_lm_3)
-```
-
 
 
 
 ## APA WRITE-UP
 
+### Methods
 
 ### Results
 

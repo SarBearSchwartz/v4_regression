@@ -133,7 +133,7 @@ df_ginz %>%
 
 
 
-### Visualizations
+### Visualize Distributions
 
 #### Univariate 
 
@@ -220,8 +220,26 @@ df_ginz %>%
 * The dependent variable (DV) is depression score ($Y$)
 * The independent variables (IVs) are 2 beliefs, simplicity and fatalism ($X_1$, $X_2$)
 
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics('images/fig_ginzberg_diagram.png')
+```
 
-### Model 1: Fatalism
+
+### Fit Models
+
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+The `lm()` function must be supplied with at least two options:
+
+* a formula:  `Y ~ X`
+* a dataset: `data = XXXXXXX`
+
+When a model is fit and directly saved as a named object via the assignment opperator (`<-`), no output is produced.
+```
+
+
+#### Model 1: Fatalism
 
 
 ```{r}
@@ -235,7 +253,7 @@ summary(fit_lm_fat)
 
 
 
-### Model 2: Simplicity
+#### Model 2: Simplicity
 
 
 ```{r}
@@ -247,7 +265,7 @@ fit_lm_sim <- lm(depression ~ simplicity,
 summary(fit_lm_sim)
 ```
 
-### Model 3: Both Beliefs
+#### Model 3: Both Beliefs
 
 
 ```{r}
@@ -268,14 +286,26 @@ summary(fit_lm_both)
 apaSupp::tab_lms(list(fit_lm_sim, fit_lm_fat, fit_lm_both))
 ```
 
-### Multicolinearity Check
+```{r}
+anova(fit_lm_sim, fit_lm_both)
+```
+
+```{r}
+anova(fit_lm_fat, fit_lm_both)
+```
+
+
+### Assumption Checks
+
+
+#### Multicolinearity Check
 
 ```{r}
 car::vif(fit_lm_both)
 ```
 
 
-### Residual Diagnostics
+#### Residual Diagnostics
 
 
 ```{r}
@@ -437,6 +467,11 @@ AKA: "Partial Correlation"
 
 ```{r}
 .105/(.105 + .481)
+```
+
+
+```{r, echo=FALSE, out.width = "100%"}
+knitr::include_graphics('images/psy7610_reg_var_explain_ginzberg.png')
 ```
 
 

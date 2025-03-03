@@ -68,7 +68,9 @@ tibble::glimpse(thuesen)  # view the class and 1st few values of each variable
 Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
 ```
 
-### Univariate Statistics
+### Summary Statistics
+
+#### Univariate
 
 Summary Statistics for all three variables of interest
 
@@ -85,24 +87,10 @@ thuesen %>%
 
 
 
-### Univariate Visualizations
-
-```{r}
-thuesen %>% 
-  apaSupp::spicy_histos(var = blood.glucose)
-```
-
-
-```{r}
-thuesen %>% 
-  apaSupp::spicy_histos(var = short.velocity)
-```
 
 
 
-
-
-### Bivariate Statistics 
+#### Bivariate
 
 (Unadjusted Pearson's correlation)
 
@@ -167,9 +155,23 @@ thuesen %$%                            # notice the special kind of pipe
 ```
 
 
+### Visualize Distributions
+
+#### Univariate 
+
+```{r}
+thuesen %>% 
+  apaSupp::spicy_histos(var = blood.glucose)
+```
 
 
-### Bivariate Visualization
+```{r}
+thuesen %>% 
+  apaSupp::spicy_histos(var = short.velocity)
+```
+
+
+#### Bivariate 
 
 
 
@@ -199,7 +201,7 @@ ggplot(thuesen,
 * `blood.glucose` independent variable or predictor ($X$)
 
 
-### Fit A Simple Linear Model
+### Fit Model
 
 
 $$
@@ -269,10 +271,17 @@ BIC(fit_vel_glu)
 ```
 
 
-### Checking Assumptions via Residual Diagnostics
+### Assumption Checks
+
+
+#### Residual Diagnostics
 
 ```{block type='rmdimportant', echo=TRUE}
-Before reporting a model, ALWAYS make sure to check the residules to ensure that the model assumptions are not violated.
+Before reporting a model, ALWAYS make sure to check the residues to ensure that the model assumptions are not violated.
+
+* Residuals normally distributed
+* Residuals have homogeneity of variance
+* Check for highly influential points
 ```
 
 
@@ -503,6 +512,16 @@ effects::Effect(focal.predictors = c("blood.glucose"),
 
 ## CONCLUSION
 
+### Methods
+
+
+### Results
+
+> There is evidence `blood.glucose` is associated with `short.velocity`.
+
+In this sample of Type 1 Diabetic patient (*n* = 24), there is a moderate positive correlation between fasting blood glucose (*M* = 10.30 mmol/l, *SD* = 4.34) and shortening of ventricular velocity (*M* = 1.33 %/s, *SD* = 0.23), *r* = .417, *p* = .048. An increase of 1 mmol/l fasting blood glucose is associated with a .02 %/s increase in ventricular velocity shortening, *b* = 0.02, *SE* = 0.01, *p* = .048, $R^2$ = .
+
+
 
 ### Table
 
@@ -538,10 +557,3 @@ effects::Effect(focal.predictors = c("blood.glucose"),
        y = "EStimated Marginal Mean\nMean Circumferential Shortening Velocity (%/s)")   
 ```
 
-
-
-### APA Write up
-
-> There is evidence `blood.glucose` is associated with `short.velocity`.
-
-In this sample of Type 1 Diabetic patient (*n* = 24), there is a moderate positive correlation between fasting blood glucose (*M* = 10.30 mmol/l, *SD* = 4.34) and shortening of ventricular velocity (*M* = 1.33 %/s, *SD* = 0.23), *r* = .417, *p* = .048. An increase of 1 mmol/l fasting blood glucose is associated with a .02 %/s increase in ventricular velocity shortening, *b* = 0.02, *SE* = 0.01, *p* = .048, $R^2$ = .
