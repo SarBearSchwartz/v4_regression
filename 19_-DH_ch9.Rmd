@@ -1,0 +1,283 @@
+# D&H Ch9 - Multicategorical Regressors: "married"
+
+
+Darlington & Hayes, Chapter 9's  example
+
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
+
+library(tidyverse) 
+library(haven)
+library(flextable)
+library(apaSupp)
+library(car)
+library(rempsyc)
+library(parameters)
+library(performance)
+library(interactions)
+library(ggResidpanel)
+```
+
+```{r}
+flextable::set_flextable_defaults(digits = 2)
+```
+
+
+
+## PURPOSE
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+RESEARCH QUESTION:
+
+
+```
+
+
+
+### Data Import
+
+```{block type='rmddownload', echo=TRUE}
+You can download the `married` dataset here:
+
+* [SPSS format (.sav)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/Book_Data/MARRIED/married.sav)
+
+* [SAS format (.sas)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/Book_Data/MARRIED/married.sas)
+
+* [Stat format (.dta)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/Book_Data/MARRIED/married.dta)
+```
+
+
+
+```{r, echo=FALSE}
+df_spss <- haven::read_sav("data/darlington_hayes/Book_Data/MARRIED/married.sav")
+```
+
+```{r, eval=FALSE}
+df_spss <- haven::read_sav("married.sav")
+```
+
+
+```{r}
+tibble::glimpse(df_spss)
+```
+
+```{r}
+summary(df_spss)
+```
+
+
+```{block type='rmdimportant', echo=TRUE}
+When importing data from SPSS (.sav), you need to be careful how categorical vairables are stored.  
+```
+
+
+
+```{r}
+df_fac <- df_spss %>% 
+  haven::as_factor()
+```
+
+
+```{r}
+tibble::glimpse(df_fac)
+```
+
+```{r}
+summary(df_fac)
+```
+
+
+
+### Data Description
+
+#### Variables
+
+Dependent Variable (outcome, Y)
+
+* `statis` life satisfaction, scale 1-100 (composite of many items)
+
+Independent Variables (predictors or regressors, X's)
+* `mstatus` 1 = married, 2 = divorced, 3 = single, 4 = widowed
+* `income` annual income, $1000s/year
+* `sex` 0 = female, 1 = male
+
+
+
+```{block type='rmdimportant', echo=TRUE}
+Categorical variables MUST be decalre as factors and the FIRST level listed is treated as the reference category.  
+```
+
+
+```{r}
+df_sat <- df_spss %>% 
+  haven::as_factor() %>% 
+  dplyr::mutate(mstatus = forcats::fct_recode(mstatus,
+                                              "Married"  = "married",
+                                              "Divorced" = "divorced",
+                                              "Single"   = "single",
+                                              "Widowed"  = "widowed")) %>% 
+  dplyr::mutate(sex = forcats::fct_recode(sex,
+                                          "Female" = "female",
+                                          "Male" = "male")) %>% 
+  dplyr::mutate(mstat_div = forcats::fct_relevel(mstatus, "Divorced", after = 0)) %>% 
+  dplyr::mutate(mstat_sin = forcats::fct_relevel(mstatus, "Single",   after = 0)) %>% 
+  dplyr::mutate(mstat_wid = forcats::fct_relevel(mstatus, "Widowed",  after = 0)) %>% 
+  dplyr::mutate(male   = forcats::fct_relevel(sex, "Male", after = 1)) %>% 
+  dplyr::mutate(female = forcats::fct_relevel(sex, "Female", after = 1))
+```
+
+
+```{r}
+tibble::glimpse(df_sat)
+```
+
+```{r}
+summary(df_sat)
+```
+
+
+
+## EXPLORATORY DATA ANALYSIS
+
+```{block type='rmdimportant', echo=TRUE}
+Before embarking on any inferencial anlaysis or modeling, always get familiar with your variables one at a time *(univariate)*, as well as pairwise *(bivariate)*.
+```
+
+### Summary Statistics
+
+
+
+#### Univariate
+
+```{r}
+df_sat %>% 
+  dplyr::select("Sex" = sex,
+                "Marital Status" = mstatus) %>% 
+  apaSupp::tab_freq(caption = "Description of Categorical Measures")
+```
+
+```{r}
+df_sat %>% 
+  dplyr::select("Income" = income,
+                "Life Satisfaction" = satis) %>% 
+  apaSupp::tab_desc(caption = "Description of Continuous Measures")
+```
+
+
+
+
+#### Bivariate
+
+```{r}
+cor.test(~ satis + income, data = df_sat)
+```
+
+
+
+
+
+
+### Visualize Distributions
+
+#### Univariate 
+
+
+```{block type='rmdimportant', echo=TRUE}
+Always plot your data first!
+```
+
+```{r}
+df_sat %>% 
+  apaSupp::spicy_histos(var = satis,
+                        lab = "Life Satisfacton")
+```
+
+```{r}
+df_sat %>% 
+  apaSupp::spicy_histos(var = income,
+                        lab = "Annual Income, $1000/yr")
+```
+
+
+
+#### Bivariate
+
+
+```{r, fig.width=6, fig.height=6}
+df_sat %>% 
+  dplyr::select("Life Satisfaction" = satis,
+                "Income" = income,
+                "Marital Satus" = mstatus,
+                "Sex" = sex) %>%
+  data.frame %>% 
+  GGally::ggpairs() +
+  theme_bw()
+```
+
+
+
+
+
+```{r, fig.width=6, fig.height=8}
+df_sat %>% 
+  apaSupp::spicy_histos(var = satis,
+                        split = mstatus,
+                        lab = "Life Satisfacton")
+```
+
+
+```{r}
+df_sat %>% 
+  ggplot(aes(x = mstatus,
+             y = satis,
+             group = mstatus)) +
+  geom_violin(fill = "gray") +
+  geom_boxplot(width = .25) +
+  geom_point(color = "red",
+             position = position_jitter(width = .1),
+             size = 2) +
+  theme_bw() +
+  labs(x = "Marital Status",
+       y = "Observed Life Satisfaction")
+```
+
+
+
+```{r, fig.width=6, fig.height=5}
+df_sat %>% 
+  apaSupp::spicy_histos(var = satis,
+                        split = sex,
+                        lab = "Life Satisfacton")
+```
+
+
+```{r}
+df_sat %>% 
+  ggplot(aes(x = sex,
+             y = satis,
+             group = sex)) +
+  geom_violin(fill = "gray") +
+  geom_boxplot(width = .25) +
+  geom_point(color = "red",
+             position = position_jitter(width = .1),
+             size = 2) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Observed Life Satisfaction")
+```
+
+
+```{r}
+df_sat %>% 
+  ggplot(aes(x = income,
+             y = satis)) +
+  geom_point() +
+  theme_bw() +
+  labs(x = "Annual Income, $1000/yr",
+       y = "Observed Life Satisfaction")
+```
+
