@@ -33,6 +33,9 @@ flextable::set_flextable_defaults(digits = 2)
 ```{block type='rmdlightbulb', echo=TRUE}
 RESEARCH QUESTION:
 
+RQ 1) Does life satisfaction differ by marital status?
+
+RQ2) Is there an association between income and life satisfaction, after controlling for marital status?
 
 ```
 
@@ -100,21 +103,23 @@ Dependent Variable (outcome, Y)
 
 * `statis` life satisfaction, scale 1-100 (composite of many items)
 
-Independent Variables (predictors or regressors, X's)
-* `mstatus` 1 = married, 2 = divorced, 3 = single, 4 = widowed
-* `income` annual income, $1000s/year
-* `sex` 0 = female, 1 = male
+Independent Variables (predictors or regressors, X's)  
+
+* `mstatus` marital status: 1 = married, 2 = divorced, 3 = single, 4 = widowed  
+* `income` annual income, $1000s/year  
+* `sex` 0 = female, 1 = male  
 
 
 
 ```{block type='rmdimportant', echo=TRUE}
-Categorical variables MUST be decalre as factors and the FIRST level listed is treated as the reference category.  
+Categorical variables MUST be declare as FACTORS and the FIRST level listed is treated as the reference category.  
 ```
 
 
 ```{r}
 df_sat <- df_spss %>% 
   haven::as_factor() %>% 
+  tibble::rowid_to_column(var = "id") %>% 
   dplyr::mutate(mstatus = forcats::fct_recode(mstatus,
                                               "Married"  = "married",
                                               "Divorced" = "divorced",
@@ -123,10 +128,11 @@ df_sat <- df_spss %>%
   dplyr::mutate(sex = forcats::fct_recode(sex,
                                           "Female" = "female",
                                           "Male" = "male")) %>% 
+  dplyr::mutate(mstat_mar = forcats::fct_relevel(mstatus, "Married",  after = 0)) %>%
   dplyr::mutate(mstat_div = forcats::fct_relevel(mstatus, "Divorced", after = 0)) %>% 
   dplyr::mutate(mstat_sin = forcats::fct_relevel(mstatus, "Single",   after = 0)) %>% 
   dplyr::mutate(mstat_wid = forcats::fct_relevel(mstatus, "Widowed",  after = 0)) %>% 
-  dplyr::mutate(male   = forcats::fct_relevel(sex, "Male", after = 1)) %>% 
+  dplyr::mutate(male   = forcats::fct_relevel(sex, "Male",   after = 1)) %>% 
   dplyr::mutate(female = forcats::fct_relevel(sex, "Female", after = 1))
 ```
 
@@ -162,15 +168,29 @@ df_sat %>%
 
 ```{r}
 df_sat %>% 
-  dplyr::select("Income" = income,
+  dplyr::select("Annual Income" = income,
                 "Life Satisfaction" = satis) %>% 
-  apaSupp::tab_desc(caption = "Description of Continuous Measures")
+  apaSupp::tab_desc(caption = "Description of Continuous Measures",
+                    general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.")
 ```
 
 
 
 
 #### Bivariate
+
+```{r}
+df_sat %>% 
+  dplyr::select(mstatus,
+                "Sex" = sex,
+                "Annual Income" = income,
+                "Life Satisfaction" = satis) %>% 
+  apaSupp::table1_apa(split = mstatus,
+                      caption = "Description of Continuous Measures",
+                      general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.")
+```
+
+
 
 ```{r}
 cor.test(~ satis + income, data = df_sat)
@@ -275,9 +295,341 @@ df_sat %>%
 df_sat %>% 
   ggplot(aes(x = income,
              y = satis)) +
-  geom_point() +
+  geom_point(aes(color = mstatus,
+                 shape = mstatus),
+             size = 2) +
   theme_bw() +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              color = "gray",
+              alpha = .2) +
   labs(x = "Annual Income, $1000/yr",
-       y = "Observed Life Satisfaction")
+       y = "Observed Life Satisfaction, 1-100",
+       color = NULL,
+       shape = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"))
 ```
 
+
+
+```{r}
+df_sat %>% 
+  ggplot(aes(x = income,
+             y = satis)) +
+  geom_point() +
+  theme_bw() +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              alpha = .2) +
+  labs(x = "Annual Income, $1000/yr",
+       y = "Observed Life Satisfaction") +
+  facet_wrap(~ mstatus)
+```
+
+
+```{r}
+df_sat %>% 
+  ggplot(aes(x = income,
+             y = satis)) +
+  geom_point(aes(color = mstatus,
+                 shape = mstatus),
+             size = 2) +
+  theme_bw() +
+  geom_smooth(aes(color = mstatus),
+              method = "lm",
+              formula = y ~ x,
+              se = FALSE) +
+  labs(x = "Annual Income, $1000/yr",
+       y = "Observed Life Satisfaction, 1-100",
+       color = NULL,
+       shape = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"))
+```
+
+
+
+
+
+```{r}
+df_sat %>% 
+  ggplot(aes(x = income,
+             y = satis)) +
+  geom_point(aes(color = sex,
+                 shape = sex),
+             size = 2) +
+  theme_bw() +
+  geom_smooth(aes(color = sex),
+              method = "lm",
+              formula = y ~ x,
+              alpha = .2) +
+  labs(x = "Annual Income, $1000/yr",
+       y = "Observed Life Satisfaction, 1-100",
+       color = NULL,
+       shape = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"))
+```
+
+
+
+
+## ANALYSIS OF VARIANE
+
+* The dependent variable (DV) is Life Satisfaction ($satis$)
+
+### By Marital Status
+
+* The independent variable (IV) is marital status, with widowed as the reference category to match the textbook.
+
+> NOTE: SPSS used the LAST listed category level as the reference group whereas R uses the FIRST.
+
+```{r}
+fit_aov_1 <- afex::aov_4(satis ~ mstat_wid + (1|id), 
+                         data = df_sat)
+
+summary(fit_aov_1)
+```
+
+```{r}
+fit_aov_1 %>% 
+  emmeans::emmeans(~ mstat_wid)
+```
+
+```{r}
+fit_aov_1 %>% 
+  emmeans::emmeans(~ mstat_wid) %>% 
+  pairs()
+```
+
+
+
+
+### By Sex
+
+* The independent variable (IV) is sex.
+
+
+```{r}
+fit_aov_2 <- afex::aov_4(satis ~ sex + (1|id), 
+                         data = df_sat)
+
+summary(fit_aov_2)
+```
+
+
+
+
+
+
+## REGRESSION ANALYSIS
+
+* The dependent variable (DV) is Life Satisfaction ($satis$)
+
+### Roll of Marital Status
+
+```{r}
+fit_lm_1 <- lm(satis ~ mstat_wid, data = df_sat)
+
+summary(fit_lm_1)
+```
+
+```{r}
+apaSupp::tab_lm(fit_lm_1, 
+                var_labels = c(mstat_wid = "Marital Status"),
+                caption = "Parameter Estimates for Life Satisfaction Regressed on Marital Status")
+```
+
+
+
+
+```{r}
+anova(fit_lm_1)
+```
+
+
+
+```{r}
+fit_lm_1 %>% 
+  emmeans::emmeans(~ mstat_wid)
+```
+
+```{r}
+fit_lm_1 %>% 
+  emmeans::emmeans(~ mstat_wid) %>% 
+  pairs()
+```
+
+
+
+#### Change the Reference Category
+
+```{r}
+fit_lm_1m <- lm(satis ~ mstat_mar, data = df_sat)
+fit_lm_1d <- lm(satis ~ mstat_div, data = df_sat)
+fit_lm_1s <- lm(satis ~ mstat_sin, data = df_sat)
+fit_lm_1w <- lm(satis ~ mstat_wid, data = df_sat)
+```
+
+
+```{r}
+apaSupp::tab_lms(list(fit_lm_1m, fit_lm_1d, fit_lm_1s, fit_lm_1w),
+                 var_labels = c(mstat_mar = "Marital Status",
+                                mstat_div = "Marital Status",
+                                mstat_sin = "Marital Status",
+                                mstat_wid = "Marital Status"),
+                 caption = "Comparison of Regression Models Changing the Reference Category",
+                 d = 1)
+```
+
+
+
+
+### Roll of Income
+
+#### Unadjusted Model
+
+No Covariates
+
+```{r}
+fit_lm_2 <- lm(satis ~ income, data = df_sat)
+
+anova(fit_lm_2)
+```
+
+
+
+#### Adjust for Marital Status
+
+Covary Marital Status
+
+```{r}
+fit_lm_3 <- lm(satis ~ income + mstat_wid, data = df_sat)
+
+anova(fit_lm_3)
+```
+
+
+
+
+```{r}
+apaSupp::tab_lms(list(fit_lm_2, fit_lm_3),
+                 var_labels = c(mstat_wid = "Marital Status",
+                                income  = "Annual Income"),
+                 caption = "Comparison for Models Regressing Life Satisfaction on Annual Income, with and without Controlling for Marital Status",
+                 general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.",
+                 d = 3) %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
+
+```{r}
+apaSupp::tab_lm(fit_lm_2,
+                var_labels = c(income    = "Annual Income"),
+                caption = "Parameter Estimates for Life Satisfaction Regressed on Annual Income Ignoring Marital Status",
+                general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.") %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
+```{r}
+apaSupp::tab_lm(fit_lm_3,
+                var_labels = c(income    = "Annual Income",
+                               mstat_wid = "Marital Status"),
+                caption = "Parameter Estimates for Life Satisfaction Regressed on Annual Income while Controlling for Marital Status",
+                general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.") %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
+
+```{r}
+fit_lm_3 %>% 
+  emmeans::emmeans(~ mstat_wid | income,
+                   at = list(income = c(50, 56.9))) 
+```
+
+```{r}
+interactions::interact_plot(model = fit_lm_3,
+                            pred = income,
+                            modx = mstat_wid)
+```
+
+
+
+```{r}
+interactions::interact_plot(model = fit_lm_3,
+                            pred = income,
+                            modx = mstat_wid,
+                            legend.main = "Marital Status",
+                            interval = TRUE) +
+  labs(x = "Annual Income, $1000s/yr",
+       y = "Estimated Marginal Mean\nLife Satisfaction") +
+  theme_bw() +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.key.width = unit(1.5, "cm"),
+        legend.background = element_rect(color = "black"))
+```
+
+
+
+#### Adjust for Sex & Marital Status
+
+Covary Sex and Marital Status
+
+```{r}
+fit_lm_4 <- lm(satis ~ income + mstat_wid + sex, data = df_sat)
+
+anova(fit_lm_4)
+```
+
+
+```{r}
+apaSupp::tab_lm(fit_lm_4,
+                var_labels = c(income    = "Annual Income",
+                               mstat_wid = "Marital Status",
+                               sex       = "Sex"),
+                caption = "Parameter Estimates for Life Satisfaction Regressed on Annual Income while Controlling for Marital Status and Sex",
+                general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.") %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
+
+
+
+```{r}
+apaSupp::tab_lms(list(fit_lm_2, fit_lm_3, fit_lm_4),
+                 var_labels = c(mstat_wid = "Marital Status",
+                                income    = "Annual Income",
+                                sex       = "Sex"),
+                 caption = "Comparison for Models Regressing Life Satisfaction on Annual Income, with and without Controlling for Marital Status and Sex",
+                 general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.",
+                 d = 3) %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
+
+## WRITE UP
+
+```{block type='rmdlightbulb', echo=TRUE}
+RESEARCH QUESTION:
+
+RQ 1) Does life satisfaction differ by marital status?
+
+RQ2) Is there an association between income and life satisfaction, after controlling for marital status?
+
+```
+
+### Methods Section
+
+
+### Results Section
+
+
+### Table(s)
+
+
+### Figure(s)
