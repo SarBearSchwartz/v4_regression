@@ -46,17 +46,13 @@ RQ2) Is there an association between income and life satisfaction, after control
 ```{block type='rmddownload', echo=TRUE}
 You can download the `married` dataset here:
 
-* [SPSS format (.sav)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/Book_Data/MARRIED/married.sav)
-
-* [SAS format (.sas)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/Book_Data/MARRIED/married.sas)
-
-* [Stat format (.dta)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/Book_Data/MARRIED/married.dta)
+* [SPSS format (.sav)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/married.sav)
 ```
 
 
 
 ```{r, echo=FALSE}
-df_spss <- haven::read_sav("data/darlington_hayes/Book_Data/MARRIED/married.sav")
+df_spss <- haven::read_sav("data/darlington_hayes/married.sav")
 ```
 
 ```{r, eval=FALSE}

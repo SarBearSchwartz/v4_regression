@@ -1,0 +1,283 @@
+# D&H Ch8 - Regressor Importance: "politics"
+
+
+Darlington & Hayes, Chapter 8's  example
+
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp")
+# remotes::install_github("ddsjoberg/gtsummary")
+
+library(tidyverse) 
+library(haven)
+library(flextable)
+library(apaSupp)
+library(car)
+library(rempsyc)
+library(parameters)
+library(performance)
+library(interactions)
+library(ggResidpanel)
+library(relaimpo)
+library(dominanceanalysis)
+library(domir)
+```
+
+```{r}
+flextable::set_flextable_defaults(digits = 2)
+```
+
+
+
+## PURPOSE
+
+
+```{block type='rmdlightbulb', echo=TRUE}
+RESEARCH QUESTION:
+
+RQ1) Is news consumption via national news broadcast and newspaper correlated with knowledge of the political process, after accounting for sex and age?
+
+RQ2) If so, do both sources of news have the same effect on political knowledge?
+
+RQ3) Is listening to political talk radio more or less important than watching the national network news broadcast?
+
+```
+
+
+
+### Data Import
+
+```{block type='rmddownload', echo=TRUE}
+You can download the `politics` dataset here:
+
+* [SPSS format (.sav)](https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/politics.sav)
+```
+
+
+
+```{r, echo=FALSE}
+df_spss <- haven::read_sav("data/darlington_hayes/politics.sav")
+```
+
+```{r, eval=FALSE}
+df_spss <- haven::read_sav("politics.sav")
+```
+
+
+```{r}
+tibble::glimpse(df_spss)
+```
+
+```{r}
+summary(df_spss)
+```
+
+
+```{block type='rmdimportant', echo=TRUE}
+When importing data from SPSS (.sav), you need to be careful how categorical vairables are stored.  
+```
+
+
+
+```{r}
+df_fac <- df_spss %>% 
+  haven::as_factor()
+```
+
+
+```{r}
+tibble::glimpse(df_fac)
+```
+
+```{r}
+summary(df_fac)
+```
+
+
+
+### Data Description
+
+
+National survey of residents of the United States.
+
+Participants were asked a set of questios used to quantify their knowledge of politics, politicians, and the political process.
+
+Assumption: knowledge is caused by exposure to information  
+
+#### Variables
+
+**Dependent Variable** (outcome, Y)
+
+* `pknow` knowledge of the political process
+
+
+**Independent Variables** (predictors or regressors, X's)  
+
+Frequency of Exposure (days per week)...
+
+* `talkrad` listening to political talk radio
+* `natnews` watch national news broadcasts
+* `npnews`  read newspaper
+* `locnews` watch local news
+
+Covariates
+
+* `age` age in years, 18-90
+* `sex` sex, Male vs. Female
+
+
+```{block type='rmdimportant', echo=TRUE}
+Categorical variables MUST be declare as FACTORS and the FIRST level listed is treated as the reference category.  
+```
+
+
+```{r}
+df_pol <- df_spss %>% 
+  haven::as_factor() %>% 
+  haven::zap_label() %>% 
+  tibble::rowid_to_column(var = "id") %>% 
+  dplyr::mutate(news_sum = (natnews + npnews)/2) %>% 
+  dplyr::mutate(news_dif = (natnews - npnews)/2)
+```
+
+
+```{r}
+tibble::glimpse(df_pol)
+```
+
+```{r}
+summary(df_pol)
+```
+
+## REGRESSION ANALYSIS
+
+### RQ1) Fit Main Model
+
+```{r}
+fit_pol_1 <- lm(pknow ~ natnews + npnews + age + sex,
+                data = df_pol)
+```
+
+```{r}
+apaSupp::tab_lm(fit_pol_1,
+                var_labels = c(natnews = "National News",
+                               npnews = "Newspapers",
+                               age = "Age",
+                               sex = "Sex"),
+                d = 3) %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
+
+### RQ2) Parameter Equivalence
+
+```{r}
+fit_pol_2 <- lm(pknow ~ news_sum + age + sex,
+                data = df_pol)
+
+fit_pol_3 <- lm(pknow ~ news_sum + news_dif + age + sex,
+                data = df_pol)
+```
+
+```{r}
+apaSupp::tab_lms(list(fit_pol_1, fit_pol_2, fit_pol_3),
+                 var_labels = c(news_sum = "News, sum",
+                                news_dif = "News, dif",
+                                age = "Age",
+                                sex = "Sex"))
+```
+```{r}
+car::linearHypothesis(fit_pol_1, c("natnews - npnews"))
+```
+
+### RQ3) Variable Contribution
+
+#### Variable Importance
+
+
+```{r}
+lm(pknow ~ npnews + locnews + talkrad + natnews,
+   data = df_pol) %>% 
+  caret::varImp()
+```
+
+
+```{r}
+lm(pknow ~ npnews + locnews + talkrad + natnews,
+   data = df_pol) %>% 
+  relaimpo::calc.relimp(type = "lmg", importance = TRUE)
+```
+
+
+#### Relative Improvement in Fit
+
+Set A: 
+* newspaper
+* localnews
+
+Add:
+* national news
+* talk ratio
+
+```{r}
+data.frame(A = c("None",
+                 "Newspaper",
+                 "Local News",
+                 "Both"),
+           base = c("pknow ~ 1", 
+                    "pknow ~ npnews", 
+                    "pknow ~ locnews", 
+                    "pknow ~ npnews+locnews")) %>% 
+  dplyr::mutate(add_talk = paste0(base, "+talkrad")) %>% 
+  dplyr::mutate(add_natn = paste0(base, "+natnews")) %>% 
+  dplyr::mutate(fit_base = purrr::map(base,
+                                      ~lm(.x, data = df_pol))) %>%
+  dplyr::mutate(fit_talk = purrr::map(add_talk,
+                                      ~lm(.x, data = df_pol))) %>%
+  dplyr::mutate(fit_natn = purrr::map(add_natn,
+                                      ~lm(.x, data = df_pol))) %>%
+  dplyr::mutate(R2 = purrr::map_dbl(fit_base,
+                                    ~ broom::glance(.x)$r.squared)) %>% 
+  dplyr::mutate(R2i = purrr::map_dbl(fit_talk,
+                                     ~ broom::glance(.x)$r.squared)) %>% 
+  dplyr::mutate(R2j = purrr::map_dbl(fit_natn,
+                                     ~ broom::glance(.x)$r.squared)) %>% 
+  dplyr::mutate(R  = sqrt(R2)) %>% 
+  dplyr::mutate(Ri = sqrt(R2i)) %>% 
+  dplyr::mutate(Rj = sqrt(R2j)) %>% 
+  dplyr::mutate(dRi = Ri - R) %>% 
+  dplyr::mutate(dRj = Rj - R) %>% 
+  dplyr::select("Set A subset" = A,
+                "R" = R, 
+                "Adding\nTalk Radio\nR" = Ri,
+                "Adding\nNational News\nR" = Rj,
+                "Talk Radio\nChange\nin R" = Ri,
+                "National News\nChange\nin R" = Rj) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Table 8.2 - Relative Improvement in Fit for Dominance Computations",
+                     d = 3)
+```
+
+
+
+#### Dominance Ananlysis
+
+see: https://cran.r-project.org/web/packages/domir/vignettes/domir_basics.html
+
+
+
+```{r}
+domir(
+  pknow ~ npnews + locnews + talkrad + natnews, 
+  function(formula) {
+    lm_model <- lm(formula, data = df_pol)
+    summary(lm_model)[["r.squared"]]
+  }
+)
+```
+
+
+
+
+

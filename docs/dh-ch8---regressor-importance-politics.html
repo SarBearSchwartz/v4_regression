@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 D&amp;H Ch8 - Regressor Importance: “politics” | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 D&amp;H Ch8 - Regressor Importance: “politics” | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="sarbearschwartz/v4_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 D&amp;H Ch8 - Regressor Importance: “politics” | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dh-ch7---regression-for-prediction-mtcars.html"/>
+<link rel="next" href="dh-ch9---multicategorical-regressors-married.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation: “Cancer”</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#purpose"><i class="fa fa-check"></i><b>1.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#research-question"><i class="fa fa-check"></i><b>1.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#data-description"><i class="fa fa-check"></i><b>1.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>1.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pearsons-correlation"><i class="fa fa-check"></i><b>1.3</b> PEARSON’S CORRELATION</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> CORRELATION TABLES</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#apa-style"><i class="fa fa-check"></i><b>1.4.3</b> APA Style</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> PAIRS PLOTS</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#corrolagrams"><i class="fa fa-check"></i><b>1.6</b> CORROLAGRAMS</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html"><i class="fa fa-check"></i><b>2</b> D&amp;H Ch 2 - Simple Regression: “Minigolf”</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#purpose-1"><i class="fa fa-check"></i><b>2.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#research-question-1"><i class="fa fa-check"></i><b>2.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#data-description-1"><i class="fa fa-check"></i><b>2.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#visualization"><i class="fa fa-check"></i><b>2.2</b> VISUALIZATION</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#full-table"><i class="fa fa-check"></i><b>2.2.1</b> Full Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.2</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#conditional-means"><i class="fa fa-check"></i><b>2.2.3</b> Conditional Means</a></li>
+<li class="chapter" data-level="2.2.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#y-intercept"><i class="fa fa-check"></i><b>2.2.4</b> Y-intercept</a></li>
+<li class="chapter" data-level="2.2.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#slope"><i class="fa fa-check"></i><b>2.2.5</b> Slope</a></li>
+<li class="chapter" data-level="2.2.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#format"><i class="fa fa-check"></i><b>2.2.6</b> Format</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#hand-calculations"><i class="fa fa-check"></i><b>2.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#estimates"><i class="fa fa-check"></i><b>2.3.1</b> Estimates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals"><i class="fa fa-check"></i><b>2.3.2</b> Residuals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#errors-of-estimate"><i class="fa fa-check"></i><b>2.3.3</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#deviation-scores"><i class="fa fa-check"></i><b>2.3.4</b> Deviation Scores</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#cross-products-squares"><i class="fa fa-check"></i><b>2.3.5</b> Cross-Products &amp; Squares</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#covariance"><i class="fa fa-check"></i><b>2.3.6</b> Covariance</a></li>
+<li class="chapter" data-level="2.3.7" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#important-note"><i class="fa fa-check"></i><b>2.3.7</b> Important Note</a></li>
+<li class="chapter" data-level="2.3.8" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#covar-to-var"><i class="fa fa-check"></i><b>2.3.8</b> Covar to Var</a></li>
+<li class="chapter" data-level="2.3.9" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#variance"><i class="fa fa-check"></i><b>2.3.9</b> Variance</a></li>
+<li class="chapter" data-level="2.3.10" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#standard-deviation"><i class="fa fa-check"></i><b>2.3.10</b> Standard Deviation</a></li>
+<li class="chapter" data-level="2.3.11" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#correlation"><i class="fa fa-check"></i><b>2.3.11</b> Correlation</a></li>
+<li class="chapter" data-level="2.3.12" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficient-or-slope"><i class="fa fa-check"></i><b>2.3.12</b> Coefficient or Slope</a></li>
+<li class="chapter" data-level="2.3.13" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#constant-or-y-intercept"><i class="fa fa-check"></i><b>2.3.13</b> Constant or Y-intercept</a></li>
+<li class="chapter" data-level="2.3.14" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#regression-equation"><i class="fa fa-check"></i><b>2.3.14</b> Regression Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#using-software"><i class="fa fa-check"></i><b>2.4</b> USING SOFTWARE</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#linear-model"><i class="fa fa-check"></i><b>2.4.1</b> Linear Model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficients---raw"><i class="fa fa-check"></i><b>2.4.2</b> Coefficients - Raw</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficients---standardized"><i class="fa fa-check"></i><b>2.4.3</b> Coefficients - Standardized</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals-1"><i class="fa fa-check"></i><b>2.4.4</b> Residuals</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#errors-of-estimate-1"><i class="fa fa-check"></i><b>2.4.5</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.4.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#visualize"><i class="fa fa-check"></i><b>2.4.6</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals-2"><i class="fa fa-check"></i><b>2.5</b> RESIDUALS</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#properties"><i class="fa fa-check"></i><b>2.5.1</b> Properties</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residual-analysis"><i class="fa fa-check"></i><b>2.5.2</b> Residual Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html"><i class="fa fa-check"></i><b>3</b> D&amp;H Ch3a - Multiple Regression: “Weight”</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#purpose-2"><i class="fa fa-check"></i><b>3.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#research-question-2"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#data-description-2"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#summary-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Visualizations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#fit-the-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit the models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#output"><i class="fa fa-check"></i><b>3.3.2</b> Output</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#equations"><i class="fa fa-check"></i><b>3.3.3</b> Equations</a></li>
+<li class="chapter" data-level="3.3.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#tables"><i class="fa fa-check"></i><b>3.3.4</b> Tables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#visualization-1"><i class="fa fa-check"></i><b>3.3.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#effect-sizes"><i class="fa fa-check"></i><b>3.4</b> EFFECT SIZES</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#semipartial-correlation"><i class="fa fa-check"></i><b>3.4.1</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#eta-squared"><i class="fa fa-check"></i><b>3.4.2</b> Eta Squared</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#standardized-regression-coefficients"><i class="fa fa-check"></i><b>3.4.3</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#variance-inflation-factors"><i class="fa fa-check"></i><b>3.5</b> VARIANCE INFLATION FACTORS</a></li>
+<li class="chapter" data-level="3.6" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#conclusion-specific-questions"><i class="fa fa-check"></i><b>3.6</b> CONCLUSION: SPECIFIC QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html"><i class="fa fa-check"></i><b>4</b> D&amp;H Ch3b - Multiple Regression: “Sport Skill”</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#purpose-3"><i class="fa fa-check"></i><b>4.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#research-question-3"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#data-description-3"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-statistics"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-visualizations"><i class="fa fa-check"></i><b>4.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-statistics"><i class="fa fa-check"></i><b>4.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="4.2.4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-visualization"><i class="fa fa-check"></i><b>4.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#fit-the-models-1"><i class="fa fa-check"></i><b>4.3.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#visualize-1"><i class="fa fa-check"></i><b>4.3.2</b> Visualize</a></li>
+<li class="chapter" data-level="4.3.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#semipartial-correlation-1"><i class="fa fa-check"></i><b>4.3.3</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---variances"><i class="fa fa-check"></i><b>4.3.4</b> Venn Diagram - Variances</a></li>
+<li class="chapter" data-level="4.3.5" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---proportions"><i class="fa fa-check"></i><b>4.3.5</b> Venn Diagram - Proportions</a></li>
+<li class="chapter" data-level="4.3.6" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#residual-diagnostics"><i class="fa fa-check"></i><b>4.3.6</b> Residual Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html"><i class="fa fa-check"></i><b>5</b> D&amp;H Ch5 - Dichotomous Regressors: “Weight”</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#purpose-4"><i class="fa fa-check"></i><b>5.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#data-description-4"><i class="fa fa-check"></i><b>5.1.1</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>5.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#visualizing-distributions"><i class="fa fa-check"></i><b>5.2.2</b> Visualizing Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#group-mean-difference"><i class="fa fa-check"></i><b>5.3</b> GROUP MEAN DIFFERENCE</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#assess-homogeneity-of-variance"><i class="fa fa-check"></i><b>5.3.1</b> Assess Homogeneity of Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.4</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#binary-predictor-iv"><i class="fa fa-check"></i><b>5.4.1</b> Binary Predictor (IV)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#model-to-visualize"><i class="fa fa-check"></i><b>5.4.2</b> Model to Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#multidimensional-sets"><i class="fa fa-check"></i><b>5.5</b> MULTIDIMENSIONAL SETS</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#fit-models"><i class="fa fa-check"></i><b>5.5.1</b> Fit Models</a></li>
+<li class="chapter" data-level="5.5.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#table-of-parameter-estimates"><i class="fa fa-check"></i><b>5.5.2</b> Table of Parameter Estimates</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#compare-fit-statistics"><i class="fa fa-check"></i><b>5.5.3</b> Compare Fit Statistics</a></li>
+<li class="chapter" data-level="5.5.4" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#multicolinearity-checks"><i class="fa fa-check"></i><b>5.5.4</b> Multicolinearity Checks</a></li>
+<li class="chapter" data-level="5.5.5" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>5.5.5</b> Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#effect-of-variable-set"><i class="fa fa-check"></i><b>5.6</b> EFFECT of VARIABLE SET</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#significance-of-set-bs-contribution"><i class="fa fa-check"></i><b>5.6.1</b> Significance of Set B’s Contribution</a></li>
+<li class="chapter" data-level="5.6.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#significance-of-set-bs-contribution-1"><i class="fa fa-check"></i><b>5.6.2</b> Significance of Set B’s Contribution</a></li>
+<li class="chapter" data-level="5.6.3" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#standardized-regression-coefficients-1"><i class="fa fa-check"></i><b>5.6.3</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><i class="fa fa-check"></i><b>6</b> D&amp;H Ch6 - Statistical vs. Experimental Control: “PTSD”</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#purpose-5"><i class="fa fa-check"></i><b>6.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#data-description-5"><i class="fa fa-check"></i><b>6.1.1</b> Data Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#longer-format-of-repeated-measures"><i class="fa fa-check"></i><b>6.1.2</b> Longer Format of Repeated Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>6.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>6.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="6.2.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#visualizing-distributions-1"><i class="fa fa-check"></i><b>6.2.2</b> Visualizing Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#regression-analysis-3"><i class="fa fa-check"></i><b>6.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#dv-post-score-controlling-for-pre-score"><i class="fa fa-check"></i><b>6.3.1</b> DV = Post Score, controlling for Pre Score</a></li>
+<li class="chapter" data-level="6.3.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#dv-gain-score-ignoring-pre-score"><i class="fa fa-check"></i><b>6.3.2</b> DV = Gain Score, ignoring Pre-Score</a></li>
+<li class="chapter" data-level="6.3.3" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#dv-gain-score-controlling-for-pre-score"><i class="fa fa-check"></i><b>6.3.3</b> DV = Gain Score, controlling for Pre-Score</a></li>
+<li class="chapter" data-level="6.3.4" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#compare-models"><i class="fa fa-check"></i><b>6.3.4</b> Compare Models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#alternative-analysis"><i class="fa fa-check"></i><b>6.4</b> ALTERNATIVE ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#x2-mix-anova"><i class="fa fa-check"></i><b>6.4.1</b> 2x2 mix ANOVA</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html"><i class="fa fa-check"></i><b>7</b> D&amp;H Ch7 - Regression for Prediction: “mtcars”</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#purpose-6"><i class="fa fa-check"></i><b>7.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#data-description-6"><i class="fa fa-check"></i><b>7.1.1</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#regression-analysis-4"><i class="fa fa-check"></i><b>7.2</b> REGRESSION ANALYSIS</a></li>
+<li class="chapter" data-level="7.3" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#automated-variable-selection"><i class="fa fa-check"></i><b>7.3</b> AUTOMATED VARIABLE SELECTION</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#all-possible-subsets"><i class="fa fa-check"></i><b>7.3.1</b> All Possible Subsets</a></li>
+<li class="chapter" data-level="7.3.2" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#best-subsets"><i class="fa fa-check"></i><b>7.3.2</b> Best Subsets</a></li>
+<li class="chapter" data-level="7.3.3" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-p-value"><i class="fa fa-check"></i><b>7.3.3</b> Forward Stepwise, p-value</a></li>
+<li class="chapter" data-level="7.3.4" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#backwards-stepwise-p-value"><i class="fa fa-check"></i><b>7.3.4</b> Backwards Stepwise, p-value</a></li>
+<li class="chapter" data-level="7.3.5" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-r-squared"><i class="fa fa-check"></i><b>7.3.5</b> Forward Stepwise, R-squared</a></li>
+<li class="chapter" data-level="7.3.6" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-adjusted-r-squared"><i class="fa fa-check"></i><b>7.3.6</b> Forward Stepwise, Adjusted R-squared</a></li>
+<li class="chapter" data-level="7.3.7" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-aic"><i class="fa fa-check"></i><b>7.3.7</b> Forward Stepwise, AIC</a></li>
+<li class="chapter" data-level="7.3.8" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-schwartz-bayesian-criterion"><i class="fa fa-check"></i><b>7.3.8</b> Forward Stepwise, Schwartz Bayesian Criterion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html"><i class="fa fa-check"></i><b>8</b> D&amp;H Ch8 - Regressor Importance: “politics”</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#purpose-7"><i class="fa fa-check"></i><b>8.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#data-import"><i class="fa fa-check"></i><b>8.1.1</b> Data Import</a></li>
+<li class="chapter" data-level="8.1.2" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#data-description-7"><i class="fa fa-check"></i><b>8.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#regression-analysis-5"><i class="fa fa-check"></i><b>8.2</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#rq1-fit-main-model"><i class="fa fa-check"></i><b>8.2.1</b> RQ1) Fit Main Model</a></li>
+<li class="chapter" data-level="8.2.2" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#rq2-parameter-equivalence"><i class="fa fa-check"></i><b>8.2.2</b> RQ2) Parameter Equivalence</a></li>
+<li class="chapter" data-level="8.2.3" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#rq3-variable-contribution"><i class="fa fa-check"></i><b>8.2.3</b> RQ3) Variable Contribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html"><i class="fa fa-check"></i><b>9</b> D&amp;H Ch9 - Multicategorical Regressors: “married”</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#purpose-8"><i class="fa fa-check"></i><b>9.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#data-import-1"><i class="fa fa-check"></i><b>9.1.1</b> Data Import</a></li>
+<li class="chapter" data-level="9.1.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#data-description-8"><i class="fa fa-check"></i><b>9.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>9.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#summary-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="9.2.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#visualize-distributions"><i class="fa fa-check"></i><b>9.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#analysis-of-variane"><i class="fa fa-check"></i><b>9.3</b> ANALYSIS OF VARIANE</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#by-marital-status"><i class="fa fa-check"></i><b>9.3.1</b> By Marital Status</a></li>
+<li class="chapter" data-level="9.3.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#by-sex"><i class="fa fa-check"></i><b>9.3.2</b> By Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#regression-analysis-6"><i class="fa fa-check"></i><b>9.4</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#roll-of-marital-status"><i class="fa fa-check"></i><b>9.4.1</b> Roll of Marital Status</a></li>
+<li class="chapter" data-level="9.4.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#roll-of-income"><i class="fa fa-check"></i><b>9.4.2</b> Roll of Income</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#write-up"><i class="fa fa-check"></i><b>9.5</b> WRITE UP</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#methods-section"><i class="fa fa-check"></i><b>9.5.1</b> Methods Section</a></li>
+<li class="chapter" data-level="9.5.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#results-section"><i class="fa fa-check"></i><b>9.5.2</b> Results Section</a></li>
+<li class="chapter" data-level="9.5.3" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#tables-1"><i class="fa fa-check"></i><b>9.5.3</b> Table(s)</a></li>
+<li class="chapter" data-level="9.5.4" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#figures"><i class="fa fa-check"></i><b>9.5.4</b> Figure(s)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html"><i class="fa fa-check"></i><b>10</b> Ex: Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#purpose-9"><i class="fa fa-check"></i><b>10.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#research-question-4"><i class="fa fa-check"></i><b>10.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#data-description-9"><i class="fa fa-check"></i><b>10.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>10.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#summary-statistics-2"><i class="fa fa-check"></i><b>10.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="10.2.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#visualize-distributions-1"><i class="fa fa-check"></i><b>10.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#regression-analysis-7"><i class="fa fa-check"></i><b>10.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#fit-model-1"><i class="fa fa-check"></i><b>10.3.1</b> Fit Model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#parameter-estimates"><i class="fa fa-check"></i><b>10.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#prediction-equation"><i class="fa fa-check"></i><b>10.3.3</b> Prediction Equation</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#table"><i class="fa fa-check"></i><b>10.3.4</b> Table</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ex-cancer-experiment.html"><a href="ex-cancer-experiment.html#estimated-marginal-means"><i class="fa fa-check"></i><b>10.3.5</b> Estimated Marginal Means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html"><i class="fa fa-check"></i><b>11</b> Ex: Ventricular Shortening Velocity</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#purpose-10"><i class="fa fa-check"></i><b>11.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#research-question-5"><i class="fa fa-check"></i><b>11.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="11.1.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#data-description-10"><i class="fa fa-check"></i><b>11.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>11.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#summary-statistics-3"><i class="fa fa-check"></i><b>11.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="11.2.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#visualize-distributions-2"><i class="fa fa-check"></i><b>11.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#regression-analysis-8"><i class="fa fa-check"></i><b>11.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#fit-model-2"><i class="fa fa-check"></i><b>11.3.1</b> Fit Model</a></li>
+<li class="chapter" data-level="11.3.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#assumption-checks"><i class="fa fa-check"></i><b>11.3.2</b> Assumption Checks</a></li>
+<li class="chapter" data-level="11.3.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#visualize-relationships"><i class="fa fa-check"></i><b>11.3.3</b> Visualize Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#conclusion"><i class="fa fa-check"></i><b>11.4</b> CONCLUSION</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#methods"><i class="fa fa-check"></i><b>11.4.1</b> Methods</a></li>
+<li class="chapter" data-level="11.4.2" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#results"><i class="fa fa-check"></i><b>11.4.2</b> Results</a></li>
+<li class="chapter" data-level="11.4.3" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#table-1"><i class="fa fa-check"></i><b>11.4.3</b> Table</a></li>
+<li class="chapter" data-level="11.4.4" data-path="ex-ventricular-shortening-velocity.html"><a href="ex-ventricular-shortening-velocity.html#plot"><i class="fa fa-check"></i><b>11.4.4</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html"><i class="fa fa-check"></i><b>12</b> Ex: Ginzberg Depression</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#purpose-11"><i class="fa fa-check"></i><b>12.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#background"><i class="fa fa-check"></i><b>12.1.1</b> Background</a></li>
+<li class="chapter" data-level="12.1.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#research-question-6"><i class="fa fa-check"></i><b>12.1.2</b> Research Question</a></li>
+<li class="chapter" data-level="12.1.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#data-description-11"><i class="fa fa-check"></i><b>12.1.3</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>12.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#summary-statistics-4"><i class="fa fa-check"></i><b>12.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="12.2.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#visualize-distributions-3"><i class="fa fa-check"></i><b>12.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#regression-analysis-9"><i class="fa fa-check"></i><b>12.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#fit-models-1"><i class="fa fa-check"></i><b>12.3.1</b> Fit Models</a></li>
+<li class="chapter" data-level="12.3.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#compare-models-1"><i class="fa fa-check"></i><b>12.3.2</b> Compare Models</a></li>
+<li class="chapter" data-level="12.3.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#assumption-checks-1"><i class="fa fa-check"></i><b>12.3.3</b> Assumption Checks</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#effect-sizes-1"><i class="fa fa-check"></i><b>12.4</b> EFFECT SIZES</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#variance-partitioning"><i class="fa fa-check"></i><b>12.4.1</b> Variance Partitioning</a></li>
+<li class="chapter" data-level="12.4.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#variance-explained"><i class="fa fa-check"></i><b>12.4.2</b> Variance Explained</a></li>
+<li class="chapter" data-level="12.4.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#standardized-regression"><i class="fa fa-check"></i><b>12.4.3</b> Standardized Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#apa-write-up"><i class="fa fa-check"></i><b>12.5</b> APA WRITE-UP</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#methods-1"><i class="fa fa-check"></i><b>12.5.1</b> Methods</a></li>
+<li class="chapter" data-level="12.5.2" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#results-1"><i class="fa fa-check"></i><b>12.5.2</b> Results</a></li>
+<li class="chapter" data-level="12.5.3" data-path="ex-ginzberg-depression.html"><a href="ex-ginzberg-depression.html#tables-2"><i class="fa fa-check"></i><b>12.5.3</b> Tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html"><i class="fa fa-check"></i><b>13</b> Ex: Ihno’s Experiment</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#purpose-12"><i class="fa fa-check"></i><b>13.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#research-question-7"><i class="fa fa-check"></i><b>13.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="13.1.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#data-description-12"><i class="fa fa-check"></i><b>13.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#exploratory-data-analysis-9"><i class="fa fa-check"></i><b>13.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#summary-statistics-5"><i class="fa fa-check"></i><b>13.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="13.2.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#visualize-distributions-4"><i class="fa fa-check"></i><b>13.2.2</b> Visualize Distributions</a></li>
+<li class="chapter" data-level="13.2.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#missing-values"><i class="fa fa-check"></i><b>13.2.3</b> Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#regression-analysis-10"><i class="fa fa-check"></i><b>13.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#fit-models-2"><i class="fa fa-check"></i><b>13.3.1</b> Fit Models</a></li>
+<li class="chapter" data-level="13.3.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#comparing-models"><i class="fa fa-check"></i><b>13.3.2</b> Comparing Models</a></li>
+<li class="chapter" data-level="13.3.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#assumptions-checking"><i class="fa fa-check"></i><b>13.3.3</b> Assumptions Checking</a></li>
+<li class="chapter" data-level="13.3.4" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#visualize-relationships-1"><i class="fa fa-check"></i><b>13.3.4</b> Visualize Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#apa-write-up-1"><i class="fa fa-check"></i><b>13.4</b> APA WRITE-UP</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#methods-2"><i class="fa fa-check"></i><b>13.4.1</b> Methods</a></li>
+<li class="chapter" data-level="13.4.2" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#results-2"><i class="fa fa-check"></i><b>13.4.2</b> Results</a></li>
+<li class="chapter" data-level="13.4.3" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#table-3"><i class="fa fa-check"></i><b>13.4.3</b> Table</a></li>
+<li class="chapter" data-level="13.4.4" data-path="ex-ihnos-experiment.html"><a href="ex-ihnos-experiment.html#plot-1"><i class="fa fa-check"></i><b>13.4.4</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dh-ch8---regressor-importance-politics" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> D&amp;H Ch8 - Regressor Importance: “politics”<a href="dh-ch8---regressor-importance-politics.html#dh-ch8---regressor-importance-politics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Darlington &amp; Hayes, Chapter 8’s example</p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="dh-ch8---regressor-importance-politics.html#cb375-1" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
+<span id="cb375-2"><a href="dh-ch8---regressor-importance-politics.html#cb375-2" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;sarbearschwartz/apaSupp&quot;)</span></span>
+<span id="cb375-3"><a href="dh-ch8---regressor-importance-politics.html#cb375-3" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;ddsjoberg/gtsummary&quot;)</span></span>
+<span id="cb375-4"><a href="dh-ch8---regressor-importance-politics.html#cb375-4" tabindex="-1"></a></span>
+<span id="cb375-5"><a href="dh-ch8---regressor-importance-politics.html#cb375-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb375-6"><a href="dh-ch8---regressor-importance-politics.html#cb375-6" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb375-7"><a href="dh-ch8---regressor-importance-politics.html#cb375-7" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb375-8"><a href="dh-ch8---regressor-importance-politics.html#cb375-8" tabindex="-1"></a><span class="fu">library</span>(apaSupp)</span>
+<span id="cb375-9"><a href="dh-ch8---regressor-importance-politics.html#cb375-9" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb375-10"><a href="dh-ch8---regressor-importance-politics.html#cb375-10" tabindex="-1"></a><span class="fu">library</span>(rempsyc)</span>
+<span id="cb375-11"><a href="dh-ch8---regressor-importance-politics.html#cb375-11" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb375-12"><a href="dh-ch8---regressor-importance-politics.html#cb375-12" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb375-13"><a href="dh-ch8---regressor-importance-politics.html#cb375-13" tabindex="-1"></a><span class="fu">library</span>(interactions)</span>
+<span id="cb375-14"><a href="dh-ch8---regressor-importance-politics.html#cb375-14" tabindex="-1"></a><span class="fu">library</span>(ggResidpanel)</span>
+<span id="cb375-15"><a href="dh-ch8---regressor-importance-politics.html#cb375-15" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
+<span id="cb375-16"><a href="dh-ch8---regressor-importance-politics.html#cb375-16" tabindex="-1"></a><span class="fu">library</span>(dominanceanalysis)</span>
+<span id="cb375-17"><a href="dh-ch8---regressor-importance-politics.html#cb375-17" tabindex="-1"></a><span class="fu">library</span>(domir)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="dh-ch8---regressor-importance-politics.html#cb376-1" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">set_flextable_defaults</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div id="purpose-7" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> PURPOSE<a href="dh-ch8---regressor-importance-politics.html#purpose-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="rmdlightbulb">
+<p>
+RESEARCH QUESTION:
+</p>
+<p>
+RQ1) Is news consumption via national news broadcast and newspaper
+correlated with knowledge of the political process, after accounting for
+sex and age?
+</p>
+<p>
+RQ2) If so, do both sources of news have the same effect on political
+knowledge?
+</p>
+<p>
+RQ3) Is listening to political talk radio more or less important than
+watching the national network news broadcast?
+</p>
+</div>
+<div id="data-import" class="section level3 hasAnchor" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Data Import<a href="dh-ch8---regressor-importance-politics.html#data-import" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="rmddownload">
+<p>
+You can download the <code>politics</code> dataset here:
+</p>
+<ul>
+<li>
+<a
+href="https://raw.githubusercontent.com/SarBearSchwartz/v4_regression/master/data/darlington_hayes/politics.sav">SPSS
+format (.sav)</a>
+</li>
+</ul>
+</div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="dh-ch8---regressor-importance-politics.html#cb377-1" tabindex="-1"></a>df_spss <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">&quot;politics.sav&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="dh-ch8---regressor-importance-politics.html#cb378-1" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_spss)</span></code></pre></div>
+<pre><code>Rows: 20
+Columns: 4
+$ mstatus &lt;dbl+lbl&gt; 3, 2, 4, 4, 1, 3, 2, 2, 3, 1, 3, 4, 1, 1, 2, 1, 3, 2, 4, 1
+$ satis   &lt;dbl&gt; 85, 80, 72, 60, 92, 88, 74, 84, 88, 82, 76, 78, 78, 93, 73…
+$ income  &lt;dbl&gt; 53, 65, 54, 35, 73, 75, 57, 59, 60, 52, 47, 60, 63, 66, 51, 53…
+$ sex     &lt;dbl+lbl&gt; 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1</code></pre>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="dh-ch8---regressor-importance-politics.html#cb380-1" tabindex="-1"></a><span class="fu">summary</span>(df_spss)</span></code></pre></div>
+<pre><code>    mstatus         satis           income           sex      
+ Min.   :1.00   Min.   :60.00   Min.   :35.00   Min.   :0.00  
+ 1st Qu.:1.00   1st Qu.:75.75   1st Qu.:52.75   1st Qu.:0.00  
+ Median :2.00   Median :80.00   Median :56.00   Median :0.00  
+ Mean   :2.35   Mean   :80.35   Mean   :56.90   Mean   :0.45  
+ 3rd Qu.:3.00   3rd Qu.:85.75   3rd Qu.:61.50   3rd Qu.:1.00  
+ Max.   :4.00   Max.   :93.00   Max.   :75.00   Max.   :1.00  </code></pre>
+<div class="rmdimportant">
+<p>
+When importing data from SPSS (.sav), you need to be careful how
+categorical vairables are stored.
+</p>
+</div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="dh-ch8---regressor-importance-politics.html#cb382-1" tabindex="-1"></a>df_fac <span class="ot">&lt;-</span> df_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb382-2"><a href="dh-ch8---regressor-importance-politics.html#cb382-2" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">as_factor</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="dh-ch8---regressor-importance-politics.html#cb383-1" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_fac)</span></code></pre></div>
+<pre><code>Rows: 20
+Columns: 4
+$ mstatus &lt;fct&gt; single, divorced, widowed, widowed, married, single, divorced,…
+$ satis   &lt;dbl&gt; 85, 80, 72, 60, 92, 88, 74, 84, 88, 82, 76, 78, 78, 93, 73, 80…
+$ income  &lt;dbl&gt; 53, 65, 54, 35, 73, 75, 57, 59, 60, 52, 47, 60, 63, 66, 51, 53…
+$ sex     &lt;fct&gt; female, male, female, female, male, male, female, female, fema…</code></pre>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="dh-ch8---regressor-importance-politics.html#cb385-1" tabindex="-1"></a><span class="fu">summary</span>(df_fac)</span></code></pre></div>
+<pre><code>     mstatus      satis           income          sex    
+ married :6   Min.   :60.00   Min.   :35.00   female:11  
+ divorced:5   1st Qu.:75.75   1st Qu.:52.75   male  : 9  
+ single  :5   Median :80.00   Median :56.00              
+ widowed :4   Mean   :80.35   Mean   :56.90              
+              3rd Qu.:85.75   3rd Qu.:61.50              
+              Max.   :93.00   Max.   :75.00              </code></pre>
+</div>
+<div id="data-description-7" class="section level3 hasAnchor" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Data Description<a href="dh-ch8---regressor-importance-politics.html#data-description-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>National survey of residents of the United States.</p>
+<p>Participants were asked a set of questios used to quantify their knowledge of politics, politicians, and the political process.</p>
+<p>Assumption: knowledge is caused by exposure to information</p>
+<div id="variables-2" class="section level4 hasAnchor" number="8.1.2.1">
+<h4><span class="header-section-number">8.1.2.1</span> Variables<a href="dh-ch8---regressor-importance-politics.html#variables-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Dependent Variable</strong> (outcome, Y)</p>
+<ul>
+<li><code>pknow</code> knowledge of the political process</li>
+</ul>
+<p><strong>Independent Variables</strong> (predictors or regressors, X’s)</p>
+<p>Frequency of Exposure (days per week)…</p>
+<ul>
+<li><code>talkrad</code> listening to political talk radio</li>
+<li><code>natnews</code> watch national news broadcasts</li>
+<li><code>npnews</code> read newspaper</li>
+<li><code>locnews</code> watch local news</li>
+</ul>
+<p>Covariates</p>
+<ul>
+<li><code>age</code> age in years, 18-90</li>
+<li><code>sex</code> sex, Male vs. Female</li>
+</ul>
+<div class="rmdimportant">
+<p>
+Categorical variables MUST be declare as FACTORS and the FIRST level
+listed is treated as the reference category.
+</p>
+</div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="dh-ch8---regressor-importance-politics.html#cb387-1" tabindex="-1"></a>df_pol <span class="ot">&lt;-</span> df_spss <span class="sc">%&gt;%</span> </span>
+<span id="cb387-2"><a href="dh-ch8---regressor-importance-politics.html#cb387-2" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb387-3"><a href="dh-ch8---regressor-importance-politics.html#cb387-3" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">zap_label</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb387-4"><a href="dh-ch8---regressor-importance-politics.html#cb387-4" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb387-5"><a href="dh-ch8---regressor-importance-politics.html#cb387-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">news_sum =</span> (natnews <span class="sc">+</span> npnews)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb387-6"><a href="dh-ch8---regressor-importance-politics.html#cb387-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">news_dif =</span> (natnews <span class="sc">-</span> npnews)<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="dh-ch8---regressor-importance-politics.html#cb388-1" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(df_pol)</span></code></pre></div>
+<pre><code>Rows: 340
+Columns: 19
+$ id       &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18…
+$ pknow    &lt;dbl&gt; 8, 12, 11, 13, 14, 8, 10, 15, 9, 6, 8, 9, 10, 2, 9, 6, 4, 15,…
+$ age      &lt;dbl&gt; 35, 40, 43, 26, 41, 41, 18, 31, 18, 72, 43, 43, 63, 32, 30, 2…
+$ educ     &lt;dbl&gt; 13, 14, 14, 16, 12, 12, 12, 14, 11, 12, 10, 17, 12, 14, 16, 1…
+$ sex      &lt;fct&gt; Female, Female, Male, Female, Female, Male, Female, Male, Fem…
+$ income   &lt;dbl&gt; 42.5, 42.5, 110.0, 100.0, 57.5, 80.0, 42.5, 90.0, 30.0, 30.0,…
+$ polint   &lt;dbl&gt; 2, 2, 2, 3, 2, 2, 2, 3, 3, 2, 2, 3, 3, 2, 3, 2, 1, 3, 2, 2, 3…
+$ party    &lt;fct&gt; Democrat, Republican, Republican, Democrat, Republican, Democ…
+$ libcon   &lt;dbl&gt; 3, 6, 4, 2, 3, 3, 2, 7, 5, 6, 5, 3, 3, 5, 3, 1, 6, 6, 5, 3, 5…
+$ pdiscuss &lt;dbl&gt; 4, 3, 3, 2, 7, 3, 2, 7, 5, 7, 2, 0, 7, 7, 7, 3, 7, 7, 7, 5, 7…
+$ natnews  &lt;dbl&gt; 3, 0, 1, 3, 0, 0, 2, 2, 3, 0, 3, 4, 7, 3, 1, 0, 3, 0, 2, 0, 5…
+$ npnews   &lt;dbl&gt; 1, 4, 2, 5, 0, 7, 4, 0, 7, 7, 3, 1, 4, 1, 1, 3, 1, 7, 2, 7, 3…
+$ locnews  &lt;dbl&gt; 3.5, 3.5, 3.5, 5.0, 5.0, 3.5, 1.5, 2.0, 7.0, 7.0, 0.5, 4.0, 3…
+$ talkrad  &lt;dbl&gt; 4.5, 3.5, 3.5, 1.0, 1.0, 1.0, 1.0, 4.5, 1.0, 1.0, 1.0, 1.0, 2…
+$ ses      &lt;dbl&gt; -0.58, -0.34, 0.50, 0.85, -0.63, -0.34, -0.81, 0.25, -1.21, -…
+$ news     &lt;dbl&gt; 2.50, 2.50, 2.16, 4.33, 1.66, 3.50, 2.50, 1.33, 5.66, 4.66, 2…
+$ demoneg  &lt;dbl&gt; 3.14, 2.85, 2.00, 2.00, 2.00, 2.00, 2.00, 2.57, 1.85, 2.57, 2…
+$ news_sum &lt;dbl&gt; 2.0, 2.0, 1.5, 4.0, 0.0, 3.5, 3.0, 1.0, 5.0, 3.5, 3.0, 2.5, 5…
+$ news_dif &lt;dbl&gt; 1.0, -2.0, -0.5, -1.0, 0.0, -3.5, -1.0, 1.0, -2.0, -3.5, 0.0,…</code></pre>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="dh-ch8---regressor-importance-politics.html#cb390-1" tabindex="-1"></a><span class="fu">summary</span>(df_pol)</span></code></pre></div>
+<pre><code>       id             pknow            age             educ           sex     
+ Min.   :  1.00   Min.   : 0.00   Min.   :18.00   Min.   : 6.00   Female:177  
+ 1st Qu.: 85.75   1st Qu.: 8.00   1st Qu.:35.00   1st Qu.:12.00   Male  :163  
+ Median :170.50   Median :11.00   Median :43.00   Median :14.00               
+ Mean   :170.50   Mean   :11.31   Mean   :44.93   Mean   :14.29               
+ 3rd Qu.:255.25   3rd Qu.:15.00   3rd Qu.:54.25   3rd Qu.:16.00               
+ Max.   :340.00   Max.   :21.00   Max.   :90.00   Max.   :17.00               
+     income           polint             party         libcon   
+ Min.   :  2.50   Min.   :1.000   Democrat  :141   Min.   :1.0  
+ 1st Qu.: 42.50   1st Qu.:2.000   Republican:146   1st Qu.:3.0  
+ Median : 57.50   Median :3.000   Other     : 53   Median :5.0  
+ Mean   : 64.43   Mean   :2.818                    Mean   :4.5  
+ 3rd Qu.: 80.00   3rd Qu.:3.000                    3rd Qu.:6.0  
+ Max.   :200.00   Max.   :4.000                    Max.   :7.0  
+    pdiscuss        natnews          npnews         locnews     
+ Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.000  
+ 1st Qu.:3.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000  
+ Median :7.000   Median :3.000   Median :3.000   Median :3.000  
+ Mean   :4.865   Mean   :3.412   Mean   :3.574   Mean   :2.966  
+ 3rd Qu.:7.000   3rd Qu.:7.000   3rd Qu.:7.000   3rd Qu.:4.500  
+ Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.000  
+    talkrad           ses                  news          demoneg     
+ Min.   :1.000   Min.   :-2.6200000   Min.   :0.000   Min.   :1.000  
+ 1st Qu.:1.000   1st Qu.:-0.5850000   1st Qu.:2.000   1st Qu.:1.830  
+ Median :1.000   Median :-0.0750000   Median :3.080   Median :2.140  
+ Mean   :2.009   Mean   : 0.0003235   Mean   :3.314   Mean   :2.242  
+ 3rd Qu.:3.000   3rd Qu.: 0.5000000   3rd Qu.:4.660   3rd Qu.:2.710  
+ Max.   :5.000   Max.   : 2.1000000   Max.   :7.000   Max.   :4.000  
+    news_sum        news_dif       
+ Min.   :0.000   Min.   :-3.50000  
+ 1st Qu.:1.500   1st Qu.:-1.00000  
+ Median :3.500   Median : 0.00000  
+ Mean   :3.493   Mean   :-0.08088  
+ 3rd Qu.:5.000   3rd Qu.: 1.00000  
+ Max.   :7.000   Max.   : 3.50000  </code></pre>
+</div>
+</div>
+</div>
+<div id="regression-analysis-5" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> REGRESSION ANALYSIS<a href="dh-ch8---regressor-importance-politics.html#regression-analysis-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="rq1-fit-main-model" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> RQ1) Fit Main Model<a href="dh-ch8---regressor-importance-politics.html#rq1-fit-main-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="dh-ch8---regressor-importance-politics.html#cb392-1" tabindex="-1"></a>fit_pol_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pknow <span class="sc">~</span> natnews <span class="sc">+</span> npnews <span class="sc">+</span> age <span class="sc">+</span> sex,</span>
+<span id="cb392-2"><a href="dh-ch8---regressor-importance-politics.html#cb392-2" tabindex="-1"></a>                <span class="at">data =</span> df_pol)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="dh-ch8---regressor-importance-politics.html#cb393-1" tabindex="-1"></a>apaSupp<span class="sc">::</span><span class="fu">tab_lm</span>(fit_pol_1,</span>
+<span id="cb393-2"><a href="dh-ch8---regressor-importance-politics.html#cb393-2" tabindex="-1"></a>                <span class="at">var_labels =</span> <span class="fu">c</span>(<span class="at">natnews =</span> <span class="st">&quot;National News&quot;</span>,</span>
+<span id="cb393-3"><a href="dh-ch8---regressor-importance-politics.html#cb393-3" tabindex="-1"></a>                               <span class="at">npnews =</span> <span class="st">&quot;Newspapers&quot;</span>,</span>
+<span id="cb393-4"><a href="dh-ch8---regressor-importance-politics.html#cb393-4" tabindex="-1"></a>                               <span class="at">age =</span> <span class="st">&quot;Age&quot;</span>,</span>
+<span id="cb393-5"><a href="dh-ch8---regressor-importance-politics.html#cb393-5" tabindex="-1"></a>                               <span class="at">sex =</span> <span class="st">&quot;Sex&quot;</span>),</span>
+<span id="cb393-6"><a href="dh-ch8---regressor-importance-politics.html#cb393-6" tabindex="-1"></a>                <span class="at">d =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb393-7"><a href="dh-ch8---regressor-importance-politics.html#cb393-7" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">width</span>(<span class="at">j =</span> <span class="dv">1</span>, <span class="at">width =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="tabwid tabwid_left"><style>.cl-33f96078{}.cl-33ed137c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-33ed13a4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-33f20846{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-33f2085a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-33f20864{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-33f20865{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-33f2086e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:15pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-33f20878{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-33f23a0a{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a1e{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a1f{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a28{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a32{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a3c{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a3d{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a46{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a50{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a51{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a5a{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a64{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a65{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a6e{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a6f{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a70{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a78{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a82{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a8c{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a8d{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a96{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23a97{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23aa0{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23aa1{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23aaa{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23ab4{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23ab5{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23abe{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23abf{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23ac8{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23ad2{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23adc{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23add{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23ae6{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23ae7{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23af0{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23af1{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23afa{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23afb{width:0.935in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-33f23b04{width:0.583in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-33f96078'>
+<caption style="display:table-caption;margin:0pt;text-align:left;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-294"><strong> Table  8.1</strong><br/> </span><span>Regression Model</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-33f23a0a"><p class="cl-33f20846"><span class="cl-33ed137c">Variable</span></p></th><th class="cl-33f23a1e"><p class="cl-33f2085a"><span class="cl-33ed137c">b</span></p></th><th class="cl-33f23a1f"><p class="cl-33f2085a"><span class="cl-33ed137c">(SE)</span></p></th><th class="cl-33f23a28"><p class="cl-33f2085a"><span class="cl-33ed137c">p</span></p></th><th class="cl-33f23a1e"><p class="cl-33f2085a"><span class="cl-33ed137c">b*</span></p></th><th class="cl-33f23a32"><p class="cl-33f2085a"><span class="cl-33ed137c">𝜂²</span></p></th><th class="cl-33f23a32"><p class="cl-33f2085a"><span class="cl-33ed137c">𝜂ₚ²</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-33f23a3c"><p class="cl-33f20864"><span class="cl-33ed13a4">(Intercept)</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4">8.795</span></p></td><td class="cl-33f23a46"><p class="cl-33f20865"><span class="cl-33ed13a4">(0.733)</span></p></td><td class="cl-33f23a50"><p class="cl-33f20865"><span class="cl-33ed13a4">&lt; .001 ***</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23a3c"><p class="cl-33f20864"><span class="cl-33ed13a4">National News</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4">0.155</span></p></td><td class="cl-33f23a46"><p class="cl-33f20865"><span class="cl-33ed13a4">(0.089)</span></p></td><td class="cl-33f23a50"><p class="cl-33f20865"><span class="cl-33ed13a4">.082</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4"> 0.094</span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4">.008</span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4">.009</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23a3c"><p class="cl-33f20864"><span class="cl-33ed13a4">Newspapers</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4">0.371</span></p></td><td class="cl-33f23a46"><p class="cl-33f20865"><span class="cl-33ed13a4">(0.084)</span></p></td><td class="cl-33f23a50"><p class="cl-33f20865"><span class="cl-33ed13a4">&lt; .001 ***</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4"> 0.239</span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4">.049</span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4">.055</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23a3c"><p class="cl-33f20864"><span class="cl-33ed13a4">Age</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4">-0.009</span></p></td><td class="cl-33f23a46"><p class="cl-33f20865"><span class="cl-33ed13a4">(0.017)</span></p></td><td class="cl-33f23a50"><p class="cl-33f20865"><span class="cl-33ed13a4">.578</span></p></td><td class="cl-33f23a3d"><p class="cl-33f20865"><span class="cl-33ed13a4">-0.031</span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4">.001</span></p></td><td class="cl-33f23a51"><p class="cl-33f20865"><span class="cl-33ed13a4">.001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23a5a"><p class="cl-33f20864"><span class="cl-33ed13a4">Sex</span></p></td><td class="cl-33f23a64"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a65"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a6e"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a64"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a6f"><p class="cl-33f20865"><span class="cl-33ed13a4">.064</span></p></td><td class="cl-33f23a6f"><p class="cl-33f20865"><span class="cl-33ed13a4">.070</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23a70"><p class="cl-33f2086e"><span class="cl-33ed13a4">Female</span></p></td><td class="cl-33f23a78"><p class="cl-33f20865"><span class="cl-33ed13a4">—</span></p></td><td class="cl-33f23a82"><p class="cl-33f20865"><span class="cl-33ed13a4">—</span></p></td><td class="cl-33f23a8c"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a78"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a8d"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23a8d"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23a96"><p class="cl-33f2086e"><span class="cl-33ed13a4">Male</span></p></td><td class="cl-33f23a97"><p class="cl-33f20865"><span class="cl-33ed13a4">2.245</span></p></td><td class="cl-33f23aa0"><p class="cl-33f20865"><span class="cl-33ed13a4">(0.445)</span></p></td><td class="cl-33f23aa1"><p class="cl-33f20865"><span class="cl-33ed13a4">&lt; .001 ***</span></p></td><td class="cl-33f23a97"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23aaa"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td><td class="cl-33f23aaa"><p class="cl-33f20865"><span class="cl-33ed13a4"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23ab4"><p class="cl-33f20864"><span class="cl-33ed137c">R²</span></p></td><td class="cl-33f23ab5"><p class="cl-33f20865"><span class="cl-33ed137c">0.161</span></p></td><td class="cl-33f23abe"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23abf"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23ab5"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23ac8"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23ac8"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-33f23ad2"><p class="cl-33f20864"><span class="cl-33ed137c">Adjusted R²</span></p></td><td class="cl-33f23adc"><p class="cl-33f20865"><span class="cl-33ed137c">0.150</span></p></td><td class="cl-33f23add"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23ae6"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23adc"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23ae7"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td><td class="cl-33f23ae7"><p class="cl-33f20865"><span class="cl-33ed137c"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="7"class="cl-33f23af0"><p class="cl-33f20878"><span class="cl-33ed137c">Note. </span><span class="cl-33ed13a4"> b* = standardized estimate. 𝜂² = semi-partial correlation. 𝜂ₚ² = partial correlation.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="7"class="cl-33f23af0"><p class="cl-33f20878"><span class="cl-33ed13a4">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr></tfoot></table></div>
+</div>
+<div id="rq2-parameter-equivalence" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> RQ2) Parameter Equivalence<a href="dh-ch8---regressor-importance-politics.html#rq2-parameter-equivalence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="dh-ch8---regressor-importance-politics.html#cb394-1" tabindex="-1"></a>fit_pol_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pknow <span class="sc">~</span> news_sum <span class="sc">+</span> age <span class="sc">+</span> sex,</span>
+<span id="cb394-2"><a href="dh-ch8---regressor-importance-politics.html#cb394-2" tabindex="-1"></a>                <span class="at">data =</span> df_pol)</span>
+<span id="cb394-3"><a href="dh-ch8---regressor-importance-politics.html#cb394-3" tabindex="-1"></a></span>
+<span id="cb394-4"><a href="dh-ch8---regressor-importance-politics.html#cb394-4" tabindex="-1"></a>fit_pol_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pknow <span class="sc">~</span> news_sum <span class="sc">+</span> news_dif <span class="sc">+</span> age <span class="sc">+</span> sex,</span>
+<span id="cb394-5"><a href="dh-ch8---regressor-importance-politics.html#cb394-5" tabindex="-1"></a>                <span class="at">data =</span> df_pol)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="dh-ch8---regressor-importance-politics.html#cb395-1" tabindex="-1"></a>apaSupp<span class="sc">::</span><span class="fu">tab_lms</span>(<span class="fu">list</span>(fit_pol_1, fit_pol_2, fit_pol_3),</span>
+<span id="cb395-2"><a href="dh-ch8---regressor-importance-politics.html#cb395-2" tabindex="-1"></a>                 <span class="at">var_labels =</span> <span class="fu">c</span>(<span class="at">news_sum =</span> <span class="st">&quot;News, sum&quot;</span>,</span>
+<span id="cb395-3"><a href="dh-ch8---regressor-importance-politics.html#cb395-3" tabindex="-1"></a>                                <span class="at">news_dif =</span> <span class="st">&quot;News, dif&quot;</span>,</span>
+<span id="cb395-4"><a href="dh-ch8---regressor-importance-politics.html#cb395-4" tabindex="-1"></a>                                <span class="at">age =</span> <span class="st">&quot;Age&quot;</span>,</span>
+<span id="cb395-5"><a href="dh-ch8---regressor-importance-politics.html#cb395-5" tabindex="-1"></a>                                <span class="at">sex =</span> <span class="st">&quot;Sex&quot;</span>))</span></code></pre></div>
+<div class="tabwid tabwid_left"><style>.cl-38079018{}.cl-37fb2af8{font-family:'Arial';font-size:9pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-37fb2b16{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-37fb2b17{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-37fb2b20{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-380006d6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-380006ea{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-380006f4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-380006fe{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-38000708{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:15pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-38000709{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3800391c{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003930{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003944{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003945{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3800394e{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3800394f{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003962{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003963{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3800396c{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003976{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003977{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003980{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3800398a{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3800398b{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003994{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3800399e{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039a8{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039b2{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039bc{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039c6{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039c7{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039d0{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039da{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039db{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039e4{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039e5{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039ee{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-380039f8{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a02{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a0c{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a0d{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a16{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a17{width:0.838in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a20{width:0.47in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a21{width:0.512in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38003a2a{width:0.717in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-38079018'>
+<caption style="display:table-caption;margin:0pt;text-align:left;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-296"><strong> Table  8.2</strong><br/> </span><span>Compare Regression Models</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-3800391c"><p class="cl-380006d6"><span class="cl-37fb2af8"> </span></p></th><th  colspan="3"class="cl-38003930"><p class="cl-380006ea"><span class="cl-37fb2af8">Model 1</span></p></th><th  colspan="3"class="cl-38003930"><p class="cl-380006ea"><span class="cl-37fb2af8">Model 2</span></p></th><th  colspan="3"class="cl-38003930"><p class="cl-380006ea"><span class="cl-37fb2af8">Model 3</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-3800394e"><p class="cl-380006d6"><span class="cl-37fb2b16">Variable</span></p></th><th class="cl-3800394f"><p class="cl-380006ea"><span class="cl-37fb2b16">b</span></p></th><th class="cl-38003962"><p class="cl-380006ea"><span class="cl-37fb2b16">(SE)</span></p></th><th class="cl-38003963"><p class="cl-380006ea"><span class="cl-37fb2b16">p</span></p></th><th class="cl-3800394f"><p class="cl-380006ea"><span class="cl-37fb2b16">b</span></p></th><th class="cl-38003962"><p class="cl-380006ea"><span class="cl-37fb2b16">(SE)</span></p></th><th class="cl-38003963"><p class="cl-380006ea"><span class="cl-37fb2b16">p</span></p></th><th class="cl-3800394f"><p class="cl-380006ea"><span class="cl-37fb2b16">b</span></p></th><th class="cl-38003962"><p class="cl-380006ea"><span class="cl-37fb2b16">(SE)</span></p></th><th class="cl-38003963"><p class="cl-380006ea"><span class="cl-37fb2b16">p</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-3800396c"><p class="cl-380006f4"><span class="cl-37fb2b17">(Intercept)</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">8.79</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.73)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">8.78</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.73)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">8.79</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.73)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3800396c"><p class="cl-380006f4"><span class="cl-37fb2b17">natnews</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">0.15</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.09)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">.082</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3800396c"><p class="cl-380006f4"><span class="cl-37fb2b17">npnews</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">0.37</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.08)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3800396c"><p class="cl-380006f4"><span class="cl-37fb2b17">Age</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">-0.01</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.02)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">.578</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">-0.01</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.02)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">.540</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">-0.01</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.02)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">.578</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3800398a"><p class="cl-380006f4"><span class="cl-37fb2b17">Sex</span></p></td><td class="cl-3800398b"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003994"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-3800399e"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-3800398b"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003994"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-3800399e"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-3800398b"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003994"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-3800399e"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-380039a8"><p class="cl-38000708"><span class="cl-37fb2b17">Female</span></p></td><td class="cl-380039b2"><p class="cl-380006fe"><span class="cl-37fb2b17">—</span></p></td><td class="cl-380039bc"><p class="cl-380006fe"><span class="cl-37fb2b17">—</span></p></td><td class="cl-380039c6"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039b2"><p class="cl-380006fe"><span class="cl-37fb2b17">—</span></p></td><td class="cl-380039bc"><p class="cl-380006fe"><span class="cl-37fb2b17">—</span></p></td><td class="cl-380039c6"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039b2"><p class="cl-380006fe"><span class="cl-37fb2b17">—</span></p></td><td class="cl-380039bc"><p class="cl-380006fe"><span class="cl-37fb2b17">—</span></p></td><td class="cl-380039c6"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3800396c"><p class="cl-38000708"><span class="cl-37fb2b17">Male</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">2.25</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.45)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">2.33</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.44)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">2.25</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.45)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3800396c"><p class="cl-380006f4"><span class="cl-37fb2b17">News, sum</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">0.54</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.11)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td><td class="cl-38003976"><p class="cl-380006fe"><span class="cl-37fb2b17">0.53</span></p></td><td class="cl-38003977"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.11)</span></p></td><td class="cl-38003980"><p class="cl-380006fe"><span class="cl-37fb2b17">&lt; .001 ***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-380039c7"><p class="cl-380006f4"><span class="cl-37fb2b17">News, dif</span></p></td><td class="cl-380039d0"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039da"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039db"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039d0"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039da"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039db"><p class="cl-380006fe"><span class="cl-37fb2b17"></span></p></td><td class="cl-380039d0"><p class="cl-380006fe"><span class="cl-37fb2b17">-0.22</span></p></td><td class="cl-380039da"><p class="cl-380006fe"><span class="cl-37fb2b17">(0.13)</span></p></td><td class="cl-380039db"><p class="cl-380006fe"><span class="cl-37fb2b17">.097</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-380039e4"><p class="cl-380006f4"><span class="cl-37fb2b16">R²</span></p></td><td class="cl-380039e5"><p class="cl-380006fe"><span class="cl-37fb2b16">0.16</span></p></td><td class="cl-380039ee"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-380039f8"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-380039e5"><p class="cl-380006fe"><span class="cl-37fb2b16">0.15</span></p></td><td class="cl-380039ee"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-380039f8"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-380039e5"><p class="cl-380006fe"><span class="cl-37fb2b16">0.16</span></p></td><td class="cl-380039ee"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-380039f8"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-38003a02"><p class="cl-380006f4"><span class="cl-37fb2b16">Adjusted R²</span></p></td><td class="cl-38003a0c"><p class="cl-380006fe"><span class="cl-37fb2b16">0.15</span></p></td><td class="cl-38003a0d"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-38003a16"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-38003a0c"><p class="cl-380006fe"><span class="cl-37fb2b16">0.15</span></p></td><td class="cl-38003a0d"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-38003a16"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-38003a0c"><p class="cl-380006fe"><span class="cl-37fb2b16">0.15</span></p></td><td class="cl-38003a0d"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td><td class="cl-38003a16"><p class="cl-380006fe"><span class="cl-37fb2b16"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="10"class="cl-38003a17"><p class="cl-38000709"><span class="cl-37fb2b20">* p &lt; .05. ** p &lt; .01. *** p &lt; .001.</span></p></td></tr></tfoot></table></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="dh-ch8---regressor-importance-politics.html#cb396-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">linearHypothesis</span>(fit_pol_1, <span class="fu">c</span>(<span class="st">&quot;natnews - npnews&quot;</span>))</span></code></pre></div>
+<pre><code># A tibble: 2 × 6
+  Res.Df   RSS    Df `Sum of Sq`     F `Pr(&gt;F)`
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1    336 5487.    NA        NA   NA     NA     
+2    335 5442.     1        45.1  2.78   0.0966</code></pre>
+</div>
+<div id="rq3-variable-contribution" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> RQ3) Variable Contribution<a href="dh-ch8---regressor-importance-politics.html#rq3-variable-contribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="variable-importance" class="section level4 hasAnchor" number="8.2.3.1">
+<h4><span class="header-section-number">8.2.3.1</span> Variable Importance<a href="dh-ch8---regressor-importance-politics.html#variable-importance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="dh-ch8---regressor-importance-politics.html#cb398-1" tabindex="-1"></a><span class="fu">lm</span>(pknow <span class="sc">~</span> npnews <span class="sc">+</span> locnews <span class="sc">+</span> talkrad <span class="sc">+</span> natnews,</span>
+<span id="cb398-2"><a href="dh-ch8---regressor-importance-politics.html#cb398-2" tabindex="-1"></a>   <span class="at">data =</span> df_pol) <span class="sc">%&gt;%</span> </span>
+<span id="cb398-3"><a href="dh-ch8---regressor-importance-politics.html#cb398-3" tabindex="-1"></a>  caret<span class="sc">::</span><span class="fu">varImp</span>()</span></code></pre></div>
+<pre><code># A tibble: 4 × 1
+  Overall
+    &lt;dbl&gt;
+1    6.03
+2    4.14
+3    4.90
+4    2.27</code></pre>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="dh-ch8---regressor-importance-politics.html#cb400-1" tabindex="-1"></a><span class="fu">lm</span>(pknow <span class="sc">~</span> npnews <span class="sc">+</span> locnews <span class="sc">+</span> talkrad <span class="sc">+</span> natnews,</span>
+<span id="cb400-2"><a href="dh-ch8---regressor-importance-politics.html#cb400-2" tabindex="-1"></a>   <span class="at">data =</span> df_pol) <span class="sc">%&gt;%</span> </span>
+<span id="cb400-3"><a href="dh-ch8---regressor-importance-politics.html#cb400-3" tabindex="-1"></a>  relaimpo<span class="sc">::</span><span class="fu">calc.relimp</span>(<span class="at">type =</span> <span class="st">&quot;lmg&quot;</span>, <span class="at">importance =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>Response variable: pknow 
+Total response variance: 19.12264 
+Analysis based on 340 observations 
+
+4 Regressors: 
+npnews locnews talkrad natnews 
+Proportion of variance explained by model: 19.71%
+Metrics are not normalized (rela=FALSE). 
+
+Relative importance metrics: 
+
+               lmg
+npnews  0.08787767
+locnews 0.02812186
+talkrad 0.06292808
+natnews 0.01819988
+
+Average coefficients for different model sizes: 
+
+                1X        2Xs        3Xs        4Xs
+npnews   0.4629151  0.4650344  0.4695145  0.4716805
+locnews -0.2108792 -0.3214204 -0.3986934 -0.4440727
+talkrad  0.8869822  0.8677825  0.8527704  0.8324193
+natnews  0.2444027  0.2313024  0.2191853  0.2086020</code></pre>
+</div>
+<div id="relative-improvement-in-fit" class="section level4 hasAnchor" number="8.2.3.2">
+<h4><span class="header-section-number">8.2.3.2</span> Relative Improvement in Fit<a href="dh-ch8---regressor-importance-politics.html#relative-improvement-in-fit" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Set A:
+* newspaper
+* localnews</p>
+<p>Add:
+* national news
+* talk ratio</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="dh-ch8---regressor-importance-politics.html#cb402-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">A =</span> <span class="fu">c</span>(<span class="st">&quot;None&quot;</span>,</span>
+<span id="cb402-2"><a href="dh-ch8---regressor-importance-politics.html#cb402-2" tabindex="-1"></a>                 <span class="st">&quot;Newspaper&quot;</span>,</span>
+<span id="cb402-3"><a href="dh-ch8---regressor-importance-politics.html#cb402-3" tabindex="-1"></a>                 <span class="st">&quot;Local News&quot;</span>,</span>
+<span id="cb402-4"><a href="dh-ch8---regressor-importance-politics.html#cb402-4" tabindex="-1"></a>                 <span class="st">&quot;Both&quot;</span>),</span>
+<span id="cb402-5"><a href="dh-ch8---regressor-importance-politics.html#cb402-5" tabindex="-1"></a>           <span class="at">base =</span> <span class="fu">c</span>(<span class="st">&quot;pknow ~ 1&quot;</span>, </span>
+<span id="cb402-6"><a href="dh-ch8---regressor-importance-politics.html#cb402-6" tabindex="-1"></a>                    <span class="st">&quot;pknow ~ npnews&quot;</span>, </span>
+<span id="cb402-7"><a href="dh-ch8---regressor-importance-politics.html#cb402-7" tabindex="-1"></a>                    <span class="st">&quot;pknow ~ locnews&quot;</span>, </span>
+<span id="cb402-8"><a href="dh-ch8---regressor-importance-politics.html#cb402-8" tabindex="-1"></a>                    <span class="st">&quot;pknow ~ npnews+locnews&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-9"><a href="dh-ch8---regressor-importance-politics.html#cb402-9" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">add_talk =</span> <span class="fu">paste0</span>(base, <span class="st">&quot;+talkrad&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-10"><a href="dh-ch8---regressor-importance-politics.html#cb402-10" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">add_natn =</span> <span class="fu">paste0</span>(base, <span class="st">&quot;+natnews&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-11"><a href="dh-ch8---regressor-importance-politics.html#cb402-11" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">fit_base =</span> purrr<span class="sc">::</span><span class="fu">map</span>(base,</span>
+<span id="cb402-12"><a href="dh-ch8---regressor-importance-politics.html#cb402-12" tabindex="-1"></a>                                      <span class="sc">~</span><span class="fu">lm</span>(.x, <span class="at">data =</span> df_pol))) <span class="sc">%&gt;%</span></span>
+<span id="cb402-13"><a href="dh-ch8---regressor-importance-politics.html#cb402-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">fit_talk =</span> purrr<span class="sc">::</span><span class="fu">map</span>(add_talk,</span>
+<span id="cb402-14"><a href="dh-ch8---regressor-importance-politics.html#cb402-14" tabindex="-1"></a>                                      <span class="sc">~</span><span class="fu">lm</span>(.x, <span class="at">data =</span> df_pol))) <span class="sc">%&gt;%</span></span>
+<span id="cb402-15"><a href="dh-ch8---regressor-importance-politics.html#cb402-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">fit_natn =</span> purrr<span class="sc">::</span><span class="fu">map</span>(add_natn,</span>
+<span id="cb402-16"><a href="dh-ch8---regressor-importance-politics.html#cb402-16" tabindex="-1"></a>                                      <span class="sc">~</span><span class="fu">lm</span>(.x, <span class="at">data =</span> df_pol))) <span class="sc">%&gt;%</span></span>
+<span id="cb402-17"><a href="dh-ch8---regressor-importance-politics.html#cb402-17" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">R2 =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(fit_base,</span>
+<span id="cb402-18"><a href="dh-ch8---regressor-importance-politics.html#cb402-18" tabindex="-1"></a>                                    <span class="sc">~</span> broom<span class="sc">::</span><span class="fu">glance</span>(.x)<span class="sc">$</span>r.squared)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-19"><a href="dh-ch8---regressor-importance-politics.html#cb402-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">R2i =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(fit_talk,</span>
+<span id="cb402-20"><a href="dh-ch8---regressor-importance-politics.html#cb402-20" tabindex="-1"></a>                                     <span class="sc">~</span> broom<span class="sc">::</span><span class="fu">glance</span>(.x)<span class="sc">$</span>r.squared)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-21"><a href="dh-ch8---regressor-importance-politics.html#cb402-21" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">R2j =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(fit_natn,</span>
+<span id="cb402-22"><a href="dh-ch8---regressor-importance-politics.html#cb402-22" tabindex="-1"></a>                                     <span class="sc">~</span> broom<span class="sc">::</span><span class="fu">glance</span>(.x)<span class="sc">$</span>r.squared)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-23"><a href="dh-ch8---regressor-importance-politics.html#cb402-23" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">R  =</span> <span class="fu">sqrt</span>(R2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-24"><a href="dh-ch8---regressor-importance-politics.html#cb402-24" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Ri =</span> <span class="fu">sqrt</span>(R2i)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-25"><a href="dh-ch8---regressor-importance-politics.html#cb402-25" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Rj =</span> <span class="fu">sqrt</span>(R2j)) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-26"><a href="dh-ch8---regressor-importance-politics.html#cb402-26" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">dRi =</span> Ri <span class="sc">-</span> R) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-27"><a href="dh-ch8---regressor-importance-politics.html#cb402-27" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">dRj =</span> Rj <span class="sc">-</span> R) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-28"><a href="dh-ch8---regressor-importance-politics.html#cb402-28" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">&quot;Set A subset&quot;</span> <span class="ot">=</span> A,</span>
+<span id="cb402-29"><a href="dh-ch8---regressor-importance-politics.html#cb402-29" tabindex="-1"></a>                <span class="st">&quot;R&quot;</span> <span class="ot">=</span> R, </span>
+<span id="cb402-30"><a href="dh-ch8---regressor-importance-politics.html#cb402-30" tabindex="-1"></a>                <span class="st">&quot;Adding</span><span class="sc">\n</span><span class="st">Talk Radio</span><span class="sc">\n</span><span class="st">R&quot;</span> <span class="ot">=</span> Ri,</span>
+<span id="cb402-31"><a href="dh-ch8---regressor-importance-politics.html#cb402-31" tabindex="-1"></a>                <span class="st">&quot;Adding</span><span class="sc">\n</span><span class="st">National News</span><span class="sc">\n</span><span class="st">R&quot;</span> <span class="ot">=</span> Rj,</span>
+<span id="cb402-32"><a href="dh-ch8---regressor-importance-politics.html#cb402-32" tabindex="-1"></a>                <span class="st">&quot;Talk Radio</span><span class="sc">\n</span><span class="st">Change</span><span class="sc">\n</span><span class="st">in R&quot;</span> <span class="ot">=</span> Ri,</span>
+<span id="cb402-33"><a href="dh-ch8---regressor-importance-politics.html#cb402-33" tabindex="-1"></a>                <span class="st">&quot;National News</span><span class="sc">\n</span><span class="st">Change</span><span class="sc">\n</span><span class="st">in R&quot;</span> <span class="ot">=</span> Rj) <span class="sc">%&gt;%</span> </span>
+<span id="cb402-34"><a href="dh-ch8---regressor-importance-politics.html#cb402-34" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb402-35"><a href="dh-ch8---regressor-importance-politics.html#cb402-35" tabindex="-1"></a>  apaSupp<span class="sc">::</span><span class="fu">theme_apa</span>(<span class="at">caption =</span> <span class="st">&quot;Table 8.2 - Relative Improvement in Fit for Dominance Computations&quot;</span>,</span>
+<span id="cb402-36"><a href="dh-ch8---regressor-importance-politics.html#cb402-36" tabindex="-1"></a>                     <span class="at">d =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="tabwid tabwid_left"><style>.cl-38d82750{}.cl-38cd54ba{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-38d177ac{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-38d177b6{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.5;background-color:transparent;}.cl-38d177ca{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-38d177cb{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.5;background-color:transparent;}.cl-38d19e58{width:0.973in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e62{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e6c{width:0.849in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e6d{width:1.081in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 2.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e76{width:0.973in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e77{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e80{width:0.849in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e81{width:1.081in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e8a{width:0.973in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e8b{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e94{width:0.849in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e95{width:1.081in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19e9e{width:0.973in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19ea8{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19eb2{width:0.849in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19ebc{width:1.081in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19ebd{width:0.973in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19ec6{width:0.533in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19ed0{width:0.849in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-38d19ed1{width:1.081in;background-color:transparent;vertical-align: middle;border-bottom: 2.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-38d82750'>
+<caption style="display:table-caption;margin:0pt;text-align:left;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-300"><strong> Table  8.3</strong><br/> </span><span>Table 8.2 - Relative Improvement in Fit for Dominance Computations</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-38d19e58"><p class="cl-38d177ac"><span class="cl-38cd54ba">Set A subset</span></p></th><th class="cl-38d19e62"><p class="cl-38d177b6"><span class="cl-38cd54ba">R</span></p></th><th class="cl-38d19e6c"><p class="cl-38d177b6"><span class="cl-38cd54ba">Adding</span><br><span class="cl-38cd54ba">Talk Radio</span><br><span class="cl-38cd54ba">R</span></p></th><th class="cl-38d19e6d"><p class="cl-38d177b6"><span class="cl-38cd54ba">Adding</span><br><span class="cl-38cd54ba">National News</span><br><span class="cl-38cd54ba">R</span></p></th><th class="cl-38d19e6c"><p class="cl-38d177b6"><span class="cl-38cd54ba">Talk Radio</span><br><span class="cl-38cd54ba">Change</span><br><span class="cl-38cd54ba">in R</span></p></th><th class="cl-38d19e6d"><p class="cl-38d177b6"><span class="cl-38cd54ba">National News</span><br><span class="cl-38cd54ba">Change</span><br><span class="cl-38cd54ba">in R</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-38d19e76"><p class="cl-38d177ca"><span class="cl-38cd54ba">None</span></p></td><td class="cl-38d19e77"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.000</span></p></td><td class="cl-38d19e80"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.261</span></p></td><td class="cl-38d19e81"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.148</span></p></td><td class="cl-38d19e80"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.261</span></p></td><td class="cl-38d19e81"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.148</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-38d19e8a"><p class="cl-38d177ca"><span class="cl-38cd54ba">Newspaper</span></p></td><td class="cl-38d19e8b"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.298</span></p></td><td class="cl-38d19e94"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.393</span></p></td><td class="cl-38d19e95"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.310</span></p></td><td class="cl-38d19e94"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.393</span></p></td><td class="cl-38d19e95"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.310</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-38d19e9e"><p class="cl-38d177ca"><span class="cl-38cd54ba">Local News</span></p></td><td class="cl-38d19ea8"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.106</span></p></td><td class="cl-38d19eb2"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.288</span></p></td><td class="cl-38d19ebc"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.237</span></p></td><td class="cl-38d19eb2"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.288</span></p></td><td class="cl-38d19ebc"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.237</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-38d19ebd"><p class="cl-38d177ca"><span class="cl-38cd54ba">Both</span></p></td><td class="cl-38d19ec6"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.338</span></p></td><td class="cl-38d19ed0"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.430</span></p></td><td class="cl-38d19ed1"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.373</span></p></td><td class="cl-38d19ed0"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.430</span></p></td><td class="cl-38d19ed1"><p class="cl-38d177cb"><span class="cl-38cd54ba">0.373</span></p></td></tr></tbody></table></div>
+</div>
+<div id="dominance-ananlysis" class="section level4 hasAnchor" number="8.2.3.3">
+<h4><span class="header-section-number">8.2.3.3</span> Dominance Ananlysis<a href="dh-ch8---regressor-importance-politics.html#dominance-ananlysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>see: <a href="https://cran.r-project.org/web/packages/domir/vignettes/domir_basics.html" class="uri">https://cran.r-project.org/web/packages/domir/vignettes/domir_basics.html</a></p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="dh-ch8---regressor-importance-politics.html#cb403-1" tabindex="-1"></a><span class="fu">domir</span>(</span>
+<span id="cb403-2"><a href="dh-ch8---regressor-importance-politics.html#cb403-2" tabindex="-1"></a>  pknow <span class="sc">~</span> npnews <span class="sc">+</span> locnews <span class="sc">+</span> talkrad <span class="sc">+</span> natnews, </span>
+<span id="cb403-3"><a href="dh-ch8---regressor-importance-politics.html#cb403-3" tabindex="-1"></a>  <span class="cf">function</span>(formula) {</span>
+<span id="cb403-4"><a href="dh-ch8---regressor-importance-politics.html#cb403-4" tabindex="-1"></a>    lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula, <span class="at">data =</span> df_pol)</span>
+<span id="cb403-5"><a href="dh-ch8---regressor-importance-politics.html#cb403-5" tabindex="-1"></a>    <span class="fu">summary</span>(lm_model)[[<span class="st">&quot;r.squared&quot;</span>]]</span>
+<span id="cb403-6"><a href="dh-ch8---regressor-importance-politics.html#cb403-6" tabindex="-1"></a>  }</span>
+<span id="cb403-7"><a href="dh-ch8---regressor-importance-politics.html#cb403-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>Overall Value:      0.1971275 
+
+General Dominance Values:
+        General Dominance Standardized Ranks
+npnews         0.08787767   0.44579104     1
+locnews        0.02812186   0.14265824     3
+talkrad        0.06292808   0.31922529     2
+natnews        0.01819988   0.09232542     4
+
+Conditional Dominance Values:
+        Include At: 1 Include At: 2 Include At: 3 Include At: 4
+npnews     0.08896006    0.08783655    0.08769250    0.08702156
+locnews    0.01133509    0.02477780    0.03521980    0.04115476
+talkrad    0.06808081    0.06448014    0.06150433    0.05764703
+natnews    0.02193340    0.02061423    0.01791688    0.01233499
+
+Complete Dominance Proportions:
+          &gt; npnews &gt; locnews &gt; talkrad &gt; natnews
+npnews &gt;        NA      1.00         1      1.00
+locnews &gt;        0        NA         0      0.75
+talkrad &gt;        0      1.00        NA      1.00
+natnews &gt;        0      0.25         0        NA</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dh-ch7---regression-for-prediction-mtcars.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dh-ch9---multicategorical-regressors-married.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"toc_depth": 3
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
