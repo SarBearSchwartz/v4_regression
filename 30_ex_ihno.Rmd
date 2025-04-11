@@ -2,6 +2,9 @@
 
 interaction between two continuous IVs
 
+
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
 ![](images/common/Ihno_header.PNG)
 
 

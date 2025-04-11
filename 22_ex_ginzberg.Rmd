@@ -1,6 +1,8 @@
 # Ex: Effect Size - Ginzberg Depression 
 
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
 ```{block type='rmdlink', echo=TRUE}
 > References:  
 > http://www.philender.com/courses/intro/notes/cor1.html

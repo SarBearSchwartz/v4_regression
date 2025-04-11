@@ -1,5 +1,8 @@
 # Ex: Basic - Ventricular Shortening Velocity
 
+
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
 ![](images/common/ISwR_thuesen.PNG)
 
 

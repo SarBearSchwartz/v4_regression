@@ -1,6 +1,8 @@
 # Ex: Basic - Cancer Experiment 
 
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
 ```{r, comment=FALSE, message=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
