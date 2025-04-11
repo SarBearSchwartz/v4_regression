@@ -1,4 +1,4 @@
-# Ex: Ginzberg Depression 
+# Ex: Effect Size - Ginzberg Depression 
 
 
 ```{block type='rmdlink', echo=TRUE}
@@ -9,7 +9,7 @@
 ```
 
 
-```{r}
+```{r, warning=FALSE, error=FALSE, message=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
@@ -248,7 +248,7 @@ fit_lm_fat <- lm(depression ~ fatalism,
 ```
 
 ```{r}
-summary(fit_lm_fat)
+apaSupp::tab_lm(fit_lm_fat)
 ```
 
 
@@ -262,7 +262,7 @@ fit_lm_sim <- lm(depression ~ simplicity,
 ```
 
 ```{r}
-summary(fit_lm_sim)
+apaSupp::tab_lm(fit_lm_sim)
 ```
 
 #### Model 3: Both Beliefs
@@ -274,7 +274,7 @@ fit_lm_both <- lm(depression ~ fatalism + simplicity,
 ```
 
 ```{r}
-summary(fit_lm_both)
+apaSupp::tab_lm(fit_lm_both, vif = TRUE)
 ```
 
 
@@ -526,9 +526,8 @@ df_ginz %>%
 
 
 ```{r}
-apaSupp::tab_lms(list(fit_lm_fat, fit_lm_sim),
-                 mod_names = c("Model 1\nFatalism Only",
-                               "Model 2\nSimplicity Only"),
+apaSupp::tab_lms(list("Model 1\nFatalism Only" = fit_lm_fat, 
+                      "Model 2\nSimplicity Only" = fit_lm_sim),
                  var_labels = c("simplicity" = "Simplicity",
                                 "fatalism"   = "Fatalism"),
                  caption = "Parameter Estimates for Unadjusted, Simple Linear Models Regressing Depressive Symptoms on EAch Belief Score Seperately",

@@ -1,0 +1,658 @@
+# Ex: Logistic - Depression (Hoffman)
+
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+
+## PREPARATION
+
+### Load Packages
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/10/25
+# remotes::install_github("ddsjoberg/gtsummary")
+
+
+library(tidyverse)
+library(haven)        # read in SPSS dataset
+library(apaSupp)
+library(pscl)         # psudo R-squared function
+library(performance)  # r-squared values
+library(GGally)
+```
+
+
+
+### Load Data
+
+This dataset comes from John Hoffman's textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) [Amazon link, 2014 edition](https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&qid=1603172859&refinements=p_27%3ADr.+John+P.+Hoffmann&s=books&sr=1-2&text=Dr.+John+P.+Hoffmann)
+
+> Chapter 3: Logistic and Probit Regression Models 
+
+Dataset:  The following example uses the SPSS data set `Depress.sav`. The dependent variable of interest is a measure of life satisfaction, labeled `satlife`. 
+
+```{r}
+df_depress <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/depress.sav") %>% 
+  haven::as_factor() %>%    # labelled to factors
+  haven::zap_label() %>%    # remove SPSS junk
+  haven::zap_formats() %>%  # remove SPSS junk
+  haven::zap_widths() %>%   # remove SPSS junk
+  dplyr::mutate(sex = forcats::fct_recode(sex,
+                                          "Female" = "female",
+                                          "Male" = "male")) %>% 
+  dplyr::mutate(lifesat = forcats::fct_recode(lifesat,
+                                              "Yes (1)" = "high",
+                                              "No (0)" = "low"))
+```
+
+
+```{r}
+tibble::glimpse(df_depress)
+```
+
+
+```{r}
+df_depress %>% 
+  dplyr::group_by(lifesat, satlife) %>% 
+  dplyr::tally()
+```
+
+
+
+
+## EXPLORATORY DATA ANALYSIS
+
+Dependent Variable = `satlife` (numeric version) or `lifesat` (factor version)
+
+### Summary
+
+
+```{r}
+df_depress %>% 
+  dplyr::select("Sex" = sex,
+                "Life Satisfaction" = lifesat) %>% 
+  apaSupp::tab_freq(caption = "Descriptive Summary of Categorical Variables")
+```
+
+
+```{r}
+df_depress %>% 
+  dplyr::select("IQ, pts" = iq,
+                "Age, yrs" = age,
+                "Weight, lbs" = weight) %>% 
+  apaSupp::tab_desc(caption = "Descriptive Summary of Continuous Variables")
+```
+
+```{r}
+df_depress %>% 
+  dplyr::select("Life Satisfaction" = lifesat,
+                "Sex" = sex,
+                "IQ" = iq,
+                "Age" = age,
+                "Weight" = weight) %>%
+  dplyr::mutate_all(as.numeric) %>% 
+  apaSupp::tab_cor(caption = "Pairwise Correlations for Life Satisfaction, Sexd, IQ, Age, and Weight") %>% 
+  flextable::hline(i = 4)
+```
+
+
+
+
+### Visualize
+
+```{r}
+df_depress %>%
+  apaSupp::spicy_histos(var = iq,
+                        split = sex,
+                        lab = "IQ")
+```
+
+```{r}
+df_depress %>%
+  apaSupp::spicy_histos(var = age,
+                        split = sex,
+                        lab = "Age, yrs")
+```
+
+
+```{r}
+df_depress %>%
+  apaSupp::spicy_histos(var = weight,
+                        split = sex,
+                        lab = "Weight, lbs")
+```
+
+
+```{r, fig.width=6, fig.height=6, warning=FALSE}
+df_depress %>% 
+  dplyr::filter(complete.cases(lifesat, sex, iq, age, weight)) %>% 
+  dplyr::select("Satisfaction" = lifesat,
+                "Sex" = sex,
+                "IQ, pts" = iq,
+                "Age, yrs" = age,
+                "Weight, lbs" = weight) %>% 
+  GGally::ggpairs(aes(colour = Sex),
+                  diag = list(continuous = GGally::wrap("densityDiag",
+                                                        alpha = .3)),
+                  lower = list(continuous = GGally::wrap("smooth", 
+                                                         shape = 16,
+                                                         se = FALSE, 
+                                                         size  = 0.75))) +
+  theme_bw() +
+  scale_fill_manual(values = c("blue", "coral")) +
+  scale_color_manual(values = c("blue", "coral")) 
+```
+
+
+```{r, fig.cap="Hoffman's Figure 2.3, top of page 46"}
+df_depress %>% 
+  ggplot(aes(x = iq,
+             y = satlife)) +
+  geom_count() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "IQ Score",
+       y = "Life Satisfaction, numeric") +
+  scale_y_continuous(breaks = 0:1,
+                     labels = c("No (0)", 
+                                "Yes (1)"))
+```
+
+```{r}
+df_depress %>% 
+  ggplot(aes(x = weight,
+             y = satlife)) +
+  geom_count() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "Weight, lbs",
+       y = "Life Satisfaction, numeric") +
+  scale_y_continuous(breaks = 0:1,
+                     labels = c("No (0)", 
+                                "Yes (1)"))
+```
+
+
+
+Hoffman's Figure 2.3, top of page 46
+
+```{r}
+df_depress %>% 
+  ggplot(aes(x = age,
+             y = satlife)) +
+  geom_count() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "Age in Years",
+       y = "Life Satisfaction, numeric") +
+  scale_y_continuous(breaks = 0:1,
+                     labels = c("No (0)", 
+                                "Yes (1)"))
+```
+
+
+
+
+```{r}
+df_depress %>% 
+  ggplot(aes(x = age,
+             y = satlife)) +
+  geom_count() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "Age in Years",
+       y = "Life Satisfaction, numeric") +
+  facet_grid(~ sex) +
+  theme(legend.position = "none") +
+  scale_y_continuous(breaks = 0:1,
+                     labels = c("No (0)", 
+                                "Yes (1)"))
+```
+
+
+## HAND CALCULATIONS
+
+Probability, Odds, and Odds-Ratios
+
+### Marginal, over all the sample
+
+> Tally the number of participants who are satisfied vs. not...overall and by sex.
+
+
+```{r}
+df_depress %>% 
+  dplyr::select(sex,
+                "Satisfied with Life" = lifesat) %>% 
+  apaSupp::tab_freq(split = "sex",
+                    caption = "Observed Life Satisfaction by Sex")
+```
+
+
+#### Probability of being happy
+
+$$
+prob_{yes} = \frac{n_{yes}}{n_{total}} = \frac{n_{yes}}{n_{yes} + n_{no}}
+$$
+
+```{r}
+prob <- 52 / 117
+
+prob
+```
+
+#### Odds of being happy
+
+$$
+odds_{yes} = \frac{n_{yes}}{n_{no}} = \frac{n_{yes}}{n_{total} - n_{yes}}
+$$
+
+```{r}
+odds <- 52/65
+
+odds
+```
+
+$$
+odds_{yes} = \frac{prob_{yes}}{prob_{no}} = \frac{prob_{yes}}{1 - prob_{yes}}
+$$
+
+
+```{r}
+prob/(1 - prob)
+```
+
+
+
+### Comparing by Sex
+
+> Cross-tabulate happiness (`satlife`) with `sex` *(male vs. female)*.
+
+```{r}
+df_depress %>% 
+  dplyr::select(satlife, sex) %>% 
+  table() %>% 
+  addmargins()
+```
+
+
+#### Probability of being happy, by sex
+
+Reference category = male
+
+```{r}
+prob_male <- 14 / 21
+
+prob_male
+```
+
+Comparison Category = female
+
+```{r}
+prob_female <- 38 / 96
+
+prob_female
+```
+
+
+#### Odds of being happy, by sex
+
+Reference category = male
+
+```{r}
+odds_male <- 14 / 7
+
+odds_male
+```
+
+Comparison Category = female
+
+```{r}
+odds_female <- 38 / 58
+
+
+odds_female
+```
+
+#### Odds-Ratio for sex
+
+
+$$
+OR_{\text{female vs. male}} = \frac{odds_{female}}{odds_{male}}
+$$
+
+```{r}
+odds_ratio <- odds_female / odds_male
+
+odds_ratio
+```
+
+$$
+OR_{\text{female vs. male}} = \frac{\frac{prob_{female}}{1 - prob_{female}}}{\frac{prob_{male}}{1 - prob_{male}}}
+$$
+
+```{r}
+(prob_female / (1 - prob_female)) / (prob_male / (1 - prob_male))
+```
+
+$$
+OR_{\text{female vs. male}} = \frac{\frac{n_{yes|female}}{n_{no|female}}}{\frac{n_{yes|male}}{n_{no|male}}}
+$$
+
+```{r}
+((38 / 58)/(14 / 7))
+```
+
+
+
+## SINGLE PREDICTOR
+
+
+
+### Fit the Model
+
+```{r}
+fit_glm_1 <- glm(satlife ~ sex,
+                 data = df_depress,
+                 family = binomial(link = "logit"))
+```
+
+
+
+### Parameter Table
+
+```{r}
+apaSupp::tab_glm(fit_glm_1,
+                 var_labels = c(sex = "Sex"),
+                 caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Unadjusted Odds Ratio")
+```
+
+
+
+### Model Fit
+
+> See this commentary by Paul Alison: https://statisticalhorizons.com/r2logistic/ 
+
+```{r}
+performance::model_performance(fit_glm_1)
+```
+
+
+
+```{r}
+performance::r2(fit_glm_1)
+```
+
+
+```{r}
+performance::r2_mcfadden(fit_glm_1)
+```
+
+
+
+
+### Predicted Probability
+
+#### Logit scale
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex)
+```
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex) %>% 
+  pairs()
+```
+
+
+
+
+
+
+
+
+#### Response Scale 
+
+Probability
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex,
+                   type = "response")
+```
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ sex,
+                   type = "response") %>% 
+  pairs()
+```
+
+
+
+
+### Interpretation
+
+* On average, two out of every three males is satisfied, b = 0.667, odds = 1.95, 95% CI [1.58, 2.40].
+
+* Females have 67% lower odds of being depressed, compared to men, b = -0.27, OR = 0.77, 95% CI [0.61, 0.96], p = .028.
+
+
+### Diagnostics
+
+#### Influential values
+
+Influential values are extreme individual data points that can alter the quality of the logistic regression model.
+
+The most extreme values in the data can be examined by visualizing the Cook’s distance values. Here we label the top 7 largest values:
+
+
+```{r}
+plot(fit_glm_1, which = 4, id.n = 7)
+```
+
+> Note that, not all outliers are influential observations. To check whether the data contains potential influential observations, the standardized residual error can be inspected. Data points with an absolute standardized residuals above 3 represent possible outliers and may deserve closer attention.
+
+#### Standardized Residuals
+
+The following R code computes the standardized residuals (`.std.resid`) using the R function `augment()` [`broom` package].
+
+
+```{r}
+fit_glm_1 %>% 
+  broom::augment() %>% 
+  ggplot(aes(x = .rownames, .std.resid)) + 
+  geom_point(aes(color = sex), alpha = .5) +
+  theme_bw()
+```
+
+
+
+
+
+
+## MULTIPLE PREDICTORS
+
+
+### Fit the Model
+
+
+
+```{r}
+fit_glm_2 <- glm(satlife ~ sex + iq + age + weight,
+                 data = df_depress,
+                 family = binomial(link = "logit"))
+```
+
+
+### Parameter Table
+
+EXAMPLE 3.3 A Logistic Regression Model of Life Satisfaction with Multiple Independent Variables, middle of page 52
+
+```{r}
+apaSupp::tab_glm(fit_glm_2)
+```
+
+```{r}
+apaSupp::tab_glm(fit_glm_2, vif = FALSE)
+```
+
+
+```{r}
+apaSupp::tab_glm(fit_glm_2, fit = c("AIC", "BIC"))
+```
+```{r}
+apaSupp::tab_glm(fit_glm_2, vif = FALSE, lrt = FALSE)
+```
+
+
+
+
+```{r}
+apaSupp::tab_glm(fit_glm_2,
+                 var_labels = c(sex = "Sex",
+                                iq = "IQ, pts",
+                                age = "Age, yrs",
+                                weight = "Weight, lbs"),
+                 caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Controlling fro IQ, Age, and Weight") %>% 
+  flextable::bold(i = c(2:4))
+```
+
+
+
+```{r}
+apaSupp::tab_glm_fits(list("Univariate"   = fit_glm_1, 
+                           "Multivariate" = fit_glm_2))
+```
+
+## COMPARE MODELS
+
+### Refit to Complete Cases
+
+Restrict the data to only participant that have all four of these predictors.
+
+```{r}
+df_depress_model <- df_depress %>% 
+  dplyr::filter(complete.cases(satlife, 
+                               sex, iq, age, weight))
+```
+
+
+
+Refit Model 1 with only participant complete on all the predictors.
+
+```{r}
+fit_glm_1_redo <- glm(satlife ~ sex,
+                      data = df_depress_model,
+                      family = binomial(link = "logit"))
+
+fit_glm_2_redo <- glm(satlife ~ sex + iq + age + weight,
+                      data = df_depress_model,
+                      family = binomial(link = "logit"))
+```
+
+
+### Parameter Table
+
+```{r}
+apaSupp::tab_glms(list(fit_glm_1_redo, fit_glm_2_redo))
+```
+
+
+```{r}
+apaSupp::tab_glms(list("Univariate"   = fit_glm_1_redo, 
+                       "Multivariate" = fit_glm_2_redo),
+                  var_labels = c(sex = "Sex",
+                                 iq = "IQ Score",
+                                 age = "Age, yrs",
+                                 weight = "Weight, lbs"),
+                  fit = c("AIC", "BIC"),
+         narrow = TRUE) %>% 
+  flextable::bold(i = 3)
+```
+
+
+
+
+### Comparison Criteria
+
+
+```{r}
+apaSupp::tab_glm_fits(list("Univariate, Initial"   = fit_glm_1, 
+                           "Univariate, Restricted" = fit_glm_1_redo, 
+                           "Multivariate" = fit_glm_2_redo))
+```
+
+```{r}
+anova(fit_glm_1_redo, 
+      fit_glm_2_redo,
+      test = "LRT")
+```
+
+
+
+
+
+### Interpretation
+
+* Only sex is predictive of depression.  There is no evidence IQ, age, or weight are associated with depression, LRT $\chi^2$(3) = 2.17, *p* = .537.
+
+
+
+
+## CHANGING REFERENCE CATEGORY
+
+```{r}
+levels(df_depress$sex)
+```
+
+
+```{r}
+df_depress_ref <- df_depress %>% 
+  dplyr::mutate(male   = sex %>% forcats::fct_relevel("Female", after = 0)) %>%   dplyr::mutate(female = sex %>% forcats::fct_relevel("Male",   after = 0))
+```
+
+```{r}
+levels(df_depress_ref$male)
+```
+
+```{r}
+levels(df_depress_ref$female)
+```
+
+
+
+```{r}
+fit_glm_2_male <- glm(satlife ~ male + iq + age + weight,
+                      data = df_depress_ref,
+                      family = binomial(link = "logit"))
+
+fit_glm_2_female <- glm(satlife ~ female + iq + age + weight,
+                      data = df_depress_ref,
+                      family = binomial(link = "logit"))
+```
+
+
+```{r}
+apaSupp::tab_glms(list("Reference = Male"  = fit_glm_2_female,
+                       "Reference = Female" = fit_glm_2_male),
+                  fit = c("AIC", "BIC")) %>% 
+  flextable::bold(i = c(3, 9))
+```
+
+```{r}
+apaSupp::tab_glm_fits(list("Reference = Female" = fit_glm_2_male,
+                           "Reference = Male"  = fit_glm_2_female))
+```

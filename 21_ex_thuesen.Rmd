@@ -1,4 +1,4 @@
-# Ex: Ventricular Shortening Velocity
+# Ex: Basic - Ventricular Shortening Velocity
 
 ![](images/common/ISwR_thuesen.PNG)
 
@@ -52,9 +52,18 @@ This dataset is included in the `ISwR` package [@R-ISwR], which was a companion 
 * `short.velocity` a numeric vector, mean circumferential shortening velocity (%/s).
 
 
-```{r}
+```{r, eval=FALSE}
 data(thuesen, package = "ISwR")
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+save(thuesen, file = "thuesen.Rdata")
+```
+
+```{r, echo=FALSE}
+load("thuesen.Rdata")
+```
+
 
 
 ```{r}
