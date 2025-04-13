@@ -66,7 +66,6 @@ Independent variables (IV) or predictors
 * `ftv` Number of physician visits in 1st trimester: 0 = None, 1 = One, ... 6 = six
 
 
-### Raw Dataset
 
 The data is saved in a text file (`.txt`) without any labels.
 
@@ -83,7 +82,7 @@ tibble::glimpse(df_txt)
 
 
 
-### Declare Factors
+### Wrangle Data
 
 
 ```{r}
