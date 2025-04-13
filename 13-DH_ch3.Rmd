@@ -443,6 +443,25 @@ parameters::standardise_parameters(fit_lm_three)
 ```
 
 
+### Cohen's $f$ (see chapter 8)
+
+Cohen’s $f$ (Cohen, 1988) is appropriate for calculating the effect size within a multiple regression model in which the independent variable of interest and the dependent variable are **both continuous**.
+
+
+```{r}
+effectsize::cohens_f_squared(fit_lm_both,
+                             partial = TRUE)
+
+```
+
+
+```{r}
+effectsize::cohens_f_squared(fit_lm_both,
+                             partial = FALSE)
+
+```
+
+
 
 
 ## VARIANCE INFLATION FACTORS

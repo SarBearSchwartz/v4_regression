@@ -1,0 +1,293 @@
+# Ex: Logistic - volunteering (Hoffman)
+
+
+
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+
+## PREPARATION
+
+### Load Packages
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/12/25
+# remotes::install_github("ddsjoberg/gtsummary")
+
+
+library(tidyverse)
+library(haven)        
+library(naniar)
+library(apaSupp)
+library(performance) 
+library(interactions)
+```
+
+
+### Load Data
+
+This dataset comes from John Hoffman's textbook: Regression Models for Categorical, Count, and Related Variables: An Applied Approach (2004) [Amazon link, 2014 edition](https://www.amazon.com/Regression-Models-Categorical-Related-Variables/dp/0520289293/ref=sr_1_2?dchild=1&qid=1603172859&refinements=p_27%3ADr.+John+P.+Hoffmann&s=books&sr=1-2&text=Dr.+John+P.+Hoffmann)
+
+> Chapter 3: Logistic and Probit Regression Models 
+
+Dataset:  The following example uses the SPSS data set `gss.sav`. The dependent variable of interest is labeled `volrelig`. 
+
+
+> "The variable labeled `volrelig`, which indicates whether or not a respondent volunteered for a religious organization in the previous year  is coded `0` = no, `1` = yes. **A hypothesis we wish to explore is that females are more likely than males to volunteer for religious organizations.** Hence, in this data set, we code gender as `0` = male and `1` = female. In order to preclude the possibility that age and education explain the proposed association between `gender` and `volrelig`, we include these variables in the model after transforming them into z-scores. An advantage of this transformation is that it becomes a simple exercise to compute odds or probabilities for males and females at the mean of age and education, because these variables have now been transformed to have a mean of zero.
+
+
+```{r}
+df_spss <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav") %>% 
+  haven::as_factor() %>% 
+  haven::zap_label() %>%    # remove SPSS junk
+  haven::zap_formats() %>%  # remove SPSS junk
+  haven::zap_widths()       # remove SPSS junk
+```
+
+
+```{r}
+str(df_spss)
+```
+
+
+### Wrangle Data
+
+```{r}
+df_gss <- df_spss %>% 
+  dplyr::mutate(volrelig = volrelig %>% 
+                  forcats::fct_recode("Yes" = "yes",
+                                      "No" = "no")) %>% 
+  dplyr::mutate(female = female %>% 
+                  forcats::fct_recode("Male" = "male",
+                                      "Female" = "female"))
+```
+
+
+```{r}
+str(df_gss)
+```
+
+
+
+
+
+
+```{r}
+df_gss %>% 
+  dplyr::select("Volunteered" = volrelig, 
+                "Sex" = female, 
+                "Age" = age, 
+                "Education" = educate) %>% 
+  psych::headTail() %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Partial Printout of the Dataset",
+                     d = 0) %>% 
+  flextable::align(part = "all", j = 1:2, align = "left") %>% 
+  flextable::align(part = "all", j = 3.:4, align = "right") %>% 
+  flextable::colformat_num(na_str = "-")
+```
+
+
+
+## EXPLORATORY DATA ANALYSIS
+
+
+### Missing Data
+
+```{r}
+df_gss %>% 
+  dplyr::select("Volunteered" = volrelig, 
+                "Sex" = female, 
+                "Age" = age, 
+                "Education" = educate) %>% 
+  naniar::miss_var_summary() %>%
+  dplyr::select(Variable = variable,
+                n = n_miss) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Missing Data by Variable")
+```
+
+
+
+### Summary
+
+
+```{r}
+df_gss %>% 
+  dplyr::select("Volunteered" = volrelig, 
+                "Sex" = female, 
+                "Age" = age, 
+                "Education" = educate) %>%
+  apaSupp::tab_freq(caption = "Summary of Categorical Variables")
+```
+
+
+
+```{r}
+df_gss %>% 
+  dplyr::select("Volunteered" = volrelig, 
+                "Sex" = female, 
+                "Age" = age, 
+                "Education" = educate) %>%
+  apaSupp::tab_desc(caption = "Summary of Continuous Variables")
+```
+
+
+
+### Visualization
+
+
+```{r}
+df_gss %>% 
+  apaSupp::spicy_histos(var = age,
+                        lab = "Age, years")
+```
+
+
+
+
+```{r}
+df_gss %>% 
+  ggplot(aes(x = educate,
+             y = volrelig)) +
+  geom_count() +
+  theme_bw() +
+  labs(x = "Education in Years",
+       y = "Observed Volunteering for a\nReligious Organization\nin the Previous Year")
+```
+
+
+
+
+
+
+
+## LOGISTIC REGRESSION
+
+
+### Compelete Subset
+
+```{r}
+df_gss_model <- df_gss %>% 
+  dplyr::filter(complete.cases(volrelig, female, age, educate))
+```
+
+
+```{r}
+tibble::glimpse(df_gss_model)
+```
+
+### Fit the Model
+
+
+```{r}
+fit_glm_1 <- glm(volrelig ~ female + age + educate,
+                 data = df_gss_model,
+                 family = binomial(link = "logit"))
+```
+
+
+
+### Parameter Table
+
+```{r}
+apaSupp::tab_glm(fit_glm_1)
+```
+
+
+```{r}
+apaSupp::tab_glm(fit_glm_1,
+                 var_labels = c(female = "Sex",
+                                age = "Age, yrs",
+                                educate = "Education ,yrs"),
+                 caption = "Parameter Estimates for Multivariate Logistic Regression for Vollunteering  for Religious Organization in the Previous Year",
+                 lrt = FALSE,
+                 pr2 = "both") %>% 
+  flextable::width(j = 1, width = 1.25) %>% 
+  flextable::bold(i = c(4, 6))
+```
+
+
+
+
+
+## Interpretation
+
+### Probe
+
+Logit Scale ranges from negatie infinity to positive infinity...hard to interpret
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ female)
+```
+ 
+ 
+Response Scale (aka. Predicted Probabilities)
+
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ female,
+                   type = "response")
+```
+
+
+
+Controlling for age and education, i.e. at the mean level of education and age...
+
+* the **probability** of volunteering among MALES is `.0556` or a5.6% chance
+* the **probability** of volunteering among FEMALES is `.0774` or a 7.7% chance
+
+> Use these probabilities to compute the odds ratio for gender (OR for sex).
+
+```{r}
+(.0774/(1 - .0774))/(.0556/(1 - .0556))
+```
+
+*Note that these **odds** and **probabilities** are similar. This often occurs when we are dealing with probabilities that are relatively close to zero; in other words, it is a common occurrence for rare events. To see this, simply compute a cross-tabulation of `volrelig` and `gender` and compare the odds and probabilities. Then try it out for any rare event you may wish to simulate*
+
+
+
+### Plot
+
+```{r}
+fit_glm_1 %>% 
+  emmeans::emmeans(~ female | educate,
+                   at = list(educate = c(25, 50, 75)),
+                   type = "response")
+```
+
+
+```{r}
+interactions::interact_plot(model = fit_glm_1,
+                            pred = educate,
+                            modx = female,
+                            legend.main = "Sex",
+                            interval = TRUE,
+                            int.width = .685) +
+  theme_bw() +
+  geom_vline(xintercept = 12) +
+  labs(x = "Education, years",
+       y = "Predicted Probability of Volunteering for a\nReligious Organization in the Previous Year") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme(legend.position = "inside",
+        legend.position.inside = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm"))
+```
+
+
+

@@ -3,6 +3,8 @@
 
 Darlington & Hayes, Chapter 8's  example
 
+Darlington, Richard B., and Andrew F. Hayes. (2016) **Regression Analysis and Linear Models: Concepts, Applications, and Implementation**, Guilford Publications.
+
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 # install.packages("remotes")
@@ -18,7 +20,6 @@ library(rempsyc)
 library(parameters)
 library(performance)
 library(interactions)
-library(ggResidpanel)
 library(relaimpo)
 library(dominanceanalysis)
 library(domir)
@@ -32,19 +33,14 @@ flextable::set_flextable_defaults(digits = 2)
 
 ## PURPOSE
 
+### Research Questions
 
-```{block type='rmdlightbulb', echo=TRUE}
-RESEARCH QUESTION:
 
 RQ1) Is news consumption via national news broadcast and newspaper correlated with knowledge of the political process, after accounting for sex and age?
 
 RQ2) If so, do both sources of news have the same effect on political knowledge?
 
 RQ3) Is listening to political talk radio more or less important than watching the national network news broadcast?
-
-```
-
-
 
 ### Data Import
 
@@ -150,14 +146,37 @@ tibble::glimpse(df_pol)
 summary(df_pol)
 ```
 
-## REGRESSION ANALYSIS
+## RQ1) Fit Main Model
 
-### RQ1) Fit Main Model
+```{r}
+df_pol %>% 
+  dplyr::select(pknow, natnews, npnews) %>% 
+  apaSupp::tab_cor() %>% 
+  flextable::hline(i = 2)
+```
+
 
 ```{r}
 fit_pol_1 <- lm(pknow ~ natnews + npnews + age + sex,
                 data = df_pol)
+
+fit_pol_1nn <- lm(pknow ~ natnews + age + sex,
+                data = df_pol)
+
+fit_pol_1np <- lm(pknow ~ npnews + age + sex,
+                data = df_pol)
 ```
+
+
+```{r}
+apaSupp::tab_lms(list(fit_pol_1, fit_pol_1nn, fit_pol_1np),
+                var_labels = c(natnews = "National News",
+                               npnews = "Newspapers",
+                               age = "Age",
+                               sex = "Sex")) %>% 
+  flextable::width(j = 1, width = 1.5)
+```
+
 
 ```{r}
 apaSupp::tab_lm(fit_pol_1,
@@ -165,12 +184,14 @@ apaSupp::tab_lm(fit_pol_1,
                                npnews = "Newspapers",
                                age = "Age",
                                sex = "Sex"),
-                d = 3) %>% 
+                d = 3,
+                vif = TRUE) %>% 
   flextable::width(j = 1, width = 1.5)
 ```
 
+### Interpretation
 
-### RQ2) Parameter Equivalence
+## RQ2) Parameter Equivalence
 
 ```{r}
 fit_pol_2 <- lm(pknow ~ news_sum + age + sex,
@@ -191,34 +212,736 @@ apaSupp::tab_lms(list(fit_pol_1, fit_pol_2, fit_pol_3),
 car::linearHypothesis(fit_pol_1, c("natnews - npnews"))
 ```
 
-### RQ3) Variable Contribution
 
-#### Variable Importance
+### Interpretation
+
+There is no evidence that the coefficients differ between national news and newspaper, *F*(1, 335) = 2.78, *p* = .097.
+
+
+## RQ3) Variable Contribution
+
+### Relavent Statistics
+
+
+#### Mean of the dependent variable:
+
+$$
+\bar{Y} = \frac{\sum Y_i}{n} = \text{mean of all observed } Y \text{ values}\\
+$$
+
+For the dependent variable "political knowledge" (`pknow`), $\bar{Y}$ = 11.31
+
+```{r}
+mean(df_pol$pknow)
+```
+
+
+
+
+#### Sample standard deviations, $s_Y$ and $s_X$'s
+
+The amount of spread or variation in each measured variable
+
+$$
+s_Y = \text{standard deviation of } Y\\
+s_X = \text{standard deviation of } X\\
+$$
+
+
+
+For the dependent variable "political knowledge" (`pknow`), $s_Y$ = 4.37
 
 
 ```{r}
-lm(pknow ~ npnews + locnews + talkrad + natnews,
-   data = df_pol) %>% 
-  caret::varImp()
+df_pol %>% 
+  dplyr::select(pknow, npnews, locnews, talkrad, natnews) %>% 
+  apaSupp::tab_desc(caption = "Summary of Politial Knowledge and Each Predictor")
+```
+
+#### Pairwise Correlations
+
+
+The linear association between pairs of variables
+
+$$
+r_{yx} = \text{correlation between Y and X} \\
+$$
+
+
+```{r}
+df_pol %>% 
+  dplyr::select(pknow, npnews, locnews, talkrad, natnews) %>% 
+  apaSupp::tab_cor(caption = "Pairwise Correlations Between Political Knowledge and Each Predictor ") %>% 
+  flextable::hline(i = 4)
+```
+
+#### Predicted Values
+
+
+* Regression estimates or conditional means for the dependent variable:
+
+$$
+\hat{Y_i} = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} = \text{ predicted } Y \text{ values}\\
+$$
+
+
+For Model `frt_pol_1`, here is a summary of the residuals
+
+```{r}
+summary(fitted(fit_pol_1))
+```
+
+
+
+#### Sum of Squares
+
+
+> (see Darlington & Hayes section 4.2.2 on pages 99-100)
+
+
+$$
+data = model + error \\
+total = regression + residual \\
+
+SS_{total} = SS_{regression} + SS_{residuals} 
+$$
+
+* $SS_{total}$ = sum of the squared "deviants" (observed Y - mean Y)
+* $SS_{residual}$ = sum of the squared residuals (observed Y - predicted Y)
+* $SS_{regression}$ = sum of the squared regression (predicted Y - mean Y)
+
+$$
+SS_{total}= \sum (Y_i - \bar{Y_i})^2  \\
+SS_{regression} = \sum (\hat{Y_i} - \bar{Y})^2 \\
+SS_{residuals} = \sum (Y_i - \hat{Y_i})^2 \\
+$$
+
+
+* $SS_t$ = sum of the squared "deviations"
+* Differences between observed $Y$ value and the mean of all $Y$ values
+
+
+For Model `frt_pol_1`, $SS_{total}$ = 6482.574
+
+```{r}
+df_pol %>% 
+  dplyr::mutate(mean_pknow = mean(pknow)) %>% 
+  dplyr::mutate(dev_pknow_sq = (pknow - mean_pknow)^2) %>% 
+  dplyr::pull(dev_pknow_sq) %>% 
+  sum()
 ```
 
 
 ```{r}
-lm(pknow ~ npnews + locnews + talkrad + natnews,
-   data = df_pol) %>% 
-  relaimpo::calc.relimp(type = "lmg", importance = TRUE)
+ss_total <- var(df_pol$pknow)*(340 - 1)
+ss_total
 ```
 
 
-#### Relative Improvement in Fit
 
-Set A: 
-* newspaper
-* localnews
 
-Add:
-* national news
-* talk ratio
+* $SS_{residual}$ = sum of the squared "residuals"
+* Differences between each observed $Y$ value and the corresponding predicted value
+
+
+For Model `frt_pol_1`, $SS_{residula}$ = 5442.1
+
+```{r}
+deviance(fit_pol_1)
+```
+
+
+```{r}
+ss_residuals <- sum(residuals(fit_pol_1)^2)
+ss_residuals
+```
+
+
+* $SS_{regression}$ = find by subtraction
+
+$$
+ SS_{regression}  = SS_{total} - SS_{residuals} 
+$$
+
+```{r}
+ss_regression <- ss_total - ss_residuals 
+ss_regression
+```
+
+
+#### Degrees of Freedom
+
+> (see Darlington & Hayes section 4.2.3 on pages 99-100)
+
+$$
+df_{total} = n - 1 \\
+df_{regression} = k  \\
+df_{residual} = n - (k + 1)
+$$
+
+
+
+For Model `frt_pol_1`:
+
+* $n$ = 340, the sample size
+* $k$ = 4, the number of predictors in the model
+
+* $df_{total}$ = 340 - 1 = 339
+* $df_{regression}$ = 4
+* $df_{residual}$ = 340 - (4 + 1) = 335
+
+
+```{r}
+df_total <- 340 - 1 
+df_regression <- 4
+df_residual <- 340 - (4 + 1) 
+```
+
+
+
+```{r}
+anova(fit_pol_1)
+```
+
+
+
+
+
+
+
+#### Mean Squares
+
+> (see Darlington & Hayes section 4.2.4 on pages 100-102)
+
+The name “mean squared” is rather unfortunate given that neither of these is an actual mean of the squared components. These statistics have the property that they are generally less inﬂuenced by adding regressors or cases to a model than are the sums of squares.
+
+$$
+MS_{regression}
+=  \frac{SS_{regression}}{df_{regression}} 
+= \frac{\sum (\hat{Y_i} - \bar{Y})^2}{k} \\
+
+MS_{residual} 
+= \frac{SS_{residual}}{df_{residual}} 
+= \frac{\sum (\hat{Y_i} - \bar{Y})^2 }{n - (k + 1)}
+
+$$
+
+
+The **mean squared residual**, also called the **mean squared error** and often abbreviated **MSE**, is an unbiased estimator of the variance of the errors in estimation of $Y$ , which we denoted $Var(Y|X)$ in Chapter 2. 
+
+That is, suppose you wanted to know the amount, on average, $\hat{Y}$ tends to differ from $Y$ when the model is ﬁtted to the entire **population(()) (or in a sample of inﬁnite size). $MS_{residual}$ is generally used in statistics as an important estimator of the square of this quantity.
+
+* For Model `frt_pol_1`, $MS_{residual}$ = 5442.07 /335 = 16.25
+
+
+```{r}
+ms_residuals <- ss_residuals/df_residual
+ms_residuals
+```
+
+
+```{r}
+summary(fit_pol_1)$sigma^2
+```
+
+
+
+
+#### Coefficient of Determination, $R^2$
+
+
+Proportion of TOTAL variance in $Y$ explained by all the predictors
+
+
+
+$$
+R^2 = 1 - \frac{SS_{residual}}{SS_{total}} = \frac{SS_{regression}}{SS_{total}}
+$$
+
+
+
+For Model `frt_pol_1`, $R^2$ = .161
+
+
+```{r}
+1 - (ss_residuals/ss_total)
+```
+
+```{r}
+ss_regression/ss_total
+```
+
+
+```{r}
+summary(fit_pol_1)$r.squared
+```
+
+
+
+
+
+### Fit a Sequence of Models
+
+We treat political knowledge (`pknow`) as the dependent variable $Y$ and determine whether listening to political talk radio (`talkrad`) is more or less important than watching the national network news broadcast (`natnews`) in explaining individual differences in political knowledge. 
+
+We do this in the context of a full model that includes **all four** sources of information as regressors. So $k = 4$. We’ll call political talk ratio regressor $j$ and national network news use regressor $i$ . 
+
+The two remaining regressors, reading the newspaper (`npnews`) and watching the local news broadcast (`locnews`), are deﬁned as **set A**.
+
+
+> Note: listening to political talk radio `talkrad`) is the participant’s average response on an ordinal scale to two questions about how often he or she listens to political talk radio and how much attention he or she pays when listening. But watching the network news (`natnews`) is measured as number of days per week the person watches the
+
+#### Set A predictors: newspaper and local news
+
+```{r}
+fit_pol_2a <- lm(pknow ~ npnews + locnews,
+                 data = df_pol)
+
+r2_a <- summary(fit_pol_2a)$r.squared
+r2_a
+```
+
+#### Set A -PLUS- talk radio
+
+```{r}
+fit_pol_2at <- lm(pknow ~ npnews + locnews + talkrad ,
+                  data = df_pol)
+
+r2_at <- summary(fit_pol_2at)$r.squared
+r2_at
+```
+
+
+#### Set A -PLUS- national news
+
+```{r}
+fit_pol_2an <- lm(pknow ~ npnews + locnews + natnews,
+                  data = df_pol)
+
+r2_an <- summary(fit_pol_2an)$r.squared
+r2_an
+```
+
+
+#### Set A -PLUS BOTH talk ratio AND national news
+
+```{r}
+fit_pol_2atn <- lm(pknow ~ npnews + locnews + talkrad + natnews,
+                 data = df_pol)
+
+r2_atn  <- summary(fit_pol_2atn)$r.squared
+r2_atn
+```
+
+
+### Variable Importance
+
+There are MANY measures of "Variable Importance"
+
+> Note: 
+> * 1 & 2 are not recomended
+> * 2-4 may be refered to as 'Effect Size' in general
+
+
+
+#### 1. Sample Regression Coefficients, $b$
+
+also called regression weights
+
+
+* Interpretation: $b$ is the average change in $Y$ for a 1-unit change in $X$
+* Pro: estimated in all regression models
+* Cons: scale dependent, so hard to compare predictors with different units
+
+$$
+b = r_{yx}\frac{s_y}{s_x}
+\tag{EQ 8-1} 
+$$
+
+
+For Model `frt_pol_2atn`:
+
+```{r}
+coef(fit_pol_2atn)
+```
+
+
+
+
+#### 2. Standardized Regression Coefficients, $b^*$
+
+* Interpretation: $b^*$ is the average SD change in $Y$ for a 1-SD change in $X$ while holding all other predictors constant
+* Pros: scale-free measure
+* Cons: meaning less for categorical predictors, places all predictors on the same scale
+
+Problem: if predictors are correlation, it is hard to justify changing one predictor while holding another constant
+
+$$
+b^* = b \frac{s_x}{s_y}
+\tag{EQ 8-2}
+$$
+
+
+For Model `frt_pol_2atn`:
+
+```{r}
+parameters::standardise_parameters(fit_pol_2atn)
+```
+
+
+
+
+#### 3. Semi-partial Correlation, $sr$
+
+* Interpretation: $\eta^2$ is the proportion of TOTAL variance in $Y$ **uniquely** explained by $X$
+* Pros: adjusts for other covariates
+* Cons: dependent on what covariates are included
+
+
+
+$$
+B = \text{the variable of interest} \\
+A = \text{set of all other variables} \\
+R^2_{AB} = \text{proportion of variance accounted for by } A \text{ and } B \text{ together} \\ 
+R^2_{A} = \text{proportion of variance accounted for by} A \\
+sr_{B|A} = \text{semi-partial correlation for variable } B \text{ controlling for } A \\
+\eta^2_{B|A} = \text{eta-squared for variable } B \text{ contorlling for } A
+$$
+
+
+
+$$
+sr^2_{B|A} = \eta^2_{B|A} = R^2_{AB} - R^2_A
+$$
+
+
+
+Another formula:
+
+$$
+k = \text{number of predictors in } A \text{ and } B \\
+N = \text{sample size} \\
+t_B = \frac{b_B}{SE_B}\\
+sr_B = t_B \sqrt{\frac{1-R^2_{AB}}{N - k - 1}}
+$$
+
+
+For Model `frt_pol_2atn`:
+
+```{r}
+DescTools::EtaSq(fit_pol_2atn) %>% 
+  data.frame() %>% 
+  dplyr::select(eta.sq) %>% 
+  dplyr::mutate(sr = sqrt(eta.sq))
+```
+
+
+
+#### 4. Partial Correlation, $pr$
+
+* Interpretation: $\eta^2_p$ is the proportion of variance in $Y$ NOT explained by the other predictors, but uniquely explained by $X$ 
+* Pros: adjusts for other covariates
+* Cons: dependent on what covariates are included
+
+$$
+pr^2_{B|A} = \eta^2_{p(B|A)} = \frac{R^2_{AB} - R^2_A}{1 - R^2_A}
+$$
+
+
+For Model `frt_pol_2atn`:
+
+```{r}
+DescTools::EtaSq(fit_pol_2atn) %>% 
+  data.frame() %>% 
+  dplyr::select(eta.sq.part) %>% 
+  dplyr::mutate(pr = sqrt(eta.sq.part))
+```
+
+
+
+#### 5. Cohen's $f$-squared, $f^2$
+
+* Interpretation: for a single variable or set of variables $B$, it is the RATIO between the proportion of the variance in $Y$ **UNIQUELY** explained by $B$ AND the proportion of variance in $Y$ unexplained by *ANY* variable in the model ($A$ and $B$)
+* Con: ranges from 0 to infinity (no upper bound), can be greater than 1
+
+> Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large effect sizes, respectively.
+
+$$
+f^2_{B|A} = \frac{R^2_{AB} - R^2_A}{1 - R^2_{AB}}
+\tag{EQ 8-2}
+$$
+
+
+
+Calculate for each predictor in a model.  It says "Type I" since it works sequentially in the order the predictors are listed in the regression formula
+
+
+In this case, each predictor is treated as $B$ while the predictors in the lines ABOVE it are treated as set $A$.
+
+
+
+
+* Cohen's $f^2$ for talk radio added to set $A$ (newspaper and local news)
+
+```{r}
+f2_a_t = (r2_at - r2_a)/(1 - r2_at)
+f2_a_t
+```
+
+* Cohen's $f^2$ for national news added to set $A$ and talk radio
+
+```{r}
+f2_at_n = (r2_b - r2_at)/(1 - r2_b)
+f2_at_n
+```
+
+
+
+(A) order:  npnews + locnews + **talkrad** + natnews
+
+```{r}
+lm(pknow ~ npnews + locnews + talkrad + natnews,
+                 data = df_pol) %>% 
+  effectsize::cohens_f_squared() %>% 
+  print(digits = 3)
+```
+
+(B) order: npnews + locnews + **natnews** + talkrad
+
+```{r}
+lm(pknow ~ npnews + locnews + natnews + talkrad,
+                 data = df_pol) %>% 
+  effectsize::cohens_f_squared(partial = TRUE) %>% 
+  print(digits = 3)
+```
+
+
+When comparing two models in a sequential regression analysis, Cohen's $f$ for **R-square change** is the RATIO between the INCREASE in R-square and the percent of unexplained variance. Thus, the numerator of (EQ 8-2) reflects the proportion of variance uniquely accounted for by $B$, over and above that of all other variables (Cohen, 1988).
+
+
+The variation of Cohen’s $f^2$ measuring **local effect size** is much more relevant to the research question where a single or set of variables ($B$) is added to a other variables (set $A$).
+
+
+$$
+f^2_{B|A} = \frac{R^2_{AB} - R^2_A}{1 - R^2_{AB}} = 
+\frac{\Delta R^2}{1 - R^2_{AB}}
+\tag{EQ 8-2} 
+$$
+
+* Effect of adding talk radio to set A
+
+```{r}
+effectsize::cohens_f_squared(model  = fit_pol_2at, 
+                             model2 = fit_pol_2a) %>% 
+  print(digits = 3)
+```
+
+
+* Effect of adding national news to set A
+
+```{r}
+effectsize::cohens_f_squared(model = fit_pol_2an, 
+                             model2 = fit_pol_2a) %>% 
+  print(digits = 3)
+```
+
+
+* Effect of adding national news to set A and talk radio
+
+
+```{r}
+effectsize::cohens_f_squared(model  = fit_pol_2atn, 
+                             model2 = fit_pol_2at) %>% 
+  print(digits = 3)
+```
+
+
+* Effect of adding BOTH talk radio AND national news to set A
+
+```{r}
+effectsize::cohens_f_squared(model  = fit_pol_2atn, 
+                             model2 = fit_pol_2a) %>% 
+  print(digits = 3)
+```
+
+
+
+#### 6. Standard Error of Estimate
+
+
+* Interpretation: the standard error of estimates (estimated or conditional means), smaller values indicate better models
+* Pros: weights the entire model, all predictors
+* Cons: dependent on what predictors are included
+
+
+
+The **standard error of estimate**  ($s_{Y|X} = \sqrt{MS_{residual}}$) is printed as a matter of routine by many regression programs. It is an estimator of the **standard deviation of the errors in estimate**. 
+
+As you know, means, regression coefficients, and other statistics have their own standard errors. These usually decline with sample size. But the standard error of estimate does not decline with increasing sample size, because we are estimating a value for each participant rather than a single value for the entire population.
+
+
+$$
+MSE_{A}  = \text{mean of the sum of all the squared residuals for predicting } Y \text{ from set } A\\
+s_{Y|A} = \text{standard deviation for the predicted or estimated } Y \text{ from  a set } A \\
+
+s_{Y|A} \approx \text{standard deviation of the residuals}
+$$
+
+One way of measuring the quality of a prediction system is how large the **errors in estimation** tend to be. The **standard error of estimate** ﬁrst introduced in section 4.2.4 is widely used as a measure of this. 
+
+
+* The SMALLER $s_{Y|X}$, the “BETTER” the model, in the sense that the model generates estimates of $Y$ that are closer to $Y$ than some other model of the same $Y$ with a bigger $s_{Y|X}$. 
+
+In a model with a single predictor $X$ of $Y$ , the **standard error of estimate** is related to $r_{XY}$ by the formula:
+
+$$
+s_{Y|X} = s_Y \sqrt{1 - r_{YX}^2}
+
+\tag{single X, 8.1}
+$$
+
+
+In all models with "A" equal to the set of predictors in the regression, the **standard error of estimate** is given the this formula:
+
+$$
+s_{Y|A} = \sqrt{MS_{residual}} = \text{sigma}_{Y|A}
+$$
+
+
+Predictors =  Set A (newspaper and local news)
+```{r}
+see_a <- summary(fit_pol_2a)$sigma
+see_a
+```
+
+* In large samples, $s_{Y|X}$ is very close to the **standard deviation of the residuals** ($SD(residuals)$).
+
+```{r}
+sd(residuals(fit_pol_2a))
+```
+
+
+
+Predictors =  Set A -PLUS- talk ratio
+```{r}
+see_at <- summary(fit_pol_2at)$sigma
+see_at
+```
+
+Predictors =  Set A -PLUS- national news
+```{r}
+see_an <- summary(fit_pol_2an)$sigma
+see_an
+```
+
+
+Predictors =  Set A -PLUS- national news AND talk ratio
+```{r}
+see_atn <- summary(fit_pol_2atn)$sigma
+see_atn
+```
+
+
+
+
+
+#### 7. Coefficient of Forecasting Efficiency
+
+
+* Interpretation: proportional reduction in the standard error of estimate when using the relationship between $X$ and $Y$
+* Pro: ranges between 0 and 1, higher = more important
+* Con: meaningful increase may be small
+
+
+For a single predictor:
+
+$$
+E = 1 - \sqrt{1 - r^2_{XY}}
+\tag{1 predictor X}
+$$
+
+
+For adding a predictor(s) $B$ to set $A$
+
+$$
+E_B = \frac{\sqrt{MSE_A} - \sqrt{MSE_{AB}}}{\sqrt{MSE_A}}
+\tag{B added to A}
+$$
+
+
+**Talk Radio**
+
+unadjusted correlation between talk radio and political knowledge ($Y$)
+
+```{r}
+r_t <- cor(df_pol$pknow, df_pol$talkrad)
+r_t
+```
+
+
+proportion reduction in the standard error of estimate when using talk radio only
+```{r}
+cfe_t <- 1 - sqrt(1 - r_t^2)
+cfe_t
+```
+
+
+proportion reduction in the standard error of estimate when using talk radio, if already considering newspaper and local news
+
+```{r}
+(see_a - see_at)/see_a
+```
+
+
+
+
+**National News**
+unadjusted correlation between national news and political knowledge
+```{r}
+r_n <- cor(df_pol$pknow, df_pol$natnews)
+r_n
+```
+
+proportion reduction in the standard error of estimate when using national news
+```{r}
+cfe_n <- 1 - sqrt(1 - r_n^2)
+cfe_n
+```
+
+proportion reduction in the standard error of estimate when using national news if already considering newspaper and local news
+```{r}
+(see_a - see_an)/see_a
+```
+
+
+
+
+
+
+
+
+
+
+
+
+#### 8. Change in R-squared
+
+* Interpretation: Change in Total variance in $Y$ explain when $X$ is added to the model
+* Con: dependent on what was previously in the model
+
+
+With `set A` deﬁned as two regressors (`npnes` and `locnews`), there are $2^{4 − 2} = 4$ subsets of these two regressors. Those **four sets** can be found in the rows of Table 8.2. For each each subset, we calculate $R$ three times, regression $Y$ on:
+
+
+* just the variables in the `A subset`, 
+* `A subset` plus regressor $i$  (`talkrad`), 
+* `A subset` plus regressor $j$  (`natnews`), 
+
+Importantly, we do not calculate $R$ when both regressor $i$ and $j$ are in the model. With these computations done we can derive $\Delta R^2_i$ and $\Delta R^2_j$ in each of the four subsets. Table 8.2 shows these computations.
+
+
+
+> Recreating Table 8.2 found at the top of page 237 of the Darlington & Hayes textbook.
 
 ```{r}
 data.frame(A = c("None",
@@ -250,18 +973,36 @@ data.frame(A = c("None",
   dplyr::mutate(dRj = Rj - R) %>% 
   dplyr::select("Set A subset" = A,
                 "R" = R, 
-                "Adding\nTalk Radio\nR" = Ri,
-                "Adding\nNational News\nR" = Rj,
-                "Talk Radio\nChange\nin R" = Ri,
-                "National News\nChange\nin R" = Rj) %>% 
+                "Adding i\nTalk Radio\nR" = Ri,
+                "Adding j\nNational News\nR" = Rj,
+                "Talk Radio, i\nChange\nin R" = Ri,
+                "National News, j\nChange\nin R" = Rj) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Table 8.2 - Relative Improvement in Fit for Dominance Computations",
+  apaSupp::theme_apa(caption = "D&H Table 8.2 - Relative Improvement in Fit for Dominance Computations",
                      d = 3)
 ```
 
 
 
-#### Dominance Ananlysis
+As can be seen, in all four models (ROWS) deﬁned by subsets of newspaper reading and local news use, adding talk radio use to the model INCREASES $R$ MORE than does watching the national network news. 
+
+Never does the addition of watching the national network news improve model ﬁt more than listening to political talk radio. So talk radio use completely dominates watching the national network news in explaining variation in political knowledge.
+
+
+
+
+### Relative Improvement in Fit
+
+
+The `calc.relimp()` function in the `relaimpo` package calculates several relative importance metrics for the linear model. The recommended metrics is `type = "lmg"` ($R^2$ partitioned by averaging over orders, like in Lindemann, Merenda and Gold, 1980, p.119). For completeness and comparison purposes, several other metrics are also on offer (cf. e.g. Darlington (1968)).
+
+```{r}
+fit_pol_2atn %>% 
+  relaimpo::calc.relimp(type = "lmg", importance = TRUE)
+```
+
+#
+## Dominance Ananlysis
 
 see: https://cran.r-project.org/web/packages/domir/vignettes/domir_basics.html
 

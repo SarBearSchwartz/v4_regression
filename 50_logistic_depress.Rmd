@@ -20,15 +20,16 @@ knitr::opts_chunk$set(comment     = "",
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 
 # library(remotes)
-# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/10/25
+# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/12/25
 # remotes::install_github("ddsjoberg/gtsummary")
 
 
 library(tidyverse)
-library(haven)        # read in SPSS dataset
+library(haven)        
+library(naniar)
 library(apaSupp)
-library(pscl)         # psudo R-squared function
-library(performance)  # r-squared values
+library(performance) 
+library(interactions)
 library(GGally)
 ```
 
@@ -41,6 +42,9 @@ This dataset comes from John Hoffman's textbook: Regression Models for Categoric
 > Chapter 3: Logistic and Probit Regression Models 
 
 Dataset:  The following example uses the SPSS data set `Depress.sav`. The dependent variable of interest is a measure of life satisfaction, labeled `satlife`. 
+
+
+Dependent Variable = `satlife` (numeric version) or `lifesat` (factor version)
 
 ```{r}
 df_depress <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/depress.sav") %>% 
@@ -73,7 +77,37 @@ df_depress %>%
 
 ## EXPLORATORY DATA ANALYSIS
 
-Dependent Variable = `satlife` (numeric version) or `lifesat` (factor version)
+### Missing Data
+
+
+```{r}
+df_depress %>% 
+  dplyr::select("Sex" = sex,
+                "Life Satisfaction" = lifesat,
+                "IQ, pts" = iq,
+                "Age, yrs" = age,
+                "Weight, lbs" = weight) %>% 
+  naniar::miss_var_summary() %>%
+  dplyr::select(Variable = variable,
+                n = n_miss) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Missing Data by Variable")
+```
+
+
+
+```{r}
+df_depress %>% 
+  dplyr::select("Sex" = sex,
+                "Life Satisfaction" = lifesat,
+                "IQ, pts" = iq,
+                "Age, yrs" = age,
+                "Weight, lbs" = weight) %>% 
+  naniar::gg_miss_upset()
+```
+
+
+
 
 ### Summary
 
@@ -374,6 +408,7 @@ fit_glm_1 <- glm(satlife ~ sex,
 ```{r}
 apaSupp::tab_glm(fit_glm_1,
                  var_labels = c(sex = "Sex"),
+                 pr2 = "both",
                  caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Unadjusted Odds Ratio")
 ```
 
@@ -506,7 +541,7 @@ apaSupp::tab_glm(fit_glm_2)
 ```
 
 ```{r}
-apaSupp::tab_glm(fit_glm_2, vif = FALSE)
+apaSupp::tab_glm(fit_glm_2, vif = FALSE, pr2 = "both")
 ```
 
 
@@ -525,7 +560,8 @@ apaSupp::tab_glm(fit_glm_2,
                  var_labels = c(sex = "Sex",
                                 iq = "IQ, pts",
                                 age = "Age, yrs",
-                                weight = "Weight, lbs"),
+                                weight = "Weight, lbs"), 
+                 pr2 = "both",
                  caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Controlling fro IQ, Age, and Weight") %>% 
   flextable::bold(i = c(2:4))
 ```
@@ -578,8 +614,9 @@ apaSupp::tab_glms(list("Univariate"   = fit_glm_1_redo,
                                  iq = "IQ Score",
                                  age = "Age, yrs",
                                  weight = "Weight, lbs"),
-                  fit = c("AIC", "BIC"),
-         narrow = TRUE) %>% 
+                  fit = "AIC",
+                  pr2 = "tjur",
+                  narrow = TRUE) %>% 
   flextable::bold(i = 3)
 ```
 
@@ -640,19 +677,15 @@ fit_glm_2_male <- glm(satlife ~ male + iq + age + weight,
                       family = binomial(link = "logit"))
 
 fit_glm_2_female <- glm(satlife ~ female + iq + age + weight,
-                      data = df_depress_ref,
-                      family = binomial(link = "logit"))
+                        data = df_depress_ref,
+                        family = binomial(link = "logit"))
 ```
 
 
 ```{r}
 apaSupp::tab_glms(list("Reference = Male"  = fit_glm_2_female,
-                       "Reference = Female" = fit_glm_2_male),
-                  fit = c("AIC", "BIC")) %>% 
+                       "Reference = Female" = fit_glm_2_male)) %>% 
   flextable::bold(i = c(3, 9))
 ```
 
-```{r}
-apaSupp::tab_glm_fits(list("Reference = Female" = fit_glm_2_male,
-                           "Reference = Male"  = fit_glm_2_female))
-```
+
