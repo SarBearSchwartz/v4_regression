@@ -210,8 +210,9 @@ apaSupp::tab_glm(fit_glm_1)
 apaSupp::tab_glm(fit_glm_1,
                  var_labels = c(female = "Sex",
                                 age = "Age, yrs",
-                                educate = "Education ,yrs"),
+                                educate = "Education, yrs"),
                  caption = "Parameter Estimates for Multivariate Logistic Regression for Vollunteering  for Religious Organization in the Previous Year",
+                 p_note = "apa13",
                  lrt = FALSE,
                  pr2 = "both") %>% 
   flextable::width(j = 1, width = 1.25) %>% 

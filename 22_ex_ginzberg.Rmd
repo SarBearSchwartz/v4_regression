@@ -104,7 +104,7 @@ Before embarking on any inferencial anlaysis or modeling, always get familiar wi
 ```{r}
 df_ginz %>% 
   dplyr::select("Simplicity" = simplicity,
-                "Fatalism" = fatalism,
+                "Fatalism"   = fatalism,
                 "Depression" = depression) %>% 
   apaSupp::tab_desc(caption = "Description of Psychiatric Patients Hospitalized for Depression")
 ```
@@ -117,7 +117,7 @@ df_ginz %>%
 ```{r}
 df_ginz %>% 
   dplyr::select("Simplicity" = simplicity,
-                "Fatalism" = fatalism,
+                "Fatalism"   = fatalism,
                 "Depression" = depression) %>% 
   apaSupp::tab_cor(caption = "Correlations Between Continuous Meaurses")
 ```
@@ -529,12 +529,14 @@ df_ginz %>%
 
 ```{r}
 apaSupp::tab_lms(list("Model 1\nFatalism Only" = fit_lm_fat, 
-                      "Model 2\nSimplicity Only" = fit_lm_sim),
+                      "Model 2\nSimplicity Only" = fit_lm_sim,
+                      "Model 3\nBoth Beliefs" = fit_lm_both),
+                 narrow = TRUE,
                  var_labels = c("simplicity" = "Simplicity",
                                 "fatalism"   = "Fatalism"),
                  caption = "Parameter Estimates for Unadjusted, Simple Linear Models Regressing Depressive Symptoms on EAch Belief Score Seperately",
-                 general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three. N = 82.",
-                 p_note = "*** p < .001")
+                 general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three.",
+                 p_note = "apa13")
 ```
 
 
@@ -543,8 +545,8 @@ apaSupp::tab_lm(fit_lm_both,
                  var_labels = c("simplicity" = "Simplicity",
                                 "fatalism"   = "Fatalism"),
                  caption = "Parameter Estimates for Multiple Linear Model Regressing Depressive Symptoms on Both Belief Scorse",
-                 general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three. N = 82.",
-                 p_note = "* p < .05. *** p < .001",
+                 general_note = "All measures are self-reported. Depressive symptoms are captured by the Beck Depression Inventory and each belief is scored between zero and three.",
+                 p_note = "apa13",
          std = FALSE,
          vif = TRUE)
 ```

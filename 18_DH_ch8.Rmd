@@ -681,23 +681,35 @@ In this case, each predictor is treated as $B$ while the predictors in the lines
 
 
 
-* Cohen's $f^2$ for talk radio added to set $A$ (newspaper and local news)
+* Cohen's $f^2$ for **talk radio** added to set $A$ (newspaper and local news)
+
+```{r}
+r2_at
+r2_a
+```
+
 
 ```{r}
 f2_a_t = (r2_at - r2_a)/(1 - r2_at)
 f2_a_t
 ```
 
-* Cohen's $f^2$ for national news added to set $A$ and talk radio
+* Cohen's $f^2$ for **national news** added to set $A$ and talk radio
 
 ```{r}
-f2_at_n = (r2_b - r2_at)/(1 - r2_b)
+r2_at
+r2_atn
+```
+
+
+```{r}
+f2_at_n = (r2_atn - r2_at)/(1 - r2_at)
 f2_at_n
 ```
 
 
 
-(A) order:  npnews + locnews + **talkrad** + natnews
+(A) order:  npnews + locnews + **talkrad (f2_a_t)** + natnews
 
 ```{r}
 lm(pknow ~ npnews + locnews + talkrad + natnews,

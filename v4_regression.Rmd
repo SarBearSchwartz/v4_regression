@@ -1,0 +1,1010 @@
+--- 
+title: "Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression"
+author: "Sarah Schwartz"
+date: "Last updated: `r Sys.Date()`"
+documentclass: book
+description: "Correlation, Model Fit, Generalize, and Plot."
+knit: "bookdown::render_book"
+cover-image: "EQM_v4_cover.png"
+github-repo: sarbearschwartz/v4_regression
+site: bookdown::bookdown_site
+output:
+  bookdown::gitbook:
+    split_bib: false
+bibliography: [book.bib, packages.bib]
+biblio-style: "apalike"
+link-citations: yes
+---
+
+# Welcome {-}
+
+Placeholder
+
+
+## Blocked Notes {-}
+## Code and Output {-}
+## The Author {-}
+## Why choose R ?  {-}
+## FYI  {-}
+
+<!--chapter:end:index.Rmd-->
+
+
+# Linear Correlation: "Cancer" 
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+## EXPLORATORY DATA ANALYSIS
+### Scatterplot
+## PEARSON'S CORRELATION
+### Using the Default Settings
+### Additional Arguments
+### Statistical Significance
+## CORRELATION TABLES
+### Missing Values - Default
+### Missing Values - Listwise Deletion
+### APA Style
+## PAIRS PLOTS
+### Using Base R
+### Using the `psych` package
+### Using the `ggplot2` and `GGally` packages
+## CORROLAGRAMS
+### Simple Correlation Matrix (Base R)
+### Using the Default Settings
+### Changing the shape
+### Only Displaying Half
+### Mixing it up
+### Getting Fancy
+
+<!--chapter:end:10-Correlation.Rmd-->
+
+
+# D&H Ch 2 - Simple Regression: "Minigolf"
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+## VISUALIZATION
+### Full Table
+### Scatterplot
+### Conditional Means
+### Y-intercept
+### Slope
+### Format
+## HAND CALCULATIONS
+### Estimates
+### Residuals
+### Errors of Estimate
+### Deviation Scores
+### Cross-Products & Squares
+### Covariance
+### Important Note
+### Covar to Var
+### Variance
+### Standard Deviation
+### Correlation
+### Coefficient or Slope
+### Constant or Y-intercept
+### Regression Equation
+## USING SOFTWARE
+### Linear Model
+### Coefficients - Raw
+### Coefficients - Standardized
+### Residuals
+### Errors of Estimate
+### Visualize
+## RESIDUALS
+### Properties
+### Residual Analysis
+
+<!--chapter:end:12-DH_ch2.Rmd-->
+
+
+# D&H Ch3a - Multiple Regression: "Weight"
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+## EXPLORATORY DATA ANALYSIS
+### Summary Statistics
+#### Univariate
+#### Bivariate
+### Visualizations
+#### Univariate
+#### Bivariate
+## REGRESSION ANALYSIS
+### Fit the models
+### Output
+### Equations
+### Tables
+### Visualization
+## EFFECT SIZES
+### Semipartial Correlation 
+### Eta Squared
+### Standardized Regression Coefficients
+### Cohen's $f$ (see chapter 8)
+## VARIANCE INFLATION FACTORS
+## CONCLUSION: SPECIFIC QUESTIONS
+
+<!--chapter:end:13-DH_ch3.Rmd-->
+
+
+# D&H Ch3b - Multiple Regression: "Sport Skill"
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+#### Variables
+## EXPLORATORY DATA ANALYSIS
+### Univariate Statistics
+### Univariate Visualizations
+### Bivariate Statistics
+### Bivariate Visualization
+## REGRESSION ANALYSIS
+### Fit the Models
+### Visualize
+### Semipartial Correlation
+### Venn Diagram - Variances 
+### Venn Diagram - Proportions
+### Residual Diagnostics
+
+<!--chapter:end:14-DH_ch3b.Rmd-->
+
+
+# D&H Ch5 - Dichotomous Regressors: "Weight"
+
+Placeholder
+
+
+## PURPOSE
+### Data Description
+#### Variables
+## EXPLORATORY DATA ANALYSIS
+### Descriptive Statistics
+#### Univariate
+#### Bivariate
+### Visualizing Distributions
+#### Univariate
+#### Bivariate
+## GROUP MEAN DIFFERENCE
+### Assess Homogeneity of Variance 
+## REGRESSION ANALYSIS
+### Binary Predictor (IV)
+#### Unadjusted Model
+#### Adjusted Model
+### Model to Visualize
+#### Fit Model
+#### Equations
+#### 3D Plot
+#### 2D Plots
+## MULTIDIMENSIONAL SETS
+### Fit Models
+### Table of Parameter Estimates
+### Compare Fit Statistics
+### Multicolinearity Checks
+### Residual Diagnostics
+## EFFECT of VARIABLE SET
+#### Set B's Unique Contriburion
+### Significance of Set B's Contribution
+### Significance of Set B's Contribution
+### Standardized Regression Coefficients
+
+<!--chapter:end:15-DH_ch5.Rmd-->
+
+
+# D&H Ch6 - Statistical vs. Experimental Control: "PTSD"
+
+Placeholder
+
+
+## PURPOSE
+### Data Description
+### Longer Format of Repeated Measures
+## EXPLORATORY DATA ANALYSIS
+### Descriptive Statistics
+#### Univariate
+#### Bivariate
+### Visualizing Distributions
+#### Univariate
+#### Bivariate
+#### Multivariate
+## REGRESSION ANALYSIS
+### DV = Post Score, controlling for Pre Score
+#### Equation
+#### Role of Therapy
+### DV = Gain Score, ignoring Pre-Score
+#### Equation
+#### Role of Therapy
+#### Equivalent Analysis: independent groups t-test
+### DV = Gain Score, controlling for Pre-Score
+#### Equation
+#### Role of Therapy
+### Compare Models
+## ALTERNATIVE ANALYSIS
+### 2x2 mix ANOVA
+
+<!--chapter:end:16_DH_ch6.Rmd-->
+
+
+# D&H Ch7 - Regression for Prediction: "mtcars"
+
+Placeholder
+
+
+## PURPOSE
+### Data Description
+## REGRESSION ANALYSIS
+## AUTOMATED VARIABLE SELECTION
+### All Possible Subsets
+### Best Subsets
+### Forward Stepwise, p-value
+### Backwards Stepwise, p-value
+### Forward Stepwise, R-squared
+### Forward Stepwise, Adjusted R-squared
+### Forward Stepwise, AIC
+### Forward Stepwise, Schwartz Bayesian Criterion
+
+<!--chapter:end:17_DH_ch7.Rmd-->
+
+
+# D&H Ch8 - Regressor Importance: "politics"
+
+Placeholder
+
+
+## PURPOSE
+### Research Questions
+### Data Import
+### Data Description
+#### Variables
+## RQ1) Fit Main Model
+### Interpretation
+## RQ2) Parameter Equivalence
+### Interpretation
+## RQ3) Variable Contribution
+### Relavent Statistics
+#### Mean of the dependent variable:
+#### Sample standard deviations, $s_Y$ and $s_X$'s
+#### Pairwise Correlations
+#### Predicted Values
+#### Sum of Squares
+#### Degrees of Freedom
+#### Mean Squares
+#### Coefficient of Determination, $R^2$
+### Fit a Sequence of Models
+#### Set A predictors: newspaper and local news
+#### Set A -PLUS- talk radio
+#### Set A -PLUS- national news
+#### Set A -PLUS BOTH talk ratio AND national news
+### Variable Importance
+#### 1. Sample Regression Coefficients, $b$
+#### 2. Standardized Regression Coefficients, $b^*$
+#### 3. Semi-partial Correlation, $sr$
+#### 4. Partial Correlation, $pr$
+#### 5. Cohen's $f$-squared, $f^2$
+#### 6. Standard Error of Estimate
+#### 7. Coefficient of Forecasting Efficiency
+#### 8. Change in R-squared
+### Relative Improvement in Fit
+## Dominance Ananlysis
+
+<!--chapter:end:18_DH_ch8.Rmd-->
+
+
+# D&H Ch9 - Multicategorical Regressors: "married"
+
+Placeholder
+
+
+## PURPOSE
+### Data Import
+### Data Description
+#### Variables
+## EXPLORATORY DATA ANALYSIS
+### Summary Statistics
+#### Univariate
+#### Bivariate
+### Visualize Distributions
+#### Univariate 
+#### Bivariate
+## ANALYSIS OF VARIANE
+### By Marital Status
+### By Sex
+## REGRESSION ANALYSIS
+### Roll of Marital Status
+#### Change the Reference Category
+### Roll of Income
+#### Unadjusted Model
+#### Adjust for Marital Status
+#### Adjust for Sex & Marital Status
+## WRITE UP
+### Methods Section
+### Results Section
+### Table(s)
+### Figure(s)
+
+<!--chapter:end:19_-DH_ch9.Rmd-->
+
+
+# Ex: Basic - Cancer Experiment 
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+## EXPLORATORY DATA ANALYSIS
+### Summary Statistics
+#### Univariate 
+#### Bivariate 
+### Visualize Distributions
+#### Univariate 
+#### Bivariate 
+## REGRESSION ANALYSIS
+### Fit Model
+### Parameter Estimates
+### Prediction Equation
+### Table
+### Estimated Marginal Means
+
+<!--chapter:end:20_ex_cancer.Rmd-->
+
+
+# Ex: Basic - Ventricular Shortening Velocity
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+## EXPLORATORY DATA ANALYSIS
+### Summary Statistics
+#### Univariate
+#### Bivariate
+### Visualize Distributions
+#### Univariate 
+#### Bivariate 
+## REGRESSION ANALYSIS
+### Fit Model
+### Assumption Checks
+#### Residual Diagnostics
+### Visualize Relationships
+## CONCLUSION
+### Methods
+### Results
+### Table
+### Plot
+
+<!--chapter:end:21_ex_thuesen.Rmd-->
+
+
+# Ex: Effect Size - Ginzberg Depression 
+
+Placeholder
+
+
+## PURPOSE
+### Background
+### Research Question
+### Data Description
+#### Variables
+## EXPLORATORY DATA ANALYSIS
+### Summary Statistics
+#### Univariate
+#### Bivariate
+### Visualize Distributions
+#### Univariate 
+#### Bivariate
+## REGRESSION ANALYSIS
+### Fit Models
+#### Model 1: Fatalism
+#### Model 2: Simplicity
+#### Model 3: Both Beliefs
+### Compare Models
+### Assumption Checks
+#### Multicolinearity Check
+#### Residual Diagnostics
+## EFFECT SIZES
+### Variance Partitioning
+#### Model with only Simplicity
+#### Model with only Fatalism
+#### Model with Both Predictors
+### Variance Explained
+#### R-squared 
+#### Eta-Squared
+#### Partial Eta-squared
+#### Auto Calculations
+### Standardized Regression 
+## APA WRITE-UP
+### Methods
+### Results
+### Tables
+
+<!--chapter:end:22_ex_ginzberg.Rmd-->
+
+
+# Ex: Linear - Ihno's Experiment 
+
+Placeholder
+
+
+## PURPOSE
+### Research Question
+### Data Description
+#### Variables
+## EXPLORATORY DATA ANALYSIS
+### Summary Statistics
+#### Univariate 
+#### Bivariate 
+### Visualize Distributions
+#### Univariate 
+#### Bivariate 
+### Missing Values 
+## REGRESSION ANALYSIS
+### Fit Models 
+### Comparing Models
+#### Table
+#### Test
+### Assumptions Checking
+#### Variable Inflation Factors (VIF)
+#### Residual Diagnostics
+### Visualize Relationships
+## APA WRITE-UP
+### Methods
+### Results
+### Table
+### Plot
+
+<!--chapter:end:30_ex_ihno.Rmd-->
+
+
+# Ex: Logistic - Depression (Hoffman)
+
+Placeholder
+
+
+## PREPARATION
+### Load Packages
+### Load Data
+## EXPLORATORY DATA ANALYSIS
+### Missing Data
+### Summary
+### Visualize
+## HAND CALCULATIONS
+### Marginal, over all the sample
+#### Probability of being happy
+#### Odds of being happy
+### Comparing by Sex
+#### Probability of being happy, by sex
+#### Odds of being happy, by sex
+#### Odds-Ratio for sex
+## SINGLE PREDICTOR
+### Fit the Model
+### Parameter Table
+### Model Fit
+### Predicted Probability
+#### Logit scale
+#### Response Scale 
+### Interpretation
+### Diagnostics
+#### Influential values
+#### Standardized Residuals
+## MULTIPLE PREDICTORS
+### Fit the Model
+### Parameter Table
+## COMPARE MODELS
+### Refit to Complete Cases
+### Parameter Table
+### Comparison Criteria
+### Interpretation
+## CHANGING REFERENCE CATEGORY
+
+<!--chapter:end:50_logistic_depress.Rmd-->
+
+
+# Ex: Logistic - volunteering (Hoffman)
+
+Placeholder
+
+
+## PREPARATION
+### Load Packages
+### Load Data
+### Wrangle Data
+## EXPLORATORY DATA ANALYSIS
+### Missing Data
+### Summary
+### Visualization
+## LOGISTIC REGRESSION
+### Compelete Subset
+### Fit the Model
+### Parameter Table
+## Interpretation
+### Probe
+### Plot
+
+<!--chapter:end:51_logistic_volunteer.Rmd-->
+
+# Ex: Logistic - Maternal Risk (Hoffman)
+
+Maternal Risk Factor for Low Birth Weight Delivery
+
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+```
+
+
+## PREPARATION
+
+### Load Packages
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+
+# library(remotes)
+# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/12/25
+# remotes::install_github("ddsjoberg/gtsummary")
+
+
+library(tidyverse)
+library(haven)        
+library(naniar)
+library(apaSupp)
+library(performance) 
+library(interactions)
+library(GGally)
+```
+
+
+
+### Load Data
+
+More complex example demonstrating modeling decisions
+
+Another set of data from a study investigating predictors of low birth weight
+
+* `id` infant's unique identification number
+
+Dependent variable (DV) or outcome    
+
+* `low` Low birth weight (outcome) 
+- 0 = birth weight >2500 g (normal)
+- 1 = birth weight < 2500 g (low))  
+
+* `bwt` actual infant birth weight in grams *(ignore for now)*
+
+
+Independent variables (IV) or predictors
+
+* `age` Age of mother, in years
+* `lwt` Mother's weight at last menstrual period, in pounds
+* `race` Race: 1 = White, 2 = Black, 3 = Other
+* `smoke` Smoking status during pregnancy:1 = Yes, 0 = No
+* `ptl` History of premature labor: 0 = None, 1 = One, 2 = two, 3 = three
+* `ht` History of hypertension: 1 = Yes, 0 = No
+* `ui` Uterine irritability: 1 = Yes, 0 = No
+* `ftv` Number of physician visits in 1st trimester: 0 = None, 1 = One, ... 6 = six
+
+
+
+The data is saved in a text file (`.txt`) without any labels.
+
+```{r}
+df_txt <- read.table("https://raw.githubusercontent.com/CEHS-research/data/master/Regression/lowbwt.txt", 
+                     header = TRUE, 
+                     sep = "", 
+                     na.strings = "NA", 
+                     dec = ".", 
+                     strip.white = TRUE)
+
+tibble::glimpse(df_txt)
+```
+
+
+
+### Wrangle Data
+
+
+```{r}
+df_mom <- df_txt %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(low = low %>% 
+                  factor() %>% 
+                  forcats::fct_recode("birth weight >2500 g (normal)" = "0",
+                                      "birth weight < 2500 g (low)"   = "1")) %>% 
+  dplyr::mutate(race = race %>% 
+                  factor() %>% 
+                  forcats::fct_recode("White" = "1",
+                                      "Black" = "2",
+                                      "Other" = "3")) %>% 
+  dplyr::mutate(ptl_any = as.numeric(ptl > 0)) %>%         # collapse into 0 = none vs. 1 = at least one
+  dplyr::mutate(ptl = factor(ptl)) %>%                     # declare the number of pre-term labors to be a factor: 0, 1, 2, 3
+  dplyr::mutate_at(vars(smoke, ht, ui, ptl_any),           # declare all there variables to be factors with the same two levels
+                   factor,
+                   levels = 0:1,
+                   labels = c("No", "Yes")) 
+```
+
+
+Display the structure of the 'clean' version of the dataset
+
+```{r}
+str(df_mom)
+```
+
+```{r}
+tibble::glimpse(df_mom)
+```
+
+
+
+
+## EXPLORATORY DATA ANALYSIS
+
+### Missing Data
+
+
+```{r}
+df_mom %>% 
+  dplyr::select("Low Birth Weight Delivery" = low,
+                "Age, years" = age, 
+                "Weight, pounds" = lwt, 
+                "Race" = race, 
+                "Smoking During pregnancy" = smoke, 
+                "History of Premature Labor, any" = ptl_any, 
+                "History of Premature Labor, number" = ptl, 
+                "History of Hypertension" = ht, 
+                "Uterince Irritability" = ui, 
+                "1st Tri Dr Visits" = ftv) %>% 
+  naniar::miss_var_summary() %>%
+  dplyr::select(Variable = variable,
+                n = n_miss) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Missing Data by Variable")
+```
+
+
+### Summary
+
+
+```{r}
+df_mom %>% 
+  dplyr::select("Low Birth Weight Delivery" = low,
+                "Race" = race, 
+                "Smoking During pregnancy" = smoke, 
+                "History of Premature Labor, any" = ptl_any, 
+                "History of Premature Labor, number" = ptl, 
+                "History of Hypertension" = ht, 
+                "Uterince Irritability" = ui) %>% 
+  apaSupp::tab_freq(caption = "Summary of Categorical Variables")
+```
+
+
+
+```{r}
+df_mom %>% 
+  dplyr::select("Age, yrs" = age, 
+                "Weight, lbs" = lwt, 
+                "1st Tri Dr Visits" = ftv) %>% 
+  apaSupp::tab_desc(caption = "Summary of Continuous Variables")
+```
+
+
+
+
+
+## UNADJUSTED
+
+> Unadjusted Models
+
+### Fit Models
+
+```{r}
+fit_glm_age   <- glm(low ~ age,     family = binomial(link = "logit"), data = df_mom)
+fit_glm_lwt   <- glm(low ~ lwt,     family = binomial(link = "logit"), data = df_mom)
+fit_glm_race  <- glm(low ~ race,    family = binomial(link = "logit"), data = df_mom)
+fit_glm_smoke <- glm(low ~ smoke,   family = binomial(link = "logit"), data = df_mom)
+fit_glm_ptl   <- glm(low ~ ptl_any, family = binomial(link = "logit"), data = df_mom)
+fit_glm_ht    <- glm(low ~ ht,      family = binomial(link = "logit"), data = df_mom)
+fit_glm_ui    <- glm(low ~ ui,      family = binomial(link = "logit"), data = df_mom)
+fit_glm_ftv   <- glm(low ~ ftv,     family = binomial(link = "logit"), data = df_mom)
+```
+
+
+### Parameter Tables
+
+
+Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.
+
+```{r}
+apaSupp::tab_glms(list(fit_glm_age, fit_glm_lwt, fit_glm_race, fit_glm_smoke),
+                  narrow = TRUE,
+                  fit = NA,
+                  pr2 = "tjur")
+```
+
+```{r}
+apaSupp::tab_glms(list(fit_glm_ptl, fit_glm_ht, fit_glm_ui, fit_glm_ftv),
+                  narrow = TRUE,
+                  fit = NA,
+                  pr2 = "tjur")
+```
+
+
+
+
+
+## MAIN EFFECTS ONLY
+
+Main-effects multiple logistic regression model
+
+```{r}
+fit_glm_mains <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui,
+                     family = binomial(link = "logit"), 
+                     data = df_mom)
+```
+
+
+```{r}
+apaSupp::tab_glm(fit_glm_mains,
+                 show_single_row = c("smoke", "ptl_any", "ht", "ui"))
+```
+
+
+## INTERACTIONS
+
+Before removing non-significant main effects, test plausible interactions
+
+Try the following interactions:
+
+* Age and Weight  
+
+* Age and Smoking
+
+* Weight and Smoking
+
+```{r}
+fit_glm_mains_aw <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:lwt,
+                        family = binomial(link = "logit"), 
+                        data = df_mom)
+
+fit_glm_mains_as <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:smoke,
+                        family = binomial(link = "logit"), 
+                        data = df_mom)
+
+fit_glm_mains_ws <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + lwt:smoke,
+                        family = binomial(link = "logit"), 
+                        data = df_mom)
+```
+
+
+
+```{r}
+apaSupp::tab_glms(list("Age-Weight"     = fit_glm_mains_aw,
+                       "Age-Smoking"    = fit_glm_mains_as,
+                       "Weight-Smoking" = fit_glm_mains_ws),
+                  show_single_row = c("smoke", "ptl_any", "ht", "ui"),
+                  narrow = TRUE)
+```
+
+```{r}
+apaSupp::tab_glm_fits(list("Only Mains"     = fit_glm_mains,
+                           "Age-Weight"     = fit_glm_mains_aw,
+                           "Age-Smoking"    = fit_glm_mains_as,
+                           "Weight-Smoking" = fit_glm_mains_ws))
+```
+
+
+
+```{r}
+anova(fit_glm_mains, fit_glm_mains_aw, test = 'LRT')
+```
+
+
+```{r}
+anova(fit_glm_mains, fit_glm_mains_as, test = 'LRT')
+```
+
+
+```{r}
+anova(fit_glm_mains, fit_glm_mains_ws, test = 'LRT')
+```
+
+
+
+
+
+
+
+
+## PARSAMONY
+
+No interactions are  significant
+Remove non-significant main effects
+
+
+Since the mother's age is theoretically a meaningful variable, it should probably be retained.
+
+Remove "UI" since its not significant
+
+```{r}
+fit_glm_trim <- glm(low ~ age + lwt + race + smoke + ptl_any + ht,
+                    family = binomial(link = "logit"), 
+                    data = df_mom)
+```
+
+
+```{r}
+apaSupp::tab_glm(fit_glm_trim)
+```
+
+
+
+
+## CENTER & SCALE
+
+Since the mother's age is theoretically a meaningful variable, it should probably be retained.
+
+Revise so that age is interpreted in 5-year and pre-pregnancy weight in 20 lb increments and the intercept has meaning.
+
+
+
+```{r}
+fit_glm_final <- glm(low ~ I((age - 20)/5) + I((lwt - 125)/20) + race + smoke + ptl_any + ht,
+                     family = binomial(link = "logit"), 
+                     data = df_mom)
+```
+
+```{r}
+apaSupp::tab_glm(fit_glm_final,
+                 var_labels = c("I((age - 20)/5)" = "Age, 5 yr",
+                                "I((lwt - 125)/20)" = "Pre-Preg Weight, 20 lb",
+                                race = "Race",
+                                smoke = "Smoker",
+                                ptl_any = "Prior Preterm Labor",
+                                ht = "Hx Hypertension"),
+                 p_note = "apa13",
+                 show_single_row = c("smoke", "ptl_any", "ht"),
+                 general_note = "Centering for age (20 yr) and weight (125 lbs)")
+```
+
+### Marginal Model Plot
+
+#### Focus on: Mother's Age, weight, and race
+
+```{r}
+interactions::interact_plot(model = fit_glm_final,
+                            pred = lwt,
+                            modx = race,
+                            mod2 = age)
+```
+
+
+
+```{r, fig.width=8, fig.height=6}
+effects::Effect(focal.predictors = c("age", "lwt", "race"),
+                mod = fit_glm_final,
+                xlevels = list(age = c(20, 30, 40),
+                               lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(age_labels = glue::glue("Mother Age: {age}")) %>% 
+  ggplot(aes(x = lwt,
+             y = fit)) +
+  geom_line(aes(color = race,
+                linetype = race),
+            size = 1) +
+  theme_bw() +
+  facet_grid(.~ age_labels) +
+  labs(title = "Risk of Low Birth Weight",
+       subtitle = "Illustates risk given mother is a non-smoker, without a history of pre-term labor or hypertension",
+       x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       color    = "Mother's Race",
+       linetype = "Mother's Race") +
+  theme(legend.position = c(1, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("longdash", "dotted", "solid")) +
+  scale_color_manual(values = c( "coral2", "dodger blue", "gray50"))
+```
+
+#### Focus on: Mother's weight and smoking status during pregnancy, as well as history of any per-term labor and hypertension
+
+```{r}
+interactions::interact_plot(model = fit_glm_final,
+                            pred = lwt,
+                            modx = smoke,
+                            mod2 = ptl_any)
+```
+
+
+```{r}
+interactions::interact_plot(model = fit_glm_final,
+                            pred = lwt,
+                            modx = smoke,
+                            mod2 = ht)
+```
+
+```{r, fig.width=8, fig.height=6}
+effects::Effect(focal.predictors = c("lwt", "smoke", "ptl_any", "ht"),
+                fixed.predictors = list(age = 20),
+                mod = fit_glm_final,
+                xlevels = list(lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>% 
+  dplyr::mutate(smoke = forcats::fct_rev(smoke)) %>% 
+  dplyr::mutate(ptl_any_labels = glue::glue("History of Preterm Labor: {ptl_any}")) %>% 
+  dplyr::mutate(ht_labels = glue::glue("History of Hypertension: {ht}") %>% forcats::fct_rev()) %>% 
+  ggplot(aes(x = lwt,
+             y = fit)) +
+  geom_line(aes(color = smoke,
+                linetype = smoke),
+            size = 1) +
+  theme_bw() +
+  facet_grid(ht_labels ~ ptl_any_labels) +
+  labs(title = "Risk of Low Birth Weight",
+       subtitle = "Illustates risk given the mother is 20 years old and white",
+       x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       color    = "Mother Smoked",
+       linetype = "Mother Smoked") +
+  theme(legend.position = c(1, .5),
+        legend.justification = c(1.1, 1.15),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm")) +
+  scale_linetype_manual(values = c("longdash", "solid")) +
+  scale_color_manual(values = c( "coral2", "dodger blue"))
+```
+
+
+<!--chapter:end:52_logisitc_lbw.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(.packages(), 
+                   'bookdown',
+                   'knitr', 
+                   'rmarkdown',
+                   'tidyrverse',
+                   'magrittr',
+                   'haven',
+                   'furniture',
+                   'texreg',
+                   'stargazer',
+                   'corrplot',
+                   'car',
+                   'psych',
+                   'ISwR'), 
+                 'packages.bib')
+```
+
+
+
+<!--chapter:end:99-refs.Rmd-->
+

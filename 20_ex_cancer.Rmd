@@ -234,11 +234,12 @@ fit_lm %>%
   data.frame() %>% 
   dplyr::mutate(ci = glue::glue("[{apaSupp::apa2(lower.CL)}, {apaSupp::apa2(upper.CL)}]")) %>% 
   dplyr::select("Age" = age,
-                "Est. Marginal Mean" = emmean,
+                "EMM" = emmean,
                 SE,
                 "95% CI" = ci) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Estimated Marginal Means for Weight Regression on Age") %>% 
+  apaSupp::theme_apa(caption = "Estimated Marginal Means for Weight Regression on Age",
+                     general_note = "EMM = estimated margianl mean.") %>% 
   flextable::colformat_double(j = 1, digits = 0) %>% 
   flextable::align(align = "center")
 ```

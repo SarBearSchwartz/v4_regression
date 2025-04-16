@@ -20,7 +20,7 @@ knitr::opts_chunk$set(comment     = "",
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 
 # library(remotes)
-# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/12/25
+# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/15/25
 # remotes::install_github("ddsjoberg/gtsummary")
 
 
@@ -406,10 +406,17 @@ fit_glm_1 <- glm(satlife ~ sex,
 ### Parameter Table
 
 ```{r}
+apaSupp::tab_glm(fit_glm_1)
+```
+
+
+```{r}
 apaSupp::tab_glm(fit_glm_1,
-                 var_labels = c(sex = "Sex"),
+                 var_labels = c(sex = "Female vs. Male"),
                  pr2 = "both",
-                 caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Unadjusted Odds Ratio")
+                 caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Unadjusted Odds Ratio",
+                 p_note = "apa1",
+                 show_single_row = "sex")
 ```
 
 
@@ -557,13 +564,15 @@ apaSupp::tab_glm(fit_glm_2, vif = FALSE, lrt = FALSE)
 
 ```{r}
 apaSupp::tab_glm(fit_glm_2,
-                 var_labels = c(sex = "Sex",
+                 var_labels = c(sex = "Female vs. Male",
                                 iq = "IQ, pts",
                                 age = "Age, yrs",
                                 weight = "Weight, lbs"), 
                  pr2 = "both",
+                 show_single_row = "sex",
+                 p_note = "apa1",
                  caption = "Parameter Etimates for Logistic Regressing for Life Satisfaction by Sex, Controlling fro IQ, Age, and Weight") %>% 
-  flextable::bold(i = c(2:4))
+  flextable::bold(i = c(2))
 ```
 
 

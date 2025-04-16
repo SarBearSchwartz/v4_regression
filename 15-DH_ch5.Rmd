@@ -326,8 +326,8 @@ summary(fit_loss_wsex)
 
 
 ```{r}
-apaSupp::tab_lms(list(fit_loss_sex, fit_loss_wsex),
-                 mod_names = c("Unadjusted", "Adjusted"),
+apaSupp::tab_lms(list("Unadjusted" = fit_loss_sex, 
+                      "Adjusted"  = fit_loss_wsex),
                 var_labels = c("exer" = "Exercise Freq",
                                "diet" = "Food Intake",
                                "meta" = "Metabolic Rate",
@@ -345,10 +345,11 @@ apaSupp::tab_lm(fit_loss_wsex,
                 var_labels = c("exer" = "Exercise Freq",
                                "diet" = "Food Intake",
                                "meta" = "Metabolic Rate",
-                               "sex"  = "Sex"),
+                               "sex"  = "Female vs Male"),
                 caption = "Parameter Estimtates for Weight Loss Regressed Exercise Frequency, Food Intake, and Sex",
+                show_single_row = "sex",
                 d = 3) %>% 
-  flextable::bg(i = 5:7, bg = "yellow")
+  flextable::bg(i = 5, bg = "yellow")
 ```
 
 
@@ -518,10 +519,9 @@ fit_loss_all4 <- lm(loss ~ meta + sex + exer + diet, data = df_loss)
 
 
 ```{r}
-apaSupp::tab_lms(list(fit_loss_setA, fit_loss_setB, fit_loss_all4),
-                 mod_names = c("Set A",
-                               "Set B",
-                               "A & B"),
+apaSupp::tab_lms(list("Set A" = fit_loss_setA, 
+                      "Set B" = fit_loss_setB, 
+                      "A & B" = fit_loss_all4),
                  var_labels = c("exer" = "Exercise Freq",
                                 "diet" = "Food Intake",
                                 "meta" = "Metabolic Rate",
@@ -535,15 +535,12 @@ apaSupp::tab_lms(list(fit_loss_setA, fit_loss_setB, fit_loss_all4),
 ### Compare Fit Statistics
 
 ```{r}
-performance::compare_performance(fit_loss_none,
-                                 fit_loss_setA, 
-                                 fit_loss_setB, 
-                                 fit_loss_all4) %>% 
-  data.frame() %>% 
-  dplyr::mutate(Model = c("None", "Set A", "Set B", "A & B")) %>% 
-  dplyr::select(Model, AIC, BIC, R2, R2_adjusted, RMSE, Sigma) %>% 
-  flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Compare Models Fit Measures")
+
+apaSupp::tab_lm_fits(list("None" = fit_loss_none,
+                          "Set A" = fit_loss_setA, 
+                          "Set B" = fit_loss_setB, 
+                          "A & B" = fit_loss_all4),
+                     caption = "Compare Models Fit Measures")
 ```
 
 

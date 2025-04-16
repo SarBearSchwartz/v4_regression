@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9  | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</title>
+  <meta name="description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9  | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/EQM_v4_cover.png" />
+  <meta property="og:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="github-repo" content="sarbearschwartz/v4_regression" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9  | Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression" />
+  
+  <meta name="twitter:description" content="Correlation, Model Fit, Generalize, and Plot." />
+  <meta name="twitter:image" content="/EQM_v4_cover.png" />
+
+<meta name="author" content="Sarah Schwartz" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dh-ch8---regressor-importance-politics.html"/>
+<link rel="next" href="dh-ch9---multicategorical-regressors-married.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="heading.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Vol. 4: Multiple Linear Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#blocked-notes"><i class="fa fa-check"></i>Blocked Notes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#code-and-output"><i class="fa fa-check"></i>Code and Output</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-choose-r"><i class="fa fa-check"></i>Why choose R ?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fyi"><i class="fa fa-check"></i>FYI</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html"><i class="fa fa-check"></i><b>1</b> Linear Correlation: “Cancer”</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#purpose"><i class="fa fa-check"></i><b>1.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#research-question"><i class="fa fa-check"></i><b>1.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="1.1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#data-description"><i class="fa fa-check"></i><b>1.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>1.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#scatterplot"><i class="fa fa-check"></i><b>1.2.1</b> Scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pearsons-correlation"><i class="fa fa-check"></i><b>1.3</b> PEARSON’S CORRELATION</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings"><i class="fa fa-check"></i><b>1.3.1</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.3.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#additional-arguments"><i class="fa fa-check"></i><b>1.3.2</b> Additional Arguments</a></li>
+<li class="chapter" data-level="1.3.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#statistical-significance"><i class="fa fa-check"></i><b>1.3.3</b> Statistical Significance</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#correlation-tables"><i class="fa fa-check"></i><b>1.4</b> CORRELATION TABLES</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---default"><i class="fa fa-check"></i><b>1.4.1</b> Missing Values - Default</a></li>
+<li class="chapter" data-level="1.4.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#missing-values---listwise-deletion"><i class="fa fa-check"></i><b>1.4.2</b> Missing Values - Listwise Deletion</a></li>
+<li class="chapter" data-level="1.4.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#apa-style"><i class="fa fa-check"></i><b>1.4.3</b> APA Style</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#pairs-plots"><i class="fa fa-check"></i><b>1.5</b> PAIRS PLOTS</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-base-r"><i class="fa fa-check"></i><b>1.5.1</b> Using Base R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-psych-package"><i class="fa fa-check"></i><b>1.5.2</b> Using the <code>psych</code> package</a></li>
+<li class="chapter" data-level="1.5.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-ggplot2-and-ggally-packages"><i class="fa fa-check"></i><b>1.5.3</b> Using the <code>ggplot2</code> and <code>GGally</code> packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#corrolagrams"><i class="fa fa-check"></i><b>1.6</b> CORROLAGRAMS</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#simple-correlation-matrix-base-r"><i class="fa fa-check"></i><b>1.6.1</b> Simple Correlation Matrix (Base R)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#using-the-default-settings-1"><i class="fa fa-check"></i><b>1.6.2</b> Using the Default Settings</a></li>
+<li class="chapter" data-level="1.6.3" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#changing-the-shape"><i class="fa fa-check"></i><b>1.6.3</b> Changing the shape</a></li>
+<li class="chapter" data-level="1.6.4" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#only-displaying-half"><i class="fa fa-check"></i><b>1.6.4</b> Only Displaying Half</a></li>
+<li class="chapter" data-level="1.6.5" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#mixing-it-up"><i class="fa fa-check"></i><b>1.6.5</b> Mixing it up</a></li>
+<li class="chapter" data-level="1.6.6" data-path="linear-correlation-cancer.html"><a href="linear-correlation-cancer.html#getting-fancy"><i class="fa fa-check"></i><b>1.6.6</b> Getting Fancy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html"><i class="fa fa-check"></i><b>2</b> D&amp;H Ch 2 - Simple Regression: “Minigolf”</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#purpose-1"><i class="fa fa-check"></i><b>2.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#research-question-1"><i class="fa fa-check"></i><b>2.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#data-description-1"><i class="fa fa-check"></i><b>2.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#visualization"><i class="fa fa-check"></i><b>2.2</b> VISUALIZATION</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#full-table"><i class="fa fa-check"></i><b>2.2.1</b> Full Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#scatterplot-1"><i class="fa fa-check"></i><b>2.2.2</b> Scatterplot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#conditional-means"><i class="fa fa-check"></i><b>2.2.3</b> Conditional Means</a></li>
+<li class="chapter" data-level="2.2.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#y-intercept"><i class="fa fa-check"></i><b>2.2.4</b> Y-intercept</a></li>
+<li class="chapter" data-level="2.2.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#slope"><i class="fa fa-check"></i><b>2.2.5</b> Slope</a></li>
+<li class="chapter" data-level="2.2.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#format"><i class="fa fa-check"></i><b>2.2.6</b> Format</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#hand-calculations"><i class="fa fa-check"></i><b>2.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#estimates"><i class="fa fa-check"></i><b>2.3.1</b> Estimates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals"><i class="fa fa-check"></i><b>2.3.2</b> Residuals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#errors-of-estimate"><i class="fa fa-check"></i><b>2.3.3</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#deviation-scores"><i class="fa fa-check"></i><b>2.3.4</b> Deviation Scores</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#cross-products-squares"><i class="fa fa-check"></i><b>2.3.5</b> Cross-Products &amp; Squares</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#covariance"><i class="fa fa-check"></i><b>2.3.6</b> Covariance</a></li>
+<li class="chapter" data-level="2.3.7" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#important-note"><i class="fa fa-check"></i><b>2.3.7</b> Important Note</a></li>
+<li class="chapter" data-level="2.3.8" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#covar-to-var"><i class="fa fa-check"></i><b>2.3.8</b> Covar to Var</a></li>
+<li class="chapter" data-level="2.3.9" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#variance"><i class="fa fa-check"></i><b>2.3.9</b> Variance</a></li>
+<li class="chapter" data-level="2.3.10" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#standard-deviation"><i class="fa fa-check"></i><b>2.3.10</b> Standard Deviation</a></li>
+<li class="chapter" data-level="2.3.11" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#correlation"><i class="fa fa-check"></i><b>2.3.11</b> Correlation</a></li>
+<li class="chapter" data-level="2.3.12" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficient-or-slope"><i class="fa fa-check"></i><b>2.3.12</b> Coefficient or Slope</a></li>
+<li class="chapter" data-level="2.3.13" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#constant-or-y-intercept"><i class="fa fa-check"></i><b>2.3.13</b> Constant or Y-intercept</a></li>
+<li class="chapter" data-level="2.3.14" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#regression-equation"><i class="fa fa-check"></i><b>2.3.14</b> Regression Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#using-software"><i class="fa fa-check"></i><b>2.4</b> USING SOFTWARE</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#linear-model"><i class="fa fa-check"></i><b>2.4.1</b> Linear Model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficients---raw"><i class="fa fa-check"></i><b>2.4.2</b> Coefficients - Raw</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#coefficients---standardized"><i class="fa fa-check"></i><b>2.4.3</b> Coefficients - Standardized</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals-1"><i class="fa fa-check"></i><b>2.4.4</b> Residuals</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#errors-of-estimate-1"><i class="fa fa-check"></i><b>2.4.5</b> Errors of Estimate</a></li>
+<li class="chapter" data-level="2.4.6" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#visualize"><i class="fa fa-check"></i><b>2.4.6</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residuals-2"><i class="fa fa-check"></i><b>2.5</b> RESIDUALS</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#properties"><i class="fa fa-check"></i><b>2.5.1</b> Properties</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dh-ch-2---simple-regression-minigolf.html"><a href="dh-ch-2---simple-regression-minigolf.html#residual-analysis"><i class="fa fa-check"></i><b>2.5.2</b> Residual Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html"><i class="fa fa-check"></i><b>3</b> D&amp;H Ch3a - Multiple Regression: “Weight”</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#purpose-2"><i class="fa fa-check"></i><b>3.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#research-question-2"><i class="fa fa-check"></i><b>3.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#data-description-2"><i class="fa fa-check"></i><b>3.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#summary-statistics"><i class="fa fa-check"></i><b>3.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#visualizations"><i class="fa fa-check"></i><b>3.2.2</b> Visualizations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#regression-analysis"><i class="fa fa-check"></i><b>3.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#fit-the-models"><i class="fa fa-check"></i><b>3.3.1</b> Fit the models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#output"><i class="fa fa-check"></i><b>3.3.2</b> Output</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#equations"><i class="fa fa-check"></i><b>3.3.3</b> Equations</a></li>
+<li class="chapter" data-level="3.3.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#tables"><i class="fa fa-check"></i><b>3.3.4</b> Tables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#visualization-1"><i class="fa fa-check"></i><b>3.3.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#effect-sizes"><i class="fa fa-check"></i><b>3.4</b> EFFECT SIZES</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#semipartial-correlation"><i class="fa fa-check"></i><b>3.4.1</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#eta-squared"><i class="fa fa-check"></i><b>3.4.2</b> Eta Squared</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#standardized-regression-coefficients"><i class="fa fa-check"></i><b>3.4.3</b> Standardized Regression Coefficients</a></li>
+<li class="chapter" data-level="3.4.4" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#cohens-f-see-chapter-8"><i class="fa fa-check"></i><b>3.4.4</b> Cohen’s <span class="math inline">\(f\)</span> (see chapter 8)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#variance-inflation-factors"><i class="fa fa-check"></i><b>3.5</b> VARIANCE INFLATION FACTORS</a></li>
+<li class="chapter" data-level="3.6" data-path="dh-ch3a---multiple-regression-weight.html"><a href="dh-ch3a---multiple-regression-weight.html#conclusion-specific-questions"><i class="fa fa-check"></i><b>3.6</b> CONCLUSION: SPECIFIC QUESTIONS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html"><i class="fa fa-check"></i><b>4</b> D&amp;H Ch3b - Multiple Regression: “Sport Skill”</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#purpose-3"><i class="fa fa-check"></i><b>4.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#research-question-3"><i class="fa fa-check"></i><b>4.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="4.1.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#data-description-3"><i class="fa fa-check"></i><b>4.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-statistics"><i class="fa fa-check"></i><b>4.2.1</b> Univariate Statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#univariate-visualizations"><i class="fa fa-check"></i><b>4.2.2</b> Univariate Visualizations</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-statistics"><i class="fa fa-check"></i><b>4.2.3</b> Bivariate Statistics</a></li>
+<li class="chapter" data-level="4.2.4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#bivariate-visualization"><i class="fa fa-check"></i><b>4.2.4</b> Bivariate Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#regression-analysis-1"><i class="fa fa-check"></i><b>4.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#fit-the-models-1"><i class="fa fa-check"></i><b>4.3.1</b> Fit the Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#visualize-1"><i class="fa fa-check"></i><b>4.3.2</b> Visualize</a></li>
+<li class="chapter" data-level="4.3.3" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#semipartial-correlation-1"><i class="fa fa-check"></i><b>4.3.3</b> Semipartial Correlation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---variances"><i class="fa fa-check"></i><b>4.3.4</b> Venn Diagram - Variances</a></li>
+<li class="chapter" data-level="4.3.5" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#venn-diagram---proportions"><i class="fa fa-check"></i><b>4.3.5</b> Venn Diagram - Proportions</a></li>
+<li class="chapter" data-level="4.3.6" data-path="dh-ch3b---multiple-regression-sport-skill.html"><a href="dh-ch3b---multiple-regression-sport-skill.html#residual-diagnostics"><i class="fa fa-check"></i><b>4.3.6</b> Residual Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html"><i class="fa fa-check"></i><b>5</b> D&amp;H Ch5 - Dichotomous Regressors: “Weight”</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#purpose-4"><i class="fa fa-check"></i><b>5.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#data-description-4"><i class="fa fa-check"></i><b>5.1.1</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#exploratory-data-analysis-3"><i class="fa fa-check"></i><b>5.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#visualizing-distributions"><i class="fa fa-check"></i><b>5.2.2</b> Visualizing Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#group-mean-difference"><i class="fa fa-check"></i><b>5.3</b> GROUP MEAN DIFFERENCE</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#assess-homogeneity-of-variance"><i class="fa fa-check"></i><b>5.3.1</b> Assess Homogeneity of Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#regression-analysis-2"><i class="fa fa-check"></i><b>5.4</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#binary-predictor-iv"><i class="fa fa-check"></i><b>5.4.1</b> Binary Predictor (IV)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#model-to-visualize"><i class="fa fa-check"></i><b>5.4.2</b> Model to Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#multidimensional-sets"><i class="fa fa-check"></i><b>5.5</b> MULTIDIMENSIONAL SETS</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#fit-models"><i class="fa fa-check"></i><b>5.5.1</b> Fit Models</a></li>
+<li class="chapter" data-level="5.5.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#table-of-parameter-estimates"><i class="fa fa-check"></i><b>5.5.2</b> Table of Parameter Estimates</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#compare-fit-statistics"><i class="fa fa-check"></i><b>5.5.3</b> Compare Fit Statistics</a></li>
+<li class="chapter" data-level="5.5.4" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#multicolinearity-checks"><i class="fa fa-check"></i><b>5.5.4</b> Multicolinearity Checks</a></li>
+<li class="chapter" data-level="5.5.5" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#residual-diagnostics-1"><i class="fa fa-check"></i><b>5.5.5</b> Residual Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#effect-of-variable-set"><i class="fa fa-check"></i><b>5.6</b> EFFECT of VARIABLE SET</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#significance-of-set-bs-contribution"><i class="fa fa-check"></i><b>5.6.1</b> Significance of Set B’s Contribution</a></li>
+<li class="chapter" data-level="5.6.2" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#significance-of-set-bs-contribution-1"><i class="fa fa-check"></i><b>5.6.2</b> Significance of Set B’s Contribution</a></li>
+<li class="chapter" data-level="5.6.3" data-path="dh-ch5---dichotomous-regressors-weight.html"><a href="dh-ch5---dichotomous-regressors-weight.html#standardized-regression-coefficients-1"><i class="fa fa-check"></i><b>5.6.3</b> Standardized Regression Coefficients</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><i class="fa fa-check"></i><b>6</b> D&amp;H Ch6 - Statistical vs. Experimental Control: “PTSD”</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#purpose-5"><i class="fa fa-check"></i><b>6.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#data-description-5"><i class="fa fa-check"></i><b>6.1.1</b> Data Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#longer-format-of-repeated-measures"><i class="fa fa-check"></i><b>6.1.2</b> Longer Format of Repeated Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#exploratory-data-analysis-4"><i class="fa fa-check"></i><b>6.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>6.2.1</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="6.2.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#visualizing-distributions-1"><i class="fa fa-check"></i><b>6.2.2</b> Visualizing Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#regression-analysis-3"><i class="fa fa-check"></i><b>6.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#dv-post-score-controlling-for-pre-score"><i class="fa fa-check"></i><b>6.3.1</b> DV = Post Score, controlling for Pre Score</a></li>
+<li class="chapter" data-level="6.3.2" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#dv-gain-score-ignoring-pre-score"><i class="fa fa-check"></i><b>6.3.2</b> DV = Gain Score, ignoring Pre-Score</a></li>
+<li class="chapter" data-level="6.3.3" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#dv-gain-score-controlling-for-pre-score"><i class="fa fa-check"></i><b>6.3.3</b> DV = Gain Score, controlling for Pre-Score</a></li>
+<li class="chapter" data-level="6.3.4" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#compare-models"><i class="fa fa-check"></i><b>6.3.4</b> Compare Models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#alternative-analysis"><i class="fa fa-check"></i><b>6.4</b> ALTERNATIVE ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="dh-ch6---statistical-vs.-experimental-control-ptsd.html"><a href="dh-ch6---statistical-vs.-experimental-control-ptsd.html#x2-mix-anova"><i class="fa fa-check"></i><b>6.4.1</b> 2x2 mix ANOVA</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html"><i class="fa fa-check"></i><b>7</b> D&amp;H Ch7 - Regression for Prediction: “mtcars”</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#purpose-6"><i class="fa fa-check"></i><b>7.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#data-description-6"><i class="fa fa-check"></i><b>7.1.1</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#regression-analysis-4"><i class="fa fa-check"></i><b>7.2</b> REGRESSION ANALYSIS</a></li>
+<li class="chapter" data-level="7.3" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#automated-variable-selection"><i class="fa fa-check"></i><b>7.3</b> AUTOMATED VARIABLE SELECTION</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#all-possible-subsets"><i class="fa fa-check"></i><b>7.3.1</b> All Possible Subsets</a></li>
+<li class="chapter" data-level="7.3.2" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#best-subsets"><i class="fa fa-check"></i><b>7.3.2</b> Best Subsets</a></li>
+<li class="chapter" data-level="7.3.3" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-p-value"><i class="fa fa-check"></i><b>7.3.3</b> Forward Stepwise, p-value</a></li>
+<li class="chapter" data-level="7.3.4" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#backwards-stepwise-p-value"><i class="fa fa-check"></i><b>7.3.4</b> Backwards Stepwise, p-value</a></li>
+<li class="chapter" data-level="7.3.5" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-r-squared"><i class="fa fa-check"></i><b>7.3.5</b> Forward Stepwise, R-squared</a></li>
+<li class="chapter" data-level="7.3.6" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-adjusted-r-squared"><i class="fa fa-check"></i><b>7.3.6</b> Forward Stepwise, Adjusted R-squared</a></li>
+<li class="chapter" data-level="7.3.7" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-aic"><i class="fa fa-check"></i><b>7.3.7</b> Forward Stepwise, AIC</a></li>
+<li class="chapter" data-level="7.3.8" data-path="dh-ch7---regression-for-prediction-mtcars.html"><a href="dh-ch7---regression-for-prediction-mtcars.html#forward-stepwise-schwartz-bayesian-criterion"><i class="fa fa-check"></i><b>7.3.8</b> Forward Stepwise, Schwartz Bayesian Criterion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html"><i class="fa fa-check"></i><b>8</b> D&amp;H Ch8 - Regressor Importance: “politics”</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#purpose-7"><i class="fa fa-check"></i><b>8.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#research-questions"><i class="fa fa-check"></i><b>8.1.1</b> Research Questions</a></li>
+<li class="chapter" data-level="8.1.2" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#data-import"><i class="fa fa-check"></i><b>8.1.2</b> Data Import</a></li>
+<li class="chapter" data-level="8.1.3" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#data-description-7"><i class="fa fa-check"></i><b>8.1.3</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#rq1-fit-main-model"><i class="fa fa-check"></i><b>8.2</b> RQ1) Fit Main Model</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#interpretation"><i class="fa fa-check"></i><b>8.2.1</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#rq2-parameter-equivalence"><i class="fa fa-check"></i><b>8.3</b> RQ2) Parameter Equivalence</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#interpretation-1"><i class="fa fa-check"></i><b>8.3.1</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#rq3-variable-contribution"><i class="fa fa-check"></i><b>8.4</b> RQ3) Variable Contribution</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#relavent-statistics"><i class="fa fa-check"></i><b>8.4.1</b> Relavent Statistics</a></li>
+<li class="chapter" data-level="8.4.2" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#fit-a-sequence-of-models"><i class="fa fa-check"></i><b>8.4.2</b> Fit a Sequence of Models</a></li>
+<li class="chapter" data-level="8.4.3" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#variable-importance"><i class="fa fa-check"></i><b>8.4.3</b> Variable Importance</a></li>
+<li class="chapter" data-level="8.4.4" data-path="dh-ch8---regressor-importance-politics.html"><a href="dh-ch8---regressor-importance-politics.html#relative-improvement-in-fit"><i class="fa fa-check"></i><b>8.4.4</b> Relative Improvement in Fit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>9</b> </a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="section.html"><a href="section.html#dominance-ananlysis"><i class="fa fa-check"></i><b>9.1</b> Dominance Ananlysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html"><i class="fa fa-check"></i><b>10</b> D&amp;H Ch9 - Multicategorical Regressors: “married”</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#purpose-8"><i class="fa fa-check"></i><b>10.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#data-import-1"><i class="fa fa-check"></i><b>10.1.1</b> Data Import</a></li>
+<li class="chapter" data-level="10.1.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#data-description-8"><i class="fa fa-check"></i><b>10.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#exploratory-data-analysis-5"><i class="fa fa-check"></i><b>10.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#summary-statistics-1"><i class="fa fa-check"></i><b>10.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#visualize-distributions"><i class="fa fa-check"></i><b>10.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#analysis-of-variane"><i class="fa fa-check"></i><b>10.3</b> ANALYSIS OF VARIANE</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#by-marital-status"><i class="fa fa-check"></i><b>10.3.1</b> By Marital Status</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#by-sex"><i class="fa fa-check"></i><b>10.3.2</b> By Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#regression-analysis-5"><i class="fa fa-check"></i><b>10.4</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#roll-of-marital-status"><i class="fa fa-check"></i><b>10.4.1</b> Roll of Marital Status</a></li>
+<li class="chapter" data-level="10.4.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#roll-of-income"><i class="fa fa-check"></i><b>10.4.2</b> Roll of Income</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#write-up"><i class="fa fa-check"></i><b>10.5</b> WRITE UP</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#methods-section"><i class="fa fa-check"></i><b>10.5.1</b> Methods Section</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#results-section"><i class="fa fa-check"></i><b>10.5.2</b> Results Section</a></li>
+<li class="chapter" data-level="10.5.3" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#tables-1"><i class="fa fa-check"></i><b>10.5.3</b> Table(s)</a></li>
+<li class="chapter" data-level="10.5.4" data-path="dh-ch9---multicategorical-regressors-married.html"><a href="dh-ch9---multicategorical-regressors-married.html#figures"><i class="fa fa-check"></i><b>10.5.4</b> Figure(s)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html"><i class="fa fa-check"></i><b>11</b> Ex: Basic - Cancer Experiment</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#purpose-9"><i class="fa fa-check"></i><b>11.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#research-question-4"><i class="fa fa-check"></i><b>11.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="11.1.2" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#data-description-9"><i class="fa fa-check"></i><b>11.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#exploratory-data-analysis-6"><i class="fa fa-check"></i><b>11.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#summary-statistics-2"><i class="fa fa-check"></i><b>11.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="11.2.2" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#visualize-distributions-1"><i class="fa fa-check"></i><b>11.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#regression-analysis-6"><i class="fa fa-check"></i><b>11.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#fit-model-1"><i class="fa fa-check"></i><b>11.3.1</b> Fit Model</a></li>
+<li class="chapter" data-level="11.3.2" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#parameter-estimates"><i class="fa fa-check"></i><b>11.3.2</b> Parameter Estimates</a></li>
+<li class="chapter" data-level="11.3.3" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#prediction-equation"><i class="fa fa-check"></i><b>11.3.3</b> Prediction Equation</a></li>
+<li class="chapter" data-level="11.3.4" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#table"><i class="fa fa-check"></i><b>11.3.4</b> Table</a></li>
+<li class="chapter" data-level="11.3.5" data-path="ex-basic---cancer-experiment.html"><a href="ex-basic---cancer-experiment.html#estimated-marginal-means"><i class="fa fa-check"></i><b>11.3.5</b> Estimated Marginal Means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html"><i class="fa fa-check"></i><b>12</b> Ex: Basic - Ventricular Shortening Velocity</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#purpose-10"><i class="fa fa-check"></i><b>12.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#research-question-5"><i class="fa fa-check"></i><b>12.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="12.1.2" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#data-description-10"><i class="fa fa-check"></i><b>12.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#exploratory-data-analysis-7"><i class="fa fa-check"></i><b>12.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#summary-statistics-3"><i class="fa fa-check"></i><b>12.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="12.2.2" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#visualize-distributions-2"><i class="fa fa-check"></i><b>12.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#regression-analysis-7"><i class="fa fa-check"></i><b>12.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#fit-model-2"><i class="fa fa-check"></i><b>12.3.1</b> Fit Model</a></li>
+<li class="chapter" data-level="12.3.2" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#assumption-checks"><i class="fa fa-check"></i><b>12.3.2</b> Assumption Checks</a></li>
+<li class="chapter" data-level="12.3.3" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#visualize-relationships"><i class="fa fa-check"></i><b>12.3.3</b> Visualize Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#conclusion"><i class="fa fa-check"></i><b>12.4</b> CONCLUSION</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#methods"><i class="fa fa-check"></i><b>12.4.1</b> Methods</a></li>
+<li class="chapter" data-level="12.4.2" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#results"><i class="fa fa-check"></i><b>12.4.2</b> Results</a></li>
+<li class="chapter" data-level="12.4.3" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#table-1"><i class="fa fa-check"></i><b>12.4.3</b> Table</a></li>
+<li class="chapter" data-level="12.4.4" data-path="ex-basic---ventricular-shortening-velocity.html"><a href="ex-basic---ventricular-shortening-velocity.html#plot"><i class="fa fa-check"></i><b>12.4.4</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html"><i class="fa fa-check"></i><b>13</b> Ex: Effect Size - Ginzberg Depression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#purpose-11"><i class="fa fa-check"></i><b>13.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#background"><i class="fa fa-check"></i><b>13.1.1</b> Background</a></li>
+<li class="chapter" data-level="13.1.2" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#research-question-6"><i class="fa fa-check"></i><b>13.1.2</b> Research Question</a></li>
+<li class="chapter" data-level="13.1.3" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#data-description-11"><i class="fa fa-check"></i><b>13.1.3</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#exploratory-data-analysis-8"><i class="fa fa-check"></i><b>13.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#summary-statistics-4"><i class="fa fa-check"></i><b>13.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="13.2.2" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#visualize-distributions-3"><i class="fa fa-check"></i><b>13.2.2</b> Visualize Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#regression-analysis-8"><i class="fa fa-check"></i><b>13.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#fit-models-1"><i class="fa fa-check"></i><b>13.3.1</b> Fit Models</a></li>
+<li class="chapter" data-level="13.3.2" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#compare-models-1"><i class="fa fa-check"></i><b>13.3.2</b> Compare Models</a></li>
+<li class="chapter" data-level="13.3.3" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#assumption-checks-1"><i class="fa fa-check"></i><b>13.3.3</b> Assumption Checks</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#effect-sizes-1"><i class="fa fa-check"></i><b>13.4</b> EFFECT SIZES</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#variance-partitioning"><i class="fa fa-check"></i><b>13.4.1</b> Variance Partitioning</a></li>
+<li class="chapter" data-level="13.4.2" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#variance-explained"><i class="fa fa-check"></i><b>13.4.2</b> Variance Explained</a></li>
+<li class="chapter" data-level="13.4.3" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#standardized-regression"><i class="fa fa-check"></i><b>13.4.3</b> Standardized Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#apa-write-up"><i class="fa fa-check"></i><b>13.5</b> APA WRITE-UP</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#methods-1"><i class="fa fa-check"></i><b>13.5.1</b> Methods</a></li>
+<li class="chapter" data-level="13.5.2" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#results-1"><i class="fa fa-check"></i><b>13.5.2</b> Results</a></li>
+<li class="chapter" data-level="13.5.3" data-path="ex-effect-size---ginzberg-depression.html"><a href="ex-effect-size---ginzberg-depression.html#tables-2"><i class="fa fa-check"></i><b>13.5.3</b> Tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html"><i class="fa fa-check"></i><b>14</b> Ex: Linear - Ihno’s Experiment</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#purpose-12"><i class="fa fa-check"></i><b>14.1</b> PURPOSE</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#research-question-7"><i class="fa fa-check"></i><b>14.1.1</b> Research Question</a></li>
+<li class="chapter" data-level="14.1.2" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#data-description-12"><i class="fa fa-check"></i><b>14.1.2</b> Data Description</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#exploratory-data-analysis-9"><i class="fa fa-check"></i><b>14.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#summary-statistics-5"><i class="fa fa-check"></i><b>14.2.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="14.2.2" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#visualize-distributions-4"><i class="fa fa-check"></i><b>14.2.2</b> Visualize Distributions</a></li>
+<li class="chapter" data-level="14.2.3" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#missing-values"><i class="fa fa-check"></i><b>14.2.3</b> Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#regression-analysis-9"><i class="fa fa-check"></i><b>14.3</b> REGRESSION ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#fit-models-2"><i class="fa fa-check"></i><b>14.3.1</b> Fit Models</a></li>
+<li class="chapter" data-level="14.3.2" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#comparing-models"><i class="fa fa-check"></i><b>14.3.2</b> Comparing Models</a></li>
+<li class="chapter" data-level="14.3.3" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#assumptions-checking"><i class="fa fa-check"></i><b>14.3.3</b> Assumptions Checking</a></li>
+<li class="chapter" data-level="14.3.4" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#visualize-relationships-1"><i class="fa fa-check"></i><b>14.3.4</b> Visualize Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#apa-write-up-1"><i class="fa fa-check"></i><b>14.4</b> APA WRITE-UP</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#methods-2"><i class="fa fa-check"></i><b>14.4.1</b> Methods</a></li>
+<li class="chapter" data-level="14.4.2" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#results-2"><i class="fa fa-check"></i><b>14.4.2</b> Results</a></li>
+<li class="chapter" data-level="14.4.3" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#table-3"><i class="fa fa-check"></i><b>14.4.3</b> Table</a></li>
+<li class="chapter" data-level="14.4.4" data-path="ex-linear---ihnos-experiment.html"><a href="ex-linear---ihnos-experiment.html#plot-1"><i class="fa fa-check"></i><b>14.4.4</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html"><i class="fa fa-check"></i><b>15</b> Ex: Logistic - Depression (Hoffman)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#preparation"><i class="fa fa-check"></i><b>15.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#load-packages"><i class="fa fa-check"></i><b>15.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="15.1.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#load-data"><i class="fa fa-check"></i><b>15.1.2</b> Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#exploratory-data-analysis-10"><i class="fa fa-check"></i><b>15.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#missing-data"><i class="fa fa-check"></i><b>15.2.1</b> Missing Data</a></li>
+<li class="chapter" data-level="15.2.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#summary"><i class="fa fa-check"></i><b>15.2.2</b> Summary</a></li>
+<li class="chapter" data-level="15.2.3" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#visualize-2"><i class="fa fa-check"></i><b>15.2.3</b> Visualize</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#hand-calculations-1"><i class="fa fa-check"></i><b>15.3</b> HAND CALCULATIONS</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#marginal-over-all-the-sample"><i class="fa fa-check"></i><b>15.3.1</b> Marginal, over all the sample</a></li>
+<li class="chapter" data-level="15.3.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#comparing-by-sex"><i class="fa fa-check"></i><b>15.3.2</b> Comparing by Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#single-predictor"><i class="fa fa-check"></i><b>15.4</b> SINGLE PREDICTOR</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#fit-the-model"><i class="fa fa-check"></i><b>15.4.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="15.4.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#parameter-table"><i class="fa fa-check"></i><b>15.4.2</b> Parameter Table</a></li>
+<li class="chapter" data-level="15.4.3" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#model-fit"><i class="fa fa-check"></i><b>15.4.3</b> Model Fit</a></li>
+<li class="chapter" data-level="15.4.4" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#predicted-probability"><i class="fa fa-check"></i><b>15.4.4</b> Predicted Probability</a></li>
+<li class="chapter" data-level="15.4.5" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#interpretation-2"><i class="fa fa-check"></i><b>15.4.5</b> Interpretation</a></li>
+<li class="chapter" data-level="15.4.6" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#diagnostics"><i class="fa fa-check"></i><b>15.4.6</b> Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#multiple-predictors"><i class="fa fa-check"></i><b>15.5</b> MULTIPLE PREDICTORS</a>
+<ul>
+<li class="chapter" data-level="15.5.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#fit-the-model-1"><i class="fa fa-check"></i><b>15.5.1</b> Fit the Model</a></li>
+<li class="chapter" data-level="15.5.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#parameter-table-1"><i class="fa fa-check"></i><b>15.5.2</b> Parameter Table</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#compare-models-2"><i class="fa fa-check"></i><b>15.6</b> COMPARE MODELS</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#refit-to-complete-cases"><i class="fa fa-check"></i><b>15.6.1</b> Refit to Complete Cases</a></li>
+<li class="chapter" data-level="15.6.2" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#parameter-table-2"><i class="fa fa-check"></i><b>15.6.2</b> Parameter Table</a></li>
+<li class="chapter" data-level="15.6.3" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#comparison-criteria"><i class="fa fa-check"></i><b>15.6.3</b> Comparison Criteria</a></li>
+<li class="chapter" data-level="15.6.4" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#interpretation-3"><i class="fa fa-check"></i><b>15.6.4</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="ex-logistic---depression-hoffman.html"><a href="ex-logistic---depression-hoffman.html#changing-reference-category"><i class="fa fa-check"></i><b>15.7</b> CHANGING REFERENCE CATEGORY</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html"><i class="fa fa-check"></i><b>16</b> Ex: Logistic - volunteering (Hoffman)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#preparation-1"><i class="fa fa-check"></i><b>16.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#load-packages-1"><i class="fa fa-check"></i><b>16.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="16.1.2" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#load-data-1"><i class="fa fa-check"></i><b>16.1.2</b> Load Data</a></li>
+<li class="chapter" data-level="16.1.3" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#wrangle-data"><i class="fa fa-check"></i><b>16.1.3</b> Wrangle Data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#exploratory-data-analysis-11"><i class="fa fa-check"></i><b>16.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#missing-data-1"><i class="fa fa-check"></i><b>16.2.1</b> Missing Data</a></li>
+<li class="chapter" data-level="16.2.2" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#summary-1"><i class="fa fa-check"></i><b>16.2.2</b> Summary</a></li>
+<li class="chapter" data-level="16.2.3" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#visualization-2"><i class="fa fa-check"></i><b>16.2.3</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#logistic-regression"><i class="fa fa-check"></i><b>16.3</b> LOGISTIC REGRESSION</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#compelete-subset"><i class="fa fa-check"></i><b>16.3.1</b> Compelete Subset</a></li>
+<li class="chapter" data-level="16.3.2" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#fit-the-model-2"><i class="fa fa-check"></i><b>16.3.2</b> Fit the Model</a></li>
+<li class="chapter" data-level="16.3.3" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#parameter-table-3"><i class="fa fa-check"></i><b>16.3.3</b> Parameter Table</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#interpretation-4"><i class="fa fa-check"></i><b>16.4</b> Interpretation</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#probe"><i class="fa fa-check"></i><b>16.4.1</b> Probe</a></li>
+<li class="chapter" data-level="16.4.2" data-path="ex-logistic---volunteering-hoffman.html"><a href="ex-logistic---volunteering-hoffman.html#plot-2"><i class="fa fa-check"></i><b>16.4.2</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html"><i class="fa fa-check"></i><b>17</b> Ex: Logistic - Maternal Risk (Hoffman)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#preparation-2"><i class="fa fa-check"></i><b>17.1</b> PREPARATION</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#load-packages-2"><i class="fa fa-check"></i><b>17.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="17.1.2" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#load-data-2"><i class="fa fa-check"></i><b>17.1.2</b> Load Data</a></li>
+<li class="chapter" data-level="17.1.3" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#wrangle-data-1"><i class="fa fa-check"></i><b>17.1.3</b> Wrangle Data</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#exploratory-data-analysis-12"><i class="fa fa-check"></i><b>17.2</b> EXPLORATORY DATA ANALYSIS</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#missing-data-2"><i class="fa fa-check"></i><b>17.2.1</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#exploratory-data-analysis-13"><i class="fa fa-check"></i><b>17.3</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#summary-2"><i class="fa fa-check"></i><b>17.3.1</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#unadjusted"><i class="fa fa-check"></i><b>17.4</b> UNADJUSTED</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#fit-models-3"><i class="fa fa-check"></i><b>17.4.1</b> Fit Models</a></li>
+<li class="chapter" data-level="17.4.2" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#parameter-tables"><i class="fa fa-check"></i><b>17.4.2</b> Parameter Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#main-effects-only"><i class="fa fa-check"></i><b>17.5</b> MAIN EFFECTS ONLY</a></li>
+<li class="chapter" data-level="17.6" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#interactions"><i class="fa fa-check"></i><b>17.6</b> INTERACTIONS</a></li>
+<li class="chapter" data-level="17.7" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#parsamony"><i class="fa fa-check"></i><b>17.7</b> PARSAMONY</a></li>
+<li class="chapter" data-level="17.8" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#center-scale"><i class="fa fa-check"></i><b>17.8</b> CENTER &amp; SCALE</a>
+<ul>
+<li class="chapter" data-level="17.8.1" data-path="ex-logistic---maternal-risk-hoffman.html"><a href="ex-logistic---maternal-risk-hoffman.html#marginal-model-plot"><i class="fa fa-check"></i><b>17.8.1</b> Marginal Model Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> </h1>
+<div id="dominance-ananlysis" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Dominance Ananlysis<a href="section.html#dominance-ananlysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>see: <a href="https://cran.r-project.org/web/packages/domir/vignettes/domir_basics.html" class="uri">https://cran.r-project.org/web/packages/domir/vignettes/domir_basics.html</a></p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="section.html#cb499-1" tabindex="-1"></a><span class="fu">domir</span>(</span>
+<span id="cb499-2"><a href="section.html#cb499-2" tabindex="-1"></a>  pknow <span class="sc">~</span> npnews <span class="sc">+</span> locnews <span class="sc">+</span> talkrad <span class="sc">+</span> natnews, </span>
+<span id="cb499-3"><a href="section.html#cb499-3" tabindex="-1"></a>  <span class="cf">function</span>(formula) {</span>
+<span id="cb499-4"><a href="section.html#cb499-4" tabindex="-1"></a>    lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula, <span class="at">data =</span> df_pol)</span>
+<span id="cb499-5"><a href="section.html#cb499-5" tabindex="-1"></a>    <span class="fu">summary</span>(lm_model)[[<span class="st">&quot;r.squared&quot;</span>]]</span>
+<span id="cb499-6"><a href="section.html#cb499-6" tabindex="-1"></a>  }</span>
+<span id="cb499-7"><a href="section.html#cb499-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>Overall Value:      0.1971275 
+
+General Dominance Values:
+        General Dominance Standardized Ranks
+npnews         0.08787767   0.44579104     1
+locnews        0.02812186   0.14265824     3
+talkrad        0.06292808   0.31922529     2
+natnews        0.01819988   0.09232542     4
+
+Conditional Dominance Values:
+        Include At: 1 Include At: 2 Include At: 3 Include At: 4
+npnews     0.08896006    0.08783655    0.08769250    0.08702156
+locnews    0.01133509    0.02477780    0.03521980    0.04115476
+talkrad    0.06808081    0.06448014    0.06150433    0.05764703
+natnews    0.02193340    0.02061423    0.01791688    0.01233499
+
+Complete Dominance Proportions:
+          &gt; npnews &gt; locnews &gt; talkrad &gt; natnews
+npnews &gt;        NA      1.00         1      1.00
+locnews &gt;        0        NA         0      0.75
+talkrad &gt;        0      1.00        NA      1.00
+natnews &gt;        0      0.25         0        NA</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dh-ch8---regressor-importance-politics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dh-ch9---multicategorical-regressors-married.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "toc_depth": 3
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
