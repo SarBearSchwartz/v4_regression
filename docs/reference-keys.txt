@@ -338,7 +338,6 @@ standard-error-of-estimate
 coefficient-of-forecasting-efficiency
 change-in-r-squared
 relative-improvement-in-fit
-section
 dominance-ananlysis
 dh-ch9---multicategorical-regressors-married
 purpose-8
@@ -528,7 +527,6 @@ load-data-2
 wrangle-data-1
 exploratory-data-analysis-12
 missing-data-2
-exploratory-data-analysis-13
 summary-2
 unadjusted
 fit-models-3

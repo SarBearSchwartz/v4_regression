@@ -70,9 +70,28 @@ tibble::glimpse(cancer_clean)
 ```
 
 ```{r df_cancer}
-psych::headTail(cancer_clean) %>% 
+cancer_clean %>% 
+  dplyr::arrange(trt, stage, age, weighin) %>% 
+  dplyr::select("Treatment" = trt,
+                "ID" = id,
+                "Stage" = stage,
+                "Age" = age,
+                "Weight" = weighin,
+                "Intake" = totalcin,
+                "Week 2" = totalcw2,
+                "Week 4" = totalcw4,
+                "Week 6" = totalcw6) %>% 
+  flextable::as_grouped_data(groups = "Treatment") %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "Sample of Cancer Dataset")
+  flextable::add_header_row(values = c("" , "Oral Condition"),
+                            colwidths = c(5, 4)) %>% 
+  apaSupp::theme_apa(caption = "Cancer Dataset",
+                     general_note = "Age is in years and Weight is in pounds.  Age, Weight, and Stage as well as the first oral condition refer to baseline or intake appointment. Yellow denotes missing values.",
+                     d = 0) %>%  
+  flextable::hline( part = "header", i = 1,   j = 6:9) %>% 
+  flextable::hline( part = "body",   i = 15) %>% 
+  flextable::bg(bg = "yellow", i = c(17, 23), j = 9)
+
 ```
 
 
@@ -168,10 +187,15 @@ cancer_clean %>%
 ```
 
 
+```{r}
+cancer_clean %>% 
+  cor.test(~ totalcw2 + totalcw4,
+           data = .)
+```
 
-**Statistically Significant Correlation**
+**NOT Statistically Significant Correlation**
 
-> **APA Results:** Overall oral condition was positively correlated ($r = .763$) between weeks two and four, $t(21) = 5.409$, $p < .001$.
+> **APA Results:** No evidence of a correlation between oral between weeks two and four was found, *t*(23) = 1.72, *p* = .099.
 
 
 
@@ -191,68 +215,30 @@ cancer_clean %>%
            data = .)
 ```
 
+**Statistically Significant Correlation**
+
+> **APA Results:** Overall oral condition was positively correlated (*r* = .763) between weeks four and six, *t*(21) = 5.41, *p* < .001.
 
 
 
 ## CORRELATION TABLES
 
 
-```{block type='rmdlightbulb', echo=TRUE}
-The may use the `tableC()` function from the `furniture` package to calculate all pair-wise correlations between more than two variables and arrange them all in a table.  The table is formatted with the variabels listed on the rows and numbered to show the same variabels across the columns. 
-
-* The cells ON the diagonal are all equal to *exactly one*, since each variable is perfectly correlated with itself.
-
-* The cells ABOVE the diagonal are *blank* as them would just be a mirror image of the values below the diagonal. 
-
-* The cells BELOW the diagonal each contain the *Pearson's correlation coefficients* for each pair of variables, $r$, with the $p-value$ showing the significance vs. the null hypothesis for no association ($r = 0$) to the right.
-```
-
-```{r}
-cancer_clean %>% 
-  furniture::tableC(age, weighin, totalcin)
-```
-
-
-### Missing Values - Default
-
-
-```{block type='rmdlightbulb', echo=TRUE}
-**Default Behavior `na.rm = FALSE` (default)**
-
-If you don't say otherwise, the correlation $r$ with not be calculated (`NA`) between any pair of variables for which there is at least one subject with a missing value on at least one of the vairables.  This is a nice alert to make you aware of missing values.
-```
-
-```{r}
-cancer_clean %>% 
-  furniture::tableC(totalcin, totalcw2, totalcw4, totalcw6)
-```
-
-### Missing Values - Listwise Deletion
-
-
-```{block type='rmdlightbulb', echo=TRUE}
-**Listwise Deletion `na.rm = TRUE`**
-
-Most of the time you will want to compute the correlation $r$ is the precense of missing values.  To do so, you want to remove or exclude subjects with missing data from ALL correlation computation in the table.  This is called **'list-wise deletion'**.  It ensures that all cells in the table refer to the exact same sub-sample (n = subjects with complete data for all variables in the table), and thus the same degrees of freedom (since $df = n - 2$).  This is done be changing the default to `na.rm = TRUE`.
-```
-
-```{r}
-cancer_clean %>% 
-  furniture::tableC(totalcin, totalcw2, totalcw4, totalcw6,
-                    na.rm = TRUE)
-```
-
+Missing Values - Listwise Deletion vs. Pairwise Deletion
 
 
 ```{r}
 cancer_clean %>% 
-  furniture::tableC(totalcin, totalcw2, totalcw4, totalcw6,
-                    na.rm = TRUE,
-                    rounding = 2)
+  dplyr::filter(complete.cases(totalcin, totalcw2, totalcw4, totalcw6)) %>% 
+  dplyr::select("Baseline" = totalcin, 
+                "Week 2" = totalcw2, 
+                "Week 4" = totalcw4, 
+                "Week 6" = totalcw6) %>% 
+  apaSupp::tab_cor(caption = "Correlations Between Repeated Measures of Total Oral Condition, Listwise Deletion",
+                   general_note = "Listwise deletion applied, thus only participants with oral condition captured at all four occations are utilized.",
+                   p_note = "apa3")
 ```
 
-
-### APA Style
 
 ```{r}
 cancer_clean %>% 
@@ -260,7 +246,9 @@ cancer_clean %>%
                 "Week 2" = totalcw2, 
                 "Week 4" = totalcw4, 
                 "Week 6" = totalcw6) %>% 
-  apaSupp::tab_cor(caption = "Correlations Between Repeated Measures of Total Oral Condition")
+  apaSupp::tab_cor(caption = "Correlations Between Repeated Measures of Total Oral Condition, Pairwise Deletion",
+                   general_note = "Pairwise-deletion used for each pair of obseration times.",
+                   p_note = "apa3")
 ```
 
 
