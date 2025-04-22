@@ -259,23 +259,23 @@ fit_lm_three<- lm(loss ~ exer + diet + meta,
 ### Output
 
 ```{r}
-olsrr::ols_regress(fit_lm_exer)
+summary(fit_lm_exer)
 ```
 
 
 ```{r}
-olsrr::ols_regress(fit_lm_diet)
+summary(fit_lm_diet)
 ```
 
 
 ```{r}
-olsrr::ols_regress(fit_lm_both)
+summary(fit_lm_both)
 ```
 
 
 
 ```{r}
-olsrr::ols_regress(fit_lm_three)
+summary(fit_lm_three)
 ```
 
 
@@ -296,12 +296,9 @@ $$
 
 
 ```{r}
-tab_lm3 <- apaSupp::tab_lms(list(fit_lm_exer, 
-                                 fit_lm_diet, 
-                                 fit_lm_both),
-                            mod_names = c("Exercise", 
-                                          "Food Intake", 
-                                          "Both"),
+tab_lm3 <- apaSupp::tab_lms(list("Exercise"    = fit_lm_exer, 
+                                 "Food Intake" = fit_lm_diet, 
+                                 "Both"        = fit_lm_both),
                             var_labels = c("exer" = "Exercise",
                                            "diet" = "Food"),
                             caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake",
@@ -321,8 +318,8 @@ flextable::save_as_docx(tab_lm3,
 
 
 ```{r}
-apaSupp::tab_lms(list(fit_lm_both, fit_lm_three),
-                 mod_names = c("Two Predictors", "Three Predictors"),
+apaSupp::tab_lms(list("Two Predictors" = fit_lm_both, 
+                      "Three Predictors" = fit_lm_three),
                  var_labels = c("exer" = "Exercise Freq",
                                 "diet" = "Food Intake",
                                 "meta" = "Metabolic Rate"),
@@ -393,6 +390,10 @@ interactions::interact_plot(model = fit_lm_three,
 
 
 ## EFFECT SIZES
+
+
+
+
 
 ### Semipartial Correlation 
 
@@ -478,9 +479,14 @@ car::vif(fit_lm_three)
 ## CONCLUSION: SPECIFIC QUESTIONS
 
 
+
+
 ```{r}
-coef(fit_lm_both)
+apaSupp::tab_lm(fit_lm_both, vif = TRUE)
 ```
+
+
+
 
 
 ```{r}
