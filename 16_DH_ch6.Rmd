@@ -1,5 +1,6 @@
 # D&H Ch6 - Statistical vs. Experimental Control: "PTSD"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 6's first example
 
@@ -20,9 +21,7 @@ library(interactions)
 library(ggResidpanel)
 ```
 
-```{r}
-flextable::set_flextable_defaults(digits = 2)
-```
+
 
 
 
@@ -338,12 +337,10 @@ df_ptsd %>%
 ```{r}
 fit_ptsd_1 <- lm(post_test ~ pre_test + therapy,
                  data = df_ptsd)
-
-summary(fit_ptsd_1)
 ```
 
 ```{r}
-anova(fit_ptsd_1)
+apaSupp::tab_lm(fit_ptsd_1)
 ```
 
 
@@ -377,13 +374,11 @@ After controlling for pre-test score, the experimental therapy is associated wit
 ```{r}
 fit_ptsd_2 <- lm(gain ~ therapy,
                  data = df_ptsd)
-
-summary(fit_ptsd_2)
 ```
 
 
 ```{r}
-anova(fit_ptsd_2)
+apaSupp::tab_lm(fit_ptsd_2)
 ```
 
 #### Equation
@@ -419,13 +414,11 @@ t.test(gain ~ therapy,
 ```{r}
 fit_ptsd_3 <- lm(gain ~ pre_test + therapy,
                  data = df_ptsd)
-
-summary(fit_ptsd_3)
 ```
 
 
 ```{r}
-anova(fit_ptsd_3)
+apaSupp::tab_lm(fit_ptsd_3)
 ```
 
 
@@ -454,11 +447,8 @@ After controlling for symptom severity prior to therapy, the experimental therap
 
 ### Compare Models
 
-```{r, warning=FALSE, message=FALSE}
-performance::compare_performance(fit_ptsd_1, fit_ptsd_2, fit_ptsd_3,
-                                 metrics = c("AIC", "BIC",
-                                             "R2", "R2_adj",
-                                             "RMSE", "SIGMA"))
+```{r}
+apaSupp::tab_lm_fits(list(fit_ptsd_1, fit_ptsd_2, fit_ptsd_3))
 ```
 
 

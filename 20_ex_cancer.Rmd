@@ -3,32 +3,19 @@
 
 Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
-```{r, comment=FALSE, message=FALSE}
+```{r, message=FALSE, error=FALSE, warning=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
 
-library(magrittr)       
-library(tidyverse)   
-library(broom)     
-library(naniar)
-library(corrplot)   
-library(GGally)
-library(gtsummary)
+       
+library(tidyverse)  
+library(psych)
 library(apaSupp)
 library(performance)
 library(interactions)
 library(effects)
 library(emmeans)
-library(car)
-library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
-library(effectsize)
-library(ggpubr)
 ```
 
 ```{r}
@@ -65,7 +52,10 @@ cancer_clean <- cancer_raw %>%
                              labels = c("Placebo", 
                                         "Aloe Juice"))) %>% 
   dplyr::mutate(stage = factor(stage))
+```
 
+
+```{r}
 tibble::glimpse(cancer_clean)
 ```
 

@@ -1,5 +1,6 @@
 # Linear Correlation: "Cancer" 
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 ```{r, include=FALSE}
 # set global chunk options...  

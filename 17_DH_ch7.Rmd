@@ -1,5 +1,6 @@
 # D&H Ch7 - Regression for Prediction: "mtcars"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 7's  example
 
@@ -10,19 +11,10 @@ Darlington & Hayes, Chapter 7's  example
 # remotes::install_github("ddsjoberg/gtsummary")
      
 library(tidyverse) 
-library(flextable)
 library(apaSupp)
-library(car)
-library(rempsyc)
-library(parameters)
-library(performance)
-library(interactions)
-library(ggResidpanel)
+library(olsrr)
 ```
 
-```{r}
-flextable::set_flextable_defaults(digits = 2)
-```
 
 
 
@@ -58,8 +50,11 @@ mtcars
 ```{r}
 fit_mtcars_1 <- lm(mpg ~ disp + hp + drat + wt + qsec, 
                    data = mtcars)
+```
 
-summary(fit_mtcars_1)
+
+```{r}
+apaSupp::tab_lm(fit_mtcars_1)
 ```
 
 ## AUTOMATED VARIABLE SELECTION

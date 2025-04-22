@@ -12,25 +12,14 @@ Compiled: `r format(Sys.time(), '%B %d, %Y')`
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
 
-library(magrittr)       
-library(tidyverse)   
-library(broom)     
-library(naniar)
-library(corrplot)   
-library(GGally)
-library(gtsummary)
+     
+library(tidyverse)  
 library(apaSupp)
 library(performance)
 library(interactions)
 library(effects)
 library(emmeans)
-library(car)
 library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
 library(effectsize)
 library(ggpubr)
 
@@ -281,6 +270,15 @@ logLik(fit_vel_glu)
 AIC(fit_vel_glu)
 BIC(fit_vel_glu)
 ```
+
+
+
+### Table
+
+```{r}
+apaSupp::tab_lm(fit_vel_glu)
+```
+
 
 
 ### Assumption Checks

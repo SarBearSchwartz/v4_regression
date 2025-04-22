@@ -1,5 +1,6 @@
 # D&H Ch3a - Multiple Regression: "Weight"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 3's first example
 
@@ -82,15 +83,15 @@ Manually enter the data set provided on page 44 in Table 3.1
 
 ```{r}
 df_loss <- tibble::tribble(~id, ~exer, ~diet, ~meta, ~loss,
-                            1, 0, 2, 15,  6, 
-                            2, 0, 4, 14,  2,
-                            3, 0, 6, 19,  4,
-                            4, 2, 2, 15,  8,
-                            5, 2, 4, 21,  9,
-                            6, 2, 6, 23,  8,
-                            7, 2, 8, 21,  5,
-                            8, 4, 4, 22, 11,
-                            9, 4, 6, 24, 13,
+                           1, 0, 2, 15,  6, 
+                           2, 0, 4, 14,  2,
+                           3, 0, 6, 19,  4,
+                           4, 2, 2, 15,  8,
+                           5, 2, 4, 21,  9,
+                           6, 2, 6, 23,  8,
+                           7, 2, 8, 21,  5,
+                           8, 4, 4, 22, 11,
+                           9, 4, 6, 24, 13,
                            10, 4, 8, 26,  9)
 ```
 
@@ -108,8 +109,8 @@ df_loss %>%
   flextable::footnote(part = "header", 
                       i = 1, j = 2:4, 
                       value = flextable::as_paragraph(c("Weekly average of hours/day",
-                                             "Daily average of 100s of calories above recommendation",
-                                             "Weekly average of 100s of grams/week")))
+                                                        "Daily average of 100s of calories above recommendation",
+                                                        "Weekly average of 100s of grams/week")))
 ```
 
 
@@ -256,28 +257,6 @@ fit_lm_three<- lm(loss ~ exer + diet + meta,
                   data = df_loss)
 ```
 
-### Output
-
-```{r}
-olsrr::ols_regress(fit_lm_exer)
-```
-
-
-```{r}
-olsrr::ols_regress(fit_lm_diet)
-```
-
-
-```{r}
-olsrr::ols_regress(fit_lm_both)
-```
-
-
-
-```{r}
-olsrr::ols_regress(fit_lm_three)
-```
-
 
 
 
@@ -296,14 +275,17 @@ $$
 
 
 ```{r}
-tab_lm3 <- apaSupp::tab_lms(list(fit_lm_exer, 
-                                 fit_lm_diet, 
-                                 fit_lm_both),
-                            mod_names = c("Exercise", 
-                                          "Food Intake", 
-                                          "Both"),
+apaSupp::tab_lms(list(fit_lm_exer, fit_lm_diet, fit_lm_both))
+```
+
+
+```{r}
+tab_lm3 <- apaSupp::tab_lms(list("Model 1\nExercise" = fit_lm_exer, 
+                                 "Model 2\nFood Intake" = fit_lm_diet, 
+                                 "Model 3\nBoth" = fit_lm_both),
                             var_labels = c("exer" = "Exercise",
                                            "diet" = "Food"),
+                            narrow = TRUE,
                             caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake",
                             general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") 
 
@@ -321,13 +303,14 @@ flextable::save_as_docx(tab_lm3,
 
 
 ```{r}
-apaSupp::tab_lms(list(fit_lm_both, fit_lm_three),
-                 mod_names = c("Two Predictors", "Three Predictors"),
+apaSupp::tab_lms(list("Model 3\nTwo Predictors" = fit_lm_both, 
+                      "Model 4\nThree Predictors" = fit_lm_three),
                  var_labels = c("exer" = "Exercise Freq",
                                 "diet" = "Food Intake",
                                 "meta" = "Metabolic Rate"),
                  caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency, Food Intake, and Metabolic Rate",
-                            general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") 
+                 general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") %>% 
+  flextable::autofit()
 
 ```
 
@@ -393,6 +376,28 @@ interactions::interact_plot(model = fit_lm_three,
 
 
 ## EFFECT SIZES
+
+
+```{r}
+apaSupp::tab_lm(fit_lm_both,
+                var_labels = c("exer" = "Exercise Freq",
+                               "diet" = "Food Intake"),
+                vif = TRUE,
+                caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake, with Effect Size Estimates",
+                general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") %>% 
+  flextable::autofit()
+```
+
+
+```{r}
+apaSupp::tab_lm(fit_lm_three,
+                var_labels = c("exer" = "Exercise Freq",
+                               "diet" = "Food Intake"),
+                vif = TRUE,
+                caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency, Food Intake and Metabolic Rate, with Effect Size Estimates",
+                general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") %>% 
+  flextable::autofit()
+```
 
 ### Semipartial Correlation 
 

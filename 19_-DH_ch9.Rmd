@@ -1,5 +1,6 @@
 # D&H Ch9 - Multicategorical Regressors: "married"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 9's  example
 
@@ -21,9 +22,7 @@ library(interactions)
 library(ggResidpanel)
 ```
 
-```{r}
-flextable::set_flextable_defaults(digits = 2)
-```
+
 
 
 
@@ -430,8 +429,6 @@ summary(fit_aov_2)
 
 ```{r}
 fit_lm_1 <- lm(satis ~ mstat_wid, data = df_sat)
-
-summary(fit_lm_1)
 ```
 
 ```{r}
@@ -479,7 +476,9 @@ apaSupp::tab_lms(list(fit_lm_1m, fit_lm_1d, fit_lm_1s, fit_lm_1w),
                                 mstat_sin = "Marital Status",
                                 mstat_wid = "Marital Status"),
                  caption = "Comparison of Regression Models Changing the Reference Category",
-                 d = 1)
+                 d = 1,
+                 narrow = TRUE) %>% 
+  flextable::autofit()
 ```
 
 
@@ -494,7 +493,7 @@ No Covariates
 ```{r}
 fit_lm_2 <- lm(satis ~ income, data = df_sat)
 
-anova(fit_lm_2)
+apaSupp::tab_lm(fit_lm_2)
 ```
 
 
@@ -506,7 +505,7 @@ Covary Marital Status
 ```{r}
 fit_lm_3 <- lm(satis ~ income + mstat_wid, data = df_sat)
 
-anova(fit_lm_3)
+apaSupp::tab_lm(fit_lm_3)
 ```
 
 
@@ -519,7 +518,7 @@ apaSupp::tab_lms(list(fit_lm_2, fit_lm_3),
                  caption = "Comparison for Models Regressing Life Satisfaction on Annual Income, with and without Controlling for Marital Status",
                  general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.",
                  d = 3) %>% 
-  flextable::width(j = 1, width = 1.5)
+  flextable::autofit()
 ```
 
 
@@ -528,7 +527,7 @@ apaSupp::tab_lm(fit_lm_2,
                 var_labels = c(income    = "Annual Income"),
                 caption = "Parameter Estimates for Life Satisfaction Regressed on Annual Income Ignoring Marital Status",
                 general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.") %>% 
-  flextable::width(j = 1, width = 1.5)
+  flextable::autofit()
 ```
 
 ```{r}
@@ -537,7 +536,7 @@ apaSupp::tab_lm(fit_lm_3,
                                mstat_wid = "Marital Status"),
                 caption = "Parameter Estimates for Life Satisfaction Regressed on Annual Income while Controlling for Marital Status",
                 general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.") %>% 
-  flextable::width(j = 1, width = 1.5)
+  flextable::autofit()
 ```
 
 
@@ -587,10 +586,11 @@ anova(fit_lm_4)
 apaSupp::tab_lm(fit_lm_4,
                 var_labels = c(income    = "Annual Income",
                                mstat_wid = "Marital Status",
-                               sex       = "Sex"),
+                               sex       = "Male vs. Female"),
+                show_single_row = "sex",
                 caption = "Parameter Estimates for Life Satisfaction Regressed on Annual Income while Controlling for Marital Status and Sex",
                 general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.") %>% 
-  flextable::width(j = 1, width = 1.5)
+  flextable::autofit()
 ```
 
 
@@ -603,8 +603,8 @@ apaSupp::tab_lms(list(fit_lm_2, fit_lm_3, fit_lm_4),
                                 sex       = "Sex"),
                  caption = "Comparison for Models Regressing Life Satisfaction on Annual Income, with and without Controlling for Marital Status and Sex",
                  general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.",
-                 d = 3) %>% 
-  flextable::width(j = 1, width = 1.5)
+                 d = 2,
+                 narrow = TRUE)
 ```
 
 

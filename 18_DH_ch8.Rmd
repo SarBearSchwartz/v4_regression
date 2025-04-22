@@ -1,5 +1,6 @@
 # D&H Ch8 - Regressor Importance: "politics"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 8's  example
 
@@ -25,9 +26,7 @@ library(dominanceanalysis)
 library(domir)
 ```
 
-```{r}
-flextable::set_flextable_defaults(digits = 2)
-```
+
 
 
 
@@ -173,8 +172,8 @@ apaSupp::tab_lms(list(fit_pol_1, fit_pol_1nn, fit_pol_1np),
                 var_labels = c(natnews = "National News",
                                npnews = "Newspapers",
                                age = "Age",
-                               sex = "Sex")) %>% 
-  flextable::width(j = 1, width = 1.5)
+                               sex = "Sex"),
+                narrow = TRUE) 
 ```
 
 
@@ -183,10 +182,10 @@ apaSupp::tab_lm(fit_pol_1,
                 var_labels = c(natnews = "National News",
                                npnews = "Newspapers",
                                age = "Age",
-                               sex = "Sex"),
+                               sex = "Male vs Female"),
                 d = 3,
-                vif = TRUE) %>% 
-  flextable::width(j = 1, width = 1.5)
+                vif = TRUE,
+                show_single_row = "sex") 
 ```
 
 ### Interpretation
@@ -206,8 +205,12 @@ apaSupp::tab_lms(list(fit_pol_1, fit_pol_2, fit_pol_3),
                  var_labels = c(news_sum = "News, sum",
                                 news_dif = "News, dif",
                                 age = "Age",
-                                sex = "Sex"))
+                                sex = "Male vs. Female"),
+                show_single_row = "sex")
 ```
+
+
+
 ```{r}
 car::linearHypothesis(fit_pol_1, c("natnews - npnews"))
 ```
@@ -542,7 +545,9 @@ There are MANY measures of "Variable Importance"
 > * 1 & 2 are not recomended
 > * 2-4 may be refered to as 'Effect Size' in general
 
-
+```{r}
+apaSupp::tab_lm(fit_pol_2atn)
+```
 
 #### 1. Sample Regression Coefficients, $b$
 
@@ -587,6 +592,7 @@ For Model `frt_pol_2atn`:
 ```{r}
 parameters::standardise_parameters(fit_pol_2atn)
 ```
+
 
 
 
@@ -697,6 +703,7 @@ f2_a_t
 * Cohen's $f^2$ for **national news** added to set $A$ and talk radio
 
 ```{r}
+<<<<<<< Updated upstream
 r2_at
 r2_atn
 ```
@@ -705,6 +712,10 @@ r2_atn
 ```{r}
 f2_at_n = (r2_atn - r2_at)/(1 - r2_at)
 f2_at_n
+=======
+# f2_at_n = (r2_b - r2_at)/(1 - r2_b)
+# f2_at_n
+>>>>>>> Stashed changes
 ```
 
 

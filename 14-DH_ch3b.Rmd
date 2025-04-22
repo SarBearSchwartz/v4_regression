@@ -1,35 +1,26 @@
 # D&H Ch3b - Multiple Regression: "Sport Skill"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 3's second example
 
 
-```{r}
+```{r, message=FALSE, error=FALSE, warning=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
 
-library(magrittr)       
-library(tidyverse)   
-library(broom)     
+
+library(tidyverse)
+library(apaSupp)     
 library(naniar)
-library(corrplot)   
 library(GGally)
-library(gtsummary)
-library(apaSupp)
-library(performance)
+library(corrplot)    
+library(ggpubr)  
 library(interactions)
-library(effects)
-library(emmeans)
-library(car)
-library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
 library(effectsize)
-library(ggpubr)
+library(performance)
+library(ggResidpanel)
 ```
 
 
@@ -52,22 +43,22 @@ Independent Variables (IV, $X$)
 
 Dependent Variable (DV, $Y$)
 * `pref` On a scale from 1 to 9, which sport do you prefer?”
-    + 1 = much prefer softball
-    + 5 = no preference
-    + 9 = much prefer basketball
++ 1 = much prefer softball
++ 5 = no preference
++ 9 = much prefer basketball
 
 
 ```{r}
 df_sport <- tibble::tribble(~id, ~soft, ~basket, ~pref,
-                             1,   4, 17, 1,
-                             2,  56, 60, 3,
-                             3,  25,  3, 8,
-                             4,  50, 52, 4,
-                             5,   5, 16, 2,
-                             6,  72, 84, 2,
-                             7, 100, 95, 5,
-                             8,  39, 20, 8,
-                             9,  81, 75, 5,
+                            1,   4, 17, 1,
+                            2,  56, 60, 3,
+                            3,  25,  3, 8,
+                            4,  50, 52, 4,
+                            5,   5, 16, 2,
+                            6,  72, 84, 2,
+                            7, 100, 95, 5,
+                            8,  39, 20, 8,
+                            9,  81, 75, 5,
                             10,  61, 47, 7)
 ```
 
@@ -156,7 +147,7 @@ df_sport %>%
 ```{r}
 df_sport %>% 
   ggplot(aes(x = soft,        
-           y = pref)) +   
+             y = pref)) +   
   geom_point() +                    
   geom_smooth(method = "lm",
               formula = y ~ x) +
@@ -195,18 +186,19 @@ df_sport %>%
 
 ```{r}
 fit_lm_soft <- lm(pref ~ soft,
-                   data = df_sport)  
+                  data = df_sport)  
 
 fit_lm_basket <- lm(pref ~ basket,
-                   data = df_sport)
+                    data = df_sport)
 
 fit_lm_both <- lm(pref ~ soft + basket,
-                   data = df_sport)
+                  data = df_sport)
 ```
 
 
 
 ```{r}
+<<<<<<< Updated upstream
 tab_lm3 <- apaSupp::tab_lms(list("Softball" = fit_lm_soft, 
                                  "Basketball" = fit_lm_basket, 
                                  "Both" = fit_lm_both),
@@ -218,6 +210,17 @@ tab_lm3 <- apaSupp::tab_lms(list("Softball" = fit_lm_soft,
                             d = 3) 
 
 tab_lm3
+=======
+apaSupp::tab_lms(list("Softball" = fit_lm_soft, 
+                      "Basketball" = fit_lm_basket, 
+                      "Both" = fit_lm_both),
+                 var_labels = c("soft" = "Softball Skill",
+                                "basket" = "Basketball Skill"),
+                 caption = "Parameter Estimates for Sport Preference Regression on Skill Level in Softball and Basketball",
+                 general_note = "Dependent variable is preference rating on a scale of 1 (much prefer softball) to  9 (much prefer basketball).  Both softball and Baksetball skill levels are on a scale of 0 to 100.",
+                 narrow = TRUE,
+                 d = 3) 
+>>>>>>> Stashed changes
 ```
 
 
@@ -251,6 +254,10 @@ interactions::interact_plot(model = fit_lm_both,
 
 ### Semipartial Correlation
 
+```{r}
+apaSupp::tab_lm(fit_lm_both)
+```
+
 
 
 ```{r}
@@ -261,6 +268,8 @@ apaSupp::tab_lm(fit_lm_both)
 ```{r}
 effectsize::r2_semipartial(fit_lm_both)
 ```
+
+
 
 
 ### Venn Diagram - Variances 

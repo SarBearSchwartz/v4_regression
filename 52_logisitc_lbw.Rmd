@@ -58,12 +58,12 @@ Independent variables (IV) or predictors
 
 * `age` Age of mother, in years
 * `lwt` Mother's weight at last menstrual period, in pounds
+* `ftv` Number of physician visits in 1st trimester: 0 = None, 1 = One, ... 6 = six
 * `race` Race: 1 = White, 2 = Black, 3 = Other
-* `smoke` Smoking status during pregnancy:1 = Yes, 0 = No
 * `ptl` History of premature labor: 0 = None, 1 = One, 2 = two, 3 = three
 * `ht` History of hypertension: 1 = Yes, 0 = No
+* `smoke` Smoking status during pregnancy:1 = Yes, 0 = No
 * `ui` Uterine irritability: 1 = Yes, 0 = No
-* `ftv` Number of physician visits in 1st trimester: 0 = None, 1 = One, ... 6 = six
 
 
 
@@ -126,16 +126,16 @@ tibble::glimpse(df_mom)
 
 ```{r}
 df_mom %>% 
-  dplyr::select("Low Birth Weight Delivery" = low,
+  dplyr::select("Race" = race, 
+                "Low Birth Weight Delivery" = low,
                 "Age, years" = age, 
                 "Weight, pounds" = lwt, 
-                "Race" = race, 
-                "Smoking During pregnancy" = smoke, 
+                "1st Tri Dr Visits" = ftv, 
                 "History of Premature Labor, any" = ptl_any, 
                 "History of Premature Labor, number" = ptl, 
+                "Smoking During pregnancy" = smoke, 
                 "History of Hypertension" = ht, 
-                "Uterince Irritability" = ui, 
-                "1st Tri Dr Visits" = ftv) %>% 
+                "Uterince Irritability" = ui) %>% 
   naniar::miss_var_summary() %>%
   dplyr::select(Variable = variable,
                 n = n_miss) %>% 
@@ -151,10 +151,13 @@ df_mom %>%
 df_mom %>% 
   dplyr::select("Low Birth Weight Delivery" = low,
                 "Race" = race, 
+                "Age, yrs" = age, 
+                "Weight, lbs" = lwt, 
+                "1st Tri Dr Visits" = ftv, 
+                "Hx of Premature Labor, number" = ptl, 
+                "Hx Premature Labor, any" = ptl_any, 
+                "Hx of Hypertension" = ht, 
                 "Smoking During pregnancy" = smoke, 
-                "History of Premature Labor, any" = ptl_any, 
-                "History of Premature Labor, number" = ptl, 
-                "History of Hypertension" = ht, 
                 "Uterince Irritability" = ui) %>% 
   apaSupp::tab_freq(caption = "Summary of Categorical Variables")
 ```
@@ -163,9 +166,16 @@ df_mom %>%
 
 ```{r}
 df_mom %>% 
-  dplyr::select("Age, yrs" = age, 
+  dplyr::select("Low Birth Weight Delivery" = low,
+                "Race" = race,  
+                "Age, yrs" = age, 
                 "Weight, lbs" = lwt, 
-                "1st Tri Dr Visits" = ftv) %>% 
+                "1st Tri Dr Visits" = ftv,
+                "Hx Premature Labor, any" = ptl_any, 
+                "Hx Premature Labor, number" = ptl, 
+                "Hx Hypertension" = ht, 
+                "Smoking During pregnancy" = smoke, 
+                "Uterince Irritability" = ui) %>% 
   apaSupp::tab_desc(caption = "Summary of Continuous Variables")
 ```
 
@@ -180,14 +190,15 @@ df_mom %>%
 ### Fit Models
 
 ```{r}
+fit_glm_race  <- glm(low ~ race,    family = binomial(link = "logit"), data = df_mom)
 fit_glm_age   <- glm(low ~ age,     family = binomial(link = "logit"), data = df_mom)
 fit_glm_lwt   <- glm(low ~ lwt,     family = binomial(link = "logit"), data = df_mom)
-fit_glm_race  <- glm(low ~ race,    family = binomial(link = "logit"), data = df_mom)
-fit_glm_smoke <- glm(low ~ smoke,   family = binomial(link = "logit"), data = df_mom)
+fit_glm_ftv   <- glm(low ~ ftv,     family = binomial(link = "logit"), data = df_mom)
+
 fit_glm_ptl   <- glm(low ~ ptl_any, family = binomial(link = "logit"), data = df_mom)
 fit_glm_ht    <- glm(low ~ ht,      family = binomial(link = "logit"), data = df_mom)
+fit_glm_smoke <- glm(low ~ smoke,   family = binomial(link = "logit"), data = df_mom)
 fit_glm_ui    <- glm(low ~ ui,      family = binomial(link = "logit"), data = df_mom)
-fit_glm_ftv   <- glm(low ~ ftv,     family = binomial(link = "logit"), data = df_mom)
 ```
 
 
@@ -197,14 +208,14 @@ fit_glm_ftv   <- glm(low ~ ftv,     family = binomial(link = "logit"), data = df
 Note: the parameter estimates here are for the LOGIT scale, not the odds ration (OR) or even the probability.
 
 ```{r}
-apaSupp::tab_glms(list(fit_glm_age, fit_glm_lwt, fit_glm_race, fit_glm_smoke),
+apaSupp::tab_glms(list(fit_glm_race, fit_glm_age, fit_glm_lwt, fit_glm_ftv),
                   narrow = TRUE,
                   fit = NA,
                   pr2 = "tjur")
 ```
 
 ```{r}
-apaSupp::tab_glms(list(fit_glm_ptl, fit_glm_ht, fit_glm_ui, fit_glm_ftv),
+apaSupp::tab_glms(list(fit_glm_ptl, fit_glm_ht, fit_glm_smoke, fit_glm_ui),
                   narrow = TRUE,
                   fit = NA,
                   pr2 = "tjur")
@@ -219,7 +230,7 @@ apaSupp::tab_glms(list(fit_glm_ptl, fit_glm_ht, fit_glm_ui, fit_glm_ftv),
 Main-effects multiple logistic regression model
 
 ```{r}
-fit_glm_mains <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui,
+fit_glm_mains <- glm(low ~ race + age + lwt + ftv + ptl_any + ht + smoke + ui,
                      family = binomial(link = "logit"), 
                      data = df_mom)
 ```
@@ -227,7 +238,21 @@ fit_glm_mains <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui,
 
 ```{r}
 apaSupp::tab_glm(fit_glm_mains,
+<<<<<<< Updated upstream
                  show_single_row = c("smoke", "ptl_any", "ht", "ui"))
+=======
+                 var_labels = c(race = "Race",
+                                age = "Age, yrs",
+                                lwt = "Prior Weight, lbs",
+                                ftv = "First Tri Visits",
+                                ptl_any = "Hx Premature Labor",
+                                ht = "Hx Hypertension",
+                                smoke = "Smoking",
+                                ui = "Uterine Irritability"),
+                 show_single_row = c("ptl_any", "smoke", "ht", "ui"),
+                 vif = FALSE) %>% 
+  flextable::width(j = 1, width = 1.75)
+>>>>>>> Stashed changes
 ```
 
 
@@ -244,15 +269,15 @@ Try the following interactions:
 * Weight and Smoking
 
 ```{r}
-fit_glm_mains_aw <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:lwt,
+fit_glm_mains_aw <- glm(low ~ race + age + lwt + ftv + ptl_any + ht + smoke + ui + age:lwt,
                         family = binomial(link = "logit"), 
                         data = df_mom)
 
-fit_glm_mains_as <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + age:smoke,
+fit_glm_mains_as <- glm(low ~ race + age + lwt + ftv + ptl_any + ht + smoke + ui + age:smoke,
                         family = binomial(link = "logit"), 
                         data = df_mom)
 
-fit_glm_mains_ws <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + lwt:smoke,
+fit_glm_mains_ws <- glm(low ~ race + age + lwt + ftv + ptl_any + ht + smoke + ui + lwt:smoke,
                         family = binomial(link = "logit"), 
                         data = df_mom)
 ```
@@ -263,8 +288,21 @@ fit_glm_mains_ws <- glm(low ~ age + lwt + race + smoke + ptl_any + ht + ui + lwt
 apaSupp::tab_glms(list("Age-Weight"     = fit_glm_mains_aw,
                        "Age-Smoking"    = fit_glm_mains_as,
                        "Weight-Smoking" = fit_glm_mains_ws),
+<<<<<<< Updated upstream
                   show_single_row = c("smoke", "ptl_any", "ht", "ui"),
                   narrow = TRUE)
+=======
+                  var_labels = c(race = "Race",
+                                 age = "Age, yrs",
+                                 lwt = "Prior Weight, lbs",
+                                 ftv = "First Tri Visits",
+                                 ptl_any = "Hx Premature Labor",
+                                 smoke = "Smoking",
+                                 ht = "Hypertension",
+                                 ui = "Uterine Irritability"),
+                  narrow = TRUE,
+                  show_single_row = c("ptl_any", "smoke", "ht", "ui"))
+>>>>>>> Stashed changes
 ```
 
 ```{r}
@@ -308,14 +346,24 @@ Since the mother's age is theoretically a meaningful variable, it should probabl
 Remove "UI" since its not significant
 
 ```{r}
-fit_glm_trim <- glm(low ~ age + lwt + race + smoke + ptl_any + ht,
+fit_glm_trim <- glm(low ~  race + age + lwt + ptl_any + ht + smoke ,
                     family = binomial(link = "logit"), 
                     data = df_mom)
 ```
 
 
 ```{r}
-apaSupp::tab_glm(fit_glm_trim)
+apaSupp::tab_glm(fit_glm_trim,
+                 var_labels = c(race = "Race",
+                                age = "Age, yrs",
+                                lwt = "Prior Weight, lbs",
+                                ptl_any = "Hx Premature Labor",
+                                ht = "Hx Hypertension",
+                                smoke = "Smoking"),
+                 show_single_row = c("ptl_any", "smoke", "ht"),
+                 lrt = FALSE,
+                 vif = FALSE) %>% 
+  flextable::width(j = 1, width = 1.75)
 ```
 
 
@@ -330,12 +378,14 @@ Revise so that age is interpreted in 5-year and pre-pregnancy weight in 20 lb in
 
 
 ```{r}
-fit_glm_final <- glm(low ~ I((age - 20)/5) + I((lwt - 125)/20) + race + smoke + ptl_any + ht,
+fit_glm_final <- glm(low ~ race + I((age - 20)/5) + I((lwt - 125)/20) 
+                     + ptl_any + ht + smoke ,
                      family = binomial(link = "logit"), 
                      data = df_mom)
 ```
 
 ```{r}
+<<<<<<< Updated upstream
 apaSupp::tab_glm(fit_glm_final,
                  var_labels = c("I((age - 20)/5)" = "Age, 5 yr",
                                 "I((lwt - 125)/20)" = "Pre-Preg Weight, 20 lb",
@@ -346,51 +396,115 @@ apaSupp::tab_glm(fit_glm_final,
                  p_note = "apa13",
                  show_single_row = c("smoke", "ptl_any", "ht"),
                  general_note = "Centering for age (20 yr) and weight (125 lbs)")
+=======
+apaSupp::tab_glm(fit_glm_trim,
+                 var_labels = c(race = "Race",
+                                age = "Age, yrs",
+                                lwt = "Prior Weight, lbs",
+                                ptl_any = "Hx Premature Labor",
+                                ht = "Hx Hypertension",
+                                smoke = "Smoking"),
+                 show_single_row = c("ptl_any", "smoke", "ht"),
+                 lrt = FALSE,
+                 vif = FALSE) %>% 
+  flextable::width(j = 1, width = 1.75)
+>>>>>>> Stashed changes
 ```
 
-### Marginal Model Plot
+## Probe & Plot
 
-#### Focus on: Mother's Age, weight, and race
+
+### focus: Compare Races with prior weight and hypertension
 
 ```{r}
+<<<<<<< Updated upstream
 interactions::interact_plot(model = fit_glm_final,
+=======
+interactions::interact_plot(model = fit_glm_trim,
+>>>>>>> Stashed changes
                             pred = lwt,
                             modx = race,
-                            mod2 = age)
+                            legend.main = "Race",
+                            mod2 = ht,
+                            mod2.labels = c("History of Hypertension: No",
+                                            "History of Hypertension: Yes"))  +
+  theme_bw() +
+  theme(legend.position = "inside",
+        legend.position.inside = c(.5, 1),
+        legend.justification = c(1.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(1.5, "cm")) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = "Mother's Weight Pre-Pregnancy, pounds",
+       y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
+       linetype = "Race") +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted"))
 ```
 
 
 
 ```{r, fig.width=8, fig.height=6}
+<<<<<<< Updated upstream
 effects::Effect(focal.predictors = c("age", "lwt", "race"),
                 mod = fit_glm_final,
                 xlevels = list(age = c(20, 30, 40),
                                lwt = seq(from = 80, to = 250, by = 5))) %>% 
   data.frame() %>% 
   dplyr::mutate(age_labels = glue::glue("Mother Age: {age}")) %>% 
+=======
+effects::Effect(mod = fit_glm_trim,
+                focal.predictors = c("lwt", "race", "ptl_any", "ht", "smoke"),
+                xlevels = list(lwt = seq(from = 80, to = 250, by = 5))) %>% 
+  data.frame() %>%
+  dplyr::filter(race != "Other") %>% 
+  dplyr::mutate(risk = interaction(ptl_any, ht, smoke) %>% 
+                  factor() %>% 
+                  forcats::fct_recode("(0) None"               = "No.No.No",
+                                      "(1) Preterm"            = "Yes.No.No" ,
+                                      "(1) Ht"                 = "No.Yes.No" ,
+                                      "(1) Smoking"            = "No.No.Yes" ,
+                                      "(2) Preterm & Ht"       = "Yes.Yes.No" ,
+                                      "(2) Ht & Smoking"       = "No.Yes.Yes" ,
+                                      "(2) Preterm & Smoking"  = "Yes.No.Yes",
+                                      "(3) All Three"          = "Yes.Yes.Yes") %>% 
+                  forcats::fct_reorder(fit) %>% 
+                  forcats::fct_rev()) %>%  
+>>>>>>> Stashed changes
   ggplot(aes(x = lwt,
              y = fit)) +
-  geom_line(aes(color = race,
-                linetype = race),
-            size = 1) +
+  geom_line(aes(color = risk,
+                linetype = risk,
+                linewidth = risk)) +
   theme_bw() +
-  facet_grid(.~ age_labels) +
-  labs(title = "Risk of Low Birth Weight",
-       subtitle = "Illustates risk given mother is a non-smoker, without a history of pre-term labor or hypertension",
-       x = "Mother's Weight Pre-Pregnancy, pounds",
+  facet_grid(~ race) +
+  scale_linetype_manual(values = c("solid", 
+                                   "longdash", "dotdash", "dashed", 
+                                   "solid", "solid", "solid", 
+                                   "solid")) +
+  scale_linewidth_manual(values = c(1.5, 
+                                    1.25, 1.25, 1.25, 
+                                    .75, .75, .75, 
+                                    .5)) +
+  scale_color_manual(values = c("black", 
+                                "red", "coral", "orange", 
+                                "purple", "dodgerblue", "cyan3",  
+                                "green4")) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = "Mother's Weight Pre-Pregnancy, pounds",
        y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
-       color    = "Mother's Race",
-       linetype = "Mother's Race") +
-  theme(legend.position = c(1, 1),
-        legend.justification = c(1.1, 1.1),
-        legend.background = element_rect(color = "black"),
-        legend.key.width = unit(2, "cm")) +
-  scale_linetype_manual(values = c("longdash", "dotted", "solid")) +
-  scale_color_manual(values = c( "coral2", "dodger blue", "gray50"))
+       color    = "Risk Factors:",
+       linetype = "Risk Factors:",
+       linewidth= "Risk Factors:") +
+  theme(#legend.position = "bottom",
+        legend.key.width = unit(1.5, "cm")) 
 ```
+
+
+
 
 #### Focus on: Mother's weight and smoking status during pregnancy, as well as history of any per-term labor and hypertension
 
+<<<<<<< Updated upstream
 ```{r}
 interactions::interact_plot(model = fit_glm_final,
                             pred = lwt,
@@ -405,13 +519,25 @@ interactions::interact_plot(model = fit_glm_final,
                             modx = smoke,
                             mod2 = ht)
 ```
+=======
+
+> Illustates risk given the mother is 20 years old and white
+
+
+
+>>>>>>> Stashed changes
 
 ```{r, fig.width=8, fig.height=6}
-effects::Effect(focal.predictors = c("lwt", "smoke", "ptl_any", "ht"),
+effects::Effect(mod = fit_glm_trim,
+                focal.predictors = c("race", "lwt", "smoke", "ptl_any", "ht"),
                 fixed.predictors = list(age = 20),
+<<<<<<< Updated upstream
                 mod = fit_glm_final,
+=======
+>>>>>>> Stashed changes
                 xlevels = list(lwt = seq(from = 80, to = 250, by = 5))) %>% 
   data.frame() %>% 
+  dplyr::filter(race == "White") %>% 
   dplyr::mutate(smoke = forcats::fct_rev(smoke)) %>% 
   dplyr::mutate(ptl_any_labels = glue::glue("History of Preterm Labor: {ptl_any}")) %>% 
   dplyr::mutate(ht_labels = glue::glue("History of Hypertension: {ht}") %>% forcats::fct_rev()) %>% 
@@ -419,16 +545,16 @@ effects::Effect(focal.predictors = c("lwt", "smoke", "ptl_any", "ht"),
              y = fit)) +
   geom_line(aes(color = smoke,
                 linetype = smoke),
-            size = 1) +
+            linewidth = 1) +
   theme_bw() +
   facet_grid(ht_labels ~ ptl_any_labels) +
-  labs(title = "Risk of Low Birth Weight",
-       subtitle = "Illustates risk given the mother is 20 years old and white",
-       x = "Mother's Weight Pre-Pregnancy, pounds",
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = "Mother's Weight Pre-Pregnancy, pounds",
        y = "Predicted Probability\nBaby has Low Birth Weight (< 2500 grams)",
        color    = "Mother Smoked",
        linetype = "Mother Smoked") +
-  theme(legend.position = c(1, .5),
+  theme(legend.position = "inside",
+        legend.position.inside = c(1, .5),
         legend.justification = c(1.1, 1.15),
         legend.background = element_rect(color = "black"),
         legend.key.width = unit(1.5, "cm")) +

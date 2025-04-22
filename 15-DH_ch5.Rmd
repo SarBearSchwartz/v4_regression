@@ -1,5 +1,6 @@
 # D&H Ch5 - Dichotomous Regressors: "Weight"
 
+Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 Darlington & Hayes, Chapter 5's first example
 
@@ -8,22 +9,20 @@ Darlington & Hayes, Chapter 5's first example
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
-     
+
 library(tidyverse) 
 library(flextable)
 library(apaSupp)
 library(car)
 library(rempsyc)
+library(olsrr)
 library(parameters)
 library(performance)
 library(interactions)
 library(ggResidpanel)
-library(olsrr)
 ```
 
-```{r}
-flextable::set_flextable_defaults(digits = 2)
-```
+
 
 
 
@@ -33,7 +32,7 @@ flextable::set_flextable_defaults(digits = 2)
 ```{block type='rmdlightbulb', echo=TRUE}
 RESEARCH QUESTION:
 
-How is weight loss associationed with **sex**, after accounting for metabolism, exercise and food intake? 
+How is weight loss associated with **sex**, after accounting for metabolism, exercise and food intake? 
 ```
 
 ### Data Description
@@ -308,7 +307,7 @@ This data was previously analyzed by regressing weight loss on the main effects 
 
 ```{r}
 fit_loss_sex <- lm(loss ~ sex,
-                    data = df_loss)
+                   data = df_loss)
 
 summary(fit_loss_sex)
 ```
@@ -327,6 +326,7 @@ summary(fit_loss_wsex)
 
 ```{r}
 apaSupp::tab_lms(list("Unadjusted" = fit_loss_sex, 
+<<<<<<< Updated upstream
                       "Adjusted"  = fit_loss_wsex),
                 var_labels = c("exer" = "Exercise Freq",
                                "diet" = "Food Intake",
@@ -334,6 +334,16 @@ apaSupp::tab_lms(list("Unadjusted" = fit_loss_sex,
                                "sex"  = "Sex"),
                 caption = "Compare Unadjusted and Adjusted Models") %>% 
   flextable::bg(i = 2:4, bg = "yellow")
+=======
+                      "Adjusted" = fit_loss_wsex),
+                 var_labels = c("exer" = "Exercise Freq",
+                                "diet" = "Food Intake",
+                                "meta" = "Metabolic Rate",
+                                "sex"  = "Sex"),
+                 caption = "Compare Unadjusted and Adjusted Models") %>% 
+  flextable::bg(i = 2:4, bg = "yellow") %>% 
+  flextable::autofit()
+>>>>>>> Stashed changes
 ```
 
 
@@ -347,7 +357,11 @@ apaSupp::tab_lm(fit_loss_wsex,
                                "meta" = "Metabolic Rate",
                                "sex"  = "Female vs Male"),
                 caption = "Parameter Estimtates for Weight Loss Regressed Exercise Frequency, Food Intake, and Sex",
+<<<<<<< Updated upstream
                 show_single_row = "sex",
+=======
+                vif = TRUE,
+>>>>>>> Stashed changes
                 d = 3) %>% 
   flextable::bg(i = 5, bg = "yellow")
 ```
@@ -381,6 +395,24 @@ fit_loss_plot <- lm(loss ~ exer + diet + sex,
                     data = df_loss)
 
 summary(fit_loss_plot)
+```
+
+
+
+
+```{r}
+apaSupp::tab_lm(fit_loss_plot)
+```
+
+
+
+```{r}
+apaSupp::tab_lm(fit_loss_plot,
+                var_labels = c(exer = "Exercise, hrs/wk",
+                               diet = "Food Intake, 100 cal/day",
+                               sex = "Female vs Male"),
+                show_single_row = "sex") %>% 
+  flextable::autofit()
 ```
 
 
@@ -526,22 +558,34 @@ apaSupp::tab_lms(list("Set A" = fit_loss_setA,
                                 "diet" = "Food Intake",
                                 "meta" = "Metabolic Rate",
                                 "sex"  = "Sex"),
+                 narrow = TRUE,
                  caption = "Compare Model Parameter Estimates") %>% 
   flextable::bg(i = 2:5, bg = "lightgreen") %>% 
-  flextable::bg(i = 6:7, bg = "violet")
+  flextable::bg(i = 6:7, bg = "violet") %>% 
+  flextable::autofit()
 ```
 
 
 ### Compare Fit Statistics
 
+
 ```{r}
+<<<<<<< Updated upstream
 
 apaSupp::tab_lm_fits(list("None" = fit_loss_none,
                           "Set A" = fit_loss_setA, 
                           "Set B" = fit_loss_setB, 
                           "A & B" = fit_loss_all4),
                      caption = "Compare Models Fit Measures")
+=======
+apaSupp::tab_lm_fits(list("None" = fit_loss_none,
+                          "Set A" = fit_loss_setA, 
+                          "Set B" = fit_loss_setB, 
+                          "A & B" = fit_loss_all4))
+>>>>>>> Stashed changes
 ```
+
+
 
 
 
@@ -695,10 +739,12 @@ We can also say the factors more under personal control explain about 86.9% of t
 
 
 
+
 ### Significance of Set B's Contribution
 
 
 ### Significance of Set B's Contribution
+
 
 ```{r}
 anova(fit_loss_none, fit_loss_setA, fit_loss_all4)
@@ -723,6 +769,8 @@ Standardized regression coefficients for **CATEGORICAL** predictors (IVs) is **D
 ```
 
 
+
+
 ```{r}
 parameters::standardise_parameters(fit_loss_setB)
 ```
@@ -730,4 +778,10 @@ parameters::standardise_parameters(fit_loss_setB)
 ```{r}
 parameters::standardise_parameters(fit_loss_all4)
 ```
+
+
+```{r}
+apaSupp::tab_lm(fit_loss_all4)
+```
+
 
