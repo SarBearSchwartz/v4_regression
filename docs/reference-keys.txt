@@ -143,12 +143,15 @@ tab:unnamed-chunk-672
 tab:unnamed-chunk-673
 tab:unnamed-chunk-678
 tab:unnamed-chunk-680
-tab:unnamed-chunk-691
-fig:unnamed-chunk-692
 tab:unnamed-chunk-693
-tab:unnamed-chunk-703
+fig:unnamed-chunk-694
+tab:unnamed-chunk-696
 tab:unnamed-chunk-709
-fig:unnamed-chunk-719
+tab:unnamed-chunk-717
+fig:unnamed-chunk-731
+tab:unnamed-chunk-753
+fig:unnamed-chunk-754
+fig:unnamed-chunk-755
 linear-correlation-cancer
 purpose
 research-question
@@ -588,3 +591,4 @@ zero-inflated-poisson
 fit-the-model-6
 zero-inflated-negative-binomial
 fit-the-model-7
+compare-models-4

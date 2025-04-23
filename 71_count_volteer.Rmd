@@ -80,6 +80,18 @@ data_gss %>%
 
 ## Exploratory Data Analysis
 
+
+```{r}
+apaSupp::spicy_histos(data_gss, var = educate, split = female)
+```
+
+
+```{r}
+apaSupp::spicy_histos(data_gss, var = income, split = female)
+```
+
+
+
 ### Entire Sample
 
 ```{r}
@@ -99,10 +111,12 @@ data_gss %>%
        y = "Frequency") +
   scale_x_continuous(breaks = seq(from = 0, to = 10, by = 1))
 ```
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 The self-reported number of times each person volunteered in the past year is a count (0, 1, 2, ...) that does NOT follow the normal distribution.
-
+```
 
 ### By Sex
 
@@ -131,10 +145,12 @@ data_gss %>%
          var.equal = TRUE) # pooled variance assumes HOV
 ```
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 Even though there are more women (*n* = 1818, 56%), the woman do report volunteering more over the past year (*M* = 0.35 vs. 0.32 time a year).  This difference is NOT statistically significant when tested with an independent groups t-test, *p* = .365.  The t-test does treat the volunteering variable as if it were normally distributed, which is not the case.
-
+```
 
 
 ```{r}
@@ -144,10 +160,12 @@ data_gss %>%
                             var = var))
 ```
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 The number of self-reported volunteer activities  is a count, but it is more dispersed that the *Poisson* distribution would expect.  The **over-dispersion** is evident in that the variance (0.78) is much larger than the mean (0.33).  This suggests that the *Negative Binomial* distribution may fit the data better than a *Poisson* distribution.  
-
+```
 
 DV: Count Scale
 
@@ -195,6 +213,8 @@ glm_possion_1 <- glm(volteer ~ female,
 summary(glm_possion_1)
 ```
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 The intercept is the predicted log(count) when all the predictors are equal to zero (or the reference category for factors).  Since the only predictor in this model is `female`, the IRR = -1.15 is for males and is statistically significant, *p* < .001.
@@ -202,7 +222,7 @@ The intercept is the predicted log(count) when all the predictors are equal to z
 The parameter estimate for the categorical predictor `female` capture how different the log(count) is for female, compared to males.  This is not statistically significant, p = .165.
 
 Thus far, there is no evidence that males and females volunteer more or less, on average *(marginally)*.
-
+```
 
 > Note: The deviance residuals range as high as 6.47!!!  That is quite high for a z-score.
 
@@ -251,10 +271,12 @@ glm_possion_1 %>%
   emmeans::emmeans(~ female)
 ```
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 Males have a lower log(count) than females, but this difference is not significant due to the good deal of overlap in the confidence intervals.
-
+```
 
 #### Count Scale: 
 
@@ -284,15 +306,17 @@ ggeffects::ggemmeans(model = glm_possion_1,
 ```
 
 
+
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
-The marginal count or *rate* is:
+The marginal count/year or *rate* is:
 * 0.32 times/year for males
 * 0.35 times/year for females
 
 The *incident rate ratio (IRR)* is:
 * 9% more times higher, for females compared to males
-
+```
 
 
 
@@ -330,7 +354,7 @@ apaSupp::tab_glm(glm_possion_2,
 ```
 
 
-
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 * `female`: Adjusting for the effects of race, education, and income, FEMALES are expected to volunteer about 30% MORE activities per year than males, IRR = 1.29, p < .001.
@@ -340,7 +364,7 @@ apaSupp::tab_glm(glm_possion_2,
 * `educate`: Each one-year increase in education is associated with an 11% increase in the number of volunteer activities per year, adjusting for the effects of sex, race/ethnicity, and income, IRR = 1.11, p <.001.
 
 * `income`: Each additional $1000 a household makes is associated with a 6% increase in the number of times a person volunteers per year, controlling for sex, race, and education, IRR = 1.06, p < .001.
-
+```
 
 
 ### Predictions
@@ -365,11 +389,11 @@ ggeffects::ggemmeans(model = glm_possion_2,
 0.25/0.19
 ```
 
-
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 The expected number of volunteer activities in a year among females is 31.5% higher than among males, for white high school graduates with low income.
-
+```
 
 
 > Note: `income` = 5 is the 10th percentile of the income distribution.
@@ -388,10 +412,11 @@ DescTools::PseudoR2(glm_possion_2)
 DescTools::PseudoR2(glm_possion_2, which = "all") %>% round(3)
 ```
 
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
-Although these four predictors (sex, race, education, and income) are associated with differences in the number of times a person volunteers annually, together they account for very littel of the variance, $R^2_{McF} = .029$, $R^2_{Nag} = .061$.
-
+Although these four predictors (sex, race, education, and income) are associated with differences in the number of times a person volunteers annually, together they account for very little of the variance, $R^2_{McF} = .029$, $R^2_{Nag} = .061$.
+```
 
 
 ### Residual Diagnostics
@@ -403,10 +428,11 @@ plot(glm_possion_2)
 par(mfrow = c(1, 1))
 ```
 
+```{block type='rmdlightbulb', echo=TRUE}
 **Interpretation:**
 
 These residuals do **NOT** look good, especially the Q-Q plot for normality.
-
+```
 
 
 ### Marginal Plot
@@ -669,7 +695,7 @@ Coefficients are in terms of the **LOG of** the number of times a person volunte
 glm_negbin_1 %>% coef()
 ```
 
-Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is refered to as the **incident rate ratio IRR**.
+Exponentiating the coefficients (betas) returns the values to the original scale (number of times a person volunteers per year) and is called the **incident rate ratio IRR**.
 
 ```{r}
 glm_negbin_1 %>% coef() %>% exp()
@@ -725,7 +751,7 @@ performance::compare_performance(glm_possion_2, glm_negbin_1, rank = TRUE)
 ## Zero Inflated Poisson
 
 
-#### Fit the model
+### Fit the model
 
 ```{r}
 glm_zip_1 <- pscl::zeroinfl(volteer ~ female + nonwhite + educate + income | educate,
@@ -754,7 +780,7 @@ pscl::vuong(glm_zip_1, glm_possion_2)
 ## Zero Inflated Negative Binomial
 
 
-#### Fit the model
+### Fit the model
 
 ```{r}
 glm_zinb_1 <- pscl::zeroinfl(volteer ~ female + nonwhite + educate + income | educate,
@@ -770,6 +796,12 @@ summary(glm_zinb_1)
 glm_zinb_1 %>% coef() %>% exp()
 ```
 
+
+
+
+## Compare Models
+
+
 ```{r}
 pscl::vuong(glm_zinb_1, glm_negbin_1)
 ```
@@ -779,4 +811,91 @@ pscl::vuong(glm_zinb_1, glm_negbin_1)
 pscl::vuong(glm_zip_1, glm_zinb_1)
 ```
 
+ 
+```{r}
+performance::compare_performance(glm_possion_2, glm_zip_1, 
+                                 glm_negbin_1, glm_zinb_1) %>% 
+  data.frame() %>% 
+  dplyr::select(Name, AICc, BIC, RMSE,
+                R2, R2_adjusted, R2_Nagelkerke) %>% 
+  dplyr::mutate(across(starts_with("R2"), ~apaSupp::p_num(.x, stars = FALSE))) %>% 
+  flextable::flextable() %>% 
+  apaSupp::theme_apa(caption = "Compare Model Fits")
+```
+ 
+ 
+ 
  The 'best' model is the zero-inflated negative binomial
+ 
+ ## Final
+
+ 
+```{r, fig.cap="Worst Model: Poisson"}
+glm_possion_2 %>% 
+  emmeans::emmeans(~ female + educate + income,
+                   at = list(educate = seq(from = 8,
+                                             to = 18,
+                                             by = .1),
+                               income  = c(8, 10, 12)),
+                   type = "response") %>% 
+  data.frame() %>% 
+  dplyr::mutate(income = factor(income) %>% 
+                  forcats::fct_recode("Lower Income (8)" = "8",
+                                      "Middle Income (10)" = "10",
+                                      "Higher Income (12)" = "12")) %>% 
+  dplyr::mutate(income = forcats::fct_rev(income)) %>% 
+  dplyr::mutate(female = forcats::fct_rev(female)) %>% 
+  ggplot(aes(x = educate,
+             y = rate)) +
+  geom_vline(xintercept = 12) +
+  geom_line(aes(linetype = income,
+                color = female),
+            size = 1) +
+  theme_bw() +
+  labs(x = "Education, Years",
+       y = "Predicted Rate\nVolunteer Activities in the Prior Year",
+       color = NULL,
+       fill = NULL,
+       linetype = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted")) +
+  scale_x_continuous(breaks = seq(from = 8, to = 20, by = 2))
+```
+ 
+```{r, fig.cap="Best Model: Zero Inflated Negative Binomial"}
+glm_zinb_1 %>% 
+  emmeans::emmeans(~ female + educate + income,
+                   at = list(educate = seq(from = 8,
+                                             to = 18,
+                                             by = .1),
+                               income  = c(8, 10, 12)),
+                   type = "response") %>% 
+  data.frame() %>% 
+  dplyr::mutate(income = factor(income) %>% 
+                  forcats::fct_recode("Lower Income (8)" = "8",
+                                      "Middle Income (10)" = "10",
+                                      "Higher Income (12)" = "12")) %>% 
+  dplyr::mutate(income = forcats::fct_rev(income)) %>% 
+  dplyr::mutate(female = forcats::fct_rev(female)) %>% 
+  ggplot(aes(x = educate,
+             y = emmean)) +
+  geom_vline(xintercept = 12) +
+  geom_line(aes(linetype = income,
+                color = female),
+            size = 1) +
+  theme_bw() +
+  labs(x = "Education, Years",
+       y = "Predicted Rate\nVolunteer Activities in the Prior Year",
+       color = NULL,
+       fill = NULL,
+       linetype = NULL) +
+  theme(legend.position = c(0, 1),
+        legend.justification = c(-.1, 1.1),
+        legend.background = element_rect(color = "black"),
+        legend.key.width = unit(2, "cm")) +
+  scale_linetype_manual(values = c("solid", "longdash", "dotted")) +
+  scale_x_continuous(breaks = seq(from = 8, to = 20, by = 2))
+```
