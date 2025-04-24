@@ -5,7 +5,7 @@ Compiled: `r format(Sys.time(), '%B %d, %Y')`
 Darlington & Hayes, Chapter 3's second example
 
 
-```{r, message=FALSE, error=FALSE, warning=FALSE}
+```{r, error=FALSE, warning=FALSE, message=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp")
 # remotes::install_github("ddsjoberg/gtsummary")
@@ -198,10 +198,9 @@ fit_lm_both <- lm(pref ~ soft + basket,
 
 
 ```{r}
-<<<<<<< Updated upstream
-tab_lm3 <- apaSupp::tab_lms(list("Softball" = fit_lm_soft, 
+tab_lm3 <- apaSupp::tab_lms(list("Softball"   = fit_lm_soft, 
                                  "Basketball" = fit_lm_basket, 
-                                 "Both" = fit_lm_both),
+                                 "Both"       = fit_lm_both),
                             var_labels = c("soft" = "Softball Skill",
                                            "basket" = "Basketball Skill"),
                             caption = "Parameter Estimates for Sport Preference Regression on Skill Level in Softball and Basketball",

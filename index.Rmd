@@ -40,7 +40,7 @@ library(kableExtra)
 
 ## Blocked Notes {-}
 
-Thoughout all the eBooks in this encyclopedia, several small secitons will be blocked out in the following ways:
+Thoughout all the eBooks in this encyclopedia, several small sections will be blocked out in the following ways:
 
 ```{block type='rmdconstruct', echo=TRUE}
 These blocks denote an area **UNDER CONSTRUCTION**, so check back often.  This massive undertaking started during the summer of 2018 and is far from complete.  The outline of seven volumes is given above despite any one being complete.  Feedback is welcome via either author's email.

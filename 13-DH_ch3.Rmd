@@ -483,9 +483,14 @@ car::vif(fit_lm_three)
 ## CONCLUSION: SPECIFIC QUESTIONS
 
 
+
+
 ```{r}
-coef(fit_lm_both)
+apaSupp::tab_lm(fit_lm_both, vif = TRUE)
 ```
+
+
+
 
 
 ```{r}
