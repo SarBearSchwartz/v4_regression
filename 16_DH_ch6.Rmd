@@ -148,8 +148,11 @@ df_ptsd %>%
                 "Post Test" = post_test,
                 "Pre Test"  = pre_test,
                 "Gain" = gain) %>% 
-  apaSupp::table1_apa(split = therapy,
-                      caption = "Descriptive Summary by Therapy Group")
+  apaSupp::tab1(split = "therapy",
+                type = list("Post Test" = "continuous",
+                            "Gain"      = "continuous"),
+                total_last = FALSE,
+                caption = "Descriptive Summary by Therapy Group")
 ```
 
 

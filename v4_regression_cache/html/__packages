@@ -34,6 +34,17 @@ DescTools
 effectsize
 ggpubr
 flextable
+rempsyc
+parameters
+boot
+Matrix
+survival
+survey
+mitools
+relaimpo
+dominanceanalysis
+domir
+ISwR
 furniture
 texreg
 texreghelpr

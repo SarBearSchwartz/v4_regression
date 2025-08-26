@@ -133,10 +133,16 @@ df_loss %>%
                 "Exercise Frequency" = exer,
                 "Food Intake" = diet,
                 "Metabolic Rate" = meta) %>% 
-  apaSupp::table1_apa(caption = "Descriptive of Continuous Measures by Sex",
-                      split = sex) %>% 
-  flextable::bg(i = 1:3, j = 3, bg = "lightblue") %>% 
-  flextable::bg(i = 1:3, j = 4, bg = "lightpink")
+  apaSupp::tab1(caption = "Descriptive of Continuous Measures by Sex",
+                split = "sex",
+                total_last = FALSE,
+                p_note = NA,
+                type = list("Weight Loss"        = "continuous",
+                            "Exercise Frequency" = "continuous",
+                            "Food Intake"        = "continuous",
+                            "Metabolic Rate"     = "continuous")) %>% 
+  flextable::bg(i = 1:2, j = 3, bg = "lightblue") %>% 
+  flextable::bg(i = 1:2, j = 4, bg = "lightpink")
 ```
 
 
@@ -197,7 +203,8 @@ df_loss %>%
   facet_wrap(~ name,
              scale = "free_x") +
   labs(x = NULL,
-       y = "Count")
+       y = "Count") +
+  theme_bw()
 ```
 
 
@@ -326,15 +333,6 @@ summary(fit_loss_wsex)
 
 ```{r}
 apaSupp::tab_lms(list("Unadjusted" = fit_loss_sex, 
-<<<<<<< Updated upstream
-                      "Adjusted"  = fit_loss_wsex),
-                var_labels = c("exer" = "Exercise Freq",
-                               "diet" = "Food Intake",
-                               "meta" = "Metabolic Rate",
-                               "sex"  = "Sex"),
-                caption = "Compare Unadjusted and Adjusted Models") %>% 
-  flextable::bg(i = 2:4, bg = "yellow")
-=======
                       "Adjusted" = fit_loss_wsex),
                  var_labels = c("exer" = "Exercise Freq",
                                 "diet" = "Food Intake",
@@ -343,7 +341,6 @@ apaSupp::tab_lms(list("Unadjusted" = fit_loss_sex,
                  caption = "Compare Unadjusted and Adjusted Models") %>% 
   flextable::bg(i = 2:4, bg = "yellow") %>% 
   flextable::autofit()
->>>>>>> Stashed changes
 ```
 
 
@@ -357,11 +354,8 @@ apaSupp::tab_lm(fit_loss_wsex,
                                "meta" = "Metabolic Rate",
                                "sex"  = "Female vs Male"),
                 caption = "Parameter Estimtates for Weight Loss Regressed Exercise Frequency, Food Intake, and Sex",
-<<<<<<< Updated upstream
                 show_single_row = "sex",
-=======
                 vif = TRUE,
->>>>>>> Stashed changes
                 d = 3) %>% 
   flextable::bg(i = 5, bg = "yellow")
 ```
@@ -570,19 +564,11 @@ apaSupp::tab_lms(list("Set A" = fit_loss_setA,
 
 
 ```{r}
-<<<<<<< Updated upstream
-
 apaSupp::tab_lm_fits(list("None" = fit_loss_none,
                           "Set A" = fit_loss_setA, 
                           "Set B" = fit_loss_setB, 
                           "A & B" = fit_loss_all4),
                      caption = "Compare Models Fit Measures")
-=======
-apaSupp::tab_lm_fits(list("None" = fit_loss_none,
-                          "Set A" = fit_loss_setA, 
-                          "Set B" = fit_loss_setB, 
-                          "A & B" = fit_loss_all4))
->>>>>>> Stashed changes
 ```
 
 

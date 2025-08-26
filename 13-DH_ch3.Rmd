@@ -302,6 +302,7 @@ flextable::save_as_docx(tab_lm3,
 
 
 
+
 ```{r}
 apaSupp::tab_lms(list("Model 3\nTwo Predictors" = fit_lm_both, 
                       "Model 4\nThree Predictors" = fit_lm_three),

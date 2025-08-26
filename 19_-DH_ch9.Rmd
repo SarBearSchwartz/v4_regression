@@ -180,9 +180,10 @@ df_sat %>%
                 "Sex" = sex,
                 "Annual Income" = income,
                 "Life Satisfaction" = satis) %>% 
-  apaSupp::table1_apa(split = mstatus,
-                      caption = "Description of Continuous Measures",
-                      general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.")
+  apaSupp::tab1(split = "mstatus",
+                total_last = FALSE,
+                caption = "Description of Continuous Measures",
+                general_note = "Annual income is in $1000s per year.  Life Satisfaction is a composite score on a scale 1-100.")
 ```
 
 

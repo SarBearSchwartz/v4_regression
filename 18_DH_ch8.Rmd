@@ -697,25 +697,18 @@ r2_a
 
 ```{r}
 f2_a_t = (r2_at - r2_a)/(1 - r2_at)
+
 f2_a_t
 ```
 
 * Cohen's $f^2$ for **national news** added to set $A$ and talk radio
 
-```{r}
-<<<<<<< Updated upstream
-r2_at
-r2_atn
-```
 
 
 ```{r}
 f2_at_n = (r2_atn - r2_at)/(1 - r2_at)
+
 f2_at_n
-=======
-# f2_at_n = (r2_b - r2_at)/(1 - r2_b)
-# f2_at_n
->>>>>>> Stashed changes
 ```
 
 

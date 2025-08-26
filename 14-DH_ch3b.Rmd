@@ -209,17 +209,6 @@ tab_lm3 <- apaSupp::tab_lms(list("Softball"   = fit_lm_soft,
                             d = 3) 
 
 tab_lm3
-=======
-apaSupp::tab_lms(list("Softball" = fit_lm_soft, 
-                      "Basketball" = fit_lm_basket, 
-                      "Both" = fit_lm_both),
-                 var_labels = c("soft" = "Softball Skill",
-                                "basket" = "Basketball Skill"),
-                 caption = "Parameter Estimates for Sport Preference Regression on Skill Level in Softball and Basketball",
-                 general_note = "Dependent variable is preference rating on a scale of 1 (much prefer softball) to  9 (much prefer basketball).  Both softball and Baksetball skill levels are on a scale of 0 to 100.",
-                 narrow = TRUE,
-                 d = 3) 
->>>>>>> Stashed changes
 ```
 
 
