@@ -1,11 +1,11 @@
 --- 
-title: "Encyclopedia of Quantitative Methods in R, vol. 4: Multiple Linear Regression"
+title: "Encyclopedia of Quantitative Methods in R"
 author: "Sarah Schwartz"
 date: "Last updated: `r Sys.Date()`"
 documentclass: book
 description: "Correlation, Model Fit, Generalize, and Plot."
 knit: "bookdown::render_book"
-cover-image: "EQM_v4_cover.png"
+cover-image: "hexwall_books.png"
 github-repo: sarbearschwartz/v4_regression
 site: bookdown::bookdown_site
 output:
@@ -17,17 +17,32 @@ link-citations: yes
 ---
 
 
-
-  
-
-
-# Welcome {-}
-
-Backgroup and links to other volumes of this encyclopedia may be found at the [Encyclopedia's Home Website](https://cehs-research.github.io/eBooks/).
+# Vol. 4: Multiple Linear Regression {-}
 
 
 
-![](images/common/EQM_v4_header.png)
+
+![](images/hexwall_books.png)
+
+
+## The Author {-}
+
+
+Website: [www.SarahSchwartzStats.com](http://www.sarahschwartzstats.com/)  
+
+eMail: Sarah.Schwartz@usu.edu
+
+![](images/USUAug820247058.jpg){width=500px}
+
+
+
+
+## Why choose R ?  {-}
+
+
+```{block type='rmdlink', echo=TRUE}
+**Check it out:** an article from Fall 2016... [No more excuses: R is better than SPSS for psychology undergrads, and students agree](https://datahowler.wordpress.com/2016/09/10/no-more-excuses-r-is-better-than-spss-for-psychology-undergrads-and-students-agree/)
+```
 
 
 
@@ -96,26 +111,6 @@ This is what the output of the $R$ code above will look:
 ```
 
 
-## The Author {-}
-
-
-Website: [www.SarahSchwartzStats.com](http://www.sarahschwartzstats.com/)  
-
-eMail: Sarah.Schwartz@usu.edu
-
-![](images/common/ORS_Sarah_headshot.jpg){width=500px}
-
-
-
-
-## Why choose R ?  {-}
-
-
-```{block type='rmdlink', echo=TRUE}
-**Check it out:** an article from Fall 2016... [No more excuses: R is better than SPSS for psychology undergrads, and students agree](https://datahowler.wordpress.com/2016/09/10/no-more-excuses-r-is-better-than-spss-for-psychology-undergrads-and-students-agree/)
-```
-
-
 
 ## FYI  {-}
 
@@ -125,4 +120,3 @@ This work is licensed under the [Attribution-NonCommercial-NoDerivatives 4.0 Int
 
 
 
-![](images/common/Education_Logo_WHITE-02.png){width=300px}
