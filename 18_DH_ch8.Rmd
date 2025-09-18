@@ -9,23 +9,20 @@ Darlington, Richard B., and Andrew F. Hayes. (2016) **Regression Analysis and Li
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 # install.packages("remotes")
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
-library(tidyverse) 
 library(haven)
+library(tidyverse)   
 library(flextable)
-library(apaSupp)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
 library(car)
-library(rempsyc)
 library(parameters)
-library(performance)
-library(interactions)
+library(DescTools)
+library(effectsize)
 library(relaimpo)
 library(dominanceanalysis)
 library(domir)
 ```
-
 
 
 

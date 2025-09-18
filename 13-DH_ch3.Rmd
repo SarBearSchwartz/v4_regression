@@ -20,31 +20,16 @@ Reference:
 
 ```{r}
 # install.packages("remotes")
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
-library(magrittr)       
-library(tidyverse)   
-library(broom)     
-library(naniar)
-library(corrplot)   
-library(GGally)
-library(gtsummary)
+library(tidyverse)  
 library(flextable)
-library(apaSupp)
-library(performance)
-library(interactions)
-library(effects)
-library(emmeans)
-library(car)
-library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
+library(interactions) 
 library(effectsize)
-library(ggpubr)
+library(parameters)
+library(car)
+library(emmeans)
 ```
 
 
@@ -280,25 +265,18 @@ apaSupp::tab_lms(list(fit_lm_exer, fit_lm_diet, fit_lm_both))
 
 
 ```{r}
-tab_lm3 <- apaSupp::tab_lms(list("Model 1\nExercise" = fit_lm_exer, 
+apaSupp::tab_lms(list("Model 1\nExercise" = fit_lm_exer, 
                                  "Model 2\nFood Intake" = fit_lm_diet, 
                                  "Model 3\nBoth" = fit_lm_both),
                             var_labels = c("exer" = "Exercise",
                                            "diet" = "Food"),
                             narrow = TRUE,
+                            docx = "DH_ch3_tab_lm3.docx",
                             caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake",
                             general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") 
 
-
-tab_lm3
 ```
 
-How to save to word document in the same folder as your R file.
-
-```{r, eval=FALSE}
-flextable::save_as_docx(tab_lm3,
-                        path = "DH_ch3_tab_lm3.docx")
-```
 
 
 
@@ -310,8 +288,7 @@ apaSupp::tab_lms(list("Model 3\nTwo Predictors" = fit_lm_both,
                                 "diet" = "Food Intake",
                                 "meta" = "Metabolic Rate"),
                  caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency, Food Intake, and Metabolic Rate",
-                 general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") %>% 
-  flextable::autofit()
+                 general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ")
 
 ```
 
@@ -385,8 +362,7 @@ apaSupp::tab_lm(fit_lm_both,
                                "diet" = "Food Intake"),
                 vif = TRUE,
                 caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency and Food Intake, with Effect Size Estimates",
-                general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") %>% 
-  flextable::autofit()
+                general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ")
 ```
 
 
@@ -396,8 +372,7 @@ apaSupp::tab_lm(fit_lm_three,
                                "diet" = "Food Intake"),
                 vif = TRUE,
                 caption = "Parameter Estimates for Weight Loss Regressed on Exercise Frequency, Food Intake and Metabolic Rate, with Effect Size Estimates",
-                general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") %>% 
-  flextable::autofit()
+                general_note = "Dependent variable is average weekly weight lost in 100s of grams. Exercise is daily average hours and food intake is the average of 100's of calories above the recommendation. ") 
 ```
 
 ### Semipartial Correlation 

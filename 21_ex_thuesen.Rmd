@@ -9,21 +9,16 @@ Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 ```{r, comment=FALSE, message=FALSE}
 # install.packages("remotes")
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
-
-     
-library(tidyverse)  
-library(apaSupp)
-library(performance)
-library(interactions)
-library(effects)
-library(emmeans)
-library(ggResidpanel)
-library(effectsize)
-library(ggpubr)
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
 library(ISwR)            # Introduction to Statistics with R (datasets)
+library(tidyverse)   
+library(flextable)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
+library(ggpubr)
+library(performance)
+library(ggResidpanel)
+library(effects)
 ```
 
 ## PURPOSE

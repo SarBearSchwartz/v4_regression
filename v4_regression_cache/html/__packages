@@ -49,3 +49,6 @@ furniture
 texreg
 texreghelpr
 pscl
+lme4
+afex
+ggeffects

@@ -13,30 +13,20 @@ Compiled: `r format(Sys.time(), '%B %d, %Y')`
 
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
 # install.packages("remotes")
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
-library(carData)
+library(carData)           
 library(tidyverse)   
-library(broom)     
-library(naniar)
-library(corrplot)   
+library(flextable)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
+library(corrplot)
 library(GGally)
-library(gtsummary)
-library(apaSupp)
-library(performance)
-library(interactions)
-library(car)
-library(effects)
-library(emmeans)
-library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
-library(effectsize)
 library(ggpubr)
+library(car)
+library(performance)
+library(ggResidpanel)
+library(DescTools)
+library(parameters)
 ```
 
 

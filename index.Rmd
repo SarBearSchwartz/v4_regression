@@ -49,8 +49,11 @@ eMail: Sarah.Schwartz@usu.edu
 ```{r, echo=FALSE, include=FALSE, comment=FALSE, message=FALSE}
 library(tidyverse, quietly = TRUE)
 library(kableExtra)
-```
+library(flextable)
 
+flextable::set_flextable_defaults(layout = "autofit", 
+                                  width = 0.9)
+```
 
 
 ## Blocked Notes {-}

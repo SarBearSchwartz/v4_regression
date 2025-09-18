@@ -18,19 +18,17 @@ knitr::opts_chunk$set(comment     = "",
 ### Load Packages
 
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
-# library(remotes)
-# remotes::install_github("sarbearschwartz/apaSupp")  # updated: 4/15/25
-# remotes::install_github("ddsjoberg/gtsummary")
-
-
-library(tidyverse)
-library(haven)        
+library(haven)
+library(tidyverse)   
+library(flextable)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
 library(naniar)
-library(apaSupp)
-library(performance) 
-library(interactions)
 library(GGally)
+library(performance)
+library(emmeans)
 ```
 
 

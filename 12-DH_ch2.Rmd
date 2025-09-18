@@ -10,30 +10,16 @@ Darlington & Hayes, Chapter 2
 
 ```{r}
 # install.packages("remotes")
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
+# remotes::install_github("sarbearschwartz/apaSupp")  # 9/17/2025
 
-library(magrittr)       
-library(tidyverse)   
+library(tidyverse)  
 library(broom)     
-library(naniar)
-library(corrplot)   
-library(GGally)
-library(gtsummary)
-library(apaSupp)
-library(performance)
-library(interactions)
-library(effects)
-library(emmeans)
-library(car)
-library(ggResidpanel)
-library(modelsummary)
-library(ppcor)
-library(jtools)
-library(olsrr)
-library(DescTools)
-library(effectsize)
+library(flextable)
+library(apaSupp)      # not on CRAN, get from GitHub (above)
+library(parameters)
 library(ggpubr)
+library(performance)
+library(ggResidpanel)
 ```
 
 
@@ -85,34 +71,17 @@ tibble::glimpse(df_golf)
 This is Table 2.1 on page 18.
 
 ```{r}
-tab_df_golf <- df_golf %>% 
+df_golf %>% 
   dplyr::select(ID,
                 "X\n'Previous Plays'" = X,
                 "Y\n'Points Won'" = Y) %>% 
   flextable::flextable() %>% 
-  apaSupp::theme_apa(caption = "D&H Table 2.1: Golfing Scores and Prior Plays") %>% 
+  apaSupp::theme_apa(caption = "D&H Table 2.1: Golfing Scores and Prior Plays",
+                     docx = "tables/tab_df_golf.docx") %>%  # this saves a word document with the table
   flextable::colformat_double(digits = 0)
 ```
 
 
-This is how you save a table to Word.
-
-```{r}
-flextable::save_as_docx(tab_df_golf,
-                        path = "tables/tab_df_golf.docx")
-```
-
-
-
-\clearpage
-
-
-```{r}
-tab_df_golf
-```
-
-
-\clearpage
 
 ### Scatterplot
 

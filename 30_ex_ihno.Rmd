@@ -28,20 +28,21 @@ knitr::opts_chunk$set(comment     = NA,
 
 
 ```{r, comment=FALSE, message=FALSE, warning=FALSE}
-# library(remotes)
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
+# install.packages("remotes")
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
-library(tidyverse)       
-library(haven)   
-library(naniar)       
-library(apaSupp)
+library(haven)
+library(tidyverse)   
+library(flextable)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
 library(corrplot)
-library(GGally)
-library(performance)
-library(interactions)
-library(ggResidpanel)
+library(GGally) 
+library(naniar) 
 library(car)
+library(performance)
+library(ggResidpanel)
+library(interactions) 
+library(effects)
 ```
 
 

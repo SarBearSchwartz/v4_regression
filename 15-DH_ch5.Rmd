@@ -7,19 +7,19 @@ Darlington & Hayes, Chapter 5's first example
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 # install.packages("remotes")
-# remotes::install_github("sarbearschwartz/apaSupp")
-# remotes::install_github("ddsjoberg/gtsummary")
+# remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
 
-library(tidyverse) 
+library(tidyverse)   
 library(flextable)
-library(apaSupp)
+library(apaSupp)       # not on CRAN, get from GitHub (above) 
 library(car)
-library(rempsyc)
+library(interactions) 
 library(olsrr)
-library(parameters)
+library(rempsyc)
+library(effectsize)
 library(performance)
-library(interactions)
 library(ggResidpanel)
+library(parameters)
 ```
 
 
@@ -339,8 +339,7 @@ apaSupp::tab_lms(list("Unadjusted" = fit_loss_sex,
                                 "meta" = "Metabolic Rate",
                                 "sex"  = "Sex"),
                  caption = "Compare Unadjusted and Adjusted Models") %>% 
-  flextable::bg(i = 2:4, bg = "yellow") %>% 
-  flextable::autofit()
+  flextable::bg(i = 2:4, bg = "yellow")
 ```
 
 
@@ -405,8 +404,7 @@ apaSupp::tab_lm(fit_loss_plot,
                 var_labels = c(exer = "Exercise, hrs/wk",
                                diet = "Food Intake, 100 cal/day",
                                sex = "Female vs Male"),
-                show_single_row = "sex") %>% 
-  flextable::autofit()
+                show_single_row = "sex")
 ```
 
 
@@ -555,8 +553,7 @@ apaSupp::tab_lms(list("Set A" = fit_loss_setA,
                  narrow = TRUE,
                  caption = "Compare Model Parameter Estimates") %>% 
   flextable::bg(i = 2:5, bg = "lightgreen") %>% 
-  flextable::bg(i = 6:7, bg = "violet") %>% 
-  flextable::autofit()
+  flextable::bg(i = 6:7, bg = "violet")
 ```
 
 
