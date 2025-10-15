@@ -23,6 +23,7 @@ knitr::opts_chunk$set(comment     = "",
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 # install.packages("remotes")
 # remotes::install_github("sarbearschwartz/apaSupp") # 9/17/2025
+# remotes::install_github("sarbearschwartz/texreghelpr") 
 
 library(haven)
 library(tidyverse)   
@@ -38,6 +39,9 @@ library(MASS)
 library(texreg)
 library(performance)
 library(pscl)
+
+library(texreg)
+library(texreghelpr)
 ```
 
 
@@ -55,38 +59,39 @@ This dataset comes from John Hoffman's textbook: Regression Models for Categoric
 
 
 ```{r}
-data_gss <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav") %>% 
+df_gss <- haven::read_spss("https://raw.githubusercontent.com/CEHS-research/data/master/Hoffmann_datasets/gss.sav") %>% 
   haven::as_factor() %>% 
   haven::zap_label() %>%    # remove SPSS junk
   haven::zap_formats() %>%  # remove SPSS junk
-  haven::zap_widths()       # remove SPSS junk
+  haven::zap_widths() %>%   # remove SPSS junk 
+  dplyr::mutate_if(is.factor, ~forcats::fct_relabel(.x, stringr::str_to_title))
 ```
 
 
 ```{r}
-str(data_gss)
+str(df_gss)
 ```
 
 
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   dplyr::select(volteer, female, nonwhite, educate, income) %>% 
   tibble::glimpse()
 ```
 
 
 
-## Exploratory Data Analysis
+## EXPLORATORY DATA ANALYSIS
 
 
 ```{r}
-apaSupp::spicy_histos(data_gss, var = educate, split = female)
+apaSupp::spicy_histos(df_gss, var = educate, split = female)
 ```
 
 
 ```{r}
-apaSupp::spicy_histos(data_gss, var = income, split = female)
+apaSupp::spicy_histos(df_gss, var = income, split = female)
 ```
 
 
@@ -94,15 +99,14 @@ apaSupp::spicy_histos(data_gss, var = income, split = female)
 ### Entire Sample
 
 ```{r}
-data_gss %>%
-  dplyr::mutate(volteer = factor(volteer)) %>% 
+df_gss %>%
   dplyr::select(volteer) %>% 
-  apaSupp::tab_freq()
+  apaSupp::tab1()
 ```
 
 
 ```{r, fig.cap = "Hoffman Figure 6.3"}
-data_gss %>% 
+df_gss %>% 
   ggplot(aes(volteer)) +
   geom_bar(color = "black", alpha = .4)  +
   theme_bw() +
@@ -121,7 +125,7 @@ The self-reported number of times each person volunteered in the past year is a 
 
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   dplyr::select(female, 
                 "Volunteer" = volteer) %>% 
   apaSupp::tab1(split = "female")
@@ -129,15 +133,16 @@ data_gss %>%
 
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   dplyr::select(female, 
                 "Volunteer" = volteer) %>% 
   apaSupp::tab1(split = "female",
-                type = list("Volunteer" = "continuous"))
+                type = list("Volunteer" = "continuous"),
+                d = 3)
 ```
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   t.test(volteer ~ female,
          data = .,
          var.equal = TRUE) # pooled variance assumes HOV
@@ -152,7 +157,7 @@ Even though there are more women (*n* = 1818, 56%), the woman do report voluntee
 
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   dplyr::select(volteer) %>% 
   dplyr::summarise_all(list(mean = mean, 
                             var = var))
@@ -168,7 +173,7 @@ The number of self-reported volunteer activities  is a count, but it is more dis
 DV: Count Scale
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   ggplot(aes(x = female,
              y = volteer)) +
   geom_violin(aes(fill = female), alpha = .4)  +
@@ -183,7 +188,7 @@ data_gss %>%
 DV: Log of the Count Scale (plus a tiny amount)
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   dplyr::mutate(volteer_log = log(volteer + 0.01)) %>% 
   ggplot(aes(x = female,
              y = volteer_log)) +
@@ -195,7 +200,7 @@ data_gss %>%
   scale_fill_manual(values = c("dodgerblue", "coral3"))
 ```
 
-## Simple Poisson Reression
+## SIMPLE POISSON REGRESSION
 
 Only use the single predictor: `female`
 
@@ -205,7 +210,7 @@ The simple model will give us the "Unadjusted" rates.
 
 ```{r}
 glm_possion_1 <- glm(volteer ~ female,
-                     data = data_gss,
+                     data = df_gss,
                      family = poisson(link = "log"))
 
 summary(glm_possion_1)
@@ -320,7 +325,7 @@ The *incident rate ratio (IRR)* is:
 
 
  
-## Multiple Poisson Regression
+## MULTIPLE POISSON REGRESSION
 
 Only using multiple predictors: `female`, `nonwhite`, `educate`, and `income`
 
@@ -332,7 +337,7 @@ The more compled model will give us the "Adjusted" rates
 ```{r}
 # Hoffmann Example 6.5
 glm_possion_2 <- glm(volteer ~ female + nonwhite + educate + income,
-                     data = data_gss,
+                     data = df_gss,
                      family = poisson(link = "log"))
 
 summary(glm_possion_2)
@@ -374,7 +379,7 @@ apaSupp::tab_glm(glm_possion_2,
 ```{r}
 ggeffects::ggemmeans(model = glm_possion_2,
                      terms = c("female"),
-                     condition = c(nonwhite = "white",
+                     condition = c(nonwhite = "White",
                                    educate = 12,
                                    income = 5))
 ```
@@ -437,17 +442,12 @@ These residuals do **NOT** look good, especially the Q-Q plot for normality.
 
 
 ```{r}
-data_gss %>% 
+df_gss %>% 
   dplyr::select(educate, income) %>% 
-  psych::describe(skew = FALSE)
+  apaSupp::tab_desc()
 ```
 
 
-```{r}
-data_gss %>% 
-  dplyr::select(educate, income) %>% 
-  summary()
-```
 
 
 ```{r}
@@ -463,13 +463,14 @@ interactions::interact_plot(model = glm_possion_2,
 ```{r, fig.cap="Hoffmann's Figure 6.5"}
 ggeffects::ggemmeans(model = glm_possion_2,
                      terms = "educate",
-                     condition = c(female = "male",
-                                   nonwhite = "white",
+                     condition = c(female = "Male",
+                                   nonwhite = "White",
                                    incomeN = 11)) %>% 
   data.frame %>% 
   ggplot(aes(x = x,
              y = predicted)) +
   geom_line() +
+  theme_bw() +
   labs(x = "Years of Formal Education",
        y = "Predicted Number of Volunteer Activities",
        title = "White Males with median Income (11) ")
@@ -608,7 +609,7 @@ effects::Effect(focal.predictors = c("female", "educate"),
 ```
 
 
-## Negative Binomial Regression
+## NEGATIVE BINOMIAL REGRESSION
 
 ### Multiple Predictors
 
@@ -616,7 +617,7 @@ effects::Effect(focal.predictors = c("female", "educate"),
 
 ```{r}
 glm_negbin_1 <- MASS::glm.nb(volteer ~ female + nonwhite + educate + income,
-                             data = data_gss)
+                             data = df_gss)
 
 summary(glm_negbin_1)
 ```
@@ -664,7 +665,7 @@ effects::Effect(focal.predictors = c("female"),
 ```{r}
 ggeffects::ggemmeans(model = glm_negbin_1,
                      terms = c("female"),
-                     condition = c(nonwhite = "white",
+                     condition = c(nonwhite = "White",
                                    educate = 12,
                                    income = 5))
 ```
@@ -675,7 +676,7 @@ Compare to the Poisson:
 ```{r}
 ggeffects::ggemmeans(model = glm_possion_2,
                      terms = c("female"),
-                     condition = c(nonwhite = "white",
+                     condition = c(nonwhite = "White",
                                    educate = 12,
                                    income = 5))
 ```
@@ -711,7 +712,7 @@ texreg::knitreg(list(glm_negbin_1,
                                                     include.nobs = FALSE)),
                   custom.model.names = c("b (SE)", "IRR [95% CI]"),
                   custom.coef.map = list("(Intercept)" ="Intercept",
-                                         femalefemale = "Female vs. Male",
+                                         femaleFemale = "Female vs. Male",
                                          "nonwhitenon-white" = "Non-white vs. White",
                                          educate = "Education, Years",
                                          income = "Income"),
@@ -746,14 +747,14 @@ performance::compare_performance(glm_possion_2, glm_negbin_1, rank = TRUE)
 
 
 
-## Zero Inflated Poisson
+## ZIP: ZERO-INFLATED POISSON REGRESSION
 
 
 ### Fit the model
 
 ```{r}
 glm_zip_1 <- pscl::zeroinfl(volteer ~ female + nonwhite + educate + income | educate,
-                               data = data_gss)
+                               data = df_gss)
 
 summary(glm_zip_1)
 ```
@@ -775,14 +776,14 @@ pscl::vuong(glm_zip_1, glm_possion_2)
 
 
 
-## Zero Inflated Negative Binomial
+## ZINB: ZERO-INFLATED NEGATIVE BINOMIAL
 
 
 ### Fit the model
 
 ```{r}
 glm_zinb_1 <- pscl::zeroinfl(volteer ~ female + nonwhite + educate + income | educate,
-                               data = data_gss,
+                               data = df_gss,
                              dist = "negbin")
 
 summary(glm_zinb_1)
